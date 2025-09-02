@@ -1,10 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion } from 'motion/react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Users, Star, MapPin, Calendar } from 'lucide-react'
 import { Locale } from '@/lib/i18n'
+import { useGSAP, usePrefersReducedMotion } from '@/lib/gsap-utils'
 
 interface FloatingStatsSectionProps {
   lang: Locale
@@ -142,13 +143,59 @@ function StatCard({ stat, lang }: { stat: StatItem, lang: Locale }) {
 }
 
 export default function FloatingStatsSection({ lang }: FloatingStatsSectionProps) {
+  const sectionRef = useRef<HTMLElement>(null)
+  const { gsap, ScrollTrigger, isReady } = useGSAP()
+  const prefersReducedMotion = usePrefersReducedMotion()
+
+  useEffect(() => {
+    if (!isReady || !gsap || !ScrollTrigger || prefersReducedMotion) return
+
+    const section = sectionRef.current
+    if (!section) return
+
+    // Create context for cleanup
+    const ctx = gsap.context(() => {
+      // Only animate background decorations (avoid React conflicts)
+      const decorations = section.querySelectorAll('.gsap-decoration')
+      
+      decorations.forEach((decoration, index) => {
+        ScrollTrigger.create({
+          trigger: section,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1,
+          animation: gsap.fromTo(decoration, 
+            { 
+              y: 0, 
+              rotation: 0 
+            },
+            { 
+              y: index % 2 === 0 ? -50 : 50, 
+              rotation: index % 2 === 0 ? 5 : -5 
+            }
+          )
+        })
+      })
+    }, section)
+
+    // Proper cleanup
+    return () => {
+      ctx.revert()
+    }
+  }, [gsap, ScrollTrigger, isReady, prefersReducedMotion])
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden" style={{containerType: 'inline-size'}}>
-      {/* Background decoration */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-blue-200/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-purple-200/10 rounded-full blur-3xl" />
+    <section 
+      ref={sectionRef}
+      className="py-16 px-4 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden" 
+      style={{containerType: 'inline-size'}}
+      suppressHydrationWarning
+    >
+      {/* Background decoration - GSAP controlled */}
+      <div className="absolute inset-0" suppressHydrationWarning>
+        <div className="gsap-decoration absolute top-1/4 right-1/4 w-64 h-64 bg-blue-200/10 rounded-full blur-3xl" />
+        <div className="gsap-decoration absolute bottom-1/4 left-1/4 w-80 h-80 bg-purple-200/10 rounded-full blur-3xl" />
+        <div className="gsap-decoration absolute top-3/4 right-1/2 w-32 h-32 bg-orange-200/10 rounded-full blur-2xl" />
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10">
