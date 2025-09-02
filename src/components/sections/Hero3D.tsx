@@ -61,7 +61,7 @@ export default function Hero3D({ lang }: Hero3DProps) {
   // Apply mouse transform after hydration
   useEffect(() => {
     if (isClient) {
-      const heroContent = document.querySelector('.hero-content')
+      const heroContent = document.querySelector('.hero-content') as HTMLElement
       if (heroContent) {
         heroContent.style.transform = `translate(${mousePosition.x * 20}px, ${mousePosition.y * 20}px)`
       }

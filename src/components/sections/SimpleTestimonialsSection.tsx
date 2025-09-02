@@ -81,7 +81,7 @@ export default function SimpleTestimonialsSection({ lang }: SimpleTestimonialsSe
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {currentTestimonials.map((testimonial) => (
-            <Card key={testimonial.id} className="border-0 bg-white/95 backdrop-blur-md shadow-xl border border-gray-200/20">
+            <Card key={testimonial.id} className="border-0 bg-white/95 backdrop-blur-md shadow-xl border border-gray-200/20 hover:shadow-2xl transition-shadow duration-300">
               <CardContent className="p-6">
                 <div className="flex items-center mb-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white font-bold mr-4">

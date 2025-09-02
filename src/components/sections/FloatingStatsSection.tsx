@@ -60,18 +60,24 @@ const stats: StatItem[] = [
 ]
 
 function useCountUp(end: number, duration: number = 2000) {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(end) // Start with end value to prevent hydration mismatch
   const [isVisible, setIsVisible] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
-    if (!isVisible) return
+    setIsMounted(true)
+    setCount(0) // Reset to 0 after mount
+  }, [])
 
-    const startTime = Date.now()
+  useEffect(() => {
+    if (!isVisible || !isMounted) return
+
+    let startTime: number | null = null
     let animationFrame: number
 
-    const animate = () => {
-      const now = Date.now()
-      const elapsed = now - startTime
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp
+      const elapsed = timestamp - startTime
       const progress = Math.min(elapsed / duration, 1)
 
       // Easing function for smooth animation
@@ -92,7 +98,7 @@ function useCountUp(end: number, duration: number = 2000) {
         cancelAnimationFrame(animationFrame)
       }
     }
-  }, [end, duration, isVisible])
+  }, [end, duration, isVisible, isMounted])
 
   return { count, setIsVisible }
 }
@@ -136,6 +142,7 @@ function StatCard({ stat, lang }: { stat: StatItem, lang: Locale }) {
 }
 
 export default function FloatingStatsSection({ lang }: FloatingStatsSectionProps) {
+
   return (
     <section className="py-16 px-4 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden" style={{containerType: 'inline-size'}}>
       {/* Background decoration */}
