@@ -136,7 +136,7 @@ export const sampleBusinesses: BusinessListing[] = [
     hasWifi: true,
     isPetFriendly: true,
     operatingHours: {
-      monday: { closed: true },
+      monday: { open: '00:00', close: '00:00', closed: true },
       tuesday: { open: '08:00', close: '18:00' },
       wednesday: { open: '08:00', close: '18:00' },
       thursday: { open: '08:00', close: '18:00' },

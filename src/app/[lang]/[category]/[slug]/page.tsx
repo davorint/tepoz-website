@@ -65,7 +65,7 @@ export default async function BusinessPage({ params }: BusinessPageProps) {
 
   const isOpen = () => {
     const now = new Date()
-    const day = now.toLocaleLowerCase()
+    const day = now.toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase()
     const currentTime = now.toTimeString().slice(0, 5)
     const todayHours = business.operatingHours[day]
     

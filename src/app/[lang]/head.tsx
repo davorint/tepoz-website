@@ -8,7 +8,7 @@ interface HeadProps {
 
 export default async function Head({ params }: HeadProps) {
   const { lang } = await params
-  const headersList = headers()
+  const headersList = await headers()
   const pathname = headersList.get('x-pathname') || ''
 
   return (

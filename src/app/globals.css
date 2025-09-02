@@ -400,11 +400,6 @@
   }
   
   /* Tourism Specific Components */
-  .hero-section {
-    @apply relative flex items-center justify-center;
-    min-height: var(--hero-height);
-    background: linear-gradient(to bottom, hsl(var(--primary) / 0.1), hsl(var(--background)));
-  }
   
   /* Layout Container */
   .container {

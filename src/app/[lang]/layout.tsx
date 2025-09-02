@@ -5,6 +5,8 @@ import { Toaster } from '@/components/ui/sonner'
 import LanguageProvider from '@/components/providers/language-provider'
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import StaticNavigation from '@/components/layout/StaticNavigation'
+import PremiumFooter from '@/components/layout/PremiumFooter'
+import SocialProofNotifications from '@/components/widgets/SocialProofNotifications'
 
 // Static generation optimization
 export async function generateStaticParams() {
@@ -150,6 +152,8 @@ export default async function LanguageLayout({
       >
         <StaticNavigation lang={lang} translations={translations} />
         {children}
+        <PremiumFooter lang={lang} />
+        <SocialProofNotifications lang={lang} />
         <Toaster />
       </ThemeProvider>
     </LanguageProvider>

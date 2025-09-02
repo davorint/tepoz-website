@@ -277,7 +277,7 @@ export default function SearchPage({ params }: SearchPageProps) {
                       id="wifi"
                       checked={filters.hasWifi || false}
                       onCheckedChange={(checked) => 
-                        handleFilterChange({...filters, hasWifi: checked || undefined})
+                        handleFilterChange({...filters, hasWifi: checked === true ? true : undefined})
                       }
                     />
                     <Label htmlFor="wifi" className="text-sm flex items-center gap-1">
@@ -290,7 +290,7 @@ export default function SearchPage({ params }: SearchPageProps) {
                       id="parking"
                       checked={filters.hasParking || false}
                       onCheckedChange={(checked) => 
-                        handleFilterChange({...filters, hasParking: checked || undefined})
+                        handleFilterChange({...filters, hasParking: checked === true ? true : undefined})
                       }
                     />
                     <Label htmlFor="parking" className="text-sm flex items-center gap-1">
@@ -303,7 +303,7 @@ export default function SearchPage({ params }: SearchPageProps) {
                       id="cards"
                       checked={filters.acceptsCards || false}
                       onCheckedChange={(checked) => 
-                        handleFilterChange({...filters, acceptsCards: checked || undefined})
+                        handleFilterChange({...filters, acceptsCards: checked === true ? true : undefined})
                       }
                     />
                     <Label htmlFor="cards" className="text-sm flex items-center gap-1">
@@ -316,7 +316,7 @@ export default function SearchPage({ params }: SearchPageProps) {
                       id="petfriendly"
                       checked={filters.isPetFriendly || false}
                       onCheckedChange={(checked) => 
-                        handleFilterChange({...filters, isPetFriendly: checked || undefined})
+                        handleFilterChange({...filters, isPetFriendly: checked === true ? true : undefined})
                       }
                     />
                     <Label htmlFor="petfriendly" className="text-sm flex items-center gap-1">
