@@ -1,0 +1,46 @@
+import { Locale } from '@/lib/i18n'
+import { getLocalizedRoute } from '@/lib/url-mapping'
+
+interface HreflangTagsProps {
+  currentLang: Locale
+  currentPath: string
+  baseUrl?: string
+}
+
+export default function HreflangTags({ 
+  currentLang, 
+  currentPath, 
+  baseUrl = 'https://tepoztlan.com' 
+}: HreflangTagsProps) {
+  // Remove language prefix from current path
+  const cleanPath = currentPath.replace(/^\/[a-z]{2}/, '').replace(/^\//, '')
+  
+  // Generate hreflang tags for both languages
+  const hreflangTags = [
+    {
+      hreflang: 'es',
+      href: `${baseUrl}/es/${getLocalizedRoute(cleanPath, 'es')}`
+    },
+    {
+      hreflang: 'en', 
+      href: `${baseUrl}/en/${getLocalizedRoute(cleanPath, 'en')}`
+    },
+    {
+      hreflang: 'x-default',
+      href: `${baseUrl}/es/${getLocalizedRoute(cleanPath, 'es')}` // Default to Spanish
+    }
+  ]
+
+  return (
+    <>
+      {hreflangTags.map(({ hreflang, href }) => (
+        <link
+          key={hreflang}
+          rel="alternate"
+          hrefLang={hreflang}
+          href={href}
+        />
+      ))}
+    </>
+  )
+}
