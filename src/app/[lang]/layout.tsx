@@ -56,7 +56,7 @@ export default async function LanguageLayout({
   const { lang: langParam } = await params
   
   // Validate language
-  if (!locales.includes(langParam as any)) {
+  if (!locales.includes(langParam as Locale)) {
     notFound()
   }
 

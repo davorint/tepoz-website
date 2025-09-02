@@ -103,7 +103,7 @@ const sampleBusinesses: Record<string, Business[]> = {
 }
 
 export default function DemoPage() {
-  const [currentLang, setCurrentLang] = useState<'es' | 'en'>('es')
+  const [currentLang] = useState<'es' | 'en'>('es')
   const [isLoading, setIsLoading] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
 

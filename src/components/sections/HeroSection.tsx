@@ -9,7 +9,7 @@ interface HeroSectionProps {
   translations: Translations
 }
 
-export default function HeroSection({ lang, translations }: HeroSectionProps) {
+export default function HeroSection({ translations }: HeroSectionProps) {
   return (
     <section className="hero-section">
       <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/20" />

@@ -11,7 +11,7 @@ interface PopularSectionsProps {
   translations: Translations
 }
 
-export default function PopularSections({ lang, translations }: PopularSectionsProps) {
+export default function PopularSections({ translations }: PopularSectionsProps) {
   return (
     <section className="section-container">
       <Tabs defaultValue="attractions" className="w-full">

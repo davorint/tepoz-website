@@ -3,13 +3,14 @@ import type { NextRequest } from 'next/server'
 
 // Supported languages
 export const locales = ['es', 'en'] as const
+export type Locale = typeof locales[number]
 export const defaultLocale = 'es'
 
 // Language detection function
 function getLocale(request: NextRequest): string {
   // Check if there's a locale cookie
   const localeCookie = request.cookies.get('locale')
-  if (localeCookie && locales.includes(localeCookie.value as any)) {
+  if (localeCookie && locales.includes(localeCookie.value as Locale)) {
     return localeCookie.value
   }
 
@@ -72,7 +73,7 @@ export function middleware(request: NextRequest) {
 
   // Set locale cookie if visiting a specific locale
   const currentLocale = pathname.split('/')[1]
-  if (locales.includes(currentLocale as any)) {
+  if (locales.includes(currentLocale as Locale)) {
     const response = NextResponse.next()
     response.cookies.set('locale', currentLocale, { 
       maxAge: 60 * 60 * 24 * 30, // 30 days
