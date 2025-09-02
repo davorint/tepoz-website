@@ -1,12 +1,12 @@
 'use client'
 
+import Image from 'next/image'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Locale } from '@/lib/i18n'
 import { Translations } from '@/types/translations'
 import { MapPin, Star, Clock, Heart, Camera, Utensils, Sparkles } from 'lucide-react'
-import { useState } from 'react'
 
 interface PremiumPopularSectionsProps {
   lang: Locale
@@ -103,7 +103,6 @@ const restaurantsData = [
 ]
 
 export default function PremiumPopularSections({ lang, translations }: PremiumPopularSectionsProps) {
-  const [hoveredCard, setHoveredCard] = useState<string | null>(null)
 
   return (
     <section className="relative py-20 bg-gradient-to-br from-gray-50 via-white to-gray-50 overflow-hidden">
@@ -169,15 +168,14 @@ export default function PremiumPopularSections({ lang, translations }: PremiumPo
                 <div
                   key={item.title}
                   className={`group relative animate-in fade-in slide-in-from-bottom-10 duration-700 fill-mode-both`}
-                  style={{ animationDelay: `${index * 100}ms` }}
-                  onMouseEnter={() => setHoveredCard(item.title)}
-                  onMouseLeave={() => setHoveredCard(null)}
                 >
                   <Card className="overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-2xl bg-white/90 backdrop-blur-sm border-0">
                     <div className="relative h-48 overflow-hidden">
-                      <img
+                      <Image
                         src={item.image}
                         alt={item.title}
+                        width={400}
+                        height={300}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -189,12 +187,6 @@ export default function PremiumPopularSections({ lang, translations }: PremiumPo
                         </Badge>
                       </div>
 
-                      {/* Hover Icons */}
-                      <div className={`absolute top-3 right-3 transition-all duration-300 ${hoveredCard === item.title ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}`}>
-                        <button className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:scale-110 transition-transform">
-                          <Heart className="w-4 h-4 text-red-500" />
-                        </button>
-                      </div>
                     </div>
                     
                     <CardContent className="p-4">
@@ -216,10 +208,6 @@ export default function PremiumPopularSections({ lang, translations }: PremiumPo
                     </CardContent>
                   </Card>
                   
-                  {/* Premium Glow Effect on Hover */}
-                  {hoveredCard === item.title && (
-                    <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg blur-lg opacity-30 -z-10 animate-pulse-glow" />
-                  )}
                 </div>
               ))}
             </div>
@@ -232,15 +220,14 @@ export default function PremiumPopularSections({ lang, translations }: PremiumPo
                 <div
                   key={item.title}
                   className={`group relative animate-in fade-in slide-in-from-bottom-10 duration-700 fill-mode-both`}
-                  style={{ animationDelay: `${index * 100}ms` }}
-                  onMouseEnter={() => setHoveredCard(item.title)}
-                  onMouseLeave={() => setHoveredCard(null)}
                 >
                   <Card className="overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-2xl bg-white/90 backdrop-blur-sm border-0">
                     <div className="relative h-56 overflow-hidden">
-                      <img
+                      <Image
                         src={item.image}
                         alt={item.title}
+                        width={400}
+                        height={300}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -277,9 +264,6 @@ export default function PremiumPopularSections({ lang, translations }: PremiumPo
                     </CardContent>
                   </Card>
                   
-                  {hoveredCard === item.title && (
-                    <div className="absolute -inset-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg blur-lg opacity-30 -z-10 animate-pulse-glow" />
-                  )}
                 </div>
               ))}
             </div>
@@ -292,15 +276,14 @@ export default function PremiumPopularSections({ lang, translations }: PremiumPo
                 <div
                   key={item.title}
                   className={`group relative animate-in fade-in slide-in-from-bottom-10 duration-700 fill-mode-both`}
-                  style={{ animationDelay: `${index * 100}ms` }}
-                  onMouseEnter={() => setHoveredCard(item.title)}
-                  onMouseLeave={() => setHoveredCard(null)}
                 >
                   <Card className="overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-2xl bg-white/90 backdrop-blur-sm border-0">
                     <div className="relative h-56 overflow-hidden">
-                      <img
+                      <Image
                         src={item.image}
                         alt={item.title}
+                        width={400}
+                        height={300}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -336,9 +319,6 @@ export default function PremiumPopularSections({ lang, translations }: PremiumPo
                     </CardContent>
                   </Card>
                   
-                  {hoveredCard === item.title && (
-                    <div className="absolute -inset-1 bg-gradient-to-r from-green-500 to-teal-500 rounded-lg blur-lg opacity-30 -z-10 animate-pulse-glow" />
-                  )}
                 </div>
               ))}
             </div>
@@ -346,7 +326,7 @@ export default function PremiumPopularSections({ lang, translations }: PremiumPo
         </Tabs>
 
         {/* Bottom CTA with Premium Animation */}
-        <div className="text-center mt-12 animate-in fade-in slide-in-from-bottom-10 duration-1000" style={{ animationDelay: '600ms' }}>
+        <div className="text-center mt-12 animate-in fade-in slide-in-from-bottom-10 duration-1000">
           <button className="group relative px-8 py-4 bg-gradient-to-r from-orange-500 to-red-600 text-white font-semibold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/25">
             <span className="relative z-10">
               {lang === 'es' ? 'Ver Todas las Experiencias' : 'View All Experiences'}
