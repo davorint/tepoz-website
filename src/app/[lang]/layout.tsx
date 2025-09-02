@@ -1,10 +1,10 @@
 import { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import { notFound } from 'next/navigation'
-import { locales, type Locale } from '@/lib/i18n'
-import { Toaster } from 'sonner'
-
-const inter = Inter({ subsets: ['latin'] })
+import { locales, type Locale, getTranslation } from '@/lib/i18n'
+import { Toaster } from '@/components/ui/sonner'
+import LanguageProvider from '@/components/providers/language-provider'
+import { ThemeProvider } from '@/components/providers/theme-provider'
+import TopNavigation from '@/components/layout/TopNavigation'
 
 export async function generateStaticParams() {
   return locales.map((lang) => ({ lang }))
@@ -61,22 +61,20 @@ export default async function LanguageLayout({
   }
 
   const lang = langParam as Locale
+  const translations = getTranslation(lang)
 
   return (
-    <html lang={lang} className={inter.className}>
-      <body>
+    <LanguageProvider lang={lang}>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        <TopNavigation lang={lang} translations={translations} />
         {children}
-        <Toaster 
-          position="top-center"
-          richColors
-          expand
-          closeButton
-          duration={4000}
-          toastOptions={{
-            className: 'sonner-toast',
-          }}
-        />
-      </body>
-    </html>
+        <Toaster />
+      </ThemeProvider>
+    </LanguageProvider>
   )
 }
