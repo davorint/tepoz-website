@@ -94,8 +94,10 @@ export function useGSAP() {
  */
 export function usePrefersReducedMotion() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
+    setIsMounted(true)
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
     setPrefersReducedMotion(mediaQuery.matches)
 
@@ -107,5 +109,6 @@ export function usePrefersReducedMotion() {
     return () => mediaQuery.removeEventListener('change', handleChange)
   }, [])
 
-  return prefersReducedMotion
+  // Return false until mounted to ensure SSR consistency
+  return isMounted ? prefersReducedMotion : false
 }

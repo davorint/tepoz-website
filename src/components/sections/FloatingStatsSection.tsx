@@ -61,25 +61,24 @@ const stats: StatItem[] = [
 ]
 
 function useCountUp(end: number, duration: number = 2000) {
-  const [count, setCount] = useState(end) // Start with end value to prevent hydration mismatch
+  const [count, setCount] = useState(end) // Always start with end value for SSR consistency
   const [isVisible, setIsVisible] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
     setIsMounted(true)
-    setCount(0) // Reset to 0 after mount
   }, [])
 
   useEffect(() => {
     if (!isVisible || !isMounted) return
 
-    let startTime: number | null = null
+    setCount(0) // Start animation from 0
     let animationFrame: number
+    let frameCount = 0
 
-    const animate = (timestamp: number) => {
-      if (!startTime) startTime = timestamp
-      const elapsed = timestamp - startTime
-      const progress = Math.min(elapsed / duration, 1)
+    const animate = () => {
+      frameCount++
+      const progress = Math.min(frameCount / (duration / 16), 1) // ~60fps
 
       // Easing function for smooth animation
       const easeOut = 1 - Math.pow(1 - progress, 3)
@@ -225,7 +224,7 @@ export default function FloatingStatsSection({ lang }: FloatingStatsSectionProps
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ duration: 0.6, delay: 0.1 * (index + 1) }}
               suppressHydrationWarning
             >
               <StatCard stat={stat} lang={lang} />
