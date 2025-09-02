@@ -1,26 +1,562 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Tailwind CSS 4.1 Theme Configuration */
+@theme {
+  /* Tepoztlán Brand Colors */
+  --color-tepoztlan-earth: #8B4513;
+  --color-tepoztlan-sunset: #FF6347;
+  --color-tepoztlan-sky: #87CEEB;
+  --color-tepoztlan-forest: #228B22;
+  --color-tepoztlan-stone: #A0522D;
+  --color-tepoztlan-mist: #B0C4DE;
+  
+  /* Mexican Cultural Colors */
+  --color-mexico-red: #CE1126;
+  --color-mexico-green: #006847;
+  --color-mexico-gold: #FFD700;
+  
+  /* Typography for Bilingual Content */
+  --font-family-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-family-display: 'Playfair Display', Georgia, serif;
+  --font-family-mono: 'JetBrains Mono', monospace;
+  
+  /* Custom Spacing for Tourism Layouts */
+  --spacing-section: 6rem;
+  --spacing-card: 1.5rem;
+  --spacing-hero: 8rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* shadcn/ui compatible CSS variables */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    
+    /* Card Components */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    
+    /* Popover & Dropdown */
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    
+    /* Primary - Tepoztlán Earth Brown */
+    --primary: 25 76% 31%;
+    --primary-foreground: 0 0% 98%;
+    
+    /* Secondary - Stone Gray */
+    --secondary: 25 17% 45%;
+    --secondary-foreground: 0 0% 98%;
+    
+    /* Muted */
+    --muted: 25 10% 94%;
+    --muted-foreground: 25 5% 35%;
+    
+    /* Accent - Sunset Orange */
+    --accent: 9 100% 64%;
+    --accent-foreground: 0 0% 9%;
+    
+    /* Destructive */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    
+    /* Borders & Inputs */
+    --border: 25 14% 89%;
+    --input: 25 14% 89%;
+    --ring: 25 76% 31%;
+    
+    /* Chart Colors - Tourism Analytics */
+    --chart-1: 25 76% 31%;  /* Earth */
+    --chart-2: 9 100% 64%;   /* Sunset */
+    --chart-3: 120 61% 34%;  /* Forest */
+    --chart-4: 197 71% 73%;  /* Sky */
+    --chart-5: 25 45% 40%;   /* Stone */
+    
+    /* Border Radius */
+    --radius: 0.75rem;
+    
+    /* Tourism Specific Variables */
+    --hero-height: 70vh;
+    --nav-height: 4rem;
+    --footer-height: 20rem;
+  }
+  
+  .dark {
+    --background: 25 10% 8%;
+    --foreground: 0 0% 95%;
+    
+    --card: 25 10% 10%;
+    --card-foreground: 0 0% 95%;
+    
+    --popover: 25 10% 8%;
+    --popover-foreground: 0 0% 95%;
+    
+    --primary: 25 76% 45%;
+    --primary-foreground: 0 0% 9%;
+    
+    --secondary: 25 10% 25%;
+    --secondary-foreground: 0 0% 95%;
+    
+    --muted: 25 10% 20%;
+    --muted-foreground: 25 5% 65%;
+    
+    --accent: 9 90% 55%;
+    --accent-foreground: 0 0% 95%;
+    
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 25 10% 20%;
+    --input: 25 10% 20%;
+    --ring: 25 76% 45%;
+    
+    --chart-1: 25 76% 45%;
+    --chart-2: 9 90% 55%;
+    --chart-3: 120 50% 40%;
+    --chart-4: 197 60% 50%;
+    --chart-5: 25 35% 45%;
+  }
+  
+  * {
+    border-color: hsl(var(--border));
+  }
+  
+  html {
+    @apply scroll-smooth;
+  }
+  
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: var(--font-family-sans);
+    line-height: 1.6;
+  }
+  
+  /* Language-specific typography */
+  [lang="es"] {
+    quotes: "«" "»" "‹" "›";
+  }
+  
+  [lang="en"] {
+    quotes: """ """ "'" "'";
+  }
+  
+  /* Heading Styles */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-display);
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+  
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+  }
+  
+  h3 {
+    @apply text-2xl md:text-3xl lg:text-4xl;
+  }
+  
+  h4 {
+    @apply text-xl md:text-2xl lg:text-3xl;
+  }
+  
+  h5 {
+    @apply text-lg md:text-xl lg:text-2xl;
+  }
+  
+  h6 {
+    @apply text-base md:text-lg lg:text-xl;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Tourism Card Components */
+  .card-attraction {
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    @apply rounded-xl shadow-lg overflow-hidden;
+    @apply border transition-all duration-300;
+    @apply hover:shadow-xl hover:-translate-y-1;
+  }
+  
+  .card-hotel {
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    @apply rounded-lg shadow-md overflow-hidden;
+    @apply border hover:shadow-lg transition-shadow duration-200;
+  }
+  
+  .card-restaurant {
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    @apply rounded-lg overflow-hidden;
+    border-width: 2px;
+    border-color: transparent;
+    transition: border-color 200ms;
+  }
+  
+  .card-restaurant:hover {
+    border-color: hsl(var(--accent));
+  }
+  
+  /* Button Variants */
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium;
+    @apply transition-colors focus-visible:outline-none focus-visible:ring-2;
+    --tw-ring-color: hsl(var(--ring));
+    --tw-ring-offset-color: hsl(var(--background));
+    @apply focus-visible:ring-offset-2;
+    @apply disabled:opacity-50 disabled:pointer-events-none;
+  }
+  
+  .btn-primary {
+    /* Inherit from .btn */
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium;
+    @apply transition-colors focus-visible:outline-none focus-visible:ring-2;
+    --tw-ring-color: hsl(var(--ring));
+    --tw-ring-offset-color: hsl(var(--background));
+    @apply focus-visible:ring-offset-2;
+    @apply disabled:opacity-50 disabled:pointer-events-none;
+    @apply px-6 py-3;
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+  
+  .btn-primary:hover {
+    background-color: hsl(var(--primary) / 0.9);
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium;
+    @apply transition-colors focus-visible:outline-none focus-visible:ring-2;
+    --tw-ring-color: hsl(var(--ring));
+    --tw-ring-offset-color: hsl(var(--background));
+    @apply focus-visible:ring-offset-2;
+    @apply disabled:opacity-50 disabled:pointer-events-none;
+    @apply px-6 py-3;
+    background-color: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
+  }
+  
+  .btn-secondary:hover {
+    background-color: hsl(var(--secondary) / 0.8);
+  }
+  
+  .btn-accent {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium;
+    @apply transition-colors focus-visible:outline-none focus-visible:ring-2;
+    --tw-ring-color: hsl(var(--ring));
+    --tw-ring-offset-color: hsl(var(--background));
+    @apply focus-visible:ring-offset-2;
+    @apply disabled:opacity-50 disabled:pointer-events-none;
+    @apply px-6 py-3;
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
+  
+  .btn-accent:hover {
+    background-color: hsl(var(--accent) / 0.9);
+  }
+  
+  .btn-outline {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium;
+    @apply transition-colors focus-visible:outline-none focus-visible:ring-2;
+    --tw-ring-color: hsl(var(--ring));
+    --tw-ring-offset-color: hsl(var(--background));
+    @apply focus-visible:ring-offset-2;
+    @apply disabled:opacity-50 disabled:pointer-events-none;
+    @apply border px-6 py-3;
+    border-color: hsl(var(--input));
+    background-color: hsl(var(--background));
+  }
+  
+  .btn-outline:hover {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
+  
+  .btn-ghost {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium;
+    @apply transition-colors focus-visible:outline-none focus-visible:ring-2;
+    --tw-ring-color: hsl(var(--ring));
+    --tw-ring-offset-color: hsl(var(--background));
+    @apply focus-visible:ring-offset-2;
+    @apply disabled:opacity-50 disabled:pointer-events-none;
+    @apply px-4 py-2;
+  }
+  
+  .btn-ghost:hover {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
+  
+  /* Navigation Components */
+  .nav-link {
+    @apply text-sm font-medium transition-colors px-3 py-2 rounded-md;
+  }
+  
+  .nav-link:hover {
+    color: hsl(var(--primary));
+    background-color: hsl(var(--accent) / 0.1);
+  }
+  
+  .nav-link-active {
+    @apply text-sm font-medium transition-colors px-3 py-2 rounded-md;
+    color: hsl(var(--primary));
+    background-color: hsl(var(--accent) / 0.1);
+  }
+  
+  /* Form Components */
+  .input {
+    @apply flex h-10 w-full rounded-md border px-3 py-2 text-sm;
+    border-color: hsl(var(--input));
+    background-color: hsl(var(--background));
+    --tw-ring-offset-color: hsl(var(--background));
+    @apply file:border-0 file:bg-transparent file:text-sm file:font-medium;
+    @apply focus-visible:outline-none focus-visible:ring-2;
+    --tw-ring-color: hsl(var(--ring));
+    @apply focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  
+  .input::placeholder {
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .textarea {
+    @apply flex min-h-[80px] w-full rounded-md border px-3 py-2 text-sm;
+    border-color: hsl(var(--input));
+    background-color: hsl(var(--background));
+    --tw-ring-offset-color: hsl(var(--background));
+    @apply focus-visible:outline-none focus-visible:ring-2;
+    --tw-ring-color: hsl(var(--ring));
+    @apply focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  
+  .textarea::placeholder {
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .select {
+    @apply flex h-10 w-full items-center justify-between rounded-md border px-3 py-2 text-sm;
+    border-color: hsl(var(--input));
+    background-color: hsl(var(--background));
+    --tw-ring-offset-color: hsl(var(--background));
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+    --tw-ring-color: hsl(var(--ring));
+    @apply disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  
+  .select::placeholder {
+    color: hsl(var(--muted-foreground));
+  }
+  
+  /* Badge Components */
+  .badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
+    @apply transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2;
+    --tw-ring-color: hsl(var(--ring));
+    --tw-ring-offset-color: hsl(var(--background));
+  }
+  
+  .badge-primary {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
+    @apply transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2;
+    --tw-ring-color: hsl(var(--ring));
+    --tw-ring-offset-color: hsl(var(--background));
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+  
+  .badge-secondary {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
+    @apply transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2;
+    --tw-ring-color: hsl(var(--ring));
+    --tw-ring-offset-color: hsl(var(--background));
+    background-color: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
+  }
+  
+  .badge-accent {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
+    @apply transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2;
+    --tw-ring-color: hsl(var(--ring));
+    --tw-ring-offset-color: hsl(var(--background));
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
+  
+  .badge-outline {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
+    @apply transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2;
+    --tw-ring-color: hsl(var(--ring));
+    --tw-ring-offset-color: hsl(var(--background));
+    @apply border;
+    color: hsl(var(--foreground));
+  }
+  
+  /* Tourism Specific Components */
+  .hero-section {
+    @apply relative flex items-center justify-center;
+    min-height: var(--hero-height);
+    background: linear-gradient(to bottom, hsl(var(--primary) / 0.1), hsl(var(--background)));
+  }
+  
+  .section-container {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+    @apply py-12 md:py-16 lg:py-20;
+  }
+  
+  .grid-attractions {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
+  }
+  
+  .grid-hotels {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+  }
+  
+  .grid-restaurants {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4;
+  }
+  
+  /* Language Switcher */
+  .language-toggle {
+    @apply flex items-center gap-2 px-3 py-1.5 rounded-md border transition-colors;
+    background-color: hsl(var(--background));
+  }
+  
+  .language-toggle:hover {
+    background-color: hsl(var(--accent) / 0.1);
+  }
+  
+  .language-toggle-active {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+  
+  .language-toggle-active:hover {
+    background-color: hsl(var(--primary) / 0.9);
+  }
+}
+
+@layer utilities {
+  /* Text Utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  
+  /* Aspect Ratios for Tourism Images */
+  .aspect-attraction {
+    aspect-ratio: 4/3;
+  }
+  
+  .aspect-hero {
+    aspect-ratio: 21/9;
+  }
+  
+  .aspect-card {
+    aspect-ratio: 16/9;
+  }
+  
+  .aspect-square {
+    aspect-ratio: 1/1;
+  }
+  
+  /* Gradient Overlays */
+  .gradient-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent;
+  }
+  
+  .gradient-overlay-heavy {
+    @apply absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/20;
+  }
+  
+  /* Animation Utilities */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slide-in-up {
+    from {
+      transform: translateY(1rem);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slide-in-down {
+    from {
+      transform: translateY(-1rem);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out;
+  }
+  
+  .animate-slide-in-up {
+    animation: slide-in-up 0.5s ease-out;
+  }
+  
+  .animate-slide-in-down {
+    animation: slide-in-down 0.5s ease-out;
+  }
+  
+  /* Container Queries for Responsive Components */
+  @container (min-width: 640px) {
+    .container-responsive {
+      @apply flex-row;
+    }
+  }
+  
+  /* Print Utilities */
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+    
+    .print-break {
+      page-break-after: always;
+    }
+  }
+  
+  /* Accessibility */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+  
+  .focus-visible-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+    --tw-ring-color: hsl(var(--ring));
+    --tw-ring-offset-color: hsl(var(--background));
+  }
 }
