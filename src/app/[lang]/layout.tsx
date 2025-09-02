@@ -4,7 +4,7 @@ import { locales, type Locale, getTranslation } from '@/lib/i18n'
 import { Toaster } from '@/components/ui/sonner'
 import LanguageProvider from '@/components/providers/language-provider'
 import { ThemeProvider } from '@/components/providers/theme-provider'
-import TopNavigation from '@/components/layout/TopNavigation'
+import StaticNavigation from '@/components/layout/StaticNavigation'
 
 // Static generation optimization
 export async function generateStaticParams() {
@@ -148,7 +148,7 @@ export default async function LanguageLayout({
         enableSystem
         disableTransitionOnChange
       >
-        <TopNavigation lang={lang} translations={translations} />
+        <StaticNavigation lang={lang} translations={translations} />
         {children}
         <Toaster />
       </ThemeProvider>
