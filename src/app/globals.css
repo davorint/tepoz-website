@@ -807,10 +807,170 @@
     animation-delay: 6s;
   }
   
-  /* Container Queries for Responsive Components */
+  /* Performance Optimization Utilities */
+  .animate-optimized {
+    will-change: transform;
+    contain: layout style paint;
+    transform: translateZ(0); /* Force GPU layer */
+    backface-visibility: hidden;
+  }
+  
+  .animate-optimized-opacity {
+    will-change: opacity;
+    contain: layout style;
+  }
+  
+  .animate-optimized-scale {
+    will-change: transform;
+    contain: layout style paint;
+    transform: translateZ(0);
+    transform-origin: center;
+  }
+  
+  .animate-optimized-colors {
+    will-change: background-color, border-color, color;
+    contain: style;
+  }
+  
+  /* Auto cleanup will-change after animation */
+  .animate-optimized.animation-complete {
+    will-change: auto;
+  }
+  
+  /* High performance animation combinations */
+  .animate-float-optimized {
+    will-change: transform;
+    contain: layout style paint;
+    animation: var(--animate-float);
+    transform: translateZ(0);
+  }
+  
+  .animate-gradient-optimized {
+    will-change: background-position;
+    contain: style;
+    animation: var(--animate-gradient);
+    background-size: 200% 200%;
+  }
+  
+  .animate-shimmer-optimized {
+    will-change: background-position;
+    contain: style;
+    animation: var(--animate-shimmer);
+    background-size: 300% 100%;
+    transform: translateZ(0);
+  }
+  
+  /* Composite layers for complex animations */
+  .composite-layer {
+    transform: translateZ(0);
+    will-change: transform;
+    contain: layout style paint;
+    isolation: isolate;
+  }
+  
+  /* GPU acceleration helpers */
+  .gpu-accelerated {
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  
+  /* Optimized hover states */
+  .hover-optimized {
+    will-change: auto;
+    transition: transform 0.2s var(--ease-premium);
+  }
+  
+  .hover-optimized:hover {
+    will-change: transform;
+    transform: translateZ(0) scale(1.02);
+  }
+  
+  .hover-optimized:not(:hover) {
+    will-change: auto;
+  }
+  
+  /* Container Queries for Responsive Components & Animations */
   @container (min-width: 640px) {
     .container-responsive {
       @apply flex-row;
+    }
+    
+    /* Enhanced animations for larger containers */
+    .container-animate-enhanced {
+      animation-duration: 2s;
+      animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    
+    .container-float-enhanced {
+      animation: float-slow 20s ease-in-out infinite;
+    }
+    
+    .container-scale-enhanced {
+      transform-origin: center;
+      transition: transform 0.4s var(--ease-smooth);
+    }
+    
+    .container-scale-enhanced:hover {
+      transform: scale(1.05) translateZ(0);
+    }
+  }
+  
+  @container (max-width: 639px) {
+    /* Simplified animations for smaller containers */
+    .container-animate-simplified {
+      animation-duration: 1s;
+      animation-timing-function: ease-out;
+    }
+    
+    .container-float-simplified {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .container-scale-simplified {
+      transition: opacity 0.2s ease;
+    }
+    
+    .container-scale-simplified:hover {
+      opacity: 0.9;
+    }
+    
+    /* Reduce complex animations on mobile */
+    .animate-blob,
+    .animate-morph,
+    .animate-aurora-1,
+    .animate-aurora-2 {
+      animation: none;
+    }
+  }
+  
+  @container (min-width: 768px) {
+    /* Medium container optimizations */
+    .container-md-animations {
+      will-change: transform, opacity;
+      contain: layout style paint;
+    }
+    
+    .container-stagger > * {
+      animation-delay: calc(150ms * var(--index, 0));
+    }
+  }
+  
+  @container (min-width: 1024px) {
+    /* Large container full animations */
+    .container-lg-premium {
+      animation-duration: 3s;
+      animation-fill-mode: both;
+    }
+    
+    .container-parallax {
+      transform-style: preserve-3d;
+      perspective: 1000px;
+    }
+    
+    .container-stagger > * {
+      animation-delay: calc(100ms * var(--index, 0));
     }
   }
   
@@ -825,7 +985,79 @@
     }
   }
   
-  /* Accessibility */
+  /* Accessibility & Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    /* Disable all custom animations for users who prefer reduced motion */
+    .animate-blob,
+    .animate-shimmer,
+    .animate-gradient,
+    .animate-float,
+    .animate-pulse-glow,
+    .animate-morph,
+    .animate-aurora-1,
+    .animate-aurora-2,
+    .animate-float-slow,
+    .animate-float-reverse,
+    .animate-gradient-x,
+    .animate-bounce-slow,
+    .animate-scroll-indicator {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transform: none !important;
+    }
+    
+    /* Reduce transition durations */
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    
+    /* Keep essential animations but make them instant */
+    .animate-fade-in-up,
+    .animate-fade-in,
+    .animate-slide-in-up,
+    .animate-slide-in-down {
+      animation-duration: 0.01ms !important;
+      animation-fill-mode: both !important;
+    }
+  }
+  
+  /* Motion-safe utilities for conditional animations */
+  .motion-safe-animate-float {
+    animation: none;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .motion-safe-animate-float {
+      animation: var(--animate-float);
+    }
+  }
+  
+  .motion-safe-animate-bounce {
+    animation: none;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .motion-safe-animate-bounce {
+      animation: bounce-slow 2s ease-in-out infinite;
+    }
+  }
+  
+  .motion-safe-animate-gradient {
+    background-position: 0% 50%;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .motion-safe-animate-gradient {
+      animation: var(--animate-gradient);
+      background-size: 200% 200%;
+    }
+  }
+  
   .sr-only {
     position: absolute;
     width: 1px;
