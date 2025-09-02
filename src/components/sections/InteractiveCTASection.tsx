@@ -121,7 +121,7 @@ export default function InteractiveCTASection({ lang }: InteractiveCTASectionPro
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-700 to-gray-600 bg-clip-text text-transparent">
             {lang === 'es' ? 'Planea tu Visita Perfecta' : 'Plan Your Perfect Visit'}
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-800 max-w-3xl mx-auto">
             {lang === 'es' 
               ? 'Todo lo que necesitas para una experiencia inolvidable en Tepoztlán está a un clic de distancia'
               : 'Everything you need for an unforgettable experience in Tepoztlán is just a click away'
@@ -180,7 +180,7 @@ export default function InteractiveCTASection({ lang }: InteractiveCTASectionPro
                         <div className="font-semibold text-lg mb-1">
                           {lang === 'es' ? action.titleEs : action.titleEn}
                         </div>
-                        <div className="text-white/80 text-sm">
+                        <div className="text-white text-sm">
                           {lang === 'es' ? action.descEs : action.descEn}
                         </div>
                       </div>
@@ -207,7 +207,7 @@ export default function InteractiveCTASection({ lang }: InteractiveCTASectionPro
                   <h3 className="text-2xl font-bold text-gray-900 mb-3">
                     {lang === 'es' ? 'Experiencias VIP' : 'VIP Experiences'}
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-700">
                     {lang === 'es' 
                       ? 'Suscríbete y accede a ofertas exclusivas y contenido premium'
                       : 'Subscribe and access exclusive offers and premium content'
@@ -269,7 +269,7 @@ export default function InteractiveCTASection({ lang }: InteractiveCTASectionPro
                         <div className="font-semibold text-sm text-gray-900 mb-1">
                           {lang === 'es' ? feature.titleEs : feature.titleEn}
                         </div>
-                        <div className="text-xs text-gray-600">
+                        <div className="text-xs text-gray-700">
                           {lang === 'es' ? feature.descEs : feature.titleEn}
                         </div>
                       </CardContent>

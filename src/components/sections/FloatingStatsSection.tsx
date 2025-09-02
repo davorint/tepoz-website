@@ -137,7 +137,7 @@ function StatCard({ stat, lang }: { stat: StatItem, lang: Locale }) {
 
 export default function FloatingStatsSection({ lang }: FloatingStatsSectionProps) {
   return (
-    <section className="py-16 px-4 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+    <section className="py-16 px-4 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden" style={{containerType: 'inline-size'}}>
       {/* Background decoration */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-blue-200/10 rounded-full blur-3xl" />
@@ -164,7 +164,7 @@ export default function FloatingStatsSection({ lang }: FloatingStatsSectionProps
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 container-lg:grid-cols-3 container-xl:grid-cols-4 gap-6">
           {stats.map((stat, index) => (
             <motion.div
               key={stat.id}

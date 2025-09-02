@@ -33,7 +33,10 @@ export default function StaticNavigation({ lang, translations }: StaticNavigatio
           <div className="h-8 w-8 bg-gradient-to-br from-orange-500 to-red-500 rounded-md flex items-center justify-center transition-all duration-300 group-hover:rotate-12 group-hover:shadow-lg group-hover:shadow-orange-500/25">
             <span className="text-white font-bold text-sm transition-transform duration-300 group-hover:scale-110">T</span>
           </div>
-          <span className="font-bold text-lg transition-colors duration-300 group-hover:text-orange-500">Tepoztlán</span>
+          <span className="font-bold text-lg transition-colors duration-300">
+            <span className="group-hover:text-orange-500">TODO</span>
+            <span className="text-orange-500 group-hover:text-orange-600">TEPOZ</span>
+          </span>
         </Link>
 
         {/* Navigation Menu with Submenus */}

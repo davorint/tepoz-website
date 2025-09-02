@@ -103,7 +103,7 @@ export default function Hero3D({ lang }: Hero3DProps) {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
             </span>
-            <span className="text-sm font-medium text-white drop-shadow-sm">
+            <span className="text-sm font-medium text-white text-shadow-sm">
               {lang === 'es' ? 'Experiencia Premium' : 'Premium Experience'}
             </span>
           </div>
@@ -114,7 +114,7 @@ export default function Hero3D({ lang }: Hero3DProps) {
             </span>
           </h1>
           
-          <p className="mx-auto max-w-2xl text-lg md:text-xl lg:text-2xl text-gray-100 mb-8 animate-in fade-in slide-in-from-bottom-10 duration-1000 [animation-delay:300ms] drop-shadow-md">
+          <p className="mx-auto max-w-2xl text-lg md:text-xl lg:text-2xl text-gray-100 mb-8 animate-in fade-in slide-in-from-bottom-10 duration-1000 [animation-delay:300ms] text-shadow-md">
             {lang === 'es' 
               ? 'Un portal hacia experiencias místicas y transformadoras'
               : 'A gateway to mystical and transformative experiences'

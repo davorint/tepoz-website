@@ -71,7 +71,7 @@ export default function SimpleTestimonialsSection({ lang }: SimpleTestimonialsSe
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-700 to-gray-600 bg-clip-text text-transparent">
             {lang === 'es' ? 'Lo Que Dicen Nuestros Visitantes' : 'What Our Visitors Say'}
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
             {lang === 'es' 
               ? 'Experiencias reales de personas que han descubierto la magia de Tepoztlán'
               : 'Real experiences from people who have discovered the magic of Tepoztlán'
@@ -89,7 +89,7 @@ export default function SimpleTestimonialsSection({ lang }: SimpleTestimonialsSe
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900">{testimonial.name}</h3>
-                    <p className="text-sm text-gray-600">{testimonial.location}</p>
+                    <p className="text-sm text-gray-700">{testimonial.location}</p>
                   </div>
                 </div>
                 
@@ -99,7 +99,7 @@ export default function SimpleTestimonialsSection({ lang }: SimpleTestimonialsSe
                   ))}
                 </div>
 
-                <blockquote className="text-gray-700 italic">
+                <blockquote className="text-gray-800 italic">
                   {testimonial.text}
                 </blockquote>
               </CardContent>

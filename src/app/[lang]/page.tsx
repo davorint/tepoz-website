@@ -31,7 +31,7 @@ export default async function HomePage({
       </div>
       <div className="relative py-20 bg-gradient-to-br from-gray-50 via-white to-gray-50">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-4">
+          <h2 className="text-4xl font-bold mb-4 text-gray-900">
             {lang === 'es' ? 'Experiencias Populares' : 'Popular Experiences'}
           </h2>
           <p className="text-gray-700 mb-8">
@@ -44,7 +44,7 @@ export default async function HomePage({
             {[1, 2, 3].map((i) => (
               <div key={i} className="bg-white rounded-lg shadow-md p-6">
                 <div className="h-48 bg-gray-300 rounded mb-4"></div>
-                <h3 className="text-xl font-semibold mb-2">
+                <h3 className="text-xl font-semibold mb-2 text-gray-900">
                   {lang === 'es' ? `Atracción ${i}` : `Attraction ${i}`}
                 </h3>
                 <p className="text-gray-700">
