@@ -1,12 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Locale, getTranslation } from '@/lib/i18n'
+import { Locale } from '@/lib/i18n'
 import { buildLocalizedUrl } from '@/lib/url-mapping'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { 
-  MapPin, 
   Clock, 
   Users,
   Mountain,
@@ -23,7 +22,6 @@ interface DiscoverPageProps {
 export default async function DiscoverPage({ params }: DiscoverPageProps) {
   const { lang: langParam } = await params
   const lang = langParam as Locale
-  const translations = getTranslation(lang)
 
   const destinations = [
     {
@@ -100,7 +98,7 @@ export default async function DiscoverPage({ params }: DiscoverPageProps) {
 
       {/* Featured Destinations Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-        {destinations.map((destination, index) => (
+        {destinations.map((destination, _index) => ( // eslint-disable-line @typescript-eslint/no-unused-vars
           <Card key={destination.id} className="overflow-hidden hover:shadow-2xl transition-all duration-300 group">
             <div className="relative h-64">
               <Image

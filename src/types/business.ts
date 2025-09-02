@@ -1,5 +1,3 @@
-import { Locale } from '@/lib/i18n'
-
 export interface BusinessListing {
   id: string
   slug: {

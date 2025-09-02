@@ -1,6 +1,6 @@
 'use client'
 
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Locale } from '@/lib/i18n'
@@ -64,7 +64,7 @@ function getLocalizedRoute(route: string, targetLang: Locale): string {
   
   if (targetLang === 'es') {
     // Find Spanish route from English
-    const spanishRoute = Object.entries(routeMapping).find(([sp, en]) => en === cleanRoute)?.[0]
+    const spanishRoute = Object.entries(routeMapping).find(([, en]) => en === cleanRoute)?.[0]
     return spanishRoute || cleanRoute
   } else {
     // Find English route from Spanish

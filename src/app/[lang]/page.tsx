@@ -1,4 +1,4 @@
-import { Locale, getTranslation } from '@/lib/i18n'
+import { Locale } from '@/lib/i18n'
 import FloatingStatsSection from '@/components/sections/FloatingStatsSection'
 import InteractiveCTASection from '@/components/sections/InteractiveCTASection'
 import SimpleTestimonialsSection from '@/components/sections/SimpleTestimonialsSection'
@@ -9,7 +9,6 @@ export default async function HomePage({
   params: Promise<{ lang: Locale }> 
 }) {
   const { lang } = await params
-  const t = getTranslation(lang)
 
   return (
     <main className="min-h-screen overflow-x-hidden">

@@ -1,5 +1,5 @@
 import { Locale, getTranslation } from '@/lib/i18n'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { 
@@ -10,8 +10,7 @@ import {
   Music,
   Sparkles,
   Heart,
-  Camera,
-  Star
+  Camera
 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -161,7 +160,7 @@ export default async function EventsPage({ params }: EventsPageProps) {
 
       {/* Upcoming Events */}
       <div className="space-y-6">
-        {upcomingEvents.map((event, index) => (
+        {upcomingEvents.map((event, _index) => ( // eslint-disable-line @typescript-eslint/no-unused-vars
           <Card key={event.id} className="overflow-hidden hover:shadow-xl transition-all duration-300">
             <div className="md:flex">
               {/* Event Image */}

@@ -8,6 +8,7 @@ import {
   NavigationMenuList, 
   NavigationMenuTrigger 
 } from '@/components/ui/navigation-menu'
+import { Globe } from 'lucide-react'
 import { Locale } from '@/lib/i18n'
 import { Translations } from '@/types/translations'
 import { cn } from '@/lib/utils'
@@ -18,6 +19,12 @@ interface StaticNavigationProps {
 }
 
 export default function StaticNavigation({ lang, translations }: StaticNavigationProps) {
+  const otherLang: Locale = lang === 'es' ? 'en' : 'es'
+  const languages: Record<Locale, { label: string; flag: string }> = {
+    es: { label: 'Español', flag: '🇪🇸' },
+    en: { label: 'English', flag: '🇺🇸' },
+  }
+  
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 animate-in fade-in slide-in-from-top-4 duration-700">
       <div className="container flex h-16 items-center justify-between px-4">
@@ -156,6 +163,20 @@ export default function StaticNavigation({ lang, translations }: StaticNavigatio
 
         {/* Right Side Actions */}
         <div className="flex items-center space-x-2 animate-in fade-in slide-in-from-right-4 duration-700 [animation-delay:300ms]">
+          {/* Language Toggle */}
+          {/* Simple Server-Side Language Toggle */}
+          <Button variant="ghost" size="sm" asChild className="group gap-1 transition-all duration-300 hover:scale-105 hover:shadow-md">
+            <Link href={`/${otherLang}`}>
+              <Globe className="h-4 w-4 transition-transform duration-300 group-hover:rotate-12" />
+              <span className="hidden sm:inline font-medium">
+                {languages[otherLang].flag} {languages[otherLang].label}
+              </span>
+              <span className="sm:hidden">
+                {languages[otherLang].flag}
+              </span>
+            </Link>
+          </Button>
+          
           {/* Search Button */}
           <Button variant="ghost" size="sm" asChild className="hidden sm:flex group transition-all duration-300 hover:scale-105 hover:shadow-md">
             <Link href={`/${lang}/buscar`}>

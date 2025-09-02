@@ -72,7 +72,7 @@ export function getLocalizedRoute(route: string, targetLang: Locale): string {
   
   if (targetLang === 'es') {
     // Find Spanish route from English
-    const spanishRoute = Object.entries(routeMapping).find(([sp, en]) => en === cleanRoute)?.[0]
+    const spanishRoute = Object.entries(routeMapping).find(([, en]) => en === cleanRoute)?.[0]
     return spanishRoute || cleanRoute
   } else {
     // Find English route from Spanish

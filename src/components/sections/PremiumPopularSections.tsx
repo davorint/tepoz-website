@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Locale } from '@/lib/i18n'
 import { Translations } from '@/types/translations'
-import { MapPin, Star, Clock, Heart, Camera, Utensils, Sparkles } from 'lucide-react'
+import { MapPin, Star, Clock, Camera, Utensils, Sparkles } from 'lucide-react'
 
 interface PremiumPopularSectionsProps {
   lang: Locale
@@ -164,7 +164,7 @@ export default function PremiumPopularSections({ lang, translations }: PremiumPo
           {/* Attractions Tab */}
           <TabsContent value="attractions" className="mt-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {attractionsData.map((item, index) => (
+              {attractionsData.map((item, _index) => ( // eslint-disable-line @typescript-eslint/no-unused-vars
                 <div
                   key={item.title}
                   className={`group relative animate-in fade-in slide-in-from-bottom-10 duration-700 fill-mode-both`}
@@ -216,7 +216,7 @@ export default function PremiumPopularSections({ lang, translations }: PremiumPo
           {/* Hotels Tab */}
           <TabsContent value="hotels" className="mt-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {hotelsData.map((item, index) => (
+              {hotelsData.map((item, _index) => ( // eslint-disable-line @typescript-eslint/no-unused-vars
                 <div
                   key={item.title}
                   className={`group relative animate-in fade-in slide-in-from-bottom-10 duration-700 fill-mode-both`}
@@ -272,7 +272,7 @@ export default function PremiumPopularSections({ lang, translations }: PremiumPo
           {/* Restaurants Tab */}
           <TabsContent value="restaurants" className="mt-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {restaurantsData.map((item, index) => (
+              {restaurantsData.map((item, _index) => ( // eslint-disable-line @typescript-eslint/no-unused-vars
                 <div
                   key={item.title}
                   className={`group relative animate-in fade-in slide-in-from-bottom-10 duration-700 fill-mode-both`}

@@ -213,7 +213,7 @@ export class AdvancedSearchService {
   }
 
   static async search(query: string, options: SearchOptions): Promise<SearchResult> {
-    const { lang, filters, fuzzySearch = true, includeAlternatives = true } = options
+    const { lang, filters, fuzzySearch: _fuzzySearch = true, includeAlternatives = true } = options // eslint-disable-line @typescript-eslint/no-unused-vars
     
     if (!query.trim()) {
       return {

@@ -8,7 +8,7 @@ interface HreflangTagsProps {
 }
 
 export default function HreflangTags({ 
-  currentLang, 
+  currentLang: _currentLang, // eslint-disable-line @typescript-eslint/no-unused-vars
   currentPath, 
   baseUrl = 'https://tepoztlan.com' 
 }: HreflangTagsProps) {

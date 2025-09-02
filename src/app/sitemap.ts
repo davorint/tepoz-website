@@ -5,7 +5,6 @@ import {
   PRIORITY_ROUTES, 
   SECONDARY_ROUTES, 
   getMetadataPriority, 
-  getRevalidationTime,
   generateBusinessStaticParams 
 } from '@/lib/static-paths'
 
@@ -31,7 +30,7 @@ function getChangeFrequency(route: string): 'always' | 'hourly' | 'daily' | 'wee
   if (route.includes('informacion') || route.includes('info')) return 'monthly'
   
   // Main pages
-  if (PRIORITY_ROUTES.includes(route as any)) return 'weekly'
+  if (PRIORITY_ROUTES.includes(route as (typeof PRIORITY_ROUTES)[number])) return 'weekly'
   
   return 'monthly'
 }

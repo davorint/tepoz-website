@@ -2,7 +2,7 @@
 
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Float, MeshDistortMaterial, MeshWobbleMaterial, ContactShadows, Environment, PerspectiveCamera, Stars } from '@react-three/drei'
-import { Suspense, useRef, useState, useEffect } from 'react'
+import { Suspense, useRef, useState } from 'react'
 import { Mesh, Vector3, Color } from 'three'
 import * as THREE from 'three'
 
@@ -125,13 +125,12 @@ function ParticleField() {
           count={particleCount}
           array={positions}
           itemSize={3}
+          args={[positions, 3]}
         />
       </bufferGeometry>
       <pointsMaterial
         size={0.05}
         color="#ff6b35"
-        emissive="#ff6b35"
-        emissiveIntensity={0.5}
         transparent
         opacity={0.8}
         sizeAttenuation

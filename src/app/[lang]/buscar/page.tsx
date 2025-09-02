@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Locale, useTranslation } from '@/lib/i18n'
+import { Locale } from '@/lib/i18n'
 import { AdvancedSearchService, SearchResult } from '@/lib/search'
 import { BusinessFilters, BusinessListing } from '@/types/business'
 import { buildLocalizedUrl } from '@/lib/url-mapping'
@@ -15,7 +15,6 @@ import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
-import { Separator } from '@/components/ui/separator'
 import { 
   Search, 
   MapPin, 
@@ -25,7 +24,6 @@ import {
   Car, 
   CreditCard, 
   Heart,
-  Clock,
   TrendingUp,
   X
 } from 'lucide-react'
@@ -36,7 +34,6 @@ interface SearchPageProps {
 
 export default function SearchPage({ params }: SearchPageProps) {
   const lang = params.lang as Locale
-  const { t } = useTranslation(lang)
   const searchParams = useSearchParams()
   const router = useRouter()
   
@@ -45,16 +42,7 @@ export default function SearchPage({ params }: SearchPageProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [showFilters, setShowFilters] = useState(false)
   const [filters, setFilters] = useState<BusinessFilters>({})
-  const [popularSearches] = useState(AdvancedSearchService.getPopularSearches(lang))
-
-  // Debounced search function
-  const debounce = useCallback((func: Function, delay: number) => {
-    let timeoutId: NodeJS.Timeout
-    return (...args: any[]) => {
-      clearTimeout(timeoutId)
-      timeoutId = setTimeout(() => func.apply(null, args), delay)
-    }
-  }, [])
+  const [popularSearches] = useState<string[]>(AdvancedSearchService.getPopularSearches(lang))
 
   const performSearch = useCallback(async (searchQuery: string, searchFilters: BusinessFilters = {}) => {
     if (!searchQuery.trim() && Object.keys(searchFilters).length === 0) {
@@ -78,12 +66,11 @@ export default function SearchPage({ params }: SearchPageProps) {
     }
   }, [lang])
 
-  const debouncedSearch = useCallback(
-    debounce((searchQuery: string, searchFilters: BusinessFilters) => {
-      performSearch(searchQuery, searchFilters)
-    }, 300),
-    [performSearch]
-  )
+  // Debounced search function
+  const debouncedSearch = useCallback((searchQuery: string, searchFilters: BusinessFilters) => {
+    const timeoutId = setTimeout(() => performSearch(searchQuery, searchFilters), 300)
+    return () => clearTimeout(timeoutId)
+  }, [performSearch])
 
   // Update URL with search params
   const updateURL = useCallback((newQuery: string, newFilters: BusinessFilters) => {

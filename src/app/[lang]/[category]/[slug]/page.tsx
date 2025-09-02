@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
-import { Locale, getTranslation } from '@/lib/i18n'
+import { Locale } from '@/lib/i18n'
 import { BusinessService } from '@/lib/business-data'
 import { buildLocalizedUrl } from '@/lib/url-mapping'
 import { Badge } from '@/components/ui/badge'
@@ -54,7 +54,6 @@ export async function generateStaticParams() {
 export default async function BusinessPage({ params }: BusinessPageProps) {
   const { lang: langParam, category, slug } = await params
   const lang = langParam as Locale
-  const translations = getTranslation(lang)
   
   // Get business by slug
   const business = await BusinessService.getBusinessBySlug(slug, lang)

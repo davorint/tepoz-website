@@ -8,7 +8,7 @@ interface ClientComponentWrapperProps {
   translations: Translations
 }
 
-export default function ClientComponentWrapper({ lang, translations }: ClientComponentWrapperProps) {
+export default function ClientComponentWrapper({ lang }: ClientComponentWrapperProps) {
   return (
     <div className="relative py-20 bg-gradient-to-br from-gray-50 via-white to-gray-50" suppressHydrationWarning>
       <div className="container mx-auto px-4 text-center">

@@ -166,7 +166,7 @@ export class BusinessService {
   static async getBusinessesByCategory(
     category: string, 
     subcategory?: string,
-    lang: 'es' | 'en' = 'es'
+    _lang: 'es' | 'en' = 'es' // eslint-disable-line @typescript-eslint/no-unused-vars
   ): Promise<BusinessListing[]> {
     return sampleBusinesses.filter(business => {
       const matchesCategory = business.category === category

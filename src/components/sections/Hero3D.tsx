@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import * as THREE from 'three'
 
 // Placeholder for the 3D scene - will be loaded dynamically
 function Scene3DPlaceholder() {
@@ -32,7 +33,7 @@ export default function Hero3D({ lang }: Hero3DProps) {
         const { Float, MeshDistortMaterial, MeshWobbleMaterial, ContactShadows, Environment, PerspectiveCamera } = await import('@react-three/drei')
         const { Suspense, useRef, useState } = await import('react')
         const THREE = await import('three')
-        const { Vector3, Color, Mesh } = THREE
+        const { Vector3, Color } = THREE
         
         // Define components inside the dynamic import
         function FloatingTorus({ position }: { position: [number, number, number] }) {

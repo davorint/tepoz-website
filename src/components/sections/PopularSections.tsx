@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -184,9 +185,11 @@ export default function PopularSections({ lang, translations }: PopularSectionsP
                 <motion.div key={index} variants={itemVariants}>
                   <Card className="group cursor-pointer overflow-hidden border-0 bg-white/90 backdrop-blur-md shadow-xl border border-gray-200/30 hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]">
                     <div className="relative overflow-hidden">
-                      <img 
+                      <Image 
                         src={attraction.image} 
                         alt={attraction.title}
+                        width={400}
+                        height={192}
                         className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
@@ -230,9 +233,11 @@ export default function PopularSections({ lang, translations }: PopularSectionsP
                 <motion.div key={index} variants={itemVariants}>
                   <Card className="group cursor-pointer overflow-hidden border-0 bg-white/90 backdrop-blur-md shadow-xl border border-gray-200/30 hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]">
                     <div className="relative overflow-hidden">
-                      <img 
+                      <Image 
                         src={hotel.image} 
                         alt={hotel.title}
+                        width={400}
+                        height={224}
                         className="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-700"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
@@ -277,9 +282,11 @@ export default function PopularSections({ lang, translations }: PopularSectionsP
                 <motion.div key={index} variants={itemVariants}>
                   <Card className="group cursor-pointer overflow-hidden border-0 bg-white/90 backdrop-blur-md shadow-xl border border-gray-200/30 hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]">
                     <div className="relative overflow-hidden">
-                      <img 
+                      <Image 
                         src={restaurant.image} 
                         alt={restaurant.title}
+                        width={400}
+                        height={224}
                         className="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-700"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
@@ -357,9 +364,11 @@ export default function PopularSections({ lang, translations }: PopularSectionsP
                 <motion.div key={i} variants={itemVariants}>
                   <Card className="group cursor-pointer overflow-hidden border-0 bg-white/90 backdrop-blur-md shadow-xl border border-gray-200/30 hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] h-full">
                     <div className="relative overflow-hidden">
-                      <img 
+                      <Image 
                         src={`https://images.unsplash.com/photo-${1500000000000 + i}?w=400&h=300&fit=crop`} 
                         alt={`Experience ${i}`}
+                        width={400}
+                        height={192}
                         className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />

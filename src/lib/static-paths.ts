@@ -141,7 +141,7 @@ export function generateAllStaticParams(): StaticPath[] {
         params.push({ params: { lang } })
       } else {
         // Create nested param structure based on segments
-        const paramObj: any = { lang }
+        const paramObj: { lang: string; [key: string]: string | string[] } = { lang }
         segments.forEach((segment, index) => {
           if (index === 0) paramObj.category = segment
           else if (index === 1) paramObj.subcategory = segment
@@ -207,7 +207,7 @@ export async function generateBusinessStaticParams(): Promise<BusinessPath[]> {
  * Check if a route should be statically generated
  */
 export function shouldGenerateStatic(route: string): boolean {
-  return PRIORITY_ROUTES.includes(route as any) || 
+  return PRIORITY_ROUTES.includes(route as (typeof PRIORITY_ROUTES)[number]) || 
          route === '' || 
          route.split('/').length <= 2 // Generate category and subcategory pages
 }
@@ -217,7 +217,7 @@ export function shouldGenerateStatic(route: string): boolean {
  */
 export function getRevalidationTime(route: string): number | false {
   // Homepage and main categories: revalidate every hour
-  if (PRIORITY_ROUTES.includes(route as any)) {
+  if (PRIORITY_ROUTES.includes(route as (typeof PRIORITY_ROUTES)[number])) {
     return 3600 // 1 hour
   }
   
@@ -240,7 +240,7 @@ export function getRevalidationTime(route: string): number | false {
  */
 export function getMetadataPriority(route: string): number {
   if (route === '') return 1.0 // Homepage
-  if (PRIORITY_ROUTES.includes(route as any)) return 0.9
+  if (PRIORITY_ROUTES.includes(route as (typeof PRIORITY_ROUTES)[number])) return 0.9
   if (route.split('/').length === 1) return 0.8 // Category pages
   if (route.split('/').length === 2) return 0.7 // Subcategory pages
   return 0.6 // Individual pages
