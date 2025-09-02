@@ -2,10 +2,11 @@
 
 import { Button } from '@/components/ui/button'
 import { Locale } from '@/lib/i18n'
+import { Translations } from '@/types/translations'
 
 interface HeroSectionProps {
   lang: Locale
-  translations: any
+  translations: Translations
 }
 
 export default function HeroSection({ lang, translations }: HeroSectionProps) {
@@ -21,7 +22,7 @@ export default function HeroSection({ lang, translations }: HeroSectionProps) {
         </p>
         <Button 
           size="lg" 
-          className="btn-primary text-lg px-8 py-6 animate-slide-in-up"
+          className="text-lg animate-slide-in-up"
         >
           {translations.home.hero.cta}
         </Button>

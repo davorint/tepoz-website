@@ -4,10 +4,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Locale } from '@/lib/i18n'
+import { Translations } from '@/types/translations'
 
 interface PopularSectionsProps {
   lang: Locale
-  translations: any
+  translations: Translations
 }
 
 export default function PopularSections({ lang, translations }: PopularSectionsProps) {
@@ -82,7 +83,7 @@ export default function PopularSections({ lang, translations }: PopularSectionsP
                   <CardDescription>Upcoming festival</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Badge variant="accent">This Weekend</Badge>
+                  <Badge variant="secondary">This Weekend</Badge>
                 </CardContent>
               </Card>
             ))}

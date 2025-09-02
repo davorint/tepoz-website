@@ -1,3 +1,5 @@
+import { Translations } from '@/types/translations'
+
 // Translations dictionary
 export const translations = {
   es: {
@@ -289,7 +291,7 @@ export type Locale = keyof typeof translations
 export type TranslationKey = keyof typeof translations.es
 
 // Get translation function
-export function getTranslation(locale: Locale) {
+export function getTranslation(locale: Locale): Translations {
   return translations[locale] || translations.es
 }
 
