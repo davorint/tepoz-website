@@ -1,6 +1,6 @@
 import { Locale, getTranslation } from '@/lib/i18n'
-import HeroSection from '@/components/sections/HeroSection'
-import PopularSections from '@/components/sections/PopularSections'
+import Hero3D from '@/components/sections/Hero3D'
+import PremiumPopularSections from '@/components/sections/PremiumPopularSections'
 import FloatingStatsSection from '@/components/sections/FloatingStatsSection'
 import InteractiveCTASection from '@/components/sections/InteractiveCTASection'
 import SimpleTestimonialsSection from '@/components/sections/SimpleTestimonialsSection'
@@ -14,9 +14,9 @@ export default async function HomePage({
   const t = getTranslation(lang)
 
   return (
-    <main className="min-h-screen">
-      <HeroSection lang={lang} translations={t} />
-      <PopularSections lang={lang} translations={t} />
+    <main className="min-h-screen overflow-x-hidden">
+      <Hero3D lang={lang} />
+      <PremiumPopularSections lang={lang} translations={t} />
       <FloatingStatsSection lang={lang} />
       <InteractiveCTASection lang={lang} />
       <SimpleTestimonialsSection lang={lang} />

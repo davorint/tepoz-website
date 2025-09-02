@@ -24,6 +24,19 @@
   --spacing-section: 6rem;
   --spacing-card: 1.5rem;
   --spacing-hero: 8rem;
+  
+  /* Premium Animations */
+  --animate-blob: blob 7s infinite;
+  --animate-shimmer: shimmer 3s linear infinite;
+  --animate-gradient: gradient 8s ease infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+  --animate-morph: morph 8s ease-in-out infinite;
+  
+  /* Premium Easing Functions */
+  --ease-premium: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-smooth: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 @layer base {
@@ -511,6 +524,71 @@
     }
   }
   
+  @keyframes blob {
+    0% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    33% {
+      transform: translate(30px, -50px) scale(1.1);
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
+    }
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% {
+      opacity: 1;
+      box-shadow: 0 0 20px rgba(255, 99, 71, 0.5);
+    }
+    50% {
+      opacity: 0.8;
+      box-shadow: 0 0 40px rgba(255, 99, 71, 0.8);
+    }
+  }
+  
+  @keyframes morph {
+    0%, 100% {
+      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+    50% {
+      border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    }
+  }
+  
   .animate-fade-in {
     animation: fade-in 0.5s ease-out;
   }
@@ -521,6 +599,44 @@
   
   .animate-slide-in-down {
     animation: slide-in-down 0.5s ease-out;
+  }
+  
+  .animate-blob {
+    animation: var(--animate-blob);
+  }
+  
+  .animate-shimmer {
+    animation: var(--animate-shimmer);
+    background-size: 300% 100%;
+  }
+  
+  .animate-gradient {
+    animation: var(--animate-gradient);
+    background-size: 200% 200%;
+  }
+  
+  .animate-float {
+    animation: var(--animate-float);
+  }
+  
+  .animate-pulse-glow {
+    animation: var(--animate-pulse-glow);
+  }
+  
+  .animate-morph {
+    animation: var(--animate-morph);
+  }
+  
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+  
+  .bg-300\% {
+    background-size: 300% 300%;
   }
   
   /* Container Queries for Responsive Components */

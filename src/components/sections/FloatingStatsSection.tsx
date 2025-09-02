@@ -66,7 +66,7 @@ function useCountUp(end: number, duration: number = 2000) {
   useEffect(() => {
     if (!isVisible) return
 
-    let startTime = Date.now()
+    const startTime = Date.now()
     let animationFrame: number
 
     const animate = () => {
