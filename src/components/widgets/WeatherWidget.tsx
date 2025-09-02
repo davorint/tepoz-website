@@ -26,7 +26,7 @@ interface WeatherData {
     day: string
     temp: number
     condition: string
-    icon: React.ComponentType
+    icon: React.ComponentType<{ className?: string }>
   }>
 }
 

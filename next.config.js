@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Transpile motion package for proper bundling
+  transpilePackages: ['motion'],
+  
   // Image optimization
   images: {
     domains: ['images.unsplash.com', 'via.placeholder.com'],

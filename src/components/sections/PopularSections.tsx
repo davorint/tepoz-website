@@ -148,7 +148,7 @@ export default function PopularSections({ lang, translations }: PopularSectionsP
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 bg-white/60 backdrop-blur-md border border-white/20 rounded-xl p-2 mb-12">
+            <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 bg-white/90 backdrop-blur-md border border-white/30 rounded-xl p-2 mb-12">
               <TabsTrigger value="attractions" className="data-[state=active]:bg-white/80 data-[state=active]:shadow-lg rounded-lg">
                 <Camera className="w-4 h-4 mr-2" />
                 {translations.home.sections.attractions}
@@ -182,7 +182,7 @@ export default function PopularSections({ lang, translations }: PopularSectionsP
             >
               {attractionsData.map((attraction, index) => (
                 <motion.div key={index} variants={itemVariants}>
-                  <Card className="group cursor-pointer overflow-hidden border-0 bg-white/60 backdrop-blur-md shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]">
+                  <Card className="group cursor-pointer overflow-hidden border-0 bg-white/90 backdrop-blur-md shadow-xl border border-gray-200/30 hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]">
                     <div className="relative overflow-hidden">
                       <img 
                         src={attraction.image} 
@@ -228,7 +228,7 @@ export default function PopularSections({ lang, translations }: PopularSectionsP
             >
               {hotelsData.map((hotel, index) => (
                 <motion.div key={index} variants={itemVariants}>
-                  <Card className="group cursor-pointer overflow-hidden border-0 bg-white/60 backdrop-blur-md shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]">
+                  <Card className="group cursor-pointer overflow-hidden border-0 bg-white/90 backdrop-blur-md shadow-xl border border-gray-200/30 hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]">
                     <div className="relative overflow-hidden">
                       <img 
                         src={hotel.image} 
@@ -275,7 +275,7 @@ export default function PopularSections({ lang, translations }: PopularSectionsP
             >
               {restaurantsData.map((restaurant, index) => (
                 <motion.div key={index} variants={itemVariants}>
-                  <Card className="group cursor-pointer overflow-hidden border-0 bg-white/60 backdrop-blur-md shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]">
+                  <Card className="group cursor-pointer overflow-hidden border-0 bg-white/90 backdrop-blur-md shadow-xl border border-gray-200/30 hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]">
                     <div className="relative overflow-hidden">
                       <img 
                         src={restaurant.image} 
@@ -322,7 +322,7 @@ export default function PopularSections({ lang, translations }: PopularSectionsP
             >
               {[1, 2, 3, 4].map((i) => (
                 <motion.div key={i} variants={itemVariants}>
-                  <Card className="group cursor-pointer overflow-hidden border-0 bg-white/60 backdrop-blur-md shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] h-full">
+                  <Card className="group cursor-pointer overflow-hidden border-0 bg-white/90 backdrop-blur-md shadow-xl border border-gray-200/30 hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] h-full">
                     <CardHeader className="text-center py-8">
                       <div className="w-16 h-16 bg-gradient-to-br from-tepoztlan-sunset to-tepoztlan-earth rounded-full mx-auto mb-4 flex items-center justify-center">
                         <Calendar className="w-8 h-8 text-white" />
@@ -355,7 +355,7 @@ export default function PopularSections({ lang, translations }: PopularSectionsP
             >
               {[1, 2, 3, 4].map((i) => (
                 <motion.div key={i} variants={itemVariants}>
-                  <Card className="group cursor-pointer overflow-hidden border-0 bg-white/60 backdrop-blur-md shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] h-full">
+                  <Card className="group cursor-pointer overflow-hidden border-0 bg-white/90 backdrop-blur-md shadow-xl border border-gray-200/30 hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] h-full">
                     <div className="relative overflow-hidden">
                       <img 
                         src={`https://images.unsplash.com/photo-${1500000000000 + i}?w=400&h=300&fit=crop`} 

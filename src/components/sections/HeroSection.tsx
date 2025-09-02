@@ -44,8 +44,8 @@ export default function HeroSection({ lang, translations }: HeroSectionProps) {
         )}
       </div>
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
+      {/* Gradient Overlay - Much stronger for better contrast */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
       
       {/* Parallax Background Elements */}
       <motion.div
@@ -77,15 +77,16 @@ export default function HeroSection({ lang, translations }: HeroSectionProps) {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 mb-6"
+            className="inline-flex items-center gap-2 bg-black/40 backdrop-blur-md border border-white/30 rounded-full px-6 py-3 mb-8 text-white shadow-2xl"
           >
             <MapPin className="w-4 h-4" />
-            <span className="text-sm font-medium">Pueblo Mágico · Morelos, México</span>
+            <span className="text-sm font-semibold drop-shadow-lg">Pueblo Mágico · Morelos, México</span>
           </motion.div>
 
-          {/* Main Title with Typewriter Effect */}
+          {/* Main Title with Better Contrast */}
           <motion.h1
-            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-white to-white/80 bg-clip-text text-transparent"
+            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 text-white drop-shadow-2xl"
+            style={{ textShadow: '0 4px 8px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.6)' }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.6 }}
@@ -95,7 +96,8 @@ export default function HeroSection({ lang, translations }: HeroSectionProps) {
 
           {/* Subtitle */}
           <motion.p
-            className="text-xl md:text-2xl lg:text-3xl mb-12 max-w-4xl mx-auto font-light leading-relaxed"
+            className="text-xl md:text-2xl lg:text-3xl mb-12 max-w-4xl mx-auto font-medium leading-relaxed text-white drop-shadow-xl"
+            style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8)' }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}

@@ -116,7 +116,7 @@ function StatCard({ stat, lang }: { stat: StatItem, lang: Locale }) {
         transition: { duration: 0.2 }
       }}
     >
-      <Card className="bg-white/80 backdrop-blur-md border-0 shadow-xl hover:shadow-2xl transition-all duration-300">
+      <Card className="bg-white/95 backdrop-blur-md border border-gray-200/50 shadow-xl hover:shadow-2xl transition-all duration-300">
         <CardContent className="p-6 text-center">
           <div className={`w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4 ${stat.color}`}>
             <Icon className="w-6 h-6" />

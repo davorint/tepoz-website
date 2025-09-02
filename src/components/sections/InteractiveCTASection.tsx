@@ -201,7 +201,7 @@ export default function InteractiveCTASection({ lang }: InteractiveCTASectionPro
             className="space-y-8"
           >
             {/* Premium Newsletter */}
-            <Card className="border-0 bg-white/80 backdrop-blur-md shadow-xl">
+            <Card className="border-0 bg-white/95 backdrop-blur-md shadow-xl border border-gray-200/30">
               <CardContent className="p-8">
                 <div className="text-center mb-6">
                   <h3 className="text-2xl font-bold text-gray-900 mb-3">
@@ -261,7 +261,7 @@ export default function InteractiveCTASection({ lang }: InteractiveCTASectionPro
                     transition={{ duration: 0.6, delay: 0.1 * index }}
                     whileHover={{ scale: 1.05 }}
                   >
-                    <Card className="border-0 bg-white/60 backdrop-blur-md shadow-lg hover:shadow-xl transition-all duration-300">
+                    <Card className="border-0 bg-white/90 backdrop-blur-md shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200/20">
                       <CardContent className="p-4 text-center">
                         <div className="w-10 h-10 bg-tepoztlan-sunset/10 text-tepoztlan-sunset rounded-lg flex items-center justify-center mx-auto mb-3">
                           <Icon className="w-5 h-5" />
