@@ -20,6 +20,11 @@
   --font-family-display: 'Playfair Display', Georgia, serif;
   --font-family-mono: 'JetBrains Mono', monospace;
   
+  /* Text shadows for better readability */
+  --text-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --text-shadow-md: 0 2px 4px rgba(0, 0, 0, 0.6);
+  --text-shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.7);
+  
   /* Custom Spacing for Tourism Layouts */
   --spacing-section: 6rem;
   --spacing-card: 1.5rem;
@@ -61,9 +66,9 @@
     --secondary: 25 17% 45%;
     --secondary-foreground: 0 0% 98%;
     
-    /* Muted */
+    /* Muted - Enhanced contrast */
     --muted: 25 10% 94%;
-    --muted-foreground: 25 5% 35%;
+    --muted-foreground: 25 8% 25%;
     
     /* Accent - Sunset Orange */
     --accent: 9 100% 64%;
@@ -111,7 +116,7 @@
     --secondary-foreground: 0 0% 95%;
     
     --muted: 25 10% 20%;
-    --muted-foreground: 25 5% 65%;
+    --muted-foreground: 25 8% 75%;
     
     --accent: 9 90% 55%;
     --accent-foreground: 0 0% 95%;
@@ -217,25 +222,17 @@
     border-color: hsl(var(--accent));
   }
   
-  /* Button Variants */
+  /* Optimized Button Base with Tailwind 4.1 */
   .btn {
     @apply inline-flex items-center justify-center rounded-md text-sm font-medium;
-    @apply transition-colors focus-visible:outline-none focus-visible:ring-2;
-    --tw-ring-color: hsl(var(--ring));
-    --tw-ring-offset-color: hsl(var(--background));
-    @apply focus-visible:ring-offset-2;
+    @apply transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
     @apply disabled:opacity-50 disabled:pointer-events-none;
   }
   
   .btn-primary {
-    /* Inherit from .btn */
-    @apply inline-flex items-center justify-center rounded-md text-sm font-medium;
-    @apply transition-colors focus-visible:outline-none focus-visible:ring-2;
-    --tw-ring-color: hsl(var(--ring));
-    --tw-ring-offset-color: hsl(var(--background));
-    @apply focus-visible:ring-offset-2;
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium px-6 py-3;
+    @apply transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
     @apply disabled:opacity-50 disabled:pointer-events-none;
-    @apply px-6 py-3;
     background-color: hsl(var(--primary));
     color: hsl(var(--primary-foreground));
   }
@@ -245,13 +242,9 @@
   }
   
   .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-md text-sm font-medium;
-    @apply transition-colors focus-visible:outline-none focus-visible:ring-2;
-    --tw-ring-color: hsl(var(--ring));
-    --tw-ring-offset-color: hsl(var(--background));
-    @apply focus-visible:ring-offset-2;
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium px-6 py-3;
+    @apply transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
     @apply disabled:opacity-50 disabled:pointer-events-none;
-    @apply px-6 py-3;
     background-color: hsl(var(--secondary));
     color: hsl(var(--secondary-foreground));
   }
@@ -261,13 +254,9 @@
   }
   
   .btn-accent {
-    @apply inline-flex items-center justify-center rounded-md text-sm font-medium;
-    @apply transition-colors focus-visible:outline-none focus-visible:ring-2;
-    --tw-ring-color: hsl(var(--ring));
-    --tw-ring-offset-color: hsl(var(--background));
-    @apply focus-visible:ring-offset-2;
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium px-6 py-3;
+    @apply transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
     @apply disabled:opacity-50 disabled:pointer-events-none;
-    @apply px-6 py-3;
     background-color: hsl(var(--accent));
     color: hsl(var(--accent-foreground));
   }
@@ -277,15 +266,13 @@
   }
   
   .btn-outline {
-    @apply inline-flex items-center justify-center rounded-md text-sm font-medium;
-    @apply transition-colors focus-visible:outline-none focus-visible:ring-2;
-    --tw-ring-color: hsl(var(--ring));
-    --tw-ring-offset-color: hsl(var(--background));
-    @apply focus-visible:ring-offset-2;
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium px-6 py-3;
+    @apply transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
     @apply disabled:opacity-50 disabled:pointer-events-none;
-    @apply border px-6 py-3;
+    @apply border;
     border-color: hsl(var(--input));
     background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
   }
   
   .btn-outline:hover {
@@ -294,13 +281,9 @@
   }
   
   .btn-ghost {
-    @apply inline-flex items-center justify-center rounded-md text-sm font-medium;
-    @apply transition-colors focus-visible:outline-none focus-visible:ring-2;
-    --tw-ring-color: hsl(var(--ring));
-    --tw-ring-offset-color: hsl(var(--background));
-    @apply focus-visible:ring-offset-2;
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium px-4 py-2;
+    @apply transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
     @apply disabled:opacity-50 disabled:pointer-events-none;
-    @apply px-4 py-2;
   }
   
   .btn-ghost:hover {
@@ -308,7 +291,7 @@
     color: hsl(var(--accent-foreground));
   }
   
-  /* Navigation Components */
+  /* Optimized Navigation Components */
   .nav-link {
     @apply text-sm font-medium transition-colors px-3 py-2 rounded-md;
   }
@@ -324,16 +307,19 @@
     background-color: hsl(var(--accent) / 0.1);
   }
   
-  /* Form Components */
+  .nav-link-active:hover {
+    color: hsl(var(--primary));
+    background-color: hsl(var(--accent) / 0.1);
+  }
+  
+  /* Optimized Form Components */
   .input {
     @apply flex h-10 w-full rounded-md border px-3 py-2 text-sm;
+    @apply file:border-0 file:bg-transparent file:text-sm file:font-medium;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+    @apply disabled:cursor-not-allowed disabled:opacity-50;
     border-color: hsl(var(--input));
     background-color: hsl(var(--background));
-    --tw-ring-offset-color: hsl(var(--background));
-    @apply file:border-0 file:bg-transparent file:text-sm file:font-medium;
-    @apply focus-visible:outline-none focus-visible:ring-2;
-    --tw-ring-color: hsl(var(--ring));
-    @apply focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
   }
   
   .input::placeholder {
@@ -342,12 +328,10 @@
   
   .textarea {
     @apply flex min-h-[80px] w-full rounded-md border px-3 py-2 text-sm;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+    @apply disabled:cursor-not-allowed disabled:opacity-50;
     border-color: hsl(var(--input));
     background-color: hsl(var(--background));
-    --tw-ring-offset-color: hsl(var(--background));
-    @apply focus-visible:outline-none focus-visible:ring-2;
-    --tw-ring-color: hsl(var(--ring));
-    @apply focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
   }
   
   .textarea::placeholder {
@@ -356,31 +340,25 @@
   
   .select {
     @apply flex h-10 w-full items-center justify-between rounded-md border px-3 py-2 text-sm;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply disabled:cursor-not-allowed disabled:opacity-50;
     border-color: hsl(var(--input));
     background-color: hsl(var(--background));
-    --tw-ring-offset-color: hsl(var(--background));
-    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
-    --tw-ring-color: hsl(var(--ring));
-    @apply disabled:cursor-not-allowed disabled:opacity-50;
   }
   
   .select::placeholder {
     color: hsl(var(--muted-foreground));
   }
   
-  /* Badge Components */
+  /* Optimized Badge Components */
   .badge {
     @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
     @apply transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2;
-    --tw-ring-color: hsl(var(--ring));
-    --tw-ring-offset-color: hsl(var(--background));
   }
   
   .badge-primary {
     @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
     @apply transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2;
-    --tw-ring-color: hsl(var(--ring));
-    --tw-ring-offset-color: hsl(var(--background));
     background-color: hsl(var(--primary));
     color: hsl(var(--primary-foreground));
   }
@@ -388,8 +366,6 @@
   .badge-secondary {
     @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
     @apply transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2;
-    --tw-ring-color: hsl(var(--ring));
-    --tw-ring-offset-color: hsl(var(--background));
     background-color: hsl(var(--secondary));
     color: hsl(var(--secondary-foreground));
   }
@@ -397,8 +373,6 @@
   .badge-accent {
     @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
     @apply transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2;
-    --tw-ring-color: hsl(var(--ring));
-    --tw-ring-offset-color: hsl(var(--background));
     background-color: hsl(var(--accent));
     color: hsl(var(--accent-foreground));
   }
@@ -406,9 +380,8 @@
   .badge-outline {
     @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
     @apply transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2;
-    --tw-ring-color: hsl(var(--ring));
-    --tw-ring-offset-color: hsl(var(--background));
     @apply border;
+    border-color: hsl(var(--input));
     color: hsl(var(--foreground));
   }
   
@@ -600,6 +573,50 @@
     }
   }
   
+  /* Additional keyframes for built-in integration */
+  @keyframes scale-in {
+    0% {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes rotate-in {
+    0% {
+      opacity: 0;
+      transform: rotate(-10deg) scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+  }
+  
+  @keyframes pulse-gentle {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.02);
+    }
+  }
+  
+  @keyframes bounce-gentle {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+  
+  /* Enhanced Built-in Animation Integration */
   .animate-fade-in {
     animation: fade-in 0.5s ease-out;
   }
@@ -610,6 +627,54 @@
   
   .animate-slide-in-down {
     animation: slide-in-down 0.5s ease-out;
+  }
+  
+  /* Built-in Tailwind optimized versions */
+  .animate-in-fade {
+    animation: fade-in 0.6s var(--ease-smooth) both;
+  }
+  
+  .animate-in-slide-up {
+    animation: slide-in-up 0.6s var(--ease-smooth) both;
+  }
+  
+  .animate-in-slide-down {
+    animation: slide-in-down 0.6s var(--ease-smooth) both;
+  }
+  
+  .animate-in-scale {
+    animation: scale-in 0.4s var(--ease-bounce) both;
+  }
+  
+  .animate-in-rotate {
+    animation: rotate-in 0.5s var(--ease-smooth) both;
+  }
+  
+  /* Enhanced spin with custom timing */
+  .animate-spin-slow {
+    animation: spin 3s linear infinite;
+  }
+  
+  .animate-spin-fast {
+    animation: spin 0.5s linear infinite;
+  }
+  
+  /* Enhanced pulse variations */
+  .animate-pulse-fast {
+    animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .animate-pulse-gentle {
+    animation: pulse-gentle 3s ease-in-out infinite;
+  }
+  
+  /* Enhanced bounce variations */
+  .animate-bounce-gentle {
+    animation: bounce-gentle 1s ease-in-out infinite;
+  }
+  
+  .animate-bounce-once {
+    animation: bounce 0.6s ease-out;
   }
   
   .animate-blob {
@@ -889,6 +954,122 @@
   
   .hover-optimized:not(:hover) {
     will-change: auto;
+  }
+  
+  /* Advanced Animation Staggering System */
+  .animate-stagger {
+    --stagger-delay: 100ms;
+  }
+  
+  .animate-stagger > *:nth-child(1) { animation-delay: calc(var(--stagger-delay) * 0); }
+  .animate-stagger > *:nth-child(2) { animation-delay: calc(var(--stagger-delay) * 1); }
+  .animate-stagger > *:nth-child(3) { animation-delay: calc(var(--stagger-delay) * 2); }
+  .animate-stagger > *:nth-child(4) { animation-delay: calc(var(--stagger-delay) * 3); }
+  .animate-stagger > *:nth-child(5) { animation-delay: calc(var(--stagger-delay) * 4); }
+  .animate-stagger > *:nth-child(6) { animation-delay: calc(var(--stagger-delay) * 5); }
+  .animate-stagger > *:nth-child(7) { animation-delay: calc(var(--stagger-delay) * 6); }
+  .animate-stagger > *:nth-child(8) { animation-delay: calc(var(--stagger-delay) * 7); }
+  .animate-stagger > *:nth-child(9) { animation-delay: calc(var(--stagger-delay) * 8); }
+  .animate-stagger > *:nth-child(10) { animation-delay: calc(var(--stagger-delay) * 9); }
+  
+  /* Stagger timing variations */
+  .animate-stagger-fast {
+    --stagger-delay: 50ms;
+  }
+  
+  .animate-stagger-slow {
+    --stagger-delay: 200ms;
+  }
+  
+  .animate-stagger-extra-slow {
+    --stagger-delay: 300ms;
+  }
+  
+  /* Reverse stagger (from bottom to top) */
+  .animate-stagger-reverse > *:nth-child(1) { animation-delay: calc(var(--stagger-delay) * 9); }
+  .animate-stagger-reverse > *:nth-child(2) { animation-delay: calc(var(--stagger-delay) * 8); }
+  .animate-stagger-reverse > *:nth-child(3) { animation-delay: calc(var(--stagger-delay) * 7); }
+  .animate-stagger-reverse > *:nth-child(4) { animation-delay: calc(var(--stagger-delay) * 6); }
+  .animate-stagger-reverse > *:nth-child(5) { animation-delay: calc(var(--stagger-delay) * 5); }
+  .animate-stagger-reverse > *:nth-child(6) { animation-delay: calc(var(--stagger-delay) * 4); }
+  .animate-stagger-reverse > *:nth-child(7) { animation-delay: calc(var(--stagger-delay) * 3); }
+  .animate-stagger-reverse > *:nth-child(8) { animation-delay: calc(var(--stagger-delay) * 2); }
+  .animate-stagger-reverse > *:nth-child(9) { animation-delay: calc(var(--stagger-delay) * 1); }
+  .animate-stagger-reverse > *:nth-child(10) { animation-delay: calc(var(--stagger-delay) * 0); }
+  
+  /* Animation combination utilities */
+  .animate-fade-slide-stagger > * {
+    animation: fade-in-up 0.6s var(--ease-smooth) both;
+  }
+  
+  .animate-scale-stagger > * {
+    animation: scale-in 0.4s var(--ease-bounce) both;
+  }
+  
+  .animate-rotate-stagger > * {
+    animation: rotate-in 0.5s var(--ease-smooth) both;
+  }
+  
+  /* Scroll-triggered animations */
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s var(--ease-smooth), transform 0.6s var(--ease-smooth);
+  }
+  
+  .animate-on-scroll.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .animate-on-scroll-scale {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.5s var(--ease-smooth), transform 0.5s var(--ease-bounce);
+  }
+  
+  .animate-on-scroll-scale.in-view {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  /* Advanced timing utilities */
+  .animate-timing-slow {
+    animation-duration: 1.5s !important;
+  }
+  
+  .animate-timing-fast {
+    animation-duration: 0.3s !important;
+  }
+  
+  .animate-timing-extra-slow {
+    animation-duration: 2.5s !important;
+  }
+  
+  /* Fill mode utilities */
+  .animate-fill-both {
+    animation-fill-mode: both !important;
+  }
+  
+  .animate-fill-forwards {
+    animation-fill-mode: forwards !important;
+  }
+  
+  .animate-fill-backwards {
+    animation-fill-mode: backwards !important;
+  }
+  
+  /* Iteration utilities */
+  .animate-once {
+    animation-iteration-count: 1 !important;
+  }
+  
+  .animate-twice {
+    animation-iteration-count: 2 !important;
+  }
+  
+  .animate-infinite {
+    animation-iteration-count: infinite !important;
   }
   
   /* Container Queries for Responsive Components & Animations */

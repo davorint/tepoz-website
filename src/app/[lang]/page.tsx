@@ -20,7 +20,7 @@ export default async function HomePage({
                 Tepoztlán
               </span>
             </h1>
-            <p className="mx-auto max-w-2xl text-lg md:text-xl lg:text-2xl text-gray-300 mb-8">
+            <p className="mx-auto max-w-2xl text-lg md:text-xl lg:text-2xl text-gray-100 mb-8">
               {lang === 'es' 
                 ? 'Un portal hacia experiencias místicas y transformadoras'
                 : 'A gateway to mystical and transformative experiences'
@@ -34,7 +34,7 @@ export default async function HomePage({
           <h2 className="text-4xl font-bold mb-4">
             {lang === 'es' ? 'Experiencias Populares' : 'Popular Experiences'}
           </h2>
-          <p className="text-gray-600 mb-8">
+          <p className="text-gray-700 mb-8">
             {lang === 'es' 
               ? 'Explora los lugares más emblemáticos de Tepoztlán'
               : 'Explore the most iconic places in Tepoztlán'
@@ -47,7 +47,7 @@ export default async function HomePage({
                 <h3 className="text-xl font-semibold mb-2">
                   {lang === 'es' ? `Atracción ${i}` : `Attraction ${i}`}
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-700">
                   {lang === 'es' 
                     ? 'Descripción de la atracción'
                     : 'Attraction description'

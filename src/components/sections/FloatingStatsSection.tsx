@@ -115,6 +115,7 @@ function StatCard({ stat, lang }: { stat: StatItem, lang: Locale }) {
         scale: 1.05,
         transition: { duration: 0.2 }
       }}
+      suppressHydrationWarning
     >
       <Card className="bg-white/95 backdrop-blur-md border border-gray-200/50 shadow-xl hover:shadow-2xl transition-all duration-300">
         <CardContent className="p-6 text-center">
@@ -125,7 +126,7 @@ function StatCard({ stat, lang }: { stat: StatItem, lang: Locale }) {
             {stat.id === 'rating' ? count.toFixed(1) : count.toLocaleString()}
             {stat.suffix}
           </div>
-          <div className="text-sm text-gray-600 font-medium">
+          <div className="text-sm text-gray-700 font-medium">
             {lang === 'es' ? stat.label : stat.labelEn}
           </div>
         </CardContent>
@@ -150,11 +151,12 @@ export default function FloatingStatsSection({ lang }: FloatingStatsSectionProps
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
+          suppressHydrationWarning
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 via-gray-700 to-gray-600 bg-clip-text text-transparent">
             {lang === 'es' ? 'Tepoztlán en Números' : 'Tepoztlán by Numbers'}
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-700 max-w-2xl mx-auto">
             {lang === 'es' 
               ? 'Descubre por qué miles de visitantes eligen Tepoztlán como su destino favorito'
               : 'Discover why thousands of visitors choose Tepoztlán as their favorite destination'
@@ -170,6 +172,7 @@ export default function FloatingStatsSection({ lang }: FloatingStatsSectionProps
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
+              suppressHydrationWarning
             >
               <StatCard stat={stat} lang={lang} />
             </motion.div>
@@ -183,6 +186,7 @@ export default function FloatingStatsSection({ lang }: FloatingStatsSectionProps
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.5 }}
+          suppressHydrationWarning
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-tepoztlan-sunset/10 text-tepoztlan-sunset rounded-full text-sm font-medium">
             <div className="w-2 h-2 bg-tepoztlan-sunset rounded-full animate-pulse" />
