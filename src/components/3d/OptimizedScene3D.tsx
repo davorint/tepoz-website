@@ -44,10 +44,13 @@ function OptimizedParticleField() {
   
   const positions = new Float32Array(particleCount * 3)
   
+  // Use deterministic positions to avoid hydration errors
   for (let i = 0; i < particleCount; i++) {
-    positions[i * 3] = (Math.random() - 0.5) * 20
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 20
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 20
+    const angle = (i * 2.4) % (Math.PI * 2) // Deterministic angle
+    const radius = 5 + (i % 10) * 1.5 // Deterministic radius
+    positions[i * 3] = Math.cos(angle) * radius // X
+    positions[i * 3 + 1] = (i % 20 - 10) * 1 // Y (spread between -10 to 10)
+    positions[i * 3 + 2] = Math.sin(angle) * radius // Z
   }
 
   useFrame((state) => {

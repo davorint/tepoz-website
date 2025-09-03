@@ -1,15 +1,12 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Locale } from '@/lib/i18n'
 import ClientOnly from '@/components/ui/client-only'
 
-// Only register plugin on client side
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger)
-}
+// Dynamic import for ScrollTrigger
+let ScrollTrigger: typeof import('gsap/ScrollTrigger').ScrollTrigger | null = null
 
 interface ScrollRevealCardsProps {
   lang: Locale
@@ -81,9 +78,27 @@ const directoryItems = [
 export default function ScrollRevealCards({ lang }: ScrollRevealCardsProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const cardsRef = useRef<(HTMLDivElement | null)[]>([])
+  const [gsapLoaded, setGsapLoaded] = useState(false)
+
+  // Initialize GSAP ScrollTrigger
+  useEffect(() => {
+    const initGSAP = async () => {
+      if (typeof window !== 'undefined') {
+        try {
+          const { ScrollTrigger: ST } = await import('gsap/ScrollTrigger')
+          ScrollTrigger = ST
+          gsap.registerPlugin(ScrollTrigger)
+          setGsapLoaded(true)
+        } catch (error) {
+          console.warn('GSAP ScrollTrigger initialization error:', error)
+        }
+      }
+    }
+    initGSAP()
+  }, [])
 
   useEffect(() => {
-    if (!sectionRef.current) return
+    if (!sectionRef.current || !gsapLoaded || !ScrollTrigger) return
 
     // Staggered card reveal on scroll
     cardsRef.current.forEach((card, index) => {
@@ -98,7 +113,8 @@ export default function ScrollRevealCards({ lang }: ScrollRevealCardsProps) {
       })
 
       // Scroll-triggered animation
-      ScrollTrigger.create({
+      if (ScrollTrigger) {
+        ScrollTrigger.create({
         trigger: card,
         start: "top bottom-=100",
         onEnter: () => {
@@ -112,7 +128,8 @@ export default function ScrollRevealCards({ lang }: ScrollRevealCardsProps) {
           })
         },
         once: true
-      })
+        })
+      }
 
       // 3D tilt effect on hover
       card.addEventListener('mouseenter', () => {
@@ -160,7 +177,8 @@ export default function ScrollRevealCards({ lang }: ScrollRevealCardsProps) {
     counters.forEach(counter => {
       const endValue = parseInt(counter.textContent || '0')
       
-      ScrollTrigger.create({
+      if (ScrollTrigger) {
+        ScrollTrigger.create({
         trigger: counter,
         start: "top bottom-=50",
         onEnter: () => {
@@ -178,13 +196,16 @@ export default function ScrollRevealCards({ lang }: ScrollRevealCardsProps) {
           )
         },
         once: true
-      })
+        })
+      }
     })
 
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+      if (ScrollTrigger) {
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+      }
     }
-  }, [])
+  }, [gsapLoaded])
 
   return (
     <ClientOnly fallback={

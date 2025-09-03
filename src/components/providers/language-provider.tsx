@@ -10,7 +10,9 @@ interface LanguageProviderProps {
 
 export default function LanguageProvider({ lang, children }: LanguageProviderProps) {
   useEffect(() => {
-    document.documentElement.lang = lang
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = lang
+    }
   }, [lang])
 
   return <>{children}</>

@@ -26,8 +26,10 @@ export default function Hero3D({ lang }: Hero3DProps) {
   useEffect(() => {
     setIsClient(true)
     
-    // Check device capabilities and user preferences
+    // Check device capabilities and user preferences only on client
     const checkOptimization = () => {
+      if (typeof window === 'undefined') return
+      
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
       const isLowEndDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4
       const isMobile = window.innerWidth < 768

@@ -134,10 +134,16 @@ export default function PremiumCTA({ lang }: PremiumCTAProps) {
         `
         container.appendChild(particle)
 
+        // Use deterministic values based on index to avoid hydration errors
+        const xPos = (i * 137) % (typeof window !== 'undefined' ? window.innerWidth : 1200) // Deterministic x position
+        const yPos = (i * 73) % 400 // Deterministic y position  
+        const opacity = 0.3 + (i % 7) * 0.1 // Deterministic opacity (0.3-0.9)
+        const delay = (i % 5) * 0.4 // Deterministic delay (0-2s)
+
         gsap.set(particle, {
-          x: Math.random() * window.innerWidth,
-          y: Math.random() * 400,
-          opacity: Math.random()
+          x: xPos,
+          y: yPos,
+          opacity: opacity
         })
 
         gsap.to(particle, {
@@ -146,7 +152,7 @@ export default function PremiumCTA({ lang }: PremiumCTAProps) {
           opacity: 0,
           duration: "random(3, 6)",
           repeat: -1,
-          delay: Math.random() * 2,
+          delay: delay,
           ease: "none"
         })
       }
