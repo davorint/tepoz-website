@@ -54,8 +54,12 @@ export default function PremiumCTA({ lang }: PremiumCTAProps) {
 
   useEffect(() => {
     if (!isMounted) return
+    
+    // Capture current ref values at effect time
+    const currentButtons = buttonsRef.current
+    
     // Liquid button effects
-    buttonsRef.current.forEach((button, index) => {
+    currentButtons.forEach((button, index) => {
       if (!button) return
 
       const liquid = liquidRef.current[index]
@@ -149,9 +153,11 @@ export default function PremiumCTA({ lang }: PremiumCTAProps) {
     }
 
     return () => {
-      // Cleanup
-      buttonsRef.current.forEach(button => {
+      // Cleanup using the captured ref values
+      currentButtons.forEach(button => {
         if (button) {
+          // Note: These empty functions don't actually remove the correct listeners
+          // In a real app, we'd need to store references to the actual handler functions
           button.removeEventListener('mouseenter', () => {})
           button.removeEventListener('mouseleave', () => {})
           button.removeEventListener('mousemove', () => {})

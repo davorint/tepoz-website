@@ -29,11 +29,11 @@ import {
 } from 'lucide-react'
 
 interface SearchPageProps {
-  params: Promise<{ lang: string }>
+  params: { lang: string }
 }
 
-export default async function SearchPage({ params }: SearchPageProps) {
-  const { lang } = await params
+export default function SearchPage({ params }: SearchPageProps) {
+  const { lang } = params
   const locale = lang as Locale
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -54,7 +54,7 @@ export default async function SearchPage({ params }: SearchPageProps) {
     setIsLoading(true)
     try {
       const result = await AdvancedSearchService.search(searchQuery, {
-        locale,
+        lang: locale,
         filters: searchFilters,
         fuzzySearch: true,
         includeAlternatives: true
