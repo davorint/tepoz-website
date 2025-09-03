@@ -19,9 +19,10 @@ interface StaticNavigationProps {
 }
 
 export default function StaticNavigation({ lang, translations }: StaticNavigationProps) {
+  console.log('StaticNavigation received lang parameter:', lang)
   const otherLang: Locale = lang === 'es' ? 'en' : 'es'
   const languages: Record<Locale, { label: string; flag: string }> = {
-    es: { label: 'Español', flag: '🇪🇸' },
+    es: { label: 'Español', flag: '🇲🇽' },
     en: { label: 'English', flag: '🇺🇸' },
   }
   

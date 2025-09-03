@@ -1,8 +1,22 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Bebas_Neue, Playfair_Display, Montserrat } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
+const bebasNeue = Bebas_Neue({ 
+  weight: '400',
+  subsets: ["latin"],
+  variable: '--font-bebas'
+});
+const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
+  variable: '--font-playfair'
+});
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-montserrat'
+});
 
 export const metadata: Metadata = {
   title: "Tepoztlán Directory - Discover the Magic",
@@ -16,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html suppressHydrationWarning>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} ${bebasNeue.variable} ${playfairDisplay.variable} ${montserrat.variable} antialiased`}>
         {children}
       </body>
     </html>

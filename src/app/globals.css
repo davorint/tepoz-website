@@ -204,6 +204,19 @@
 }
 
 @layer utilities {
+  /* Custom font utilities */
+  .font-bebas {
+    font-family: var(--font-bebas);
+  }
+  
+  .font-playfair {
+    font-family: var(--font-playfair);
+  }
+  
+  .font-montserrat {
+    font-family: var(--font-montserrat);
+  }
+  
   /* Tailwind CSS 4.1 Text Shadow Utilities */
   .text-shadow-2xs { text-shadow: var(--text-shadow-2xs); }
   .text-shadow-xs { text-shadow: var(--text-shadow-xs); }

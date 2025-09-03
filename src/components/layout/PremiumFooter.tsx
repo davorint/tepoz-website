@@ -91,7 +91,7 @@ export default function PremiumFooter({ lang }: PremiumFooterProps) {
                   <span className="text-white font-bold text-lg">T</span>
                 </div>
                 <div>
-                  <span className="font-bold text-xl">Tepoztlán</span>
+                  <span className="font-bold text-xl">TODOTEPOZ</span>
                   <div className="text-sm text-gray-400">
                     {lang === 'es' ? 'Pueblo Mágico' : 'Magical Town'}
                   </div>
@@ -240,7 +240,7 @@ export default function PremiumFooter({ lang }: PremiumFooterProps) {
           <div className="max-w-7xl mx-auto px-4 py-6">
             <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
               <div className="text-gray-400 text-sm">
-                © {new Date().getFullYear()} Tepoztlán Directory. 
+                © {new Date().getFullYear()} TODOTEPOZ. 
                 {lang === 'es' 
                   ? ' Todos los derechos reservados.' 
                   : ' All rights reserved.'
