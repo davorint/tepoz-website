@@ -5,6 +5,7 @@ import { motion } from 'motion/react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import ClientOnly from '@/components/ui/client-only'
 import { 
   Calendar, 
   MessageCircle, 
@@ -111,33 +112,42 @@ export default function InteractiveCTASection({ lang }: InteractiveCTASectionPro
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-700 to-gray-600 bg-clip-text text-transparent">
-            {lang === 'es' ? 'Planea tu Visita Perfecta' : 'Plan Your Perfect Visit'}
-          </h2>
-          <p className="text-xl text-gray-800 max-w-3xl mx-auto">
-            {lang === 'es' 
-              ? 'Todo lo que necesitas para una experiencia inolvidable en Tepoztlán está a un clic de distancia'
-              : 'Everything you need for an unforgettable experience in Tepoztlán is just a click away'
-            }
-          </p>
-        </motion.div>
+        <div className="text-center mb-16">
+          <ClientOnly fallback={
+            <div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-700 to-gray-600 bg-clip-text text-transparent">
+                {lang === 'es' ? 'Planea tu Visita Perfecta' : 'Plan Your Perfect Visit'}
+              </h2>
+              <p className="text-xl text-gray-800 max-w-3xl mx-auto">
+                {lang === 'es' 
+                  ? 'Todo lo que necesitas para una experiencia inolvidable en Tepoztlán está a un clic de distancia'
+                  : 'Everything you need for an unforgettable experience in Tepoztlán is just a click away'
+                }
+              </p>
+            </div>
+          }>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-700 to-gray-600 bg-clip-text text-transparent">
+                {lang === 'es' ? 'Planea tu Visita Perfecta' : 'Plan Your Perfect Visit'}
+              </h2>
+              <p className="text-xl text-gray-800 max-w-3xl mx-auto">
+                {lang === 'es' 
+                  ? 'Todo lo que necesitas para una experiencia inolvidable en Tepoztlán está a un clic de distancia'
+                  : 'Everything you need for an unforgettable experience in Tepoztlán is just a click away'
+                }
+              </p>
+            </motion.div>
+          </ClientOnly>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Quick Actions */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="space-y-6"
-          >
+          <div className="space-y-6">
             <h3 className="text-2xl font-bold text-gray-900 mb-6">
               {lang === 'es' ? 'Acciones Rápidas' : 'Quick Actions'}
             </h3>
@@ -145,15 +155,7 @@ export default function InteractiveCTASection({ lang }: InteractiveCTASectionPro
             {quickActions.map((action, index) => {
               const Icon = action.icon
               return (
-                <motion.div
-                  key={action.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.1 * index }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
+                <ClientOnly key={action.id} fallback={
                   <Button
                     className={`w-full h-auto p-6 text-left ${action.color} ${action.hoverColor} text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300`}
                     onClick={() => {
@@ -187,19 +189,56 @@ export default function InteractiveCTASection({ lang }: InteractiveCTASectionPro
                       <ChevronRight className="w-5 h-5" />
                     </div>
                   </Button>
-                </motion.div>
+                }>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.1 * index }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Button
+                      className={`w-full h-auto p-6 text-left ${action.color} ${action.hoverColor} text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300`}
+                      onClick={() => {
+                        // Handle different actions
+                        switch(action.id) {
+                          case 'booking':
+                            window.open('https://booking.com', '_blank')
+                            break
+                          case 'chat':
+                            // Open chat widget
+                            alert(lang === 'es' ? 'Chat iniciado' : 'Chat started')
+                            break
+                          case 'call':
+                            window.location.href = 'tel:+527731234567'
+                            break
+                        }
+                      }}
+                    >
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+                          <Icon className="w-6 h-6" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-semibold text-lg mb-1">
+                            {lang === 'es' ? action.titleEs : action.titleEn}
+                          </div>
+                          <div className="text-white text-sm">
+                            {lang === 'es' ? action.descEs : action.descEn}
+                          </div>
+                        </div>
+                        <ChevronRight className="w-5 h-5" />
+                      </div>
+                    </Button>
+                  </motion.div>
+                </ClientOnly>
               )
             })}
-          </motion.div>
+          </div>
 
           {/* Newsletter & Features */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="space-y-8"
-          >
+          <div className="space-y-8">
             {/* Premium Newsletter */}
             <Card className="border-0 bg-white/95 backdrop-blur-md shadow-xl border border-gray-200/30">
               <CardContent className="p-8">
@@ -253,14 +292,7 @@ export default function InteractiveCTASection({ lang }: InteractiveCTASectionPro
               {features.map((feature, index) => {
                 const Icon = feature.icon
                 return (
-                  <motion.div
-                    key={feature.titleEn}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.1 * index }}
-                    whileHover={{ scale: 1.05 }}
-                  >
+                  <ClientOnly key={feature.titleEn} fallback={
                     <Card className="border-0 bg-white/90 backdrop-blur-md shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200/20">
                       <CardContent className="p-4 text-center">
                         <div className="w-10 h-10 bg-tepoztlan-sunset/10 text-tepoztlan-sunset rounded-lg flex items-center justify-center mx-auto mb-3">
@@ -274,26 +306,56 @@ export default function InteractiveCTASection({ lang }: InteractiveCTASectionPro
                         </div>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  }>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: 0.1 * index }}
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      <Card className="border-0 bg-white/90 backdrop-blur-md shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200/20">
+                        <CardContent className="p-4 text-center">
+                          <div className="w-10 h-10 bg-tepoztlan-sunset/10 text-tepoztlan-sunset rounded-lg flex items-center justify-center mx-auto mb-3">
+                            <Icon className="w-5 h-5" />
+                          </div>
+                          <div className="font-semibold text-sm text-gray-900 mb-1">
+                            {lang === 'es' ? feature.titleEs : feature.titleEn}
+                          </div>
+                          <div className="text-xs text-gray-700">
+                            {lang === 'es' ? feature.descEs : feature.titleEn}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  </ClientOnly>
                 )
               })}
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-center mt-16"
-        >
-          <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-tepoztlan-sunset to-tepoztlan-earth text-white rounded-full text-sm font-medium shadow-lg">
-            <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
-            {lang === 'es' ? 'Más de 10,000 experiencias exitosas' : 'Over 10,000 successful experiences'}
-          </div>
-        </motion.div>
+        <div className="text-center mt-16">
+          <ClientOnly fallback={
+            <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-tepoztlan-sunset to-tepoztlan-earth text-white rounded-full text-sm font-medium shadow-lg">
+              <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+              {lang === 'es' ? 'Más de 10,000 experiencias exitosas' : 'Over 10,000 successful experiences'}
+            </div>
+          }>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-tepoztlan-sunset to-tepoztlan-earth text-white rounded-full text-sm font-medium shadow-lg">
+                <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                {lang === 'es' ? 'Más de 10,000 experiencias exitosas' : 'Over 10,000 successful experiences'}
+              </div>
+            </motion.div>
+          </ClientOnly>
+        </div>
       </div>
     </section>
   )
