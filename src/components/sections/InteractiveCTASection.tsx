@@ -102,11 +102,11 @@ export default function InteractiveCTASection({ lang }: InteractiveCTASectionPro
   }
 
   return (
-    <section className="py-24 px-4 bg-gradient-to-br from-tepoztlan-sunset/5 via-white to-tepoztlan-earth/5 relative overflow-hidden">
+    <section className="py-24 px-4 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/3 right-1/3 w-96 h-96 bg-tepoztlan-sunset/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/3 left-1/3 w-80 h-80 bg-tepoztlan-earth/10 rounded-full blur-3xl" />
+        <div className="absolute top-1/3 right-1/3 w-96 h-96 bg-blue-100/30 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/3 left-1/3 w-80 h-80 bg-gray-100/50 rounded-full blur-3xl" />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
