@@ -29,11 +29,12 @@ import {
 } from 'lucide-react'
 
 interface SearchPageProps {
-  params: { lang: string }
+  params: Promise<{ lang: string }>
 }
 
-export default function SearchPage({ params }: SearchPageProps) {
-  const lang = params.lang as Locale
+export default async function SearchPage({ params }: SearchPageProps) {
+  const { lang } = await params
+  const locale = lang as Locale
   const searchParams = useSearchParams()
   const router = useRouter()
   
@@ -42,7 +43,7 @@ export default function SearchPage({ params }: SearchPageProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [showFilters, setShowFilters] = useState(false)
   const [filters, setFilters] = useState<BusinessFilters>({})
-  const [popularSearches] = useState<string[]>(AdvancedSearchService.getPopularSearches(lang))
+  const [popularSearches] = useState<string[]>(AdvancedSearchService.getPopularSearches(locale))
 
   const performSearch = useCallback(async (searchQuery: string, searchFilters: BusinessFilters = {}) => {
     if (!searchQuery.trim() && Object.keys(searchFilters).length === 0) {
@@ -53,7 +54,7 @@ export default function SearchPage({ params }: SearchPageProps) {
     setIsLoading(true)
     try {
       const result = await AdvancedSearchService.search(searchQuery, {
-        lang,
+        locale,
         filters: searchFilters,
         fuzzySearch: true,
         includeAlternatives: true
@@ -64,7 +65,7 @@ export default function SearchPage({ params }: SearchPageProps) {
     } finally {
       setIsLoading(false)
     }
-  }, [lang])
+  }, [locale])
 
   // Debounced search function
   const debouncedSearch = useCallback((searchQuery: string, searchFilters: BusinessFilters) => {
@@ -80,9 +81,9 @@ export default function SearchPage({ params }: SearchPageProps) {
     if (newFilters.priceRange?.length) params.set('price', newFilters.priceRange.join(','))
     if (newFilters.rating) params.set('rating', newFilters.rating.toString())
     
-    const newURL = `${buildLocalizedUrl('buscar', lang)}?${params.toString()}`
+    const newURL = `${buildLocalizedUrl('buscar', locale)}?${params.toString()}`
     router.push(newURL, { scroll: false })
-  }, [lang, router])
+  }, [locale, router])
 
   // Handle search input change
   const handleSearchChange = (newQuery: string) => {
@@ -127,7 +128,7 @@ export default function SearchPage({ params }: SearchPageProps) {
       {/* Search Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-4">
-          {lang === 'es' ? 'Buscar en Tepoztlán' : 'Search in Tepoztlán'}
+          {locale === 'es' ? 'Buscar en Tepoztlán' : 'Search in Tepoztlán'}
         </h1>
         
         {/* Search Bar */}
@@ -135,7 +136,7 @@ export default function SearchPage({ params }: SearchPageProps) {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
           <Input
             type="text"
-            placeholder={lang === 'es' ? 'Buscar hoteles, restaurantes, experiencias...' : 'Search hotels, restaurants, experiences...'}
+            placeholder={locale === 'es' ? 'Buscar hoteles, restaurantes, experiencias...' : 'Search hotels, restaurants, experiences...'}
             value={query}
             onChange={(e) => handleSearchChange(e.target.value)}
             className="pl-10 text-lg h-12"
@@ -146,7 +147,7 @@ export default function SearchPage({ params }: SearchPageProps) {
         {!query && !searchResult && (
           <div className="mb-6">
             <p className="text-sm text-muted-foreground mb-2">
-              {lang === 'es' ? 'Búsquedas populares:' : 'Popular searches:'}
+              {locale === 'es' ? 'Búsquedas populares:' : 'Popular searches:'}
             </p>
             <div className="flex flex-wrap gap-2">
               {popularSearches.map((search, index) => (
@@ -172,7 +173,7 @@ export default function SearchPage({ params }: SearchPageProps) {
           <div className="sticky top-4">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold">
-                {lang === 'es' ? 'Filtros' : 'Filters'}
+                {locale === 'es' ? 'Filtros' : 'Filters'}
               </h3>
               <Button
                 variant="ghost"
@@ -188,22 +189,22 @@ export default function SearchPage({ params }: SearchPageProps) {
               {/* Category Filter */}
               <div>
                 <Label className="text-sm font-medium mb-2 block">
-                  {lang === 'es' ? 'Categoría' : 'Category'}
+                  {locale === 'es' ? 'Categoría' : 'Category'}
                 </Label>
                 <Select 
                   value={filters.category || ''} 
                   onValueChange={(value) => handleFilterChange({...filters, category: value || undefined})}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder={lang === 'es' ? 'Todas las categorías' : 'All categories'} />
+                    <SelectValue placeholder={locale === 'es' ? 'Todas las categorías' : 'All categories'} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">{lang === 'es' ? 'Todas' : 'All'}</SelectItem>
-                    <SelectItem value="hotel">{lang === 'es' ? 'Hoteles' : 'Hotels'}</SelectItem>
-                    <SelectItem value="restaurant">{lang === 'es' ? 'Restaurantes' : 'Restaurants'}</SelectItem>
-                    <SelectItem value="experience">{lang === 'es' ? 'Experiencias' : 'Experiences'}</SelectItem>
-                    <SelectItem value="service">{lang === 'es' ? 'Servicios' : 'Services'}</SelectItem>
-                    <SelectItem value="shop">{lang === 'es' ? 'Compras' : 'Shopping'}</SelectItem>
+                    <SelectItem value="">{locale === 'es' ? 'Todas' : 'All'}</SelectItem>
+                    <SelectItem value="hotel">{locale === 'es' ? 'Hoteles' : 'Hotels'}</SelectItem>
+                    <SelectItem value="restaurant">{locale === 'es' ? 'Restaurantes' : 'Restaurants'}</SelectItem>
+                    <SelectItem value="experience">{locale === 'es' ? 'Experiencias' : 'Experiences'}</SelectItem>
+                    <SelectItem value="service">{locale === 'es' ? 'Servicios' : 'Services'}</SelectItem>
+                    <SelectItem value="shop">{locale === 'es' ? 'Compras' : 'Shopping'}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -211,7 +212,7 @@ export default function SearchPage({ params }: SearchPageProps) {
               {/* Price Range Filter */}
               <div>
                 <Label className="text-sm font-medium mb-2 block">
-                  {lang === 'es' ? 'Rango de Precio' : 'Price Range'}
+                  {locale === 'es' ? 'Rango de Precio' : 'Price Range'}
                 </Label>
                 <div className="space-y-2">
                   {['$', '$$', '$$$', '$$$$'].map((price) => (
@@ -236,17 +237,17 @@ export default function SearchPage({ params }: SearchPageProps) {
               {/* Rating Filter */}
               <div>
                 <Label className="text-sm font-medium mb-2 block">
-                  {lang === 'es' ? 'Calificación Mínima' : 'Minimum Rating'}
+                  {locale === 'es' ? 'Calificación Mínima' : 'Minimum Rating'}
                 </Label>
                 <Select 
                   value={filters.rating?.toString() || ''} 
                   onValueChange={(value) => handleFilterChange({...filters, rating: value ? parseFloat(value) : undefined})}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder={lang === 'es' ? 'Cualquier calificación' : 'Any rating'} />
+                    <SelectValue placeholder={locale === 'es' ? 'Cualquier calificación' : 'Any rating'} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">{lang === 'es' ? 'Cualquiera' : 'Any'}</SelectItem>
+                    <SelectItem value="">{locale === 'es' ? 'Cualquiera' : 'Any'}</SelectItem>
                     <SelectItem value="4">4+ ★</SelectItem>
                     <SelectItem value="4.5">4.5+ ★</SelectItem>
                   </SelectContent>
@@ -256,7 +257,7 @@ export default function SearchPage({ params }: SearchPageProps) {
               {/* Amenities Filter */}
               <div>
                 <Label className="text-sm font-medium mb-2 block">
-                  {lang === 'es' ? 'Amenidades' : 'Amenities'}
+                  {locale === 'es' ? 'Amenidades' : 'Amenities'}
                 </Label>
                 <div className="space-y-2">
                   <div className="flex items-center space-x-2">
@@ -282,7 +283,7 @@ export default function SearchPage({ params }: SearchPageProps) {
                     />
                     <Label htmlFor="parking" className="text-sm flex items-center gap-1">
                       <Car className="h-3 w-3" />
-                      {lang === 'es' ? 'Estacionamiento' : 'Parking'}
+                      {locale === 'es' ? 'Estacionamiento' : 'Parking'}
                     </Label>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -295,7 +296,7 @@ export default function SearchPage({ params }: SearchPageProps) {
                     />
                     <Label htmlFor="cards" className="text-sm flex items-center gap-1">
                       <CreditCard className="h-3 w-3" />
-                      {lang === 'es' ? 'Acepta tarjetas' : 'Accepts cards'}
+                      {locale === 'es' ? 'Acepta tarjetas' : 'Accepts cards'}
                     </Label>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -322,7 +323,7 @@ export default function SearchPage({ params }: SearchPageProps) {
                   className="w-full"
                 >
                   <X className="h-4 w-4 mr-2" />
-                  {lang === 'es' ? 'Limpiar filtros' : 'Clear filters'}
+                  {locale === 'es' ? 'Limpiar filtros' : 'Clear filters'}
                 </Button>
               )}
             </div>
@@ -343,10 +344,10 @@ export default function SearchPage({ params }: SearchPageProps) {
               <div className="flex items-center justify-between mb-6">
                 <p className="text-muted-foreground">
                   {searchResult.totalResults > 0 
-                    ? `${searchResult.totalResults} ${lang === 'es' ? 'resultados encontrados' : 'results found'}`
-                    : lang === 'es' ? 'No se encontraron resultados' : 'No results found'
+                    ? `${searchResult.totalResults} ${locale === 'es' ? 'resultados encontrados' : 'results found'}`
+                    : locale === 'es' ? 'No se encontraron resultados' : 'No results found'
                   }
-                  {searchResult.query && ` ${lang === 'es' ? 'para' : 'for'} "${searchResult.query}"`}
+                  {searchResult.query && ` ${locale === 'es' ? 'para' : 'for'} "${searchResult.query}"`}
                 </p>
               </div>
 
@@ -354,7 +355,7 @@ export default function SearchPage({ params }: SearchPageProps) {
               {searchResult.suggestions && searchResult.suggestions.length > 0 && (
                 <div className="mb-6">
                   <p className="text-sm text-muted-foreground mb-2">
-                    {lang === 'es' ? '¿Quisiste decir?' : 'Did you mean?'}
+                    {locale === 'es' ? '¿Quisiste decir?' : 'Did you mean?'}
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {searchResult.suggestions.map((suggestion, index) => (
@@ -374,7 +375,7 @@ export default function SearchPage({ params }: SearchPageProps) {
               {/* Results Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {searchResult.businesses.map((business) => (
-                  <BusinessCard key={business.id} business={business} lang={lang} />
+                  <BusinessCard key={business.id} business={business} locale={locale} />
                 ))}
               </div>
             </>
@@ -385,7 +386,7 @@ export default function SearchPage({ params }: SearchPageProps) {
             <div className="text-center py-12">
               <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
               <p className="text-muted-foreground">
-                {lang === 'es' 
+                {locale === 'es' 
                   ? 'Introduce una búsqueda para encontrar lugares en Tepoztlán' 
                   : 'Enter a search to find places in Tepoztlán'
                 }
@@ -399,19 +400,19 @@ export default function SearchPage({ params }: SearchPageProps) {
 }
 
 // Business card component
-function BusinessCard({ business, lang }: { business: BusinessListing; lang: Locale }) {
+function BusinessCard({ business, locale }: { business: BusinessListing; locale: Locale }) {
   const getCategoryUrl = (category: string) => {
     const categoryMap: Record<string, string> = {
-      hotel: lang === 'es' ? 'hospedaje' : 'stay',
-      restaurant: lang === 'es' ? 'comer' : 'eat',
-      experience: lang === 'es' ? 'experiencias' : 'experience',
-      service: lang === 'es' ? 'servicios' : 'services',
-      shop: lang === 'es' ? 'compras' : 'shop'
+      hotel: locale === 'es' ? 'hospedaje' : 'stay',
+      restaurant: locale === 'es' ? 'comer' : 'eat',
+      experience: locale === 'es' ? 'experiencias' : 'experience',
+      service: locale === 'es' ? 'servicios' : 'services',
+      shop: locale === 'es' ? 'compras' : 'shop'
     }
     return categoryMap[category] || category
   }
 
-  const businessUrl = `/${lang}/${getCategoryUrl(business.category)}/${business.slug[lang]}`
+  const businessUrl = `/${locale}/${getCategoryUrl(business.category)}/${business.slug[locale]}`
 
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow">
@@ -420,7 +421,7 @@ function BusinessCard({ business, lang }: { business: BusinessListing; lang: Loc
           <div className="relative aspect-video">
             <Image
               src={business.images[0]}
-              alt={business.name[lang]}
+              alt={business.name[locale]}
               fill
               className="object-cover"
               placeholder="blur"
@@ -428,7 +429,7 @@ function BusinessCard({ business, lang }: { business: BusinessListing; lang: Loc
             />
             {business.isVerified && (
               <Badge className="absolute top-2 right-2 bg-green-100 text-green-800">
-                {lang === 'es' ? 'Verificado' : 'Verified'}
+                {locale === 'es' ? 'Verificado' : 'Verified'}
               </Badge>
             )}
           </div>
@@ -436,7 +437,7 @@ function BusinessCard({ business, lang }: { business: BusinessListing; lang: Loc
         
         <CardContent className="p-4">
           <div className="flex items-start justify-between mb-2">
-            <h3 className="font-semibold text-lg line-clamp-1">{business.name[lang]}</h3>
+            <h3 className="font-semibold text-lg line-clamp-1">{business.name[locale]}</h3>
             <div className="flex items-center gap-1 text-sm">
               <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
               <span>{business.rating}</span>
@@ -444,12 +445,12 @@ function BusinessCard({ business, lang }: { business: BusinessListing; lang: Loc
           </div>
           
           <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
-            {business.description[lang]}
+            {business.description[locale]}
           </p>
           
           <div className="flex items-center text-sm text-muted-foreground mb-3">
             <MapPin className="h-4 w-4 mr-1" />
-            <span className="line-clamp-1">{business.location.address[lang]}</span>
+            <span className="line-clamp-1">{business.location.address[locale]}</span>
           </div>
           
           <div className="flex items-center justify-between">

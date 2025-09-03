@@ -1,5 +1,64 @@
 @import "tailwindcss";
 
+/* Premium Animation Keyframes */
+@keyframes gradient-shift {
+  0%, 100% { transform: translateX(0%) translateY(0%); }
+  25% { transform: translateX(25%) translateY(-10%); }
+  50% { transform: translateX(-25%) translateY(5%); }
+  75% { transform: translateX(10%) translateY(-15%); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(251, 146, 60, 0.5);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 0 40px rgba(251, 146, 60, 0.8);
+    transform: scale(1.05);
+  }
+}
+
+/* 3D Transform Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-gpu {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Animation Utilities */
+.animate-gradient-shift {
+  animation: gradient-shift 20s ease infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animation-delay-2s {
+  animation-delay: 2s;
+}
+
+.animation-delay-4s {
+  animation-delay: 4s;
+}
+
+.animation-delay-6s {
+  animation-delay: 6s;
+}
+
 /* Tailwind CSS 4.1 Theme Configuration */
 @theme {
   /* Tepoztlán Brand Colors */
