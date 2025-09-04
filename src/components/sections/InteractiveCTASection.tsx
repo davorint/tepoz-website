@@ -1,11 +1,6 @@
-'use client'
-
-import { useState } from 'react'
-import { motion } from 'motion/react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import ClientOnly from '@/components/ui/client-only'
+import { Badge } from '@/components/ui/badge'
 import { 
   Calendar, 
   MessageCircle, 
@@ -16,7 +11,10 @@ import {
   Users, 
   Star,
   ChevronRight,
-  Send
+  Sparkles,
+  Shield,
+  Award,
+  Zap
 } from 'lucide-react'
 import { Locale } from '@/lib/i18n'
 
@@ -26,335 +24,335 @@ interface InteractiveCTASectionProps {
 
 const quickActions = [
   {
-    id: 'booking',
+    id: 'register',
     icon: Calendar,
-    titleEs: 'Reservar Ahora',
-    titleEn: 'Book Now',
-    descEs: 'Asegura tu hospedaje con descuentos exclusivos',
-    descEn: 'Secure your accommodation with exclusive discounts',
-    color: 'bg-gradient-to-r from-blue-500 to-blue-600',
-    hoverColor: 'hover:from-blue-600 hover:to-blue-700'
+    titleEs: 'Registra tu Negocio',
+    titleEn: 'Register Your Business',
+    descEs: 'Únete al directorio líder de Tepoztlán',
+    descEn: 'Join Tepoztlán\'s leading directory',
+    gradient: 'from-blue-400 to-cyan-400',
+    shadowColor: 'shadow-blue-500/20',
+    badge: 'GRATIS',
+    badgeColor: 'bg-blue-500'
   },
   {
-    id: 'chat',
+    id: 'explore',
     icon: MessageCircle,
-    titleEs: 'Chat en Vivo',
-    titleEn: 'Live Chat',
-    descEs: 'Obtén ayuda instantánea de expertos locales',
-    descEn: 'Get instant help from local experts',
-    color: 'bg-gradient-to-r from-green-500 to-green-600',
-    hoverColor: 'hover:from-green-600 hover:to-green-700'
+    titleEs: 'Explorar Negocios',
+    titleEn: 'Explore Businesses',
+    descEs: 'Encuentra los mejores lugares y servicios',
+    descEn: 'Find the best places and services',
+    gradient: 'from-emerald-400 to-green-400',
+    shadowColor: 'shadow-green-500/20',
+    badge: '500+',
+    badgeColor: 'bg-green-500'
   },
   {
-    id: 'call',
+    id: 'contact',
     icon: Phone,
-    titleEs: 'Llamar',
-    titleEn: 'Call Us',
-    descEs: 'Habla directamente con nuestros asesores',
-    descEn: 'Speak directly with our advisors',
-    color: 'bg-gradient-to-r from-purple-500 to-purple-600',
-    hoverColor: 'hover:from-purple-600 hover:to-purple-700'
+    titleEs: 'Contactar Negocios',
+    titleEn: 'Contact Businesses',
+    descEs: 'Conecta directamente con propietarios',
+    descEn: 'Connect directly with owners',
+    gradient: 'from-purple-400 to-pink-400',
+    shadowColor: 'shadow-purple-500/20',
+    badge: 'Directo',
+    badgeColor: 'bg-purple-500'
   }
 ]
 
 const features = [
   {
     icon: MapPin,
-    titleEs: 'Ubicación Premium',
-    titleEn: 'Premium Location',
-    descEs: 'Centro histórico de Tepoztlán'
+    titleEs: 'Mapa Interactivo',
+    titleEn: 'Interactive Map',
+    descEs: 'Localiza negocios',
+    gradient: 'from-orange-400 to-red-400'
   },
   {
     icon: Clock,
-    titleEs: 'Disponible 24/7',
-    titleEn: 'Available 24/7',
-    descEs: 'Asistencia en todo momento'
+    titleEs: 'Horarios Actualizados',
+    titleEn: 'Updated Hours',
+    descEs: 'En tiempo real',
+    gradient: 'from-blue-400 to-purple-400'
   },
   {
     icon: Users,
-    titleEs: 'Guías Expertos',
-    titleEn: 'Expert Guides',
-    descEs: 'Conocimiento local auténtico'
+    titleEs: 'Reseñas Verificadas',
+    titleEn: 'Verified Reviews',
+    descEs: 'Opiniones reales',
+    gradient: 'from-green-400 to-teal-400'
   },
   {
     icon: Star,
-    titleEs: 'Servicio 5 Estrellas',
-    titleEn: '5-Star Service',
-    descEs: 'Experiencias inolvidables'
+    titleEs: 'Negocios Premium',
+    titleEn: 'Premium Businesses',
+    descEs: 'Los mejores',
+    gradient: 'from-yellow-400 to-orange-400'
+  }
+]
+
+const premiumBenefits = [
+  {
+    icon: Shield,
+    text: 'Información Verificada',
+    textEn: 'Verified Information'
+  },
+  {
+    icon: Award,
+    text: 'Negocios Certificados',
+    textEn: 'Certified Businesses'
+  },
+  {
+    icon: Zap,
+    text: 'Búsqueda Instantánea',
+    textEn: 'Instant Search'
+  },
+  {
+    icon: Sparkles,
+    text: 'Ofertas Exclusivas',
+    textEn: 'Exclusive Deals'
   }
 ]
 
 export default function InteractiveCTASection({ lang }: InteractiveCTASectionProps) {
-  const [email, setEmail] = useState('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
-  const handleNewsletterSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    setIsSubmitting(false)
-    setEmail('')
-    
-    // Show success message (could be implemented with toast)
-    alert(lang === 'es' ? '¡Suscripción exitosa!' : 'Successfully subscribed!')
-  }
-
   return (
-    <section className="py-24 px-4 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 relative overflow-hidden">
-      {/* Background Elements */}
+    <section className="py-32 px-4 bg-gradient-to-br from-indigo-900 via-blue-900 to-indigo-900 relative overflow-hidden">
+      {/* Ultra Premium animated background */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/3 right-1/3 w-96 h-96 bg-blue-100/30 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/3 left-1/3 w-80 h-80 bg-gray-100/50 rounded-full blur-3xl" />
+        {/* Large animated orbs */}
+        <div className="absolute top-10 left-10 w-[40rem] h-[40rem] bg-blue-500/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-10 right-10 w-[35rem] h-[35rem] bg-cyan-500/20 rounded-full blur-3xl animate-pulse animation-delay-2s" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[45rem] h-[45rem] bg-indigo-500/10 rounded-full blur-3xl animate-pulse animation-delay-4s" />
+        
+        {/* Geometric pattern overlay */}
+        <div className="absolute inset-0 opacity-10" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L45 15L30 30L15 15L30 0z' fill='%233b82f6' fill-opacity='0.1'/%3E%3C/svg%3E")`,
+          backgroundSize: '60px 60px'
+        }} />
+        
+        {/* Premium mesh gradient */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_transparent,_rgba(59,130,246,0.3)),radial-gradient(ellipse_at_bottom,_transparent,_rgba(14,165,233,0.3))]" />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <ClientOnly fallback={
-            <div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-700 to-gray-600 bg-clip-text text-transparent">
-                {lang === 'es' ? 'Planea tu Visita Perfecta' : 'Plan Your Perfect Visit'}
-              </h2>
-              <p className="text-xl text-gray-800 max-w-3xl mx-auto">
-                {lang === 'es' 
-                  ? 'Todo lo que necesitas para una experiencia inolvidable en Tepoztlán está a un clic de distancia'
-                  : 'Everything you need for an unforgettable experience in Tepoztlán is just a click away'
-                }
-              </p>
+        {/* Ultra Premium Header */}
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center gap-3 mb-8">
+            <div className="h-px w-20 bg-gradient-to-r from-transparent to-cyan-400" />
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-400 blur-lg" />
+              <Badge className="relative bg-gradient-to-r from-cyan-400 to-blue-400 text-white px-8 py-3 text-sm font-semibold tracking-wider uppercase border-0 shadow-2xl">
+                ✨ {lang === 'es' ? 'Directorio Premium' : 'Premium Directory'} ✨
+              </Badge>
             </div>
-          }>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-700 to-gray-600 bg-clip-text text-transparent">
-                {lang === 'es' ? 'Planea tu Visita Perfecta' : 'Plan Your Perfect Visit'}
-              </h2>
-              <p className="text-xl text-gray-800 max-w-3xl mx-auto">
-                {lang === 'es' 
-                  ? 'Todo lo que necesitas para una experiencia inolvidable en Tepoztlán está a un clic de distancia'
-                  : 'Everything you need for an unforgettable experience in Tepoztlán is just a click away'
-                }
-              </p>
-            </motion.div>
-          </ClientOnly>
+            <div className="h-px w-20 bg-gradient-to-l from-transparent to-blue-400" />
+          </div>
+          
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 font-sans">
+            <span className="text-white drop-shadow-2xl">
+              {lang === 'es' ? 'Conecta con' : 'Connect with'}
+            </span>
+            <br />
+            <span className="bg-gradient-to-r from-cyan-300 via-blue-300 to-indigo-300 bg-clip-text text-transparent drop-shadow-2xl">
+              {lang === 'es' ? 'Negocios Locales' : 'Local Businesses'}
+            </span>
+          </h2>
+          
+          <p className="text-xl md:text-2xl text-white/80 font-light max-w-3xl mx-auto leading-relaxed mb-8">
+            {lang === 'es' 
+              ? 'Tu puerta de entrada a los mejores negocios y servicios de Tepoztlán'
+              : 'Your gateway to the best businesses and services in Tepoztlán'
+            }
+          </p>
+
+          {/* Premium Benefits Bar */}
+          <div className="flex flex-wrap justify-center gap-6">
+            {premiumBenefits.map((benefit, index) => {
+              const Icon = benefit.icon
+              return (
+                <div 
+                  key={index}
+                  className="flex items-center gap-2 text-white/70 animate-fade-in-up"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <Icon className="w-5 h-5 text-cyan-400" />
+                  <span className="text-sm font-medium">
+                    {lang === 'es' ? benefit.text : benefit.textEn}
+                  </span>
+                </div>
+              )
+            })}
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Quick Actions */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          {/* Ultra Premium Quick Actions */}
           <div className="space-y-6">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">
-              {lang === 'es' ? 'Acciones Rápidas' : 'Quick Actions'}
-            </h3>
+            <div className="text-center lg:text-left mb-8">
+              <h3 className="text-3xl font-bold text-white mb-3 font-sans">
+                {lang === 'es' ? 'Acciones Rápidas' : 'Quick Actions'}
+              </h3>
+              <p className="text-white/60">
+                {lang === 'es' ? 'Herramientas para explorar y conectar con negocios' : 'Tools to explore and connect with businesses'}
+              </p>
+            </div>
             
             {quickActions.map((action, index) => {
               const Icon = action.icon
               return (
-                <ClientOnly key={action.id} fallback={
-                  <Button
-                    className={`w-full h-auto p-6 text-left ${action.color} ${action.hoverColor} text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300`}
-                    onClick={() => {
-                      // Handle different actions
-                      switch(action.id) {
-                        case 'booking':
-                          window.open('https://booking.com', '_blank')
-                          break
-                        case 'chat':
-                          // Open chat widget
-                          alert(lang === 'es' ? 'Chat iniciado' : 'Chat started')
-                          break
-                        case 'call':
-                          window.location.href = 'tel:+527731234567'
-                          break
-                      }
-                    }}
-                  >
-                    <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
-                        <Icon className="w-6 h-6" />
+                <div
+                  key={action.id}
+                  className="group relative animate-fade-in-up"
+                  style={{ animationDelay: `${index * 150}ms` }}
+                >
+                  {/* Glow effect */}
+                  <div className={`absolute inset-0 bg-gradient-to-r ${action.gradient} opacity-0 group-hover:opacity-20 blur-xl transition-all duration-700 rounded-2xl`} />
+                  
+                  {/* Glassmorphism button */}
+                  <Button className="relative w-full h-auto p-8 text-left bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl hover:shadow-3xl hover:bg-white/15 transition-all duration-500 group-hover:scale-[1.02] rounded-2xl">
+                    {/* Premium Badge */}
+                    <div className={`absolute top-4 right-4 ${action.badgeColor} text-white text-xs px-3 py-1 rounded-full font-semibold animate-pulse`}>
+                      {action.badge}
+                    </div>
+                    
+                    <div className="flex items-center space-x-6">
+                      {/* Ultra Premium Icon Container */}
+                      <div className="relative">
+                        <div className={`absolute inset-0 bg-gradient-to-r ${action.gradient} rounded-2xl blur-lg opacity-60 group-hover:opacity-80 transition-opacity`} />
+                        <div className={`relative w-16 h-16 bg-gradient-to-r ${action.gradient} rounded-2xl flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform`}>
+                          <Icon className="w-8 h-8 text-white" />
+                        </div>
                       </div>
+                      
                       <div className="flex-1">
-                        <div className="font-semibold text-lg mb-1">
+                        <div className="font-bold text-xl text-white mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:from-cyan-300 group-hover:to-blue-300 transition-all">
                           {lang === 'es' ? action.titleEs : action.titleEn}
                         </div>
-                        <div className="text-white text-sm">
+                        <div className="text-white/70 text-sm leading-relaxed">
                           {lang === 'es' ? action.descEs : action.descEn}
                         </div>
                       </div>
-                      <ChevronRight className="w-5 h-5" />
+                      
+                      <ChevronRight className="w-6 h-6 text-white/50 group-hover:text-white group-hover:translate-x-2 transition-all" />
                     </div>
                   </Button>
-                }>
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.1 * index }}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <Button
-                      className={`w-full h-auto p-6 text-left ${action.color} ${action.hoverColor} text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300`}
-                      onClick={() => {
-                        // Handle different actions
-                        switch(action.id) {
-                          case 'booking':
-                            window.open('https://booking.com', '_blank')
-                            break
-                          case 'chat':
-                            // Open chat widget
-                            alert(lang === 'es' ? 'Chat iniciado' : 'Chat started')
-                            break
-                          case 'call':
-                            window.location.href = 'tel:+527731234567'
-                            break
-                        }
-                      }}
-                    >
-                      <div className="flex items-center space-x-4">
-                        <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
-                          <Icon className="w-6 h-6" />
-                        </div>
-                        <div className="flex-1">
-                          <div className="font-semibold text-lg mb-1">
-                            {lang === 'es' ? action.titleEs : action.titleEn}
-                          </div>
-                          <div className="text-white text-sm">
-                            {lang === 'es' ? action.descEs : action.descEn}
-                          </div>
-                        </div>
-                        <ChevronRight className="w-5 h-5" />
-                      </div>
-                    </Button>
-                  </motion.div>
-                </ClientOnly>
+                </div>
               )
             })}
           </div>
 
-          {/* Newsletter & Features */}
+          {/* Ultra Premium Newsletter & Features */}
           <div className="space-y-8">
-            {/* Premium Newsletter */}
-            <Card className="border-0 bg-white/95 backdrop-blur-md shadow-xl border border-gray-200/30">
-              <CardContent className="p-8">
-                <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                    {lang === 'es' ? 'Experiencias VIP' : 'VIP Experiences'}
-                  </h3>
-                  <p className="text-gray-700">
-                    {lang === 'es' 
-                      ? 'Suscríbete y accede a ofertas exclusivas y contenido premium'
-                      : 'Subscribe and access exclusive offers and premium content'
-                    }
-                  </p>
-                </div>
+            {/* VIP Access Card */}
+            <div className="relative group animate-fade-in-up" style={{ animationDelay: '300ms' }}>
+              {/* Card glow */}
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-400 opacity-0 group-hover:opacity-30 blur-xl transition-all duration-700 rounded-3xl" />
+              
+              {/* Glassmorphism card */}
+              <Card className="relative bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl hover:shadow-3xl rounded-3xl overflow-hidden">
+                {/* Premium accent */}
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-orange-400 opacity-80" />
                 
-                <form onSubmit={handleNewsletterSubmit} className="space-y-4">
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                    <Input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder={lang === 'es' ? 'tu@email.com' : 'your@email.com'}
-                      className="pl-10 h-12 border-2 border-gray-200 focus:border-tepoztlan-sunset"
-                      required
-                    />
+                <CardContent className="p-10">
+                  <div className="text-center mb-8">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-amber-400 to-orange-400 rounded-2xl mb-4 shadow-2xl">
+                      <Sparkles className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-3xl font-bold text-white mb-3">
+                      {lang === 'es' ? 'Acceso VIP' : 'VIP Access'}
+                    </h3>
+                    <p className="text-white/70">
+                      {lang === 'es' 
+                        ? 'Únete a nuestra lista exclusiva para ofertas premium'
+                        : 'Join our exclusive list for premium offers'
+                      }
+                    </p>
                   </div>
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full h-12 bg-tepoztlan-sunset hover:bg-tepoztlan-sunset/90 text-white font-semibold"
-                  >
-                    {isSubmitting ? (
-                      <div className="flex items-center space-x-2">
-                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        <span>{lang === 'es' ? 'Suscribiendo...' : 'Subscribing...'}</span>
+                  
+                  <div className="space-y-4">
+                    <div className="relative group">
+                      <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-400 rounded-xl blur opacity-0 group-hover:opacity-50 transition-opacity" />
+                      <div className="relative">
+                        <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60 w-5 h-5 z-10" />
+                        <input
+                          type="email"
+                          placeholder={lang === 'es' ? 'tu@email.com' : 'your@email.com'}
+                          className="w-full pl-12 pr-4 h-14 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-white/40 focus:bg-white/10 focus:border-amber-400 transition-all duration-300 focus:outline-none"
+                        />
                       </div>
-                    ) : (
-                      <div className="flex items-center space-x-2">
-                        <Send className="w-4 h-4" />
-                        <span>{lang === 'es' ? 'Suscribirse' : 'Subscribe'}</span>
+                    </div>
+                    
+                    <Button className="w-full h-14 bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white font-bold text-lg rounded-xl shadow-2xl hover:shadow-amber-500/25 transition-all duration-500 transform hover:scale-[1.02]">
+                      <div className="flex items-center justify-center space-x-3">
+                        <Sparkles className="w-5 h-5" />
+                        <span>{lang === 'es' ? 'Obtener Acceso VIP' : 'Get VIP Access'}</span>
+                        <Sparkles className="w-5 h-5" />
                       </div>
-                    )}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
 
-            {/* Features Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            {/* Ultra Premium Features Grid */}
+            <div className="grid grid-cols-2 gap-6">
               {features.map((feature, index) => {
                 const Icon = feature.icon
                 return (
-                  <ClientOnly key={feature.titleEn} fallback={
-                    <Card className="border-0 bg-white/90 backdrop-blur-md shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200/20">
-                      <CardContent className="p-4 text-center">
-                        <div className="w-10 h-10 bg-tepoztlan-sunset/10 text-tepoztlan-sunset rounded-lg flex items-center justify-center mx-auto mb-3">
-                          <Icon className="w-5 h-5" />
+                  <div 
+                    key={feature.titleEn} 
+                    className="group relative animate-fade-in-up"
+                    style={{ animationDelay: `${500 + index * 100}ms` }}
+                  >
+                    {/* Feature glow */}
+                    <div className={`absolute inset-0 bg-gradient-to-r ${feature.gradient} opacity-0 group-hover:opacity-30 blur-lg transition-all duration-500 rounded-2xl`} />
+                    
+                    {/* Glassmorphism feature card */}
+                    <Card className="relative bg-white/10 backdrop-blur-xl border border-white/20 shadow-xl hover:shadow-2xl rounded-2xl overflow-hidden group-hover:bg-white/15 transition-all duration-500">
+                      <CardContent className="p-6 text-center">
+                        <div className="relative mb-4">
+                          <div className={`absolute inset-0 bg-gradient-to-r ${feature.gradient} rounded-xl blur-lg opacity-40 group-hover:opacity-60 transition-opacity`} />
+                          <div className={`relative w-14 h-14 bg-gradient-to-r ${feature.gradient} rounded-xl flex items-center justify-center mx-auto shadow-xl group-hover:scale-110 transition-transform`}>
+                            <Icon className="w-7 h-7 text-white" />
+                          </div>
                         </div>
-                        <div className="font-semibold text-sm text-gray-900 mb-1">
+                        <div className="font-bold text-white mb-1">
                           {lang === 'es' ? feature.titleEs : feature.titleEn}
                         </div>
-                        <div className="text-xs text-gray-700">
+                        <div className="text-xs text-white/60">
                           {lang === 'es' ? feature.descEs : feature.titleEn}
                         </div>
                       </CardContent>
                     </Card>
-                  }>
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: 0.1 * index }}
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      <Card className="border-0 bg-white/90 backdrop-blur-md shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200/20">
-                        <CardContent className="p-4 text-center">
-                          <div className="w-10 h-10 bg-tepoztlan-sunset/10 text-tepoztlan-sunset rounded-lg flex items-center justify-center mx-auto mb-3">
-                            <Icon className="w-5 h-5" />
-                          </div>
-                          <div className="font-semibold text-sm text-gray-900 mb-1">
-                            {lang === 'es' ? feature.titleEs : feature.titleEn}
-                          </div>
-                          <div className="text-xs text-gray-700">
-                            {lang === 'es' ? feature.descEs : feature.titleEn}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  </ClientOnly>
+                  </div>
                 )
               })}
             </div>
           </div>
         </div>
 
-        {/* Bottom CTA */}
-        <div className="text-center mt-16">
-          <ClientOnly fallback={
-            <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-tepoztlan-sunset to-tepoztlan-earth text-white rounded-full text-sm font-medium shadow-lg">
-              <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
-              {lang === 'es' ? 'Más de 10,000 experiencias exitosas' : 'Over 10,000 successful experiences'}
-            </div>
-          }>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
-              <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-tepoztlan-sunset to-tepoztlan-earth text-white rounded-full text-sm font-medium shadow-lg">
-                <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
-                {lang === 'es' ? 'Más de 10,000 experiencias exitosas' : 'Over 10,000 successful experiences'}
+        {/* Ultra Premium Bottom CTA */}
+        <div className="text-center mt-20">
+          <div className="relative inline-flex items-center gap-4 px-10 py-5 group">
+            {/* Glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full blur-xl opacity-50 group-hover:opacity-70 transition-opacity" />
+            
+            {/* Button */}
+            <div className="relative bg-gradient-to-r from-cyan-400/20 to-blue-400/20 backdrop-blur-xl border border-white/30 rounded-full px-10 py-5 shadow-2xl">
+              <div className="flex items-center gap-4">
+                <div className="flex -space-x-2">
+                  <div className="w-3 h-3 bg-cyan-400 rounded-full animate-pulse" />
+                  <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse animation-delay-1s" />
+                  <div className="w-3 h-3 bg-indigo-400 rounded-full animate-pulse animation-delay-2s" />
+                </div>
+                <span className="text-white font-semibold text-lg">
+                  {lang === 'es' ? 'Más de 10,000 experiencias exitosas' : 'Over 10,000 successful experiences'}
+                </span>
+                <Award className="w-6 h-6 text-amber-400" />
               </div>
-            </motion.div>
-          </ClientOnly>
+            </div>
+          </div>
         </div>
       </div>
     </section>

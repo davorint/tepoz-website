@@ -137,7 +137,7 @@ export default function WeatherWidget({ lang }: WeatherWidgetProps) {
               <h3 className="text-lg font-semibold text-gray-900">
                 {lang === 'es' ? 'Clima en Tepoztlán' : 'Weather in Tepoztlán'}
               </h3>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-gray-500" suppressHydrationWarning>
                 {new Date().toLocaleDateString(lang === 'es' ? 'es-MX' : 'en-US', {
                   weekday: 'long',
                   year: 'numeric',

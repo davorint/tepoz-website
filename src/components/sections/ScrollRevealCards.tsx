@@ -1,12 +1,5 @@
-'use client'
-
-import { useEffect, useRef, useState } from 'react'
-import { gsap } from 'gsap'
 import { Locale } from '@/lib/i18n'
-import ClientOnly from '@/components/ui/client-only'
-
-// Dynamic import for ScrollTrigger
-let ScrollTrigger: typeof import('gsap/ScrollTrigger').ScrollTrigger | null = null
+import { Badge } from '@/components/ui/badge'
 
 interface ScrollRevealCardsProps {
   lang: Locale
@@ -21,7 +14,10 @@ const directoryItems = [
     descEn: 'Traditional Mexican cuisine and international fusion',
     icon: '🍽️',
     count: '150+',
-    color: 'from-orange-500 to-red-500'
+    color: 'from-orange-400 to-rose-400',
+    glowColor: 'orange',
+    badge: 'Popular',
+    trending: true
   },
   {
     id: 2,
@@ -31,7 +27,10 @@ const directoryItems = [
     descEn: 'Boutique hotels, cabins and eco-lodges',
     icon: '🏨',
     count: '80+',
-    color: 'from-blue-500 to-purple-500'
+    color: 'from-blue-400 to-cyan-400',
+    glowColor: 'blue',
+    badge: 'Premium',
+    trending: false
   },
   {
     id: 3,
@@ -41,7 +40,10 @@ const directoryItems = [
     descEn: 'Mezcal, pulque and craft cocktails',
     icon: '🍹',
     count: '45+',
-    color: 'from-purple-500 to-pink-500'
+    color: 'from-purple-400 to-pink-400',
+    glowColor: 'purple',
+    badge: 'Nightlife',
+    trending: true
   },
   {
     id: 4,
@@ -51,7 +53,10 @@ const directoryItems = [
     descEn: 'Routes to Tepozteco and nature trails',
     icon: '🥾',
     count: '12',
-    color: 'from-green-500 to-teal-500'
+    color: 'from-emerald-400 to-teal-400',
+    glowColor: 'emerald',
+    badge: 'Adventure',
+    trending: false
   },
   {
     id: 5,
@@ -61,7 +66,10 @@ const directoryItems = [
     descEn: 'Guided experiences and cultural activities',
     icon: '🗺️',
     count: '30+',
-    color: 'from-yellow-500 to-orange-500'
+    color: 'from-amber-400 to-yellow-400',
+    glowColor: 'amber',
+    badge: 'Guided',
+    trending: false
   },
   {
     id: 6,
@@ -71,247 +79,165 @@ const directoryItems = [
     descEn: 'Local crafts and organic products',
     icon: '🛍️',
     count: '5',
-    color: 'from-pink-500 to-rose-500'
+    color: 'from-pink-400 to-fuchsia-400',
+    glowColor: 'pink',
+    badge: 'Local',
+    trending: false
   }
 ]
 
 export default function ScrollRevealCards({ lang }: ScrollRevealCardsProps) {
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([])
-  const [gsapLoaded, setGsapLoaded] = useState(false)
-
-  // Initialize GSAP ScrollTrigger
-  useEffect(() => {
-    const initGSAP = async () => {
-      if (typeof window !== 'undefined') {
-        try {
-          const { ScrollTrigger: ST } = await import('gsap/ScrollTrigger')
-          ScrollTrigger = ST
-          gsap.registerPlugin(ScrollTrigger)
-          setGsapLoaded(true)
-        } catch (error) {
-          console.warn('GSAP ScrollTrigger initialization error:', error)
-        }
-      }
-    }
-    initGSAP()
-  }, [])
-
-  useEffect(() => {
-    if (!sectionRef.current || !gsapLoaded || !ScrollTrigger) return
-
-    // Staggered card reveal on scroll
-    cardsRef.current.forEach((card, index) => {
-      if (!card) return
-
-      // Initial state
-      gsap.set(card, {
-        y: 100,
-        opacity: 0,
-        rotationY: -30,
-        transformPerspective: 1000
-      })
-
-      // Scroll-triggered animation
-      if (ScrollTrigger) {
-        ScrollTrigger.create({
-        trigger: card,
-        start: "top bottom-=100",
-        onEnter: () => {
-          gsap.to(card, {
-            y: 0,
-            opacity: 1,
-            rotationY: 0,
-            duration: 1,
-            delay: index * 0.1,
-            ease: "power3.out"
-          })
-        },
-        once: true
-        })
-      }
-
-      // 3D tilt effect on hover
-      card.addEventListener('mouseenter', () => {
-        gsap.to(card, {
-          scale: 1.05,
-          duration: 0.3,
-          ease: "power2.out"
-        })
-      })
-
-      card.addEventListener('mouseleave', () => {
-        gsap.to(card, {
-          scale: 1,
-          rotationY: 0,
-          rotationX: 0,
-          duration: 0.3,
-          ease: "power2.out"
-        })
-      })
-
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect()
-        const x = e.clientX - rect.left
-        const y = e.clientY - rect.top
-        
-        const centerX = rect.width / 2
-        const centerY = rect.height / 2
-        
-        const rotateX = ((y - centerY) / centerY) * -10
-        const rotateY = ((x - centerX) / centerX) * 10
-
-        gsap.to(card, {
-          rotationY: rotateY,
-          rotationX: rotateX,
-          duration: 0.3,
-          ease: "power2.out",
-          transformPerspective: 1000,
-          transformOrigin: "center"
-        })
-      })
-    })
-
-    // Animated counter for statistics
-    const counters = sectionRef.current.querySelectorAll('.counter')
-    counters.forEach(counter => {
-      const endValue = parseInt(counter.textContent || '0')
-      
-      if (ScrollTrigger) {
-        ScrollTrigger.create({
-        trigger: counter,
-        start: "top bottom-=50",
-        onEnter: () => {
-          gsap.fromTo(counter,
-            { textContent: 0 },
-            {
-              textContent: endValue,
-              duration: 2,
-              ease: "power1.inOut",
-              snap: { textContent: 1 },
-              onUpdate: function() {
-                counter.textContent = Math.ceil(this.targets()[0].textContent).toString()
-              }
-            }
-          )
-        },
-        once: true
-        })
-      }
-    })
-
-    return () => {
-      if (ScrollTrigger) {
-        ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
-      }
-    }
-  }, [gsapLoaded])
-
   return (
-    <ClientOnly fallback={
-      <section className="py-24 px-4 bg-gradient-to-b from-white to-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 font-playfair">
-            {lang === 'es' ? 'Explora Nuestro Directorio' : 'Explore Our Directory'}
+    <section className="py-32 px-4 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 relative overflow-hidden">
+      {/* Ultra Premium animated background effects */}
+      <div className="absolute inset-0">
+        {/* Animated gradient orbs */}
+        <div className="absolute top-20 left-10 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-sky-500/20 rounded-full blur-3xl animate-pulse animation-delay-2s" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] bg-cyan-500/10 rounded-full blur-3xl animate-pulse animation-delay-4s" />
+        
+        {/* Mesh gradient overlay */}
+        <div className="absolute inset-0 bg-[radial-gradient(at_top_left,_transparent,_rgba(59,130,246,0.2)),radial-gradient(at_bottom_right,_transparent,_rgba(14,165,233,0.2))]" />
+        
+        {/* Noise texture for depth */}
+        <div className="absolute inset-0 opacity-5" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' /%3E%3C/svg%3E")`,
+        }} />
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Ultra Premium Section header */}
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center gap-2 mb-6">
+            <div className="h-px w-12 bg-gradient-to-r from-transparent to-white/50" />
+            <Badge className="bg-white/10 backdrop-blur-xl text-white border-white/20 px-6 py-2 text-sm tracking-wider">
+              {lang === 'es' ? '✨ DIRECTORIO DE NEGOCIOS' : '✨ BUSINESS DIRECTORY'}
+            </Badge>
+            <div className="h-px w-12 bg-gradient-to-l from-transparent to-white/50" />
+          </div>
+          
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 font-sans">
+            <span className="text-white drop-shadow-2xl">
+              {lang === 'es' ? 'Categorías de' : 'Business'}
+            </span>
+            <br />
+            <span className="bg-gradient-to-r from-blue-300 via-cyan-300 to-sky-300 bg-clip-text text-transparent drop-shadow-2xl">
+              {lang === 'es' ? 'Negocios' : 'Categories'}
+            </span>
           </h2>
-          <p className="text-xl text-gray-600 text-center mb-16 font-montserrat">
+          
+          <p className="text-xl md:text-2xl text-white/80 font-light max-w-3xl mx-auto leading-relaxed">
             {lang === 'es' 
-              ? 'Todo lo que Tepoztlán tiene para ofrecerte en un solo lugar'
-              : 'Everything Tepoztlán has to offer in one place'
+              ? 'Conecta con los mejores negocios locales de Tepoztlán'
+              : 'Connect with the best local businesses in Tepoztlán'
             }
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {directoryItems.map((item) => (
-              <div key={item.id} className="bg-white rounded-2xl shadow-lg overflow-hidden">
-                <div className={`h-2 bg-gradient-to-r ${item.color}`} />
-                <div className="p-8">
-                  <div className="text-5xl mb-4">{item.icon}</div>
-                  <h3 className="text-2xl font-bold mb-2 font-playfair">
-                    {lang === 'es' ? item.titleEs : item.titleEn}
-                  </h3>
-                  <p className="text-gray-600 mb-4 font-montserrat">
-                    {lang === 'es' ? item.descEs : item.descEn}
-                  </p>
-                  <div className="text-3xl font-bold text-gray-900">
-                    {item.count}
+        </div>
+
+        {/* Ultra Premium Directory cards with glassmorphism */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {directoryItems.map((item, index) => (
+            <div 
+              key={item.id} 
+              className="group relative animate-fade-in-up"
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
+              {/* Card glow effect */}
+              <div className={`absolute inset-0 bg-gradient-to-r ${item.color} opacity-0 group-hover:opacity-30 blur-xl transition-all duration-700 rounded-3xl`} />
+              
+              {/* Glassmorphism card */}
+              <div className="relative bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl overflow-hidden cursor-pointer transform-gpu transition-all duration-500 group-hover:scale-[1.02] group-hover:bg-white/15">
+                
+                {/* Premium accent gradient bar */}
+                <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${item.color} opacity-80 group-hover:h-2 transition-all duration-500`} />
+                
+                {/* Trending badge with glow */}
+                {item.trending && (
+                  <div className="absolute top-6 right-6 z-10">
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-500 blur-md animate-pulse" />
+                      <Badge className="relative bg-gradient-to-r from-orange-500 to-red-500 text-white border-0 px-3 py-1 shadow-xl">
+                        🔥 {lang === 'es' ? 'Tendencia' : 'Trending'}
+                      </Badge>
+                    </div>
                   </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    }>
-      <section ref={sectionRef} className="py-24 px-4 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
-        {/* Animated background gradient */}
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-orange-100 via-transparent to-purple-100 animate-gradient-shift" />
-        </div>
-
-        <div className="max-w-7xl mx-auto relative z-10">
-          {/* Section header with fade-in animation */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 font-playfair bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-              {lang === 'es' ? 'Explora Nuestro Directorio' : 'Explore Our Directory'}
-            </h2>
-            <p className="text-xl text-gray-600 font-montserrat">
-              {lang === 'es' 
-                ? 'Todo lo que Tepoztlán tiene para ofrecerte en un solo lugar'
-                : 'Everything Tepoztlán has to offer in one place'
-              }
-            </p>
-          </div>
-
-          {/* Directory cards with 3D effects */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {directoryItems.map((item, index) => (
-              <div
-                key={item.id}
-                ref={el => {cardsRef.current[index] = el}}
-                className="group relative bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer transform-gpu"
-                style={{ transformStyle: 'preserve-3d' }}
-              >
-                {/* Gradient accent bar */}
-                <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${item.color} group-hover:h-2 transition-all duration-300`} />
+                )}
                 
-                {/* Glow effect on hover */}
-                <div className={`absolute inset-0 bg-gradient-to-r ${item.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
-                
-                <div className="relative p-8">
-                  {/* Icon with bounce animation */}
-                  <div className="text-5xl mb-4 group-hover:animate-bounce">{item.icon}</div>
+                <div className="relative p-10">
+                  {/* Ultra Premium Icon with animated glow */}
+                  <div className="relative mb-8">
+                    <div className={`absolute inset-0 bg-gradient-to-r ${item.color} rounded-full blur-2xl opacity-40 group-hover:opacity-60 transition-all duration-500 animate-pulse`} />
+                    <div className="relative w-24 h-24 mx-auto">
+                      <div className={`absolute inset-0 bg-gradient-to-br ${item.color} rounded-2xl opacity-20 rotate-6 group-hover:rotate-12 transition-all duration-500`} />
+                      <div className="relative bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center h-full border border-white/20 group-hover:border-white/30">
+                        <span className="text-5xl group-hover:scale-110 transition-transform duration-500">
+                          {item.icon}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                   
-                  {/* Title */}
-                  <h3 className="text-2xl font-bold mb-2 font-playfair text-gray-900 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:from-orange-500 group-hover:to-purple-500 transition-all duration-300">
-                    {lang === 'es' ? item.titleEs : item.titleEn}
-                  </h3>
-                  
-                  {/* Description */}
-                  <p className="text-gray-600 mb-4 font-montserrat text-sm">
-                    {lang === 'es' ? item.descEs : item.descEn}
-                  </p>
-                  
-                  {/* Animated counter */}
-                  <div className="flex items-baseline space-x-1">
-                    <span className="counter text-3xl font-bold text-gray-900">{parseInt(item.count).toString()}</span>
-                    {item.count.includes('+') && <span className="text-2xl font-bold text-gray-900">+</span>}
-                    <span className="text-sm text-gray-500 font-montserrat">
-                      {lang === 'es' ? 'lugares' : 'places'}
+                  {/* Premium Title */}
+                  <h3 className="text-2xl font-bold mb-4 text-center font-sans">
+                    <span className="text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:from-white group-hover:to-blue-200 transition-all duration-500">
+                      {lang === 'es' ? item.titleEs : item.titleEn}
                     </span>
+                  </h3>
+                  
+                  {/* Premium Category Badge */}
+                  <div className="flex justify-center mb-4">
+                    <Badge className="bg-white/10 backdrop-blur-sm text-white/90 border-white/20 px-3 py-1">
+                      {item.badge}
+                    </Badge>
                   </div>
                   
-                  {/* Hover action indicator */}
-                  <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-purple-500 rounded-full flex items-center justify-center text-white">
-                      →
+                  {/* Description with better contrast */}
+                  <p className="text-white/70 mb-6 font-light text-center text-sm leading-relaxed">
+                    {lang === 'es' ? item.descEs : item.descEn}
+                  </p>
+                  
+                  {/* Ultra Premium counter */}
+                  <div className="bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
+                    <div className="flex items-center justify-center space-x-2">
+                      <span className={`text-4xl font-bold bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}>
+                        {parseInt(item.count).toString()}
+                      </span>
+                      {item.count.includes('+') && (
+                        <span className={`text-3xl font-bold bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}>+</span>
+                      )}
+                      <span className="text-sm text-white/60 font-light uppercase tracking-wider">
+                        {lang === 'es' ? 'lugares' : 'places'}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  {/* Premium Hover indicator */}
+                  <div className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                    <div className="relative">
+                      <div className={`absolute inset-0 bg-gradient-to-r ${item.color} rounded-full blur-lg animate-pulse`} />
+                      <div className={`relative w-12 h-12 bg-gradient-to-r ${item.color} rounded-full flex items-center justify-center text-white shadow-2xl transform group-hover:rotate-90 transition-transform duration-500`}>
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-      </section>
-    </ClientOnly>
+
+        {/* Premium CTA */}
+        <div className="text-center mt-20">
+          <button className="group relative px-10 py-5 bg-gradient-to-r from-blue-400 to-sky-400 hover:from-blue-500 hover:to-sky-500 text-white font-semibold text-lg rounded-full transition-all duration-500 shadow-2xl hover:shadow-3xl transform hover:scale-105">
+            <span className="relative z-10">
+              {lang === 'es' ? 'Ver Todo el Directorio' : 'View Full Directory'}
+            </span>
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-sky-400 rounded-full blur-lg opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
+          </button>
+        </div>
+      </div>
+    </section>
   )
 }

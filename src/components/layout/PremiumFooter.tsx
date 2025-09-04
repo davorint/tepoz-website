@@ -28,56 +28,67 @@ const socialLinks = [
   { name: 'YouTube', href: 'https://youtube.com/tepoztlan', icon: Youtube },
 ]
 
-const quickLinks = {
+const businessLinks = {
   es: [
-    { name: 'Inicio', href: '/es' },
-    { name: 'Descubre', href: '/es/descubre' },
-    { name: 'Hospedaje', href: '/es/hospedaje' },
-    { name: 'Restaurantes', href: '/es/comer' },
-    { name: 'Eventos', href: '/es/eventos' },
-    { name: 'Mapa', href: '/es/mapa' }
+    { name: 'Restaurantes', href: '/es/restaurantes' },
+    { name: 'Hospedajes', href: '/es/hospedajes' },
+    { name: 'Bares y Cantinas', href: '/es/bares' },
+    { name: 'Tours', href: '/es/tours' },
+    { name: 'Mercados', href: '/es/mercados' },
+    { name: 'Senderismo', href: '/es/senderismo' }
   ],
   en: [
-    { name: 'Home', href: '/en' },
-    { name: 'Discover', href: '/en/discover' },
-    { name: 'Stay', href: '/en/stay' },
-    { name: 'Eat', href: '/en/eat' },
-    { name: 'Events', href: '/en/events' },
-    { name: 'Map', href: '/en/map' }
+    { name: 'Restaurants', href: '/en/restaurants' },
+    { name: 'Accommodations', href: '/en/stays' },
+    { name: 'Bars & Cantinas', href: '/en/bars' },
+    { name: 'Tours', href: '/en/tours' },
+    { name: 'Markets', href: '/en/markets' },
+    { name: 'Hiking', href: '/en/hiking' }
   ]
 }
 
-const supportLinks = {
+const businessOwnerLinks = {
   es: [
-    { name: 'Centro de Ayuda', href: '/es/ayuda' },
-    { name: 'Contacto', href: '/es/contacto' },
-    { name: 'Términos', href: '/es/terminos' },
-    { name: 'Privacidad', href: '/es/privacidad' },
-    { name: 'Cookies', href: '/es/cookies' }
+    { name: 'Registrar Negocio', href: '/es/registrar-negocio' },
+    { name: 'Panel de Control', href: '/es/panel' },
+    { name: 'Promocionar', href: '/es/promocionar' },
+    { name: 'Estadísticas', href: '/es/estadisticas' },
+    { name: 'Soporte', href: '/es/soporte' }
   ],
   en: [
-    { name: 'Help Center', href: '/en/help' },
-    { name: 'Contact', href: '/en/contact' },
-    { name: 'Terms', href: '/en/terms' },
-    { name: 'Privacy', href: '/en/privacy' },
-    { name: 'Cookies', href: '/en/cookies' }
+    { name: 'Register Business', href: '/en/register-business' },
+    { name: 'Dashboard', href: '/en/dashboard' },
+    { name: 'Promote', href: '/en/promote' },
+    { name: 'Analytics', href: '/en/analytics' },
+    { name: 'Support', href: '/en/support' }
   ]
 }
 
 const features = [
-  { icon: Star, labelEs: 'Calidad Premium', labelEn: 'Premium Quality' },
-  { icon: Award, labelEs: 'Pueblo Mágico', labelEn: 'Magical Town' },
-  { icon: Shield, labelEs: 'Seguro y Confiable', labelEn: 'Safe & Trusted' },
-  { icon: Heart, labelEs: 'Hecho con Amor', labelEn: 'Made with Love' }
+  { icon: Star, labelEs: '500+ Negocios', labelEn: '500+ Businesses' },
+  { icon: Award, labelEs: 'Información Verificada', labelEn: 'Verified Information' },
+  { icon: Shield, labelEs: 'Plataforma Segura', labelEn: 'Secure Platform' },
+  { icon: Heart, labelEs: 'Comunidad Local', labelEn: 'Local Community' }
 ]
 
 export default function PremiumFooter({ lang }: PremiumFooterProps) {
   return (
-    <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden">
-      {/* Background decoration */}
+    <footer className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white relative overflow-hidden">
+      {/* Ultra Premium Background */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-tepoztlan-sunset/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-tepoztlan-earth/5 rounded-full blur-3xl" />
+        {/* Animated gradient orbs */}
+        <div className="absolute top-20 left-20 w-[35rem] h-[35rem] bg-blue-500/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-20 w-[40rem] h-[40rem] bg-cyan-500/20 rounded-full blur-3xl animate-pulse animation-delay-2s" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[45rem] h-[45rem] bg-sky-500/10 rounded-full blur-3xl animate-pulse animation-delay-4s" />
+        
+        {/* Premium mesh gradient */}
+        <div className="absolute inset-0 bg-[radial-gradient(at_top_left,_transparent,_rgba(59,130,246,0.2)),radial-gradient(at_bottom_right,_transparent,_rgba(14,165,233,0.2))]" />
+        
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 opacity-5" style={{
+          backgroundImage: `linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px'
+        }} />
       </div>
 
       <div className="relative z-10">
@@ -91,54 +102,57 @@ export default function PremiumFooter({ lang }: PremiumFooterProps) {
                   <span className="text-white font-bold text-lg">T</span>
                 </div>
                 <div>
-                  <span className="font-bold text-xl">TODOTEPOZ</span>
-                  <div className="text-sm text-gray-400">
-                    {lang === 'es' ? 'Pueblo Mágico' : 'Magical Town'}
+                  <span className="font-bold text-xl">
+                    <span className="text-cyan-400">TODO</span>
+                    <span className="text-white">TEPOZ</span>
+                  </span>
+                  <div className="text-sm text-white/60">
+                    {lang === 'es' ? 'Directorio de Negocios' : 'Business Directory'}
                   </div>
                 </div>
               </Link>
               
-              <p className="text-gray-300 mb-6 leading-relaxed">
+              <p className="text-white/70 mb-6 leading-relaxed">
                 {lang === 'es' 
-                  ? 'Tu guía completa para descubrir la magia, cultura y belleza natural de Tepoztlán, Morelos.'
-                  : 'Your complete guide to discover the magic, culture and natural beauty of Tepoztlán, Morelos.'
+                  ? 'El directorio más completo de negocios locales en Tepoztlán. Conectamos visitantes con los mejores servicios.'
+                  : 'The most complete local business directory in Tepoztlán. Connecting visitors with the best services.'
                 }
               </p>
 
               {/* Contact Info */}
               <div className="space-y-3 text-sm">
                 <div className="flex items-center space-x-3">
-                  <MapPin className="w-4 h-4 text-tepoztlan-sunset" />
-                  <span className="text-gray-300">Tepoztlán, Morelos, México</span>
+                  <MapPin className="w-4 h-4 text-cyan-400" />
+                  <span className="text-white/70">Tepoztlán, Morelos, México</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Phone className="w-4 h-4 text-tepoztlan-sunset" />
-                  <span className="text-gray-300">+52 (777) 123-4567</span>
+                  <Phone className="w-4 h-4 text-cyan-400" />
+                  <span className="text-white/70">+52 (777) 123-4567</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Mail className="w-4 h-4 text-tepoztlan-sunset" />
-                  <span className="text-gray-300">hola@tepoztlan.com</span>
+                  <Mail className="w-4 h-4 text-cyan-400" />
+                  <span className="text-white/70">hola@todotepoz.com</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Clock className="w-4 h-4 text-tepoztlan-sunset" />
-                  <span className="text-gray-300">
+                  <Clock className="w-4 h-4 text-cyan-400" />
+                  <span className="text-white/70">
                     {lang === 'es' ? 'Disponible 24/7' : 'Available 24/7'}
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* Quick Links */}
+            {/* Business Categories */}
             <div>
-              <h3 className="font-bold text-lg mb-6">
-                {lang === 'es' ? 'Enlaces Rápidos' : 'Quick Links'}
+              <h3 className="font-bold text-lg mb-6 font-sans text-white">
+                {lang === 'es' ? 'Categorías' : 'Categories'}
               </h3>
               <ul className="space-y-3">
-                {quickLinks[lang].map((link) => (
+                {businessLinks[lang].map((link) => (
                   <li key={link.name}>
                     <Link 
                       href={link.href} 
-                      className="text-gray-300 hover:text-tepoztlan-sunset transition-colors duration-200"
+                      className="text-white/70 hover:text-cyan-400 transition-colors duration-200 hover:translate-x-1 transform inline-block"
                     >
                       {link.name}
                     </Link>
@@ -147,17 +161,17 @@ export default function PremiumFooter({ lang }: PremiumFooterProps) {
               </ul>
             </div>
 
-            {/* Support */}
+            {/* For Business Owners */}
             <div>
-              <h3 className="font-bold text-lg mb-6">
-                {lang === 'es' ? 'Soporte' : 'Support'}
+              <h3 className="font-bold text-lg mb-6 font-sans text-white">
+                {lang === 'es' ? 'Para Negocios' : 'For Businesses'}
               </h3>
               <ul className="space-y-3">
-                {supportLinks[lang].map((link) => (
+                {businessOwnerLinks[lang].map((link) => (
                   <li key={link.name}>
                     <Link 
                       href={link.href} 
-                      className="text-gray-300 hover:text-tepoztlan-sunset transition-colors duration-200"
+                      className="text-white/70 hover:text-cyan-400 transition-colors duration-200 hover:translate-x-1 transform inline-block"
                     >
                       {link.name}
                     </Link>
@@ -168,25 +182,25 @@ export default function PremiumFooter({ lang }: PremiumFooterProps) {
 
             {/* Newsletter & Social */}
             <div>
-              <h3 className="font-bold text-lg mb-6">
+              <h3 className="font-bold text-lg mb-6 font-sans text-white">
                 {lang === 'es' ? 'Mantente Conectado' : 'Stay Connected'}
               </h3>
               
               {/* Newsletter */}
               <div className="mb-6">
-                <p className="text-gray-300 text-sm mb-4">
+                <p className="text-white/70 text-sm mb-4">
                   {lang === 'es' 
-                    ? 'Recibe las mejores ofertas y noticias'
-                    : 'Get the best deals and news'
+                    ? 'Recibe noticias de nuevos negocios y ofertas especiales'
+                    : 'Get news about new businesses and special offers'
                   }
                 </p>
                 <div className="flex space-x-2">
                   <Input
                     type="email"
                     placeholder={lang === 'es' ? 'tu@email.com' : 'your@email.com'}
-                    className="bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:border-tepoztlan-sunset"
+                    className="bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder-white/50 focus:border-cyan-400 focus:bg-white/15"
                   />
-                  <Button className="bg-tepoztlan-sunset hover:bg-tepoztlan-sunset/90">
+                  <Button className="bg-gradient-to-r from-cyan-400 to-blue-400 hover:from-cyan-500 hover:to-blue-500 text-white border-0 shadow-xl">
                     {lang === 'es' ? 'Suscribir' : 'Subscribe'}
                   </Button>
                 </div>
@@ -206,7 +220,7 @@ export default function PremiumFooter({ lang }: PremiumFooterProps) {
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-10 h-10 bg-gray-800 hover:bg-tepoztlan-sunset rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110"
+                        className="w-10 h-10 bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-gradient-to-r hover:from-cyan-400 hover:to-blue-400 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-xl"
                       >
                         <Icon className="w-4 h-4" />
                       </Link>
@@ -217,15 +231,17 @@ export default function PremiumFooter({ lang }: PremiumFooterProps) {
             </div>
           </div>
 
-          {/* Features Banner */}
-          <div className="border-t border-gray-800 pt-8 mt-12">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {/* Features Banner with Glassmorphism */}
+          <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-8 mt-12 shadow-2xl">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {features.map((feature) => {
                 const Icon = feature.icon
                 return (
-                  <div key={feature.labelEn} className="flex items-center space-x-2 text-sm">
-                    <Icon className="w-4 h-4 text-tepoztlan-sunset" />
-                    <span className="text-gray-300">
+                  <div key={feature.labelEn} className="flex items-center space-x-3 text-sm group">
+                    <div className="w-10 h-10 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Icon className="w-5 h-5 text-white" />
+                    </div>
+                    <span className="text-white/90 font-medium">
                       {lang === 'es' ? feature.labelEs : feature.labelEn}
                     </span>
                   </div>
@@ -235,11 +251,11 @@ export default function PremiumFooter({ lang }: PremiumFooterProps) {
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-800">
+        {/* Bottom Bar with Glassmorphism */}
+        <div className="bg-white/5 backdrop-blur-sm border-t border-white/10 mt-8">
           <div className="max-w-7xl mx-auto px-4 py-6">
             <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-              <div className="text-gray-400 text-sm">
+              <div className="text-white/60 text-sm">
                 © {new Date().getFullYear()} TODOTEPOZ. 
                 {lang === 'es' 
                   ? ' Todos los derechos reservados.' 
@@ -247,7 +263,7 @@ export default function PremiumFooter({ lang }: PremiumFooterProps) {
                 }
               </div>
               
-              <div className="flex items-center space-x-6 text-sm text-gray-400">
+              <div className="flex items-center space-x-6 text-sm text-white/60">
                 <span>
                   {lang === 'es' 
                     ? 'Hecho con ❤️ para Tepoztlán'
@@ -256,7 +272,7 @@ export default function PremiumFooter({ lang }: PremiumFooterProps) {
                 </span>
                 <div className="flex items-center space-x-1">
                   <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                  <span>4.9/5</span>
+                  <span className="text-white/80">4.9/5 • 500+ negocios</span>
                 </div>
               </div>
             </div>

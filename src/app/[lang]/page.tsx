@@ -1,7 +1,7 @@
 import { Locale } from '@/lib/i18n'
 import FloatingStatsSection from '@/components/sections/FloatingStatsSection'
 import InteractiveCTASection from '@/components/sections/InteractiveCTASection'
-import SimpleTestimonialsSection from '@/components/sections/SimpleTestimonialsSection'
+import PremiumTestimonialsSection from '@/components/sections/PremiumTestimonialsSection'
 import PremiumHero from '@/components/sections/PremiumHero'
 import ScrollRevealCards from '@/components/sections/ScrollRevealCards'
 import PremiumCTA from '@/components/sections/PremiumCTA'
@@ -13,8 +13,6 @@ export default async function HomePage({
 }) {
   const { lang } = await params
   
-  // Debug log
-  console.log('HomePage received lang parameter:', lang)
 
   return (
     <main className="min-h-screen overflow-x-hidden">
@@ -27,7 +25,7 @@ export default async function HomePage({
       <PremiumCTA lang={lang} />
       <FloatingStatsSection lang={lang} />
       <InteractiveCTASection lang={lang} />
-      <SimpleTestimonialsSection lang={lang} />
+      <PremiumTestimonialsSection lang={lang} />
     </main>
   )
 }

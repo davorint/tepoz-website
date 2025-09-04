@@ -1,251 +1,246 @@
-'use client'
-
-import { useState, useEffect, useRef } from 'react'
-import { motion } from 'motion/react'
-import { Card, CardContent } from '@/components/ui/card'
-import { Users, Star, MapPin, Calendar } from 'lucide-react'
+import { Users, Star, MapPin, Calendar, TrendingUp, Award, Heart, Clock } from 'lucide-react'
 import { Locale } from '@/lib/i18n'
-import { useGSAP, usePrefersReducedMotion } from '@/lib/gsap-utils'
 
 interface FloatingStatsSectionProps {
   lang: Locale
 }
 
-interface StatItem {
-  id: string
-  icon: React.ComponentType<{ className?: string }>
-  value: number
-  suffix: string
-  label: string
-  labelEn: string
-  color: string
-}
-
-const stats: StatItem[] = [
+const stats = [
   {
-    id: 'visitors',
-    icon: Users,
-    value: 250000,
+    id: 'businesses',
+    icon: MapPin,
+    value: '500',
     suffix: '+',
-    label: 'Visitantes Anuales',
-    labelEn: 'Annual Visitors',
-    color: 'text-blue-600'
+    label: 'Negocios Registrados',
+    labelEn: 'Registered Businesses',
+    gradient: 'from-blue-400 to-cyan-400',
+    glowColor: 'blue',
+    trend: '+25%',
+    trendLabel: 'crecimiento anual',
+    trendLabelEn: 'annual growth'
   },
   {
     id: 'rating',
     icon: Star,
-    value: 4.8,
+    value: '4.8',
     suffix: '/5',
     label: 'Calificación Promedio',
     labelEn: 'Average Rating',
-    color: 'text-yellow-500'
+    gradient: 'from-yellow-400 to-amber-400',
+    glowColor: 'yellow',
+    trend: '⭐⭐⭐⭐⭐',
+    trendLabel: '98% recomiendan',
+    trendLabelEn: '98% recommend'
   },
   {
-    id: 'attractions',
-    icon: MapPin,
-    value: 45,
+    id: 'categories',
+    icon: Users,
+    value: '15',
     suffix: '+',
-    label: 'Atracciones Únicas',
-    labelEn: 'Unique Attractions',
-    color: 'text-green-600'
+    label: 'Categorías de Negocios',
+    labelEn: 'Business Categories',
+    gradient: 'from-emerald-400 to-teal-400',
+    glowColor: 'emerald',
+    trend: '📈',
+    trendLabel: 'en expansión',
+    trendLabelEn: 'expanding'
   },
   {
-    id: 'events',
+    id: 'reviews',
     icon: Calendar,
-    value: 120,
+    value: '2,500',
     suffix: '+',
-    label: 'Eventos Anuales',
-    labelEn: 'Annual Events',
-    color: 'text-purple-600'
+    label: 'Reseñas Verificadas',
+    labelEn: 'Verified Reviews',
+    gradient: 'from-purple-400 to-pink-400',
+    glowColor: 'purple',
+    trend: '📝',
+    trendLabel: 'este mes',
+    trendLabelEn: 'this month'
   }
 ]
 
-function useCountUp(end: number, duration: number = 2000) {
-  const [count, setCount] = useState(end) // Always start with end value for SSR consistency
-  const [isVisible, setIsVisible] = useState(false)
-  const [isMounted, setIsMounted] = useState(false)
-
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
-
-  useEffect(() => {
-    if (!isVisible || !isMounted) return
-
-    setCount(0) // Start animation from 0
-    let animationFrame: number
-    let frameCount = 0
-
-    const animate = () => {
-      frameCount++
-      const progress = Math.min(frameCount / (duration / 16), 1) // ~60fps
-
-      // Easing function for smooth animation
-      const easeOut = 1 - Math.pow(1 - progress, 3)
-      const currentCount = Math.floor(end * easeOut)
-
-      setCount(currentCount)
-
-      if (progress < 1) {
-        animationFrame = requestAnimationFrame(animate)
-      }
-    }
-
-    animationFrame = requestAnimationFrame(animate)
-
-    return () => {
-      if (animationFrame) {
-        cancelAnimationFrame(animationFrame)
-      }
-    }
-  }, [end, duration, isVisible, isMounted])
-
-  return { count, setIsVisible }
-}
-
-function StatCard({ stat, lang }: { stat: StatItem, lang: Locale }) {
-  const { count, setIsVisible } = useCountUp(stat.value)
-  const Icon = stat.icon
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ 
-        opacity: 1, 
-        y: 0,
-        transition: { duration: 0.6 }
-      }}
-      viewport={{ once: true, margin: '-50px' }}
-      onViewportEnter={() => setIsVisible(true)}
-      whileHover={{ 
-        scale: 1.05,
-        transition: { duration: 0.2 }
-      }}
-      suppressHydrationWarning
-    >
-      <Card className="bg-white/95 backdrop-blur-md border border-gray-200/50 shadow-xl hover:shadow-2xl transition-all duration-300">
-        <CardContent className="p-6 text-center">
-          <div className={`w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4 ${stat.color}`}>
-            <Icon className="w-6 h-6" />
-          </div>
-          <div className="text-3xl font-bold text-gray-900 mb-1">
-            {stat.id === 'rating' ? count.toFixed(1) : count.toLocaleString()}
-            {stat.suffix}
-          </div>
-          <div className="text-sm text-gray-700 font-medium">
-            {lang === 'es' ? stat.label : stat.labelEn}
-          </div>
-        </CardContent>
-      </Card>
-    </motion.div>
-  )
-}
+const additionalStats = [
+  {
+    icon: Heart,
+    value: '10K+',
+    label: 'Usuarios Activos',
+    labelEn: 'Active Users'
+  },
+  {
+    icon: Clock,
+    value: '24/7',
+    label: 'Soporte',
+    labelEn: 'Support'
+  },
+  {
+    icon: Award,
+    value: '#1',
+    label: 'Directorio Local',
+    labelEn: 'Local Directory'
+  },
+  {
+    icon: TrendingUp,
+    value: '50K+',
+    label: 'Visitas Mensuales',
+    labelEn: 'Monthly Visits'
+  }
+]
 
 export default function FloatingStatsSection({ lang }: FloatingStatsSectionProps) {
-  const sectionRef = useRef<HTMLElement>(null)
-  const { gsap, ScrollTrigger, isReady } = useGSAP()
-  const prefersReducedMotion = usePrefersReducedMotion()
-
-  useEffect(() => {
-    if (!isReady || !gsap || !ScrollTrigger || prefersReducedMotion) return
-
-    const section = sectionRef.current
-    if (!section) return
-
-    // Create context for cleanup
-    const ctx = gsap.context(() => {
-      // Only animate background decorations (avoid React conflicts)
-      const decorations = section.querySelectorAll('.gsap-decoration')
-      
-      decorations.forEach((decoration, index) => {
-        ScrollTrigger.create({
-          trigger: section,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1,
-          animation: gsap.fromTo(decoration, 
-            { 
-              y: 0, 
-              rotation: 0 
-            },
-            { 
-              y: index % 2 === 0 ? -50 : 50, 
-              rotation: index % 2 === 0 ? 5 : -5 
-            }
-          )
-        })
-      })
-    }, section)
-
-    // Proper cleanup
-    return () => {
-      ctx.revert()
-    }
-  }, [gsap, ScrollTrigger, isReady, prefersReducedMotion])
-
   return (
-    <section 
-      ref={sectionRef}
-      className="py-16 px-4 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden" 
-      style={{containerType: 'inline-size'}}
-      suppressHydrationWarning
-    >
-      {/* Background decoration - GSAP controlled */}
-      <div className="absolute inset-0" suppressHydrationWarning>
-        <div className="gsap-decoration absolute top-1/4 right-1/4 w-64 h-64 bg-blue-200/10 rounded-full blur-3xl" />
-        <div className="gsap-decoration absolute bottom-1/4 left-1/4 w-80 h-80 bg-purple-200/10 rounded-full blur-3xl" />
-        <div className="gsap-decoration absolute top-3/4 right-1/2 w-32 h-32 bg-orange-200/10 rounded-full blur-2xl" />
+    <section className="py-32 px-4 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
+      {/* Ultra Premium animated background */}
+      <div className="absolute inset-0">
+        {/* Animated gradient orbs */}
+        <div className="absolute top-20 left-20 w-[30rem] h-[30rem] bg-blue-500/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-20 w-[35rem] h-[35rem] bg-cyan-500/20 rounded-full blur-3xl animate-pulse animation-delay-2s" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] bg-sky-500/10 rounded-full blur-3xl animate-pulse animation-delay-4s" />
+        
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 opacity-10" style={{
+          backgroundImage: `linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px'
+        }} />
+        
+        {/* Premium mesh gradient */}
+        <div className="absolute inset-0 bg-[radial-gradient(at_top_left,_transparent,_rgba(59,130,246,0.2)),radial-gradient(at_bottom_right,_transparent,_rgba(14,165,233,0.2))]" />
       </div>
 
-      <div className="max-w-6xl mx-auto relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-12"
-          suppressHydrationWarning
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 via-gray-700 to-gray-600 bg-clip-text text-transparent">
-            {lang === 'es' ? 'Tepoztlán en Números' : 'Tepoztlán by Numbers'}
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Ultra Premium Section header */}
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center gap-3 mb-8">
+            <div className="h-px w-16 bg-gradient-to-r from-transparent to-blue-400" />
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-cyan-400 blur-md" />
+              <div className="relative bg-gradient-to-r from-blue-400 to-cyan-400 text-white px-8 py-3 rounded-full text-sm font-semibold tracking-wider uppercase">
+                {lang === 'es' ? '📊 Estadísticas del Directorio' : '📊 Directory Statistics'}
+              </div>
+            </div>
+            <div className="h-px w-16 bg-gradient-to-l from-transparent to-cyan-400" />
+          </div>
+          
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 font-sans">
+            <span className="text-white drop-shadow-2xl">
+              {lang === 'es' ? 'Nuestro Directorio en' : 'Our Directory by'}
+            </span>
+            <br />
+            <span className="bg-gradient-to-r from-blue-300 via-cyan-300 to-sky-300 bg-clip-text text-transparent drop-shadow-2xl">
+              {lang === 'es' ? 'Números' : 'Numbers'}
+            </span>
           </h2>
-          <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+          
+          <p className="text-xl md:text-2xl text-white/80 font-light max-w-3xl mx-auto leading-relaxed">
             {lang === 'es' 
-              ? 'Descubre por qué miles de visitantes eligen Tepoztlán como su destino favorito'
-              : 'Discover why thousands of visitors choose Tepoztlán as their favorite destination'
+              ? 'La plataforma líder para conectar negocios y visitantes en Tepoztlán'
+              : 'The leading platform connecting businesses and visitors in Tepoztlán'
             }
           </p>
-        </motion.div>
-
-        <div className="grid grid-cols-2 container-lg:grid-cols-3 container-xl:grid-cols-4 gap-6">
-          {stats.map((stat, index) => (
-            <motion.div
-              key={stat.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 * (index + 1) }}
-              suppressHydrationWarning
-            >
-              <StatCard stat={stat} lang={lang} />
-            </motion.div>
-          ))}
         </div>
 
-        {/* Additional floating elements */}
-        <motion.div
-          className="mt-8 text-center"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          suppressHydrationWarning
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-tepoztlan-sunset/10 text-tepoztlan-sunset rounded-full text-sm font-medium">
-            <div className="w-2 h-2 bg-tepoztlan-sunset rounded-full animate-pulse" />
-            {lang === 'es' ? 'Datos actualizados en tiempo real' : 'Real-time updated data'}
+        {/* Ultra Premium Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+          {stats.map((stat, index) => {
+            const Icon = stat.icon
+            return (
+              <div 
+                key={stat.id} 
+                className="group relative animate-fade-in-up"
+                style={{ animationDelay: `${index * 150}ms` }}
+              >
+                {/* Glow effect */}
+                <div className={`absolute inset-0 bg-gradient-to-r ${stat.gradient} opacity-0 group-hover:opacity-30 blur-xl transition-all duration-700 rounded-3xl`} />
+                
+                {/* Glassmorphism card */}
+                <div className="relative bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl overflow-hidden transform-gpu transition-all duration-500 group-hover:scale-[1.02] group-hover:bg-white/15">
+                  
+                  {/* Top accent bar */}
+                  <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${stat.gradient} opacity-80 group-hover:h-2 transition-all duration-500`} />
+                  
+                  <div className="p-8">
+                    {/* Icon with glow */}
+                    <div className="relative mb-6">
+                      <div className={`absolute inset-0 bg-gradient-to-r ${stat.gradient} rounded-2xl blur-xl opacity-40 group-hover:opacity-60 transition-all duration-500 animate-pulse`} />
+                      <div className="relative w-20 h-20 mx-auto">
+                        <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} rounded-2xl opacity-20 rotate-6 group-hover:rotate-12 transition-all duration-500`} />
+                        <div className="relative bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center h-full border border-white/20 group-hover:border-white/30">
+                          <Icon className="w-10 h-10 text-white" />
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Counter with premium styling */}
+                    <div className="text-center mb-4">
+                      <div className="relative inline-block">
+                        <span className={`text-5xl font-bold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent drop-shadow-lg`}>
+                          {stat.value}
+                        </span>
+                        <span className={`text-3xl font-bold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent ml-1`}>
+                          {stat.suffix}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    {/* Label */}
+                    <div className="text-center mb-4">
+                      <p className="text-white/90 font-medium text-lg">
+                        {lang === 'es' ? stat.label : stat.labelEn}
+                      </p>
+                    </div>
+                    
+                    {/* Trend indicator */}
+                    <div className="bg-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/10">
+                      <div className="flex items-center justify-center gap-2">
+                        <span className="text-lg">{stat.trend}</span>
+                        <span className="text-xs text-white/60 font-light">
+                          {lang === 'es' ? stat.trendLabel : stat.trendLabelEn}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Additional mini stats */}
+        <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-8 shadow-2xl">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {additionalStats.map((stat, index) => {
+              const Icon = stat.icon
+              return (
+                <div 
+                  key={index} 
+                  className="text-center group animate-fade-in-up"
+                  style={{ animationDelay: `${600 + index * 100}ms` }}
+                >
+                  <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full mb-3 group-hover:scale-110 transition-transform">
+                    <Icon className="w-6 h-6 text-white" />
+                  </div>
+                  <div className="text-2xl font-bold text-white mb-1">
+                    {stat.value}
+                  </div>
+                  <div className="text-sm text-white/60">
+                    {lang === 'es' ? stat.label : stat.labelEn}
+                  </div>
+                </div>
+              )
+            })}
           </div>
-        </motion.div>
+        </div>
+
+        {/* Premium CTA */}
+        <div className="text-center mt-16">
+          <div className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-400/10 to-cyan-400/10 backdrop-blur-sm border border-white/20 rounded-full text-white">
+            <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full animate-pulse" />
+            <span className="font-medium">
+              {lang === 'es' ? 'Datos actualizados en tiempo real' : 'Real-time updated data'}
+            </span>
+            <div className="w-3 h-3 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full animate-pulse animation-delay-1s" />
+          </div>
+        </div>
       </div>
     </section>
   )
