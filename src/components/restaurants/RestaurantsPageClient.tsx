@@ -124,7 +124,7 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-red-400 blur-lg" />
               <Badge className="relative bg-gradient-to-r from-orange-400 to-red-400 text-white px-8 py-3 text-sm font-semibold tracking-wider uppercase border-0 shadow-2xl">
-                🍽️ {locale === 'es' ? 'Restaurantes Premium' : 'Premium Restaurants'} 🍽️
+                🍽️ {locale === 'es' ? 'Restaurantes & Terrazas' : 'Restaurants & Rooftop Dining'} 🍽️
               </Badge>
             </div>
             <div className="h-px w-20 bg-gradient-to-l from-transparent to-red-400" />

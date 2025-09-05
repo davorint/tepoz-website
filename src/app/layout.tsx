@@ -19,8 +19,106 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Tepoztlán Directory - Discover the Magic",
-  description: "Your comprehensive guide to Tepoztlán's restaurants, hotels, attractions, and services. Discover the magic of this mystical Mexican town.",
+  metadataBase: new URL('https://tepoztlan.com'),
+  title: {
+    default: "Tepoztlán Tourism Guide - Discover the Magic Town | Hotels, Restaurants & Attractions",
+    template: "%s | Tepoztlán Tourism Guide"
+  },
+  description: "Your comprehensive guide to Tepoztlán's best restaurants, hotels, eco-lodges, cafés, attractions, and local services. Discover the magic of this UNESCO World Heritage Pueblo Mágico in Morelos, Mexico.",
+  keywords: [
+    "Tepoztlán",
+    "Pueblo Mágico", 
+    "Morelos Mexico",
+    "Tepozteco Pyramid",
+    "Mexican tourism",
+    "hotels Tepoztlán", 
+    "restaurants Tepoztlán",
+    "eco-lodges Mexico",
+    "weekend getaway Mexico",
+    "mystical Mexico",
+    "indigenous culture",
+    "UNESCO World Heritage"
+  ],
+  authors: [{ name: "Tepoztlán Tourism Guide" }],
+  creator: "Tepoztlán Tourism Guide",
+  publisher: "Tepoztlán Tourism Guide",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'es_MX',
+    alternateLocale: ['en_US'],
+    url: 'https://tepoztlan.com',
+    title: "Tepoztlán Tourism Guide - Discover the Magic Town",
+    description: "Your comprehensive guide to Tepoztlán's best restaurants, hotels, eco-lodges, cafés, attractions, and local services. Discover the magic of this UNESCO World Heritage Pueblo Mágico.",
+    siteName: "Tepoztlán Tourism Guide",
+    images: [
+      {
+        url: '/images/og-tepoztlan-hero.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Tepoztlán - Pueblo Mágico with Tepozteco Pyramid view'
+      }
+    ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Tepoztlán Tourism Guide - Discover the Magic Town",
+    description: "Your comprehensive guide to Tepoztlán's best restaurants, hotels, attractions, and local services in this UNESCO World Heritage Pueblo Mágico.",
+    creator: '@TepoztlanGuide',
+    images: ['/images/twitter-tepoztlan-hero.jpg']
+  },
+  verification: {
+    google: 'your-google-verification-code',
+    yandex: 'your-yandex-verification-code',
+    other: {
+      'msvalidate.01': 'your-bing-verification-code'
+    }
+  },
+  category: 'travel',
+  classification: 'tourism guide',
+  alternates: {
+    canonical: 'https://tepoztlan.com',
+    languages: {
+      'es-MX': 'https://tepoztlan.com/es',
+      'en-US': 'https://tepoztlan.com/en'
+    }
+  }
+};
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "TouristDestination",
+  "name": "Tepoztlán",
+  "description": "UNESCO World Heritage Pueblo Mágico in Morelos, Mexico. Famous for the Tepozteco Pyramid, mystical energy, and rich indigenous culture.",
+  "url": "https://tepoztlan.com",
+  "sameAs": [
+    "https://en.wikipedia.org/wiki/Tepoztl%C3%A1n",
+    "https://www.mexicoescultura.com/recinto/54353/tepoztlan.html"
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressRegion": "Morelos",
+    "addressCountry": "Mexico"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "18.9847",
+    "longitude": "-99.0940"
+  },
+  "touristType": ["Cultural Tourism", "Eco Tourism", "Spiritual Tourism", "Adventure Tourism"],
+  "hasMap": "https://tepoztlan.com/en/map",
+  "isAccessibleForFree": true,
+  "publicAccess": true
 };
 
 export default function RootLayout({
@@ -29,7 +127,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData)
+          }}
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <meta name="theme-color" content="#f59e0b" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Tepoztlán Guide" />
+      </head>
       <body className={`${inter.className} ${bebasNeue.variable} ${playfairDisplay.variable} ${montserrat.variable} antialiased`}>
         {children}
       </body>

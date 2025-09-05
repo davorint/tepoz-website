@@ -10,11 +10,11 @@ import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
+import { Card, CardContent } from '@/components/ui/card'
 import { 
   Search, 
   Filter, 
   X,
-  Wine,
   Beer,
   Music
 } from 'lucide-react'
@@ -82,262 +82,274 @@ export default function BarsPageClient({ locale }: BarsPageClientProps) {
   ].reduce((a, b) => a + b, 0)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-pink-900">
-      {/* Hero Section */}
-      <div className="relative h-96 flex items-center justify-center overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-purple-600/40 via-pink-600/40 to-orange-600/40" />
-          <div className="absolute inset-0 bg-black/10 opacity-20" />
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-teal-900 to-slate-900 relative overflow-hidden">
+      {/* Ultra Premium Background */}
+      <div className="absolute inset-0">
+        {/* Animated gradient orbs */}
+        <div className="absolute top-20 left-20 w-[35rem] h-[35rem] bg-teal-500/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-20 w-[40rem] h-[40rem] bg-cyan-500/20 rounded-full blur-3xl animate-pulse animation-delay-2s" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[45rem] h-[45rem] bg-emerald-500/10 rounded-full blur-3xl animate-pulse animation-delay-4s" />
         
-        {/* Content */}
-        <div className="relative z-10 text-center px-4">
-          <div className="flex items-center justify-center mb-6">
-            <Wine className="w-12 h-12 text-purple-400 mr-2" />
-            <Beer className="w-12 h-12 text-yellow-400" />
-          </div>
-          <h1 className="text-6xl md:text-7xl font-bold text-white mb-4 drop-shadow-2xl">
-            {locale === 'es' ? 'Bares y Pulquerías' : 'Bars & Pulquerias'}
-          </h1>
-          <p className="text-xl text-white/90 max-w-3xl mx-auto drop-shadow-lg">
-            {locale === 'es' 
-              ? 'Descubre la vida nocturna de Tepoztlán. Desde pulquerías tradicionales hasta bares modernos con mezcal artesanal.'
-              : 'Discover Tepoztlán\'s nightlife. From traditional pulquerias to modern bars with artisanal mezcal.'}
-          </p>
-          
-          {/* Stats */}
-          <div className="flex justify-center gap-8 mt-8">
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-6 py-3 border border-white/20">
-              <div className="text-3xl font-bold text-white">{bars.length}</div>
-              <div className="text-sm text-white/70">{locale === 'es' ? 'Bares' : 'Bars'}</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-6 py-3 border border-white/20">
-              <div className="text-3xl font-bold text-white">
-                {bars.filter(b => b.type === 'pulqueria').length}
-              </div>
-              <div className="text-sm text-white/70">{locale === 'es' ? 'Pulquerías' : 'Pulquerias'}</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-6 py-3 border border-white/20">
-              <div className="text-3xl font-bold text-white">
-                {bars.filter(b => b.liveMusic).length}
-              </div>
-              <div className="text-sm text-white/70">{locale === 'es' ? 'Con Música' : 'Live Music'}</div>
-            </div>
-          </div>
-        </div>
+        {/* Premium mesh gradient */}
+        <div className="absolute inset-0 bg-[radial-gradient(at_top_left,_transparent,_rgba(20,184,166,0.2)),radial-gradient(at_bottom_right,_transparent,_rgba(6,182,212,0.2))]" />
+        
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 opacity-5" style={{
+          backgroundImage: `linear-gradient(rgba(20, 184, 166, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(20, 184, 166, 0.1) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px'
+        }} />
       </div>
 
-      <div className="container mx-auto px-4 py-8">
-        {/* Search Bar */}
-        <div className="mb-8">
-          <div className="max-w-3xl mx-auto">
-            <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 rounded-2xl blur opacity-25 group-hover:opacity-40 transition-opacity" />
-              <div className="relative bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 p-2">
-                <div className="flex gap-2">
-                  <div className="relative flex-1">
-                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50 w-5 h-5" />
-                    <Input
-                      type="text"
-                      placeholder={locale === 'es' 
-                        ? 'Buscar bares, pulquerías, mezcal...' 
-                        : 'Search bars, pulquerias, mezcal...'}
-                      className="pl-12 bg-transparent border-0 text-white placeholder:text-white/50 h-12 focus:ring-2 focus:ring-purple-400"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                  </div>
-                  <Button
-                    onClick={() => setShowFilters(!showFilters)}
-                    variant={showFilters ? 'default' : 'outline'}
-                    className={showFilters 
-                      ? 'h-12 px-6 bg-gradient-to-r from-purple-400 to-pink-400 hover:from-purple-500 hover:to-pink-500 text-white border-0 shadow-xl'
-                      : 'h-12 px-6 bg-white/10 hover:bg-white/20 text-white border-white/20'
-                    }
-                  >
-                    <Filter className="w-4 h-4 mr-2" />
-                    {locale === 'es' ? 'Filtros' : 'Filters'}
-                    {activeFiltersCount > 0 && (
-                      <Badge className="ml-2 bg-white/20 text-white">
-                        {activeFiltersCount}
-                      </Badge>
-                    )}
-                  </Button>
-                </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 py-12">
+        {/* Premium Header */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-3 mb-8">
+            <div className="h-px w-20 bg-gradient-to-r from-transparent to-teal-400" />
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-teal-400 to-cyan-400 blur-lg" />
+              <Badge className="relative bg-gradient-to-r from-teal-400 to-cyan-400 text-white px-8 py-3 text-sm font-semibold tracking-wider uppercase border-0 shadow-2xl">
+                🍷 {locale === 'es' ? 'Bares y Pulquerías Premium' : 'Premium Bars & Pulquerias'} 🍸
+              </Badge>
+            </div>
+            <div className="h-px w-20 bg-gradient-to-l from-transparent to-cyan-400" />
+          </div>
+          
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 font-sans">
+            <span className="text-white drop-shadow-2xl">
+              {locale === 'es' ? 'Vida Nocturna de ' : 'Nightlife of '}
+            </span>
+            <br />
+            <span className="bg-gradient-to-r from-teal-300 via-cyan-300 to-emerald-300 bg-clip-text text-transparent drop-shadow-2xl">
+              <span className="text-teal-300">TODO</span>TEPOZ
+            </span>
+          </h1>
+          
+          <p className="text-xl md:text-2xl text-white/80 font-light max-w-4xl mx-auto leading-relaxed mb-8">
+            {locale === 'es' 
+              ? 'Descubre la vibrante vida nocturna de Tepoztlán. Desde pulquerías tradicionales hasta bares modernos con mezcal artesanal.'
+              : 'Discover Tepoztlán\'s vibrant nightlife. From traditional pulquerias to modern bars with artisanal mezcal.'
+            }
+          </p>
+
+          {/* Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
+            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
+              <div className="text-3xl font-bold text-teal-400 mb-2">{bars.length}</div>
+              <div className="text-white/70 text-sm">{locale === 'es' ? 'Bares' : 'Bars'}</div>
+            </div>
+            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
+              <div className="text-3xl font-bold text-cyan-400 mb-2">
+                {bars.filter(b => b.type === 'pulqueria').length}
               </div>
+              <div className="text-white/70 text-sm">{locale === 'es' ? 'Pulquerías' : 'Pulquerias'}</div>
+            </div>
+            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
+              <div className="text-3xl font-bold text-emerald-400 mb-2">
+                {bars.filter(b => b.liveMusic).length}
+              </div>
+              <div className="text-white/70 text-sm">{locale === 'es' ? 'Con Música' : 'Live Music'}</div>
             </div>
           </div>
         </div>
 
-        {/* Controls */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
-          <div className="flex items-center gap-4">
-            <Select value={sortBy} onValueChange={(value) => setSortBy(value as 'featured' | 'rating' | 'price' | 'name')}>
-              <SelectTrigger className="w-48 bg-white/10 backdrop-blur-sm border-white/20 text-white">
-                <SelectValue placeholder={locale === 'es' ? 'Ordenar por' : 'Sort by'} />
-              </SelectTrigger>
-              <SelectContent className="bg-slate-800 border-slate-600">
-                <SelectItem value="featured" className="text-white">
-                  {locale === 'es' ? 'Destacados' : 'Featured'}
-                </SelectItem>
-                <SelectItem value="rating" className="text-white">
-                  {locale === 'es' ? 'Mejor Valorados' : 'Highest Rated'}
-                </SelectItem>
-                <SelectItem value="price" className="text-white">
-                  {locale === 'es' ? 'Precio' : 'Price'}
-                </SelectItem>
-                <SelectItem value="name" className="text-white">
-                  {locale === 'es' ? 'Nombre' : 'Name'}
-                </SelectItem>
-              </SelectContent>
-            </Select>
-
-            <div className="text-white/70 text-sm">
-              {filteredBars.length} {locale === 'es' ? 'resultados' : 'results'}
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <Button
-              onClick={() => setViewMode('grid')}
-              variant={viewMode === 'grid' ? 'default' : 'ghost'}
-              size="sm"
-              className={viewMode === 'grid' 
-                ? 'bg-gradient-to-r from-purple-400 to-pink-400 text-white' 
-                : 'text-white/70 hover:text-white hover:bg-white/10'
-              }
-            >
-              Grid
-            </Button>
-            <Button
-              onClick={() => setViewMode('list')}
-              variant={viewMode === 'list' ? 'default' : 'ghost'}
-              size="sm"
-              className={viewMode === 'list' 
-                ? 'bg-gradient-to-r from-purple-400 to-pink-400 text-white' 
-                : 'text-white/70 hover:text-white hover:bg-white/10'
-              }
-            >
-              List
-            </Button>
-          </div>
-        </div>
-
-        {/* Filters Panel */}
-        {showFilters && (
-          <div className="mb-8 p-6 bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 animate-fade-in">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-semibold text-white">
-                {locale === 'es' ? 'Filtros Avanzados' : 'Advanced Filters'}
-              </h3>
+        {/* Search and Filters */}
+        <div className="mb-12">
+          <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-8 shadow-2xl">
+            {/* Search Bar */}
+            <div className="flex flex-col md:flex-row gap-4 mb-6">
+              <div className="relative flex-1">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50 w-5 h-5" />
+                <Input
+                  type="text"
+                  placeholder={locale === 'es' ? 'Buscar bares, pulquerías, mezcal...' : 'Search bars, pulquerias, mezcal...'}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-12 h-12 bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder-white/50"
+                />
+              </div>
               <Button
-                onClick={resetFilters}
-                variant="ghost"
-                size="sm"
-                className="text-white/70 hover:text-white hover:bg-white/10"
+                onClick={() => setShowFilters(!showFilters)}
+                className="h-12 px-6 bg-gradient-to-r from-teal-400 to-cyan-400 hover:from-teal-500 hover:to-cyan-500 text-white border-0 shadow-xl"
               >
-                <X className="w-4 h-4 mr-2" />
-                {locale === 'es' ? 'Limpiar' : 'Clear'}
+                <Filter className="w-4 h-4 mr-2" />
+                {locale === 'es' ? 'Filtros' : 'Filters'}
+                {activeFiltersCount > 0 && (
+                  <Badge className="ml-2 bg-white/20 text-white">
+                    {activeFiltersCount}
+                  </Badge>
+                )}
               </Button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              {/* Type Filter */}
-              <div>
-                <Label className="text-white font-semibold mb-3 block">
-                  {locale === 'es' ? 'Tipo' : 'Type'}
-                </Label>
-                <Select value={selectedType} onValueChange={setSelectedType}>
-                  <SelectTrigger className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
-                    <SelectValue />
+            {/* Controls */}
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="flex items-center gap-4">
+                <Select value={sortBy} onValueChange={(value) => setSortBy(value as 'featured' | 'rating' | 'price' | 'name')}>
+                  <SelectTrigger className="w-48 bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                    <SelectValue placeholder={locale === 'es' ? 'Ordenar por' : 'Sort by'} />
                   </SelectTrigger>
                   <SelectContent className="bg-slate-800 border-slate-600">
-                    {barTypes.map((type) => (
-                      <SelectItem key={type.id} value={type.id} className="text-white">
-                        {locale === 'es' ? type.es : type.en}
-                      </SelectItem>
-                    ))}
+                    <SelectItem value="featured" className="text-white">
+                      {locale === 'es' ? 'Destacados' : 'Featured'}
+                    </SelectItem>
+                    <SelectItem value="rating" className="text-white">
+                      {locale === 'es' ? 'Mejor Valorados' : 'Highest Rated'}
+                    </SelectItem>
+                    <SelectItem value="price" className="text-white">
+                      {locale === 'es' ? 'Precio' : 'Price'}
+                    </SelectItem>
+                    <SelectItem value="name" className="text-white">
+                      {locale === 'es' ? 'Nombre' : 'Name'}
+                    </SelectItem>
                   </SelectContent>
                 </Select>
-              </div>
 
-              {/* Atmosphere Filter */}
-              <div>
-                <Label className="text-white font-semibold mb-3 block">
-                  {locale === 'es' ? 'Ambiente' : 'Atmosphere'}
-                </Label>
-                <Select value={selectedAtmosphere} onValueChange={setSelectedAtmosphere}>
-                  <SelectTrigger className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-slate-600">
-                    {atmosphereTypes.map((atmosphere) => (
-                      <SelectItem key={atmosphere.id} value={atmosphere.id} className="text-white">
-                        {locale === 'es' ? atmosphere.es : atmosphere.en}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Price Range Filter */}
-              <div>
-                <Label className="text-white font-semibold mb-3 block">
-                  {locale === 'es' ? 'Precio' : 'Price'}
-                </Label>
-                <Select value={selectedPriceRange} onValueChange={setSelectedPriceRange}>
-                  <SelectTrigger className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-slate-600">
-                    {priceRanges.map((price) => (
-                      <SelectItem key={price.id} value={price.id} className="text-white">
-                        {price.symbol} {locale === 'es' ? price.es : price.en}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Drink Types */}
-              <div>
-                <Label className="text-white font-semibold mb-3 block">
-                  {locale === 'es' ? 'Bebidas' : 'Drinks'}
-                </Label>
-                <div className="space-y-2">
-                  {drinkTypes.slice(0, 4).map((drink) => (
-                    <div key={drink.id} className="flex items-center">
-                      <Checkbox
-                        id={drink.id}
-                        checked={selectedDrinks.includes(drink.id)}
-                        onCheckedChange={() => handleDrinkToggle(drink.id)}
-                        className="border-white/40 data-[state=checked]:bg-purple-500 data-[state=checked]:border-purple-500"
-                      />
-                      <label
-                        htmlFor={drink.id}
-                        className="ml-2 text-sm text-white/80 cursor-pointer"
-                      >
-                        {locale === 'es' ? drink.es : drink.en}
-                      </label>
-                    </div>
-                  ))}
+                <div className="text-white/70 text-sm">
+                  {filteredBars.length} {locale === 'es' ? 'resultados' : 'results'}
                 </div>
               </div>
+
+              <div className="flex items-center gap-2">
+                <Button
+                  onClick={() => setViewMode('grid')}
+                  variant={viewMode === 'grid' ? 'default' : 'ghost'}
+                  size="sm"
+                  className={viewMode === 'grid' 
+                    ? 'bg-gradient-to-r from-teal-400 to-cyan-400 text-white' 
+                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                  }
+                >
+                  Grid
+                </Button>
+                <Button
+                  onClick={() => setViewMode('list')}
+                  variant={viewMode === 'list' ? 'default' : 'ghost'}
+                  size="sm"
+                  className={viewMode === 'list' 
+                    ? 'bg-gradient-to-r from-teal-400 to-cyan-400 text-white' 
+                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                  }
+                >
+                  List
+                </Button>
+              </div>
             </div>
-          </div>
-        )}
+
+            {/* Advanced Filters */}
+            {showFilters && (
+              <div className="mt-8 pt-8 border-t border-white/10">
+                <div className="flex justify-between items-center mb-6">
+                  <h3 className="text-xl font-semibold text-white">
+                    {locale === 'es' ? 'Filtros Avanzados' : 'Advanced Filters'}
+                  </h3>
+                  <Button
+                    onClick={resetFilters}
+                    variant="ghost"
+                    size="sm"
+                    className="text-white/70 hover:text-white hover:bg-white/10"
+                  >
+                    <X className="w-4 h-4 mr-2" />
+                    {locale === 'es' ? 'Limpiar' : 'Clear'}
+                  </Button>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                  {/* Type Filter */}
+                  <div>
+                    <Label className="text-white font-semibold mb-3 block">
+                      {locale === 'es' ? 'Tipo' : 'Type'}
+                    </Label>
+                    <Select value={selectedType} onValueChange={setSelectedType}>
+                      <SelectTrigger className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent className="bg-slate-800 border-slate-600">
+                        {barTypes.map((type) => (
+                          <SelectItem key={type.id} value={type.id} className="text-white">
+                            {locale === 'es' ? type.es : type.en}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Atmosphere Filter */}
+                  <div>
+                    <Label className="text-white font-semibold mb-3 block">
+                      {locale === 'es' ? 'Ambiente' : 'Atmosphere'}
+                    </Label>
+                    <Select value={selectedAtmosphere} onValueChange={setSelectedAtmosphere}>
+                      <SelectTrigger className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent className="bg-slate-800 border-slate-600">
+                        {atmosphereTypes.map((atmosphere) => (
+                          <SelectItem key={atmosphere.id} value={atmosphere.id} className="text-white">
+                            {locale === 'es' ? atmosphere.es : atmosphere.en}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Price Range Filter */}
+                  <div>
+                    <Label className="text-white font-semibold mb-3 block">
+                      {locale === 'es' ? 'Precio' : 'Price'}
+                    </Label>
+                    <Select value={selectedPriceRange} onValueChange={setSelectedPriceRange}>
+                      <SelectTrigger className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent className="bg-slate-800 border-slate-600">
+                        {priceRanges.map((price) => (
+                          <SelectItem key={price.id} value={price.id} className="text-white">
+                            {price.symbol} {locale === 'es' ? price.es : price.en}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Drink Types */}
+                  <div>
+                    <Label className="text-white font-semibold mb-3 block">
+                      {locale === 'es' ? 'Bebidas' : 'Drinks'}
+                    </Label>
+                    <div className="space-y-2">
+                      {drinkTypes.slice(0, 4).map((drink) => (
+                        <div key={drink.id} className="flex items-center">
+                          <Checkbox
+                            id={drink.id}
+                            checked={selectedDrinks.includes(drink.id)}
+                            onCheckedChange={() => handleDrinkToggle(drink.id)}
+                            className="border-white/40 data-[state=checked]:bg-teal-500 data-[state=checked]:border-teal-500"
+                          />
+                          <label
+                            htmlFor={drink.id}
+                            className="ml-2 text-sm text-white/80 cursor-pointer"
+                          >
+                            {locale === 'es' ? drink.es : drink.en}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+        </div>
 
         {/* Featured Bars */}
         {!searchQuery && selectedType === 'all' && selectedAtmosphere === 'all' && (
           <div className="mb-12">
-            <div className="flex items-center gap-3 mb-6">
-              <Music className="w-8 h-8 text-purple-400" />
+            <div className="flex items-center gap-3 mb-8">
+              <Music className="w-8 h-8 text-teal-400" />
               <h2 className="text-3xl font-bold text-white">
                 {locale === 'es' ? 'Bares Destacados' : 'Featured Bars'}
               </h2>
             </div>
-            <div className={`grid gap-6 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
+            <div className={`grid gap-8 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
               {filteredBars.filter(bar => bar.featured).map((bar, index) => (
                 <BarCard
                   key={bar.id}
@@ -354,11 +366,11 @@ export default function BarsPageClient({ locale }: BarsPageClientProps) {
         {/* All Bars */}
         <div>
           {(searchQuery || selectedType !== 'all' || selectedAtmosphere !== 'all') && (
-            <h2 className="text-2xl font-bold text-white mb-6">
+            <h2 className="text-3xl font-bold text-white mb-8">
               {locale === 'es' ? 'Resultados de Búsqueda' : 'Search Results'}
             </h2>
           )}
-          <div className={`grid gap-6 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
+          <div className={`grid gap-8 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
             {filteredBars
               .filter(bar => searchQuery || selectedType !== 'all' || selectedAtmosphere !== 'all' ? true : !bar.featured)
               .map((bar, index) => (
@@ -375,19 +387,56 @@ export default function BarsPageClient({ locale }: BarsPageClientProps) {
 
         {/* No Results */}
         {filteredBars.length === 0 && (
-          <div className="text-center py-16">
-            <Beer className="w-16 h-16 text-white/30 mx-auto mb-4" />
-            <h3 className="text-2xl font-semibold text-white/70 mb-2">
-              {locale === 'es' ? 'No se encontraron bares' : 'No bars found'}
-            </h3>
-            <p className="text-white/50">
-              {locale === 'es' 
-                ? 'Intenta ajustar los filtros o la búsqueda'
-                : 'Try adjusting your filters or search'}
-            </p>
+          <div className="text-center py-20">
+            <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-12 shadow-2xl max-w-md mx-auto">
+              <Beer className="w-20 h-20 text-teal-400/50 mx-auto mb-6" />
+              <h3 className="text-2xl font-semibold text-white mb-4">
+                {locale === 'es' ? 'No se encontraron bares' : 'No bars found'}
+              </h3>
+              <p className="text-white/70 mb-6">
+                {locale === 'es' 
+                  ? 'Intenta ajustar los filtros o la búsqueda'
+                  : 'Try adjusting your filters or search'}
+              </p>
+              <Button
+                onClick={resetFilters}
+                className="bg-gradient-to-r from-teal-400 to-cyan-400 hover:from-teal-500 hover:to-cyan-500 text-white border-0 shadow-xl"
+              >
+                {locale === 'es' ? 'Limpiar Filtros' : 'Clear Filters'}
+              </Button>
+            </div>
           </div>
         )}
+
+        {/* CTA Section */}
+        <div className="py-20">
+          <Card className="bg-gradient-to-r from-teal-400/10 to-cyan-400/10 backdrop-blur-xl border-white/20 p-12 max-w-4xl mx-auto">
+            <CardContent className="space-y-6">
+              <h2 className="text-3xl font-bold text-white">
+                {locale === 'es' 
+                  ? '¿Tienes un bar o pulquería en Tepoztlán?' 
+                  : 'Do you own a bar or pulqueria in Tepoztlán?'
+                }
+              </h2>
+              <p className="text-white/80 text-lg max-w-2xl mx-auto">
+                {locale === 'es' 
+                  ? 'Únete a nuestra plataforma y conecta con miles de visitantes que buscan experiencias auténticas de vida nocturna en el corazón de este Pueblo Mágico.'
+                  : 'Join our platform and connect with thousands of visitors looking for authentic nightlife experiences in the heart of this Magical Town.'
+                }
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button className="bg-gradient-to-r from-teal-400 to-cyan-400 hover:from-teal-500 hover:to-cyan-500 text-white px-8 py-6 text-lg">
+                  {locale === 'es' ? 'Registra tu Bar' : 'List Your Bar'}
+                </Button>
+                <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 px-8 py-6 text-lg">
+                  {locale === 'es' ? 'Más Información' : 'Learn More'}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
+    </div>
     </div>
   )
 }
