@@ -200,12 +200,6 @@ export default function StaticNavigation({ lang, translations }: StaticNavigatio
             </Link>
           </Button>
           
-          {/* Mobile menu button */}
-          <Button variant="outline" size="sm" className="md:hidden group transition-all duration-300 hover:scale-105 hover:shadow-md hover:border-primary/50">
-            <svg className="h-4 w-4 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </Button>
         </div>
       </div>
     </header>

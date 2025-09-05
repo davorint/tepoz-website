@@ -92,6 +92,14 @@ export const metadata: Metadata = {
       'es-MX': 'https://tepoztlan.com/es',
       'en-US': 'https://tepoztlan.com/en'
     }
+  },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
+      { url: '/favicon.png', sizes: '192x192', type: 'image/png' }
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/favicon.png'
   }
 };
 
