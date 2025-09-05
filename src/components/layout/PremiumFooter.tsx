@@ -30,37 +30,37 @@ const socialLinks = [
 
 const businessLinks = {
   es: [
-    { name: 'Restaurantes', href: '/es/restaurantes' },
-    { name: 'Hospedajes', href: '/es/hospedajes' },
-    { name: 'Bares y Cantinas', href: '/es/bares' },
-    { name: 'Tours', href: '/es/tours' },
-    { name: 'Mercados', href: '/es/mercados' },
-    { name: 'Senderismo', href: '/es/senderismo' }
+    { name: 'Restaurantes', href: '/es/eat/restaurants' },
+    { name: 'Hospedajes', href: '/es/stay' },
+    { name: 'Bares y Cantinas', href: '/es/eat/bars' },
+    { name: 'Tours', href: '/es/experience/tours' },
+    { name: 'Mercados', href: '/es/events/markets' },
+    { name: 'Senderismo', href: '/es/experience/hiking' }
   ],
   en: [
-    { name: 'Restaurants', href: '/en/restaurants' },
-    { name: 'Accommodations', href: '/en/stays' },
-    { name: 'Bars & Cantinas', href: '/en/bars' },
-    { name: 'Tours', href: '/en/tours' },
-    { name: 'Markets', href: '/en/markets' },
-    { name: 'Hiking', href: '/en/hiking' }
+    { name: 'Restaurants', href: '/en/eat/restaurants' },
+    { name: 'Accommodations', href: '/en/stay' },
+    { name: 'Bars & Cantinas', href: '/en/eat/bars' },
+    { name: 'Tours', href: '/en/experience/tours' },
+    { name: 'Markets', href: '/en/events/markets' },
+    { name: 'Hiking', href: '/en/experience/hiking' }
   ]
 }
 
 const businessOwnerLinks = {
   es: [
-    { name: 'Registrar Negocio', href: '/es/registrar-negocio' },
-    { name: 'Panel de Control', href: '/es/panel' },
-    { name: 'Promocionar', href: '/es/promocionar' },
-    { name: 'Estadísticas', href: '/es/estadisticas' },
-    { name: 'Soporte', href: '/es/soporte' }
+    { name: 'Registrar Negocio', href: '/es/business' },
+    { name: 'Panel de Control', href: '/es/user' },
+    { name: 'Promocionar', href: '/es/business' },
+    { name: 'Estadísticas', href: '/es/user' },
+    { name: 'Soporte', href: '/es/info' }
   ],
   en: [
-    { name: 'Register Business', href: '/en/register-business' },
-    { name: 'Dashboard', href: '/en/dashboard' },
-    { name: 'Promote', href: '/en/promote' },
-    { name: 'Analytics', href: '/en/analytics' },
-    { name: 'Support', href: '/en/support' }
+    { name: 'Register Business', href: '/en/business' },
+    { name: 'Dashboard', href: '/en/user' },
+    { name: 'Promote', href: '/en/business' },
+    { name: 'Analytics', href: '/en/user' },
+    { name: 'Support', href: '/en/info' }
   ]
 }
 

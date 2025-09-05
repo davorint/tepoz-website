@@ -29,12 +29,12 @@ const getNavigationItems = (lang: 'es' | 'en'): NavigationItem[] => {
   if (lang === 'es') {
     return [
       { href: `/${lang}`, label: 'Inicio', icon: <Home className="h-4 w-4" /> },
-      { href: `/${lang}/buscar`, label: 'Buscar', icon: <Search className="h-4 w-4" /> },
-      { href: `/${lang}/descubrir`, label: 'Descubrir', icon: <MapPin className="h-4 w-4" /> },
-      { href: `/${lang}/comer`, label: 'Comer', icon: <Coffee className="h-4 w-4" /> },
-      { href: `/${lang}/hospedar`, label: 'Hospedarse', icon: <Bed className="h-4 w-4" /> },
-      { href: `/${lang}/comprar`, label: 'Comprar', icon: <ShoppingBag className="h-4 w-4" /> },
-      { href: `/${lang}/eventos`, label: 'Eventos', icon: <Calendar className="h-4 w-4" />, badge: '5' },
+      { href: `/${lang}/search`, label: 'Buscar', icon: <Search className="h-4 w-4" /> },
+      { href: `/${lang}/discover`, label: 'Descubrir', icon: <MapPin className="h-4 w-4" /> },
+      { href: `/${lang}/eat`, label: 'Comer', icon: <Coffee className="h-4 w-4" /> },
+      { href: `/${lang}/stay`, label: 'Hospedarse', icon: <Bed className="h-4 w-4" /> },
+      { href: `/${lang}/shop`, label: 'Comprar', icon: <ShoppingBag className="h-4 w-4" /> },
+      { href: `/${lang}/events`, label: 'Eventos', icon: <Calendar className="h-4 w-4" />, badge: '5' },
     ]
   }
   

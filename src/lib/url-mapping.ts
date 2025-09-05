@@ -13,7 +13,7 @@ export const routeMapping = {
   'hospedaje': 'stay',
   'hospedaje/hoteles': 'stay/hotels',
   'hospedaje/eco-lodges': 'stay/eco-lodges',
-  'hospedaje/rentas-vacacionales': 'stay/vacation-rentals',
+  'hospedaje/rentas-vacacionales': 'stay/rentals',
   'hospedaje/hostales': 'stay/hostels',
   'hospedaje/retiros': 'stay/retreats',
   'hospedaje/camping': 'stay/camping',
@@ -55,7 +55,7 @@ export const routeMapping = {
   'servicios/financieros': 'services/financial',
   
   // Other routes
-  'mapa': 'map',
+  'mapas': 'map',
   'buscar': 'search',
   'planificar': 'plan',
   'blog': 'blog',
@@ -66,23 +66,26 @@ export const routeMapping = {
 } as const
 
 // Get the appropriate route for a given language
-export function getLocalizedRoute(route: string, targetLang: Locale): string {
+export function getLocalizedRoute(route: string): string {
   // Remove leading slash and language prefix
   const cleanRoute = route.replace(/^\/[a-z]{2}\//, '').replace(/^\//, '')
   
-  if (targetLang === 'es') {
-    // Find Spanish route from English
-    const spanishRoute = Object.entries(routeMapping).find(([, en]) => en === cleanRoute)?.[0]
-    return spanishRoute || cleanRoute
-  } else {
-    // Find English route from Spanish
+  // Since we now use English folder structure for both languages,
+  // we always return English routes regardless of target language
+  const isSpanishRoute = routeMapping.hasOwnProperty(cleanRoute as keyof typeof routeMapping)
+  
+  if (isSpanishRoute) {
+    // Convert Spanish route to English
     const englishRoute = routeMapping[cleanRoute as keyof typeof routeMapping]
     return englishRoute || cleanRoute
+  } else {
+    // Route is already English or unknown - use as is
+    return cleanRoute
   }
 }
 
 // Build full localized URL
 export function buildLocalizedUrl(route: string, lang: Locale): string {
-  const localizedRoute = getLocalizedRoute(route, lang)
+  const localizedRoute = getLocalizedRoute(route)
   return `/${lang}/${localizedRoute}`
 }

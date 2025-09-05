@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { Card, CardContent } from '@/components/ui/card'
 import { Star, Quote, MessageCircle, ThumbsUp, Camera } from 'lucide-react'
 import { Locale } from '@/lib/i18n'
@@ -205,13 +204,10 @@ export default function PremiumTestimonialsSection({ lang }: PremiumTestimonials
 
                   {/* Author Info */}
                   <div className="flex items-center gap-3">
-                    <div className="relative w-12 h-12">
-                      <Image 
-                        src={testimonial.image}
-                        alt={testimonial.name}
-                        fill
-                        className="rounded-full object-cover border-2 border-white shadow-md"
-                      />
+                    <div className="relative w-12 h-12 overflow-hidden rounded-full border-2 border-white shadow-md bg-gray-200">
+                      <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                        <span className="text-gray-400 text-xs">Loading...</span>
+                      </div>
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2">

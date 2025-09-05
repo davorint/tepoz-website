@@ -2,7 +2,7 @@ import { Locale } from './i18n'
 
 export interface BusinessLocation {
   id: string
-  name: {
+  names: {
     es: string
     en: string
   }
@@ -96,7 +96,7 @@ export const TEPOZTLAN_CENTER: [number, number] = [-99.0967, 18.9847]
 export const mockBusinessLocations: BusinessLocation[] = [
   {
     id: '1',
-    name: {
+    names: {
       es: 'La Casa del Tepozteco',
       en: 'Tepozteco House Restaurant'
     },
@@ -122,7 +122,7 @@ export const mockBusinessLocations: BusinessLocation[] = [
   },
   {
     id: '2', 
-    name: {
+    names: {
       es: 'Hotel Posada del Tepozteco',
       en: 'Tepozteco Inn Hotel'
     },
@@ -146,7 +146,7 @@ export const mockBusinessLocations: BusinessLocation[] = [
   },
   {
     id: '3',
-    name: {
+    names: {
       es: 'Bar La Sombra del Sabino',
       en: 'Sabino Shadow Bar'
     },
@@ -171,7 +171,7 @@ export const mockBusinessLocations: BusinessLocation[] = [
   },
   {
     id: '4',
-    name: {
+    names: {
       es: 'Mercado Municipal',
       en: 'Municipal Market'
     },
@@ -196,7 +196,7 @@ export const mockBusinessLocations: BusinessLocation[] = [
   },
   {
     id: '5',
-    name: {
+    names: {
       es: 'Tours Aventura Tepoztlán',
       en: 'Tepoztlán Adventure Tours'
     },
@@ -220,7 +220,7 @@ export const mockBusinessLocations: BusinessLocation[] = [
   },
   {
     id: '6',
-    name: {
+    names: {
       es: 'Sendero del Tepozteco',
       en: 'Tepozteco Trail'
     },
@@ -249,8 +249,8 @@ export class MapService {
   static searchBusinesses(query: string, category?: string): BusinessLocation[] {
     return mockBusinessLocations.filter(business => {
       const matchesQuery = !query || 
-        business.name.es.toLowerCase().includes(query.toLowerCase()) ||
-        business.name.en.toLowerCase().includes(query.toLowerCase())
+        business.names.es.toLowerCase().includes(query.toLowerCase()) ||
+        business.names.en.toLowerCase().includes(query.toLowerCase())
       
       const matchesCategory = !category || category === 'all' || business.category === category
       
@@ -268,7 +268,7 @@ export class MapService {
   }
 
   static getBusinessName(business: BusinessLocation, locale: Locale): string {
-    return business.name[locale]
+    return business.names[locale]
   }
 
   static getBusinessAddress(business: BusinessLocation, locale: Locale): string {

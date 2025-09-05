@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { Locale } from '@/lib/i18n'
 import { Translations } from '@/types/translations'
+import { buildLocalizedUrl } from '@/lib/url-mapping'
 
 interface TopNavigationWrapperProps {
   lang: Locale
@@ -23,16 +24,16 @@ export default function TopNavigationWrapper({ lang, translations }: TopNavigati
 
         {/* Simple Navigation Menu */}
         <nav className="hidden md:flex space-x-6">
-          <Link href={`/${lang}/descubre`} className="text-sm font-medium hover:text-blue-600">
+          <Link href={buildLocalizedUrl('descubre', lang)} className="text-sm font-medium hover:text-blue-600">
             {translations?.nav?.discover || 'Discover'}
           </Link>
-          <Link href={`/${lang}/hospedaje`} className="text-sm font-medium hover:text-blue-600">
+          <Link href={buildLocalizedUrl('hospedaje', lang)} className="text-sm font-medium hover:text-blue-600">
             {translations?.nav?.stay || 'Stay'}
           </Link>
-          <Link href={`/${lang}/comer`} className="text-sm font-medium hover:text-blue-600">
+          <Link href={buildLocalizedUrl('comer', lang)} className="text-sm font-medium hover:text-blue-600">
             {translations?.nav?.eat || 'Eat'}
           </Link>
-          <Link href={`/${lang}/experiencias`} className="text-sm font-medium hover:text-blue-600">
+          <Link href={buildLocalizedUrl('experiencias', lang)} className="text-sm font-medium hover:text-blue-600">
             {translations?.nav?.experience || 'Experience'}
           </Link>
         </nav>

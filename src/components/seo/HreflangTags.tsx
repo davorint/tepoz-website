@@ -19,15 +19,15 @@ export default function HreflangTags({
   const hreflangTags = [
     {
       hreflang: 'es',
-      href: `${baseUrl}/es/${getLocalizedRoute(cleanPath, 'es')}`
+      href: `${baseUrl}/es/${getLocalizedRoute(cleanPath)}`
     },
     {
       hreflang: 'en', 
-      href: `${baseUrl}/en/${getLocalizedRoute(cleanPath, 'en')}`
+      href: `${baseUrl}/en/${getLocalizedRoute(cleanPath)}`
     },
     {
       hreflang: 'x-default',
-      href: `${baseUrl}/es/${getLocalizedRoute(cleanPath, 'es')}` // Default to Spanish
+      href: `${baseUrl}/es/${getLocalizedRoute(cleanPath)}` // Default to Spanish
     }
   ]
 

@@ -51,7 +51,7 @@ export default function TopNavigation({ lang, translations }: TopNavigationProps
               <NavigationMenuContent>
                 <div className="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
                   <NavigationMenuLink asChild>
-                    <Link href={buildLocalizedUrl('descubre/tepoztlan', lang)} className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                    <Link href={buildLocalizedUrl('descubre', lang)} className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                       <div className="text-sm font-medium leading-none">Tepoztlán Centro</div>
                       <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                         {lang === 'es' ? 'El corazón del Pueblo Mágico' : 'Heart of the Magical Town'}
@@ -59,7 +59,7 @@ export default function TopNavigation({ lang, translations }: TopNavigationProps
                     </Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <Link href={buildLocalizedUrl('descubre/amatlan', lang)} className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                    <Link href={buildLocalizedUrl('descubre', lang)} className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                       <div className="text-sm font-medium leading-none">Amatlán</div>
                       <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                         {lang === 'es' ? 'Cuna de Quetzalcóatl' : 'Birthplace of Quetzalcoatl'}
@@ -67,7 +67,7 @@ export default function TopNavigation({ lang, translations }: TopNavigationProps
                     </Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <Link href={buildLocalizedUrl('descubre/san-juan-tlacotenco', lang)} className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                    <Link href={buildLocalizedUrl('descubre', lang)} className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                       <div className="text-sm font-medium leading-none">San Juan Tlacotenco</div>
                       <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                         {lang === 'es' ? 'Tradición del pulque' : 'Pulque tradition'}
@@ -123,7 +123,7 @@ export default function TopNavigation({ lang, translations }: TopNavigationProps
                     </Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <Link href={buildLocalizedUrl('comer/cafeterias', lang)} className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                    <Link href={buildLocalizedUrl('comer', lang)} className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                       <div className="text-sm font-medium leading-none">{translations.eat.categories.cafes}</div>
                       <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                         {lang === 'es' ? 'Café y panaderías artesanales' : 'Coffee and artisan bakeries'}
@@ -131,7 +131,7 @@ export default function TopNavigation({ lang, translations }: TopNavigationProps
                     </Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <Link href={buildLocalizedUrl('comer/comida-callejera', lang)} className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                    <Link href={buildLocalizedUrl('comer', lang)} className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                       <div className="text-sm font-medium leading-none">{translations.eat.categories.streetFood}</div>
                       <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                         {lang === 'es' ? 'Antojitos y mercados locales' : 'Local snacks and markets'}
@@ -139,7 +139,7 @@ export default function TopNavigation({ lang, translations }: TopNavigationProps
                     </Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <Link href={buildLocalizedUrl('comer/bares', lang)} className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                    <Link href={buildLocalizedUrl('comer', lang)} className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                       <div className="text-sm font-medium leading-none">{lang === 'es' ? 'Bares' : 'Bars'}</div>
                       <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                         {lang === 'es' ? 'Tragos y ambiente nocturno' : 'Drinks and nightlife atmosphere'}
@@ -168,15 +168,7 @@ export default function TopNavigation({ lang, translations }: TopNavigationProps
 
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
-                <Link href={buildLocalizedUrl('comer/restaurantes', lang)} className={cn("group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50")}>
-                  {lang === 'es' ? 'Restaurantes' : 'Restaurants'}
-                </Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-
-            <NavigationMenuItem>
-              <NavigationMenuLink asChild>
-                <Link href={buildLocalizedUrl('mapa', lang)} className={cn("group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50")}>
+                <Link href={buildLocalizedUrl('map', lang)} className={cn("group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50")}>
                   {translations.nav.map}
                 </Link>
               </NavigationMenuLink>
