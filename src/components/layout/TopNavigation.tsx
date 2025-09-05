@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import React from 'react'
 import { Button } from '@/components/ui/button'
 import { 
   NavigationMenu, 
@@ -199,12 +200,6 @@ export default function TopNavigation({ lang, translations }: TopNavigationProps
             <span className="text-xs">{lang.toUpperCase()}</span>
           </Button>
           
-          {/* Mobile menu button */}
-          <Button variant="outline" size="sm" className="md:hidden">
-            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </Button>
         </div>
       </div>
     </header>
