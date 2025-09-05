@@ -67,6 +67,7 @@ export default async function TepoztlanPage({ params }: PageProps) {
           value: 4.8,
           count: 1250
         }}
+        pathname={`/${lang}/discover/tepoztlan`}
       />
       <TepoztlanPageClient lang={lang} />
     </>

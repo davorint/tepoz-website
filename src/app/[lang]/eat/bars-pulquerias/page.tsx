@@ -51,6 +51,7 @@ export default async function BarsPage({
           latitude: '18.9847',
           longitude: '-99.0940'
         }}
+        pathname={`/${lang}/eat/bars-pulquerias`}
       />
       <BarsPageClient locale={lang} />
     </>

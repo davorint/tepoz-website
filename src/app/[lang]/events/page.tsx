@@ -53,6 +53,7 @@ export default async function EventsPage({ params }: EventsPageProps) {
           latitude: '18.9847',
           longitude: '-99.0940'
         }}
+        pathname={`/${lang}/events`}
       />
       <EventsPageClient locale={lang} />
     </>

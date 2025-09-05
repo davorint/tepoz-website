@@ -1,6 +1,4 @@
-'use client'
-
-import { usePathname } from 'next/navigation'
+import React from 'react'
 
 interface StructuredDataProps {
   type?: 'website' | 'restaurant' | 'hotel' | 'tourist-attraction' | 'local-business' | 'article'
@@ -31,6 +29,7 @@ interface StructuredDataProps {
   telephone?: string
   email?: string
   url?: string
+  pathname?: string
 }
 
 export default function StructuredData({
@@ -45,9 +44,9 @@ export default function StructuredData({
   openingHours,
   telephone,
   email,
-  url
+  url,
+  pathname = ''
 }: StructuredDataProps) {
-  const pathname = usePathname()
   const currentUrl = `https://tepoztlan.com${pathname}`
 
   const getStructuredData = () => {

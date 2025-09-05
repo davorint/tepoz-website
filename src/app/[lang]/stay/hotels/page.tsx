@@ -51,6 +51,7 @@ export default async function HotelsPage({
           latitude: '18.9847',
           longitude: '-99.0940'
         }}
+        pathname={`/${lang}/stay/hotels`}
       />
       <HotelsPageClient locale={lang} />
     </>
