@@ -136,6 +136,14 @@ export default function StaticNavigation({ lang, translations }: StaticNavigatio
                       </p>
                     </Link>
                   </NavigationMenuLink>
+                  <NavigationMenuLink asChild>
+                    <Link href={buildLocalizedUrl('eat/bars-pulquerias', lang)} className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] hover:shadow-md focus:bg-accent focus:text-accent-foreground">
+                      <div className="text-sm font-medium leading-none">{lang === 'es' ? 'Bares y Pulquerías' : 'Bars & Pulquerias'}</div>
+                      <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                        {lang === 'es' ? 'Vida nocturna y pulque tradicional' : 'Nightlife and traditional pulque'}
+                      </p>
+                    </Link>
+                  </NavigationMenuLink>
                 </div>
               </NavigationMenuContent>
             </NavigationMenuItem>
