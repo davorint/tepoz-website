@@ -32,6 +32,12 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
   const [showFilters, setShowFilters] = useState(false)
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [sortBy, setSortBy] = useState<'featured' | 'rating' | 'price' | 'name'>('featured')
+  const [isClient, setIsClient] = useState(false)
+
+  // Client-side hydration check
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   // Initialize restaurants
   useEffect(() => {
@@ -191,17 +197,21 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
             {/* Controls */}
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="flex items-center gap-4">
-                <Select value={sortBy} onValueChange={(value: string) => setSortBy(value as 'featured' | 'rating' | 'price' | 'name')}>
-                  <SelectTrigger className="w-48 bg-white/10 backdrop-blur-sm border-white/20 text-white">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-slate-600">
-                    <SelectItem value="featured" className="text-white">{locale === 'es' ? 'Destacados' : 'Featured'}</SelectItem>
-                    <SelectItem value="rating" className="text-white">{locale === 'es' ? 'Mejor Calificados' : 'Highest Rated'}</SelectItem>
-                    <SelectItem value="price" className="text-white">{locale === 'es' ? 'Precio' : 'Price'}</SelectItem>
-                    <SelectItem value="name" className="text-white">{locale === 'es' ? 'Nombre' : 'Name'}</SelectItem>
-                  </SelectContent>
-                </Select>
+                {isClient ? (
+                  <Select value={sortBy} onValueChange={(value: string) => setSortBy(value as 'featured' | 'rating' | 'price' | 'name')}>
+                    <SelectTrigger className="w-48 bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-slate-800 border-slate-600">
+                      <SelectItem value="featured" className="text-white">{locale === 'es' ? 'Destacados' : 'Featured'}</SelectItem>
+                      <SelectItem value="rating" className="text-white">{locale === 'es' ? 'Mejor Calificados' : 'Highest Rated'}</SelectItem>
+                      <SelectItem value="price" className="text-white">{locale === 'es' ? 'Precio' : 'Price'}</SelectItem>
+                      <SelectItem value="name" className="text-white">{locale === 'es' ? 'Nombre' : 'Name'}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                ) : (
+                  <div className="w-48 h-9 bg-white/10 border border-white/20 rounded-md animate-pulse" />
+                )}
 
                 <div className="text-white/70 text-sm">
                   {filteredRestaurants.length} {locale === 'es' ? 'resultados' : 'results'}
@@ -241,52 +251,64 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
                   {/* Cuisine Filter */}
                   <div>
                     <Label className="text-white font-semibold mb-3 block">{locale === 'es' ? 'Cocina' : 'Cuisine'}</Label>
-                    <Select value={selectedCuisine} onValueChange={setSelectedCuisine}>
-                      <SelectTrigger className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent className="bg-slate-800 border-slate-600">
-                        {cuisineTypes.map((cuisine) => (
-                          <SelectItem key={cuisine.id} value={cuisine.id} className="text-white">
-                            {locale === 'es' ? cuisine.es : cuisine.en}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    {isClient ? (
+                      <Select value={selectedCuisine} onValueChange={setSelectedCuisine}>
+                        <SelectTrigger className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent className="bg-slate-800 border-slate-600">
+                          {cuisineTypes.map((cuisine) => (
+                            <SelectItem key={cuisine.id} value={cuisine.id} className="text-white">
+                              {locale === 'es' ? cuisine.es : cuisine.en}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    ) : (
+                      <div className="h-9 bg-white/10 border border-white/20 rounded-md animate-pulse" />
+                    )}
                   </div>
 
                   {/* Atmosphere Filter */}
                   <div>
                     <Label className="text-white font-semibold mb-3 block">{locale === 'es' ? 'Ambiente' : 'Atmosphere'}</Label>
-                    <Select value={selectedAtmosphere} onValueChange={setSelectedAtmosphere}>
-                      <SelectTrigger className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent className="bg-slate-800 border-slate-600">
-                        {atmosphereTypes.map((atmosphere) => (
-                          <SelectItem key={atmosphere.id} value={atmosphere.id} className="text-white">
-                            {locale === 'es' ? atmosphere.es : atmosphere.en}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    {isClient ? (
+                      <Select value={selectedAtmosphere} onValueChange={setSelectedAtmosphere}>
+                        <SelectTrigger className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent className="bg-slate-800 border-slate-600">
+                          {atmosphereTypes.map((atmosphere) => (
+                            <SelectItem key={atmosphere.id} value={atmosphere.id} className="text-white">
+                              {locale === 'es' ? atmosphere.es : atmosphere.en}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    ) : (
+                      <div className="h-9 bg-white/10 border border-white/20 rounded-md animate-pulse" />
+                    )}
                   </div>
 
                   {/* Price Range Filter */}
                   <div>
                     <Label className="text-white font-semibold mb-3 block">{locale === 'es' ? 'Precio' : 'Price'}</Label>
-                    <Select value={selectedPriceRange} onValueChange={setSelectedPriceRange}>
-                      <SelectTrigger className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent className="bg-slate-800 border-slate-600">
-                        {priceRanges.map((price) => (
-                          <SelectItem key={price.id} value={price.id} className="text-white">
-                            {price.symbol} {locale === 'es' ? price.es : price.en}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    {isClient ? (
+                      <Select value={selectedPriceRange} onValueChange={setSelectedPriceRange}>
+                        <SelectTrigger className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent className="bg-slate-800 border-slate-600">
+                          {priceRanges.map((price) => (
+                            <SelectItem key={price.id} value={price.id} className="text-white">
+                              {price.symbol} {locale === 'es' ? price.es : price.en}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    ) : (
+                      <div className="h-9 bg-white/10 border border-white/20 rounded-md animate-pulse" />
+                    )}
                   </div>
 
                   {/* Dietary Restrictions */}
