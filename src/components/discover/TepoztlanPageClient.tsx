@@ -47,16 +47,6 @@ export default function TepoztlanPageClient({ lang }: TepoztlanPageClientProps) 
     }
   }
 
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case 'archaeological': return Mountain
-      case 'cultural': return Building
-      case 'spiritual': return Building
-      case 'recreational': return Users
-      case 'gastronomic': return Building
-      default: return MapPin
-    }
-  }
 
   const content = {
     es: {
@@ -376,6 +366,7 @@ export default function TepoztlanPageClient({ lang }: TepoztlanPageClientProps) 
                   <div className={`relative overflow-hidden ${
                     viewMode === 'list' ? 'w-80 h-48' : 'h-64'
                   }`}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={attraction.imageUrl}
                       alt={attraction.name[lang]}
