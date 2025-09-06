@@ -399,7 +399,7 @@ export class StreetFoodService {
     // Dietary filter
     if (dietary.length > 0) {
       filtered = filtered.filter(streetFood => 
-        dietary.some(diet => streetFood.dietary.includes(diet as any))
+        dietary.some(diet => streetFood.dietary.includes(diet as 'vegetarian' | 'vegan' | 'gluten-free' | 'spicy'))
       )
     }
 

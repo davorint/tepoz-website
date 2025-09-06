@@ -22,7 +22,7 @@ interface StreetFoodPageClientProps {
 
 
 export default function StreetFoodPageClient({ locale }: StreetFoodPageClientProps) {
-  const [streetFoods, setStreetFoods] = useState<StreetFood[]>([])
+  const [, setStreetFoods] = useState<StreetFood[]>([])
   const [filteredStreetFoods, setFilteredStreetFoods] = useState<StreetFood[]>([])
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedType, setSelectedType] = useState('all')

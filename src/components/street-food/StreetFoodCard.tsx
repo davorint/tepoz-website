@@ -12,7 +12,6 @@ import {
   Heart,
   Banknote,
   Flame,
-  Users,
   ShoppingCart
 } from 'lucide-react'
 

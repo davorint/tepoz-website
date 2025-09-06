@@ -365,6 +365,34 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
             </div>
           </div>
         )}
+
+        {/* All Restaurants Directory Button */}
+        <div className="text-center py-16">
+          <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-12 shadow-2xl max-w-4xl mx-auto">
+            <div className="text-6xl mb-6 opacity-80">📊</div>
+            <h2 className="text-3xl font-bold text-white mb-4 font-sans">
+              {locale === 'es' ? 'Directorio Completo' : 'Complete Directory'}
+            </h2>
+            <p className="text-white/70 text-lg mb-8 max-w-2xl mx-auto">
+              {locale === 'es' 
+                ? 'Explora todos los restaurantes en una vista de tabla avanzada con filtros, búsqueda y exportación de datos.'
+                : 'Explore all restaurants in an advanced table view with filters, search and data export capabilities.'
+              }
+            </p>
+            <Button
+              onClick={() => window.location.href = `/${locale}/eat/restaurants/all-restaurants`}
+              size="lg"
+              className="bg-gradient-to-r from-orange-400 to-red-400 hover:from-orange-500 hover:to-red-500 text-white border-0 shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 px-8 py-4 text-lg"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">🗂️</span>
+                <span className="font-semibold">
+                  {locale === 'es' ? 'Ver Todos los Restaurantes' : 'View All Restaurants'}
+                </span>
+              </div>
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   )
