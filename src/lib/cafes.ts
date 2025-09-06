@@ -462,7 +462,7 @@ const cafes: Cafe[] = [
     rating: 4.5,
     reviewCount: 178,
     images: [
-      'https://images.unsplash.com/photo-1555507036-ab794f4ec035?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&h=600&fit=crop',
       'https://images.unsplash.com/photo-1549358077-1c5b2b7ce65f?w=800&h=600&fit=crop'
     ],
     address: {

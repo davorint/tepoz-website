@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { 
   MapPin, 
-  Phone, 
   Mail, 
   Clock, 
   Facebook, 
@@ -126,12 +125,8 @@ export default function PremiumFooter({ lang }: PremiumFooterProps) {
                   <span className="text-white/70">Tepoztlán, Morelos, México</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Phone className="w-4 h-4 text-cyan-400" />
-                  <span className="text-white/70">+52 (777) 123-4567</span>
-                </div>
-                <div className="flex items-center space-x-3">
                   <Mail className="w-4 h-4 text-cyan-400" />
-                  <span className="text-white/70">hola@todotepoz.com</span>
+                  <span className="text-white/70">todotepoz@gmail.com</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Clock className="w-4 h-4 text-cyan-400" />

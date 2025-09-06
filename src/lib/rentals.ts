@@ -708,4 +708,15 @@ export class RentalService {
     if (category === 'all') return sampleRentals
     return sampleRentals.filter(rental => rental.category === category)
   }
+  static getRentalCategory(rental: Rental, locale: Locale): string {
+    const categoryTranslations: Record<string, { es: string; en: string }> = {
+      'apartment': { es: 'Departamento', en: 'Apartment' },
+      'house': { es: 'Casa', en: 'House' },
+      'villa': { es: 'Villa', en: 'Villa' },
+      'studio': { es: 'Studio', en: 'Studio' },
+      'cabin': { es: 'Cabaña', en: 'Cabin' },
+      'loft': { es: 'Loft', en: 'Loft' }
+    }
+    return categoryTranslations[rental.category]?.[locale] || rental.category
+  }
 }

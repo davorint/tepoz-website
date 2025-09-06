@@ -16,7 +16,8 @@ import {
   Filter, 
   X,
   Beer,
-  Music
+  Music,
+  MapPin
 } from 'lucide-react'
 
 interface BarsPageClientProps {
@@ -407,6 +408,90 @@ export default function BarsPageClient({ locale }: BarsPageClientProps) {
             </div>
           </div>
         )}
+
+        {/* Premium Directory Navigation Section */}
+        <div 
+          className="text-center py-16"
+        >
+          <div className="relative max-w-4xl mx-auto">
+            {/* Animated Background Effects */}
+            <div className="absolute inset-0 bg-gradient-to-r from-teal-400/5 to-cyan-400/5 rounded-3xl blur-3xl" />
+            <div className="absolute -top-4 -right-4 w-32 h-32 bg-teal-500/20 rounded-full blur-2xl animate-pulse" />
+            <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-cyan-500/20 rounded-full blur-2xl animate-pulse animation-delay-2s" />
+            
+            {/* Main Content Card */}
+            <div className="relative bg-gradient-to-br from-slate-900/90 via-teal-900/30 to-slate-900/90 backdrop-blur-xl rounded-3xl border border-teal-400/20 p-12 shadow-2xl hover:shadow-teal-400/20 transition-all duration-500">
+              {/* Badge */}
+              <div className="flex justify-center mb-6">
+                <Badge className="bg-gradient-to-r from-teal-400/20 to-cyan-400/20 text-teal-300 px-4 py-1.5 text-xs font-bold tracking-wider uppercase border border-teal-400/30">
+                  {locale === 'es' ? '🌟 Experiencia Premium' : '🌟 Premium Experience'}
+                </Badge>
+              </div>
+              
+              {/* Title */}
+              <h3 className="text-3xl font-bold mb-4">
+                <span className="bg-gradient-to-r from-teal-300 via-cyan-300 to-emerald-300 bg-clip-text text-transparent">
+                  {locale === 'es' ? 'Explora la Vida Nocturna de Tepoztlán' : 'Explore Tepoztlán Nightlife'}
+                </span>
+              </h3>
+              
+              {/* Description */}
+              <p className="text-white/70 mb-8 text-lg leading-relaxed max-w-2xl mx-auto">
+                {locale === 'es' 
+                  ? 'Descubre los mejores bares, pulquerías y cantinas con nuestro directorio interactivo. Filtra por ambiente, encuentra música en vivo y explora experiencias únicas.'
+                  : 'Discover the best bars, pulquerías and cantinas with our interactive directory. Filter by atmosphere, find live music and explore unique experiences.'
+                }
+              </p>
+              
+              {/* Stats Row */}
+              <div className="grid grid-cols-3 gap-4 mb-8">
+                <div className="bg-gradient-to-br from-teal-500/10 to-cyan-500/10 rounded-xl p-4 border border-teal-400/20">
+                  <div className="text-2xl font-bold text-teal-400">50+</div>
+                  <div className="text-sm text-white/60">{locale === 'es' ? 'Lugares' : 'Venues'}</div>
+                </div>
+                <div className="bg-gradient-to-br from-cyan-500/10 to-emerald-500/10 rounded-xl p-4 border border-cyan-400/20">
+                  <div className="text-2xl font-bold text-cyan-400">4.5★</div>
+                  <div className="text-sm text-white/60">{locale === 'es' ? 'Promedio' : 'Average'}</div>
+                </div>
+                <div className="bg-gradient-to-br from-emerald-500/10 to-teal-500/10 rounded-xl p-4 border border-emerald-400/20">
+                  <div className="text-2xl font-bold text-emerald-400">1000+</div>
+                  <div className="text-sm text-white/60">{locale === 'es' ? 'Reseñas' : 'Reviews'}</div>
+                </div>
+              </div>
+              
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button
+                  onClick={() => window.location.href = `/${locale}/eat/bars-pulquerias/all-bars-pulquerias`}
+                  size="lg"
+                  className="group bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white border-0 shadow-xl hover:shadow-2xl hover:shadow-teal-500/30 transform hover:scale-[1.02] transition-all duration-300 px-8 py-4 text-lg font-semibold"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl group-hover:animate-bounce">🍻</span>
+                    <span>
+                      {locale === 'es' ? 'Ver Directorio Completo' : 'View Full Directory'}
+                    </span>
+                    <Beer className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                  </div>
+                </Button>
+                
+                <Button
+                  onClick={() => window.location.href = `/${locale}/eat/bars-pulquerias/map`}
+                  size="lg"
+                  variant="outline"
+                  className="group bg-white/5 hover:bg-white/10 text-white border-teal-400/30 hover:border-teal-400/50 backdrop-blur-sm transition-all duration-300 px-8 py-4 text-lg font-semibold"
+                >
+                  <div className="flex items-center gap-3">
+                    <MapPin className="w-5 h-5 text-teal-400 group-hover:scale-110 transition-transform" />
+                    <span>
+                      {locale === 'es' ? 'Ver en Mapa' : 'View on Map'}
+                    </span>
+                  </div>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* CTA Section */}
         <div className="py-20">

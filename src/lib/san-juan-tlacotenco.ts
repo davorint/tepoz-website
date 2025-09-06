@@ -342,8 +342,8 @@ const sanJuanAttractions: SanJuanAttraction[] = [
       en: 'Free entrance'
     },
     images: [
-      'https://images.unsplash.com/photo-1520637836862-4d197d17c92a?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=800&h=600&fit=crop'
+      'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1608205011156-72dd6c2d82ac?w=800&h=600&fit=crop'
     ],
     location: {
       address: 'Centro de San Juan Tlacotenco',

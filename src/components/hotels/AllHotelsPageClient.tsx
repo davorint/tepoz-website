@@ -21,10 +21,11 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Download, Filter, Columns, Hotel, MapPin, Activity, Star, Building, Phone, Globe, Clock } from 'lucide-react'
+import { Filter, Columns, Hotel, MapPin, Activity, Star, Building, Phone, Globe } from 'lucide-react'
 import { motion } from 'motion/react'
 import { Locale } from '@/lib/i18n'
 import { Hotel as HotelType, HotelService } from '@/lib/hotels'
+import HotelMap from './HotelMap'
 
 // TypeScript interfaces for AG-Grid components
 interface HotelData extends HotelType {
@@ -401,12 +402,6 @@ export default function AllHotelsPageClient({ locale }: AllHotelsPageClientProps
     setSelectedRows(selectedData)
   }, [])
   
-  // Export to CSV
-  const exportToCSV = useCallback(() => {
-    gridApi?.exportDataAsCsv({
-      fileName: `hoteles_tepoztlan_${new Date().toISOString().split('T')[0]}.csv`
-    })
-  }, [gridApi])
   
   // Clear filters
   const clearFilters = useCallback(() => {
@@ -657,14 +652,6 @@ export default function AllHotelsPageClient({ locale }: AllHotelsPageClientProps
 
                   {/* Action Buttons */}
                   <Button 
-                    onClick={exportToCSV} 
-                    className="h-12 gap-2 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 hover:from-blue-500/30 hover:to-indigo-500/30 text-white border border-blue-400/30 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20"
-                  >
-                    <Download className="h-4 w-4" />
-                    {locale === 'es' ? 'Exportar CSV' : 'Export CSV'}
-                  </Button>
-                  
-                  <Button 
                     onClick={clearFilters} 
                     className="h-12 gap-2 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 hover:from-indigo-500/30 hover:to-purple-500/30 text-white border border-indigo-400/30 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/20"
                   >
@@ -737,6 +724,49 @@ export default function AllHotelsPageClient({ locale }: AllHotelsPageClientProps
               </div>
             </CardContent>
           </Card>
+        </motion.div>
+
+        {/* Hotel Map Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mt-12"
+        >
+          <HotelMap
+            locale={locale}
+            selectedHotels={selectedRows.map(row => ({
+              id: row.id,
+              name: row.name,
+              description: row.description,
+              category: row.category,
+              priceRange: row.priceRange,
+              rating: row.rating,
+              reviews: row.reviews,
+              images: row.images,
+              amenities: row.amenities,
+              roomTypes: row.roomTypes,
+              location: row.location,
+              contact: row.contact,
+              features: row.features,
+              featured: row.featured,
+              sustainability: row.sustainability,
+              petFriendly: row.petFriendly,
+              adultsOnly: row.adultsOnly
+            }))}
+            onHotelSelect={(hotel) => {
+              // Find the hotel in the grid and select it
+              if (gridApi) {
+                gridApi.forEachNode((node) => {
+                  if (node.data && node.data.id === hotel.id) {
+                    node.setSelected(true, true)
+                    gridApi.ensureNodeVisible(node)
+                  }
+                })
+              }
+            }}
+            className="w-full"
+          />
         </motion.div>
       </div>
     </div>

@@ -420,4 +420,28 @@ export class BarService {
         return sorted
     }
   }
+
+  static getBarName(bar: Bar, locale: Locale): string {
+    return bar.name[locale]
+  }
+
+  static getBarDescription(bar: Bar, locale: Locale): string {
+    return bar.description[locale]
+  }
+
+  static getBarType(bar: Bar, locale: Locale): string {
+    const typeTranslations: Record<string, { es: string; en: string }> = {
+      'bar': { es: 'Bar', en: 'Bar' },
+      'pulqueria': { es: 'Pulquería', en: 'Pulquería' },
+      'cantina': { es: 'Cantina', en: 'Cantina' },
+      'mezcaleria': { es: 'Mezcalería', en: 'Mezcalería' },
+      'cocktail-bar': { es: 'Bar de Cócteles', en: 'Cocktail Bar' },
+      'sports-bar': { es: 'Sports Bar', en: 'Sports Bar' }
+    }
+    return typeTranslations[bar.type]?.[locale] || bar.type
+  }
+
+  static getBarAddress(bar: Bar, locale: Locale): string {
+    return bar.address[locale]
+  }
 }

@@ -21,10 +21,11 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Download, Filter, Columns, Store, MapPin, Activity, Star, Utensils, Phone, Globe, Clock } from 'lucide-react'
+import { Filter, Columns, Store, MapPin, Activity, Star, Utensils, Phone, Globe, Clock } from 'lucide-react'
 import { motion } from 'motion/react'
 import { Locale } from '@/lib/i18n'
 import { StreetFood, StreetFoodService } from '@/lib/street-food'
+import StreetFoodMap from './StreetFoodMap'
 
 // TypeScript interfaces for AG-Grid components
 interface StreetFoodData extends StreetFood {
@@ -436,12 +437,23 @@ export default function AllStreetFoodPageClient({ locale }: AllStreetFoodPageCli
     setSelectedRows(selectedData)
   }, [])
   
-  // Export to CSV
-  const exportToCSV = useCallback(() => {
-    gridApi?.exportDataAsCsv({
-      fileName: `comida_callejera_tepoztlan_${new Date().toISOString().split('T')[0]}.csv`
-    })
+  const onStreetFoodSelect = useCallback((streetFood: StreetFood) => {
+    if (gridApi) {
+      // Clear current selection
+      gridApi.deselectAll()
+      
+      // Find and select the street food in the grid
+      gridApi.forEachNode((node) => {
+        if (node.data?.id === streetFood.id) {
+          node.setSelected(true, false)
+          
+          // Scroll to the selected row
+          gridApi.ensureNodeVisible(node, 'middle')
+        }
+      })
+    }
   }, [gridApi])
+  
   
   // Clear filters
   const clearFilters = useCallback(() => {
@@ -692,14 +704,6 @@ export default function AllStreetFoodPageClient({ locale }: AllStreetFoodPageCli
 
                   {/* Action Buttons */}
                   <Button 
-                    onClick={exportToCSV} 
-                    className="h-12 gap-2 bg-gradient-to-r from-green-500/20 to-lime-500/20 hover:from-green-500/30 hover:to-lime-500/30 text-white border border-green-400/30 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20"
-                  >
-                    <Download className="h-4 w-4" />
-                    {locale === 'es' ? 'Exportar CSV' : 'Export CSV'}
-                  </Button>
-                  
-                  <Button 
                     onClick={clearFilters} 
                     className="h-12 gap-2 bg-gradient-to-r from-yellow-500/20 to-green-500/20 hover:from-yellow-500/30 hover:to-green-500/30 text-white border border-yellow-400/30 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-yellow-500/20"
                   >
@@ -772,6 +776,20 @@ export default function AllStreetFoodPageClient({ locale }: AllStreetFoodPageCli
               </div>
             </CardContent>
           </Card>
+        </motion.div>
+
+        {/* Street Food Map Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-8"
+        >
+          <StreetFoodMap
+            locale={locale}
+            selectedStreetFoods={selectedRows}
+            onStreetFoodSelect={onStreetFoodSelect}
+          />
         </motion.div>
       </div>
     </div>

@@ -21,10 +21,11 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Download, Filter, Columns, Leaf, MapPin, Activity, Star, Home, Phone, Globe, Sun, Droplet, Recycle, Users } from 'lucide-react'
+import { Filter, Columns, Leaf, MapPin, Activity, Star, Phone, Globe, Recycle } from 'lucide-react'
 import { motion } from 'motion/react'
 import { Locale } from '@/lib/i18n'
-import { EcoLodge, EcoLodgeService, ecoLodgeCategories, ecoLodgePriceRanges } from '@/lib/eco-lodges'
+import { EcoLodge, EcoLodgeService, ecoLodgeCategories } from '@/lib/eco-lodges'
+import EcoLodgeMap from './EcoLodgeMap'
 
 // TypeScript interfaces for AG-Grid components
 interface EcoLodgeData extends EcoLodge {
@@ -512,12 +513,6 @@ export default function AllEcoLodgesPageClient({ locale }: AllEcoLodgesPageClien
     setSelectedRows(selectedData)
   }, [])
   
-  // Export to CSV
-  const exportToCSV = useCallback(() => {
-    gridApi?.exportDataAsCsv({
-      fileName: `eco_lodges_tepoztlan_${new Date().toISOString().split('T')[0]}.csv`
-    })
-  }, [gridApi])
   
   // Clear filters
   const clearFilters = useCallback(() => {
@@ -767,14 +762,6 @@ export default function AllEcoLodgesPageClient({ locale }: AllEcoLodgesPageClien
 
                   {/* Action Buttons */}
                   <Button 
-                    onClick={exportToCSV} 
-                    className="h-12 gap-2 bg-gradient-to-r from-emerald-500/20 to-green-500/20 hover:from-emerald-500/30 hover:to-green-500/30 text-white border border-emerald-400/30 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/20"
-                  >
-                    <Download className="h-4 w-4" />
-                    {locale === 'es' ? 'Exportar CSV' : 'Export CSV'}
-                  </Button>
-                  
-                  <Button 
                     onClick={clearFilters} 
                     className="h-12 gap-2 bg-gradient-to-r from-green-500/20 to-teal-500/20 hover:from-green-500/30 hover:to-teal-500/30 text-white border border-green-400/30 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20"
                   >
@@ -857,6 +844,53 @@ export default function AllEcoLodgesPageClient({ locale }: AllEcoLodgesPageClien
               </div>
             </CardContent>
           </Card>
+        </motion.div>
+
+        {/* Eco-Lodge Map Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mt-12"
+        >
+          <EcoLodgeMap
+            locale={locale}
+            selectedEcoLodges={selectedRows.map(row => ({
+              id: row.id,
+              name: row.name,
+              description: row.description,
+              category: row.category,
+              priceRange: row.priceRange,
+              rating: row.rating,
+              reviews: row.reviews,
+              images: row.images,
+              amenities: row.amenities,
+              roomTypes: row.roomTypes,
+              location: row.location,
+              contact: row.contact,
+              features: row.features,
+              featured: row.featured,
+              sustainability: row.sustainability,
+              petFriendly: row.petFriendly,
+              adultsOnly: row.adultsOnly,
+              organicFood: row.organicFood,
+              solarPower: row.solarPower,
+              waterConservation: row.waterConservation,
+              localMaterials: row.localMaterials
+            }))}
+            onEcoLodgeSelect={(ecoLodge) => {
+              // Find the eco-lodge in the grid and select it
+              if (gridApi) {
+                gridApi.forEachNode((node) => {
+                  if (node.data && node.data.id === ecoLodge.id) {
+                    node.setSelected(true, true)
+                    gridApi.ensureNodeVisible(node)
+                  }
+                })
+              }
+            }}
+            className="w-full"
+          />
         </motion.div>
       </div>
     </div>
