@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { Locale } from '@/lib/i18n'
 import { Rental, RentalService, rentalCategories, amenityTypes, priceRanges } from '@/lib/rentals'
 import RentalCard from './RentalCard'
@@ -15,7 +16,8 @@ import {
   Search, 
   Filter, 
   X,
-  Home
+  Home,
+  Database
 } from 'lucide-react'
 
 interface RentalsPageClientProps {
@@ -403,6 +405,39 @@ export default function RentalsPageClient({ locale }: RentalsPageClientProps) {
             </div>
           </div>
         )}
+
+        {/* Directory Button */}
+        <div className="text-center py-12">
+          <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-8 shadow-2xl max-w-2xl mx-auto">
+            <div className="flex flex-col items-center space-y-6">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-emerald-400 blur-xl opacity-50" />
+                <div className="relative bg-gradient-to-r from-green-400 to-emerald-400 p-4 rounded-2xl shadow-2xl">
+                  <Database className="h-12 w-12 text-white" />
+                </div>
+              </div>
+              
+              <div className="text-center">
+                <h3 className="text-2xl font-bold text-white mb-3">
+                  {locale === 'es' ? 'Explora Todas las Rentas' : 'Explore All Rentals'}
+                </h3>
+                <p className="text-white/70 mb-6 max-w-lg">
+                  {locale === 'es'
+                    ? 'Accede a nuestro directorio completo con herramientas avanzadas de búsqueda, filtros y análisis detallado'
+                    : 'Access our complete directory with advanced search tools, filters and detailed analysis'
+                  }
+                </p>
+              </div>
+              
+              <Link href={`/${locale}/stay/vacation-rentals/all-vacation-rentals`}>
+                <Button className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-8 py-4 text-lg font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300">
+                  <Database className="w-5 h-5 mr-3" />
+                  {locale === 'es' ? 'Ver Directorio Completo' : 'View Complete Directory'}
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
 
         {/* Business Owner CTA */}
         <div className="text-center py-12">

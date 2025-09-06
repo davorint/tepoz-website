@@ -10,10 +10,12 @@ import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
+import { Card, CardContent } from '@/components/ui/card'
 import { 
   Search, 
   Filter, 
-  X
+  X,
+  Star
 } from 'lucide-react'
 
 interface RestaurantsPageClientProps {
@@ -392,6 +394,38 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
               </div>
             </Button>
           </div>
+        </div>
+
+        {/* Business Owner CTA */}
+        <div className="text-center py-12">
+          <Card className="bg-gradient-to-r from-orange-400/10 to-red-400/10 backdrop-blur-xl border-white/20 p-12 max-w-4xl mx-auto">
+            <CardContent className="space-y-6">
+              <h2 className="text-3xl font-bold text-white">
+                {locale === 'es' 
+                  ? '¿Tienes un restaurante en Tepoztlán?' 
+                  : 'Do you own a restaurant in Tepoztlán?'
+                }
+              </h2>
+              <p className="text-white/80 text-lg max-w-2xl mx-auto">
+                {locale === 'es' 
+                  ? 'Únete a nuestra plataforma y conecta con miles de visitantes que buscan experiencias gastronómicas auténticas en el corazón de este Pueblo Mágico.'
+                  : 'Join our platform and connect with thousands of visitors looking for authentic culinary experiences in the heart of this Magical Town.'
+                }
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button className="bg-gradient-to-r from-orange-400 to-red-400 hover:from-orange-500 hover:to-red-500 text-white px-8 py-6 text-lg">
+                  <Star className="w-5 h-5 mr-2" />
+                  {locale === 'es' ? 'Agregar mi Restaurante' : 'Add my Restaurant'}
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="border-white/30 bg-white/10 text-white hover:bg-white/20 px-8 py-6 text-lg"
+                >
+                  {locale === 'es' ? 'Más Información' : 'Learn More'}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

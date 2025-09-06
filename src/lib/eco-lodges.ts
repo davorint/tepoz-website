@@ -294,6 +294,269 @@ const sampleEcoLodges: EcoLodge[] = [
     solarPower: true,
     waterConservation: true,
     localMaterials: true
+  },
+  {
+    id: 'treehouse-magico',
+    name: {
+      es: 'Casa del Árbol Mágico',
+      en: 'Magic Treehouse'
+    },
+    description: {
+      es: 'Casa en el árbol construida en un ahuehuete centenario con plataformas de observación y baños compostables.',
+      en: 'Treehouse built in a centennial ahuehuete tree with observation platforms and composting toilets.'
+    },
+    category: 'treehouse',
+    priceRange: '$$',
+    rating: 4.8,
+    reviews: 156,
+    images: [
+      'https://images.unsplash.com/photo-1520637836862-4d197d17c35a?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1504851149312-7a075b496cc7?w=800&h=600&fit=crop'
+    ],
+    amenities: ['composting', 'wildlife', 'hiking', 'garden'],
+    roomTypes: [
+      { type: 'Nido del Águila', price: 2200, capacity: 2 },
+      { type: 'Refugio Familiar', price: 3000, capacity: 4 }
+    ],
+    location: {
+      address: 'Bosque de los Ahuehuetes, Km 4',
+      coordinates: [19.0245, -99.0756],
+      neighborhood: 'Valle Alto'
+    },
+    contact: {
+      phone: '+52 739 348 0567',
+      email: 'reservas@treehousemagico.com',
+      website: 'treehousemagico.com'
+    },
+    features: ['canopy-access', 'bird-watching', 'sunrise-yoga', 'nature-immersion'],
+    featured: true,
+    sustainability: true,
+    petFriendly: false,
+    adultsOnly: true,
+    organicFood: true,
+    solarPower: false,
+    waterConservation: true,
+    localMaterials: true
+  },
+  {
+    id: 'eco-farm-tepoztlan',
+    name: {
+      es: 'Granja Ecológica Tepoztlán',
+      en: 'Tepoztlán Ecological Farm'
+    },
+    description: {
+      es: 'Granja orgánica con experiencias de agricultura sustentable, ordeña de cabras y producción de quesos artesanales.',
+      en: 'Organic farm with sustainable agriculture experiences, goat milking and artisanal cheese production.'
+    },
+    category: 'organic-farm',
+    priceRange: '$',
+    rating: 4.6,
+    reviews: 289,
+    images: [
+      'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800&h=600&fit=crop'
+    ],
+    amenities: ['organic-food', 'composting', 'garden', 'hiking'],
+    roomTypes: [
+      { type: 'Cabaña Granjera', price: 1200, capacity: 3 },
+      { type: 'Dormitorio Compartido', price: 600, capacity: 1 },
+      { type: 'Espacio Camping', price: 400, capacity: 2 }
+    ],
+    location: {
+      address: 'Camino a la Granja, Km 2.5',
+      coordinates: [19.0298, -99.0623],
+      neighborhood: 'San Andrés de la Cal'
+    },
+    contact: {
+      phone: '+52 739 348 0789',
+      email: 'granja@ecofarmtepoztlan.org',
+      website: 'ecofarmtepoztlan.org'
+    },
+    features: ['farm-experiences', 'cheese-making', 'animal-interaction', 'permaculture-workshops'],
+    featured: false,
+    sustainability: true,
+    petFriendly: true,
+    adultsOnly: false,
+    organicFood: true,
+    solarPower: true,
+    waterConservation: true,
+    localMaterials: true
+  },
+  {
+    id: 'sustainable-resort-tepozteco',
+    name: {
+      es: 'Resort Sustentable Tepozteco',
+      en: 'Tepozteco Sustainable Resort'
+    },
+    description: {
+      es: 'Resort de lujo con certificación LEED, paneles solares, tratamiento de aguas grises y arquitectura bioclimática.',
+      en: 'Luxury resort with LEED certification, solar panels, greywater treatment and bioclimatic architecture.'
+    },
+    category: 'sustainable-hotel',
+    priceRange: '$$$$',
+    rating: 4.7,
+    reviews: 234,
+    images: [
+      'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&h=600&fit=crop'
+    ],
+    amenities: ['solar-power', 'organic-food', 'water-conservation', 'composting', 'garden', 'hiking'],
+    roomTypes: [
+      { type: 'Habitación Sustentable', price: 3800, capacity: 2 },
+      { type: 'Suite Ecológica', price: 5200, capacity: 4 },
+      { type: 'Villa Verde', price: 7800, capacity: 6 }
+    ],
+    location: {
+      address: 'Ladera del Tepozteco, Km 1',
+      coordinates: [19.0156, -99.1023],
+      neighborhood: 'Tepozteco'
+    },
+    contact: {
+      phone: '+52 739 348 0012',
+      email: 'reservas@resorttepozteco.com',
+      website: 'resorttepozteco.com'
+    },
+    features: ['leed-certified', 'carbon-neutral', 'renewable-energy', 'green-architecture'],
+    featured: true,
+    sustainability: true,
+    petFriendly: true,
+    adultsOnly: false,
+    organicFood: true,
+    solarPower: true,
+    waterConservation: true,
+    localMaterials: true
+  },
+  {
+    id: 'glamping-piedra-herrada',
+    name: {
+      es: 'Glamping Piedra Herrada',
+      en: 'Piedra Herrada Glamping'
+    },
+    description: {
+      es: 'Experiencia glamping en domos transparentes para observación de estrellas con fogatas y excursiones nocturnas.',
+      en: 'Glamping experience in transparent domes for stargazing with bonfires and night expeditions.'
+    },
+    category: 'glamping',
+    priceRange: '$$$',
+    rating: 4.9,
+    reviews: 178,
+    images: [
+      'https://images.unsplash.com/photo-1504851149312-7a075b496cc7?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1510312305653-8ed496efaeb1?w=800&h=600&fit=crop'
+    ],
+    amenities: ['solar-power', 'composting', 'hiking', 'wildlife'],
+    roomTypes: [
+      { type: 'Domo Estelar', price: 3500, capacity: 2 },
+      { type: 'Domo Familiar', price: 4800, capacity: 4 },
+      { type: 'Domo Deluxe', price: 5200, capacity: 2 }
+    ],
+    location: {
+      address: 'Mirador de Piedra Herrada, Km 8',
+      coordinates: [19.0412, -99.0234],
+      neighborhood: 'Piedra Herrada'
+    },
+    contact: {
+      phone: '+52 739 348 0345',
+      email: 'estrellas@glampingpiedra.com',
+      website: 'glampingpiedraherrada.com'
+    },
+    features: ['stargazing', 'transparent-domes', 'astronomy-tours', 'night-photography'],
+    featured: true,
+    sustainability: true,
+    petFriendly: false,
+    adultsOnly: true,
+    organicFood: false,
+    solarPower: true,
+    waterConservation: true,
+    localMaterials: false
+  },
+  {
+    id: 'retiro-cuernavaca-tepoztlan',
+    name: {
+      es: 'Retiro Natural Cuernavaca-Tepoztlán',
+      en: 'Cuernavaca-Tepoztlán Nature Retreat'
+    },
+    description: {
+      es: 'Centro de retiros con temazcal, medicina ancestral, ceremonias de cacao y terapias de sonido.',
+      en: 'Retreat center with temazcal, ancestral medicine, cacao ceremonies and sound therapy.'
+    },
+    category: 'nature-retreat',
+    priceRange: '$$',
+    rating: 4.8,
+    reviews: 145,
+    images: [
+      'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1502780402662-acc01917ef2e?w=800&h=600&fit=crop'
+    ],
+    amenities: ['organic-food', 'composting', 'garden', 'hiking', 'wildlife'],
+    roomTypes: [
+      { type: 'Habitación Sencilla', price: 1800, capacity: 1 },
+      { type: 'Cabaña Retiro', price: 2400, capacity: 2 },
+      { type: 'Suite Sanación', price: 3200, capacity: 2 }
+    ],
+    location: {
+      address: 'Camino de los Ancestros, Km 5',
+      coordinates: [19.0089, -99.1134],
+      neighborhood: 'Santa Catarina'
+    },
+    contact: {
+      phone: '+52 739 348 0678',
+      email: 'retiro@naturacentro.com',
+      website: 'retironaturacentro.com'
+    },
+    features: ['temazcal-ceremonies', 'plant-medicine', 'sound-healing', 'spiritual-guidance'],
+    featured: false,
+    sustainability: true,
+    petFriendly: false,
+    adultsOnly: true,
+    organicFood: true,
+    solarPower: false,
+    waterConservation: true,
+    localMaterials: true
+  },
+  {
+    id: 'eco-resort-valle-perdido',
+    name: {
+      es: 'Eco-Resort Valle Perdido',
+      en: 'Lost Valley Eco-Resort'
+    },
+    description: {
+      es: 'Resort ecológico en valle privado con cascadas, piscinas naturales, senderos y avistamiento de venados.',
+      en: 'Ecological resort in private valley with waterfalls, natural pools, trails and deer watching.'
+    },
+    category: 'eco-resort',
+    priceRange: '$$$',
+    rating: 4.5,
+    reviews: 267,
+    images: [
+      'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800&h=600&fit=crop'
+    ],
+    amenities: ['solar-power', 'water-conservation', 'local-materials', 'hiking', 'wildlife', 'garden'],
+    roomTypes: [
+      { type: 'Cabaña Valle', price: 2800, capacity: 3 },
+      { type: 'Suite Cascada', price: 3600, capacity: 4 },
+      { type: 'Villa Perdida', price: 5000, capacity: 6 }
+    ],
+    location: {
+      address: 'Valle Perdido, Acceso Km 12',
+      coordinates: [18.9723, -99.0456],
+      neighborhood: 'Valle Perdido'
+    },
+    contact: {
+      phone: '+52 739 348 0901',
+      email: 'valle@ecoresortperdido.com',
+      website: 'ecoresortvalleperdido.com'
+    },
+    features: ['private-valley', 'natural-pools', 'wildlife-sanctuary', 'waterfall-access'],
+    featured: true,
+    sustainability: true,
+    petFriendly: true,
+    adultsOnly: false,
+    organicFood: true,
+    solarPower: true,
+    waterConservation: true,
+    localMaterials: true
   }
 ]
 

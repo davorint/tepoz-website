@@ -21,6 +21,7 @@ const SelectTrigger = React.forwardRef<
       "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background data-[placeholder]:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
       className
     )}
+    suppressHydrationWarning={true}
     {...props}
   >
     {children}
@@ -80,6 +81,7 @@ const SelectContent = React.forwardRef<
         className
       )}
       position={position}
+      suppressHydrationWarning={true}
       {...props}
     >
       <SelectScrollUpButton />
@@ -89,6 +91,7 @@ const SelectContent = React.forwardRef<
           position === "popper" &&
             "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]"
         )}
+        suppressHydrationWarning={true}
       >
         {children}
       </SelectPrimitive.Viewport>

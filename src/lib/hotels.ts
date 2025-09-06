@@ -10,7 +10,7 @@ export interface Hotel {
     es: string
     en: string
   }
-  category: 'boutique' | 'resort' | 'eco' | 'budget' | 'luxury' | 'hostel'
+  category: 'boutique' | 'resort' | 'eco' | 'budget' | 'luxury' | 'hostel' | 'business' | 'wellness' | 'romantic' | 'historic'
   priceRange: '$' | '$$' | '$$$' | '$$$$'
   rating: number
   reviews: number
@@ -46,7 +46,11 @@ export const hotelCategories = [
   { id: 'eco', es: 'Eco-Lodge', en: 'Eco-Lodge', emoji: '🌿' },
   { id: 'luxury', es: 'Lujo', en: 'Luxury', emoji: '💎' },
   { id: 'budget', es: 'Económico', en: 'Budget', emoji: '💰' },
-  { id: 'hostel', es: 'Hostal', en: 'Hostel', emoji: '🏠' }
+  { id: 'hostel', es: 'Hostal', en: 'Hostel', emoji: '🏠' },
+  { id: 'business', es: 'Negocios', en: 'Business', emoji: '🏢' },
+  { id: 'wellness', es: 'Bienestar', en: 'Wellness', emoji: '🧘' },
+  { id: 'romantic', es: 'Romántico', en: 'Romantic', emoji: '💕' },
+  { id: 'historic', es: 'Histórico', en: 'Historic', emoji: '🏛️' }
 ]
 
 // Amenity types
@@ -358,6 +362,300 @@ const hotels: Hotel[] = [
     features: ['traditional-decor', 'local-cuisine', 'cultural-events'],
     featured: false,
     sustainability: false,
+    petFriendly: true,
+    adultsOnly: false
+  },
+  {
+    id: 'casa-bugambilia',
+    name: {
+      es: 'Casa Bugambilia',
+      en: 'Casa Bugambilia'
+    },
+    description: {
+      es: 'Casa boutique con vistas panorámicas al Valle de Atongo y decoración artesanal mexicana',
+      en: 'Boutique house with panoramic views of Atongo Valley and Mexican artisan decor'
+    },
+    category: 'boutique',
+    priceRange: '$$',
+    rating: 4.5,
+    reviews: 234,
+    images: ['https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    amenities: ['wifi', 'breakfast', 'parking', 'garden'],
+    roomTypes: [
+      { name: { es: 'Habitación Estándar', en: 'Standard Room' }, capacity: 2, price: 120 },
+      { name: { es: 'Suite Vista', en: 'View Suite' }, capacity: 4, price: 200 }
+    ],
+    location: {
+      address: 'Camino Real al Valle 15',
+      coordinates: [18.9845, -99.0915],
+      neighborhood: 'Valle de Atongo'
+    },
+    contact: {
+      phone: '+52 739 395 0013',
+      email: 'reservas@casabugambilia.com',
+      website: 'https://casabugambilia.com'
+    },
+    features: ['panoramic-views', 'artisan-decor', 'yoga-classes'],
+    featured: false,
+    sustainability: true,
+    petFriendly: true,
+    adultsOnly: false
+  },
+  {
+    id: 'hotel-quetzal',
+    name: {
+      es: 'Hotel Quetzal',
+      en: 'Hotel Quetzal'
+    },
+    description: {
+      es: 'Hotel moderno con arquitectura contemporánea y todas las comodidades para el viajero de negocios',
+      en: 'Modern hotel with contemporary architecture and all amenities for business travelers'
+    },
+    category: 'business',
+    priceRange: '$$$',
+    rating: 4.3,
+    reviews: 445,
+    images: ['https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    amenities: ['wifi', 'gym', 'business-center', 'parking', 'restaurant', 'bar'],
+    roomTypes: [
+      { name: { es: 'Habitación Ejecutiva', en: 'Executive Room' }, capacity: 2, price: 220 },
+      { name: { es: 'Suite Ejecutiva', en: 'Executive Suite' }, capacity: 3, price: 320 },
+      { name: { es: 'Suite Presidencial', en: 'Presidential Suite' }, capacity: 4, price: 450 }
+    ],
+    location: {
+      address: 'Av. Revolución 1910, 45',
+      coordinates: [18.9855, -99.0925],
+      neighborhood: 'Centro'
+    },
+    contact: {
+      phone: '+52 739 395 0014',
+      email: 'reservaciones@hotelquetzal.com',
+      website: 'https://hotelquetzal.com'
+    },
+    features: ['business-center', 'conference-rooms', 'airport-shuttle'],
+    featured: true,
+    sustainability: false,
+    petFriendly: false,
+    adultsOnly: false
+  },
+  {
+    id: 'villa-del-alma',
+    name: {
+      es: 'Villa del Alma',
+      en: 'Villa del Alma'
+    },
+    description: {
+      es: 'Retiro espiritual y wellness con temazcales, terapias holísticas y conexión con la naturaleza',
+      en: 'Spiritual retreat and wellness center with temazcal, holistic therapies and nature connection'
+    },
+    category: 'wellness',
+    priceRange: '$$$',
+    rating: 4.8,
+    reviews: 167,
+    images: ['https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    amenities: ['spa', 'yoga', 'meditation', 'organic-restaurant', 'wifi', 'pool'],
+    roomTypes: [
+      { name: { es: 'Habitación Zen', en: 'Zen Room' }, capacity: 2, price: 250 },
+      { name: { es: 'Suite Mandala', en: 'Mandala Suite' }, capacity: 2, price: 350 },
+      { name: { es: 'Cabaña Chakra', en: 'Chakra Cabin' }, capacity: 3, price: 400 }
+    ],
+    location: {
+      address: 'Camino a San Andrés de la Cal, Km 3',
+      coordinates: [18.9820, -99.0890],
+      neighborhood: 'San Andrés'
+    },
+    contact: {
+      phone: '+52 739 395 0015',
+      email: 'contacto@villadelama.com',
+      website: 'https://villadelama.com'
+    },
+    features: ['temazcal', 'meditation-garden', 'holistic-therapies', 'organic-food'],
+    featured: true,
+    sustainability: true,
+    petFriendly: false,
+    adultsOnly: true
+  },
+  {
+    id: 'posada-amor-eterno',
+    name: {
+      es: 'Posada Amor Eterno',
+      en: 'Posada Amor Eterno'
+    },
+    description: {
+      es: 'Posada romántica perfecta para parejas, con jacuzzis privados y cenas a la luz de las velas',
+      en: 'Romantic inn perfect for couples, featuring private jacuzzis and candlelight dinners'
+    },
+    category: 'romantic',
+    priceRange: '$$',
+    rating: 4.6,
+    reviews: 298,
+    images: ['https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    amenities: ['jacuzzi', 'romantic-dining', 'wifi', 'breakfast', 'couples-massage'],
+    roomTypes: [
+      { name: { es: 'Suite Romántica', en: 'Romantic Suite' }, capacity: 2, price: 180 },
+      { name: { es: 'Suite Luna de Miel', en: 'Honeymoon Suite' }, capacity: 2, price: 250 }
+    ],
+    location: {
+      address: 'Calle del Amor 12',
+      coordinates: [18.9865, -99.0930],
+      neighborhood: 'Barrio de los Remedios'
+    },
+    contact: {
+      phone: '+52 739 395 0016',
+      email: 'amor@posadaamoreterno.com',
+      website: 'https://posadaamoreterno.com'
+    },
+    features: ['couples-only', 'private-jacuzzi', 'romantic-dinners', 'champagne-service'],
+    featured: false,
+    sustainability: false,
+    petFriendly: false,
+    adultsOnly: true
+  },
+  {
+    id: 'eco-posada-tepoztli',
+    name: {
+      es: 'Eco-Posada Tepoztli',
+      en: 'Eco-Posada Tepoztli'
+    },
+    description: {
+      es: 'Alojamiento sustentable con paneles solares, huerto orgánico y arquitectura bioclimática',
+      en: 'Sustainable accommodation with solar panels, organic garden and bioclimatic architecture'
+    },
+    category: 'eco',
+    priceRange: '$$',
+    rating: 4.7,
+    reviews: 189,
+    images: ['https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    amenities: ['solar-power', 'organic-garden', 'composting', 'wifi', 'breakfast'],
+    roomTypes: [
+      { name: { es: 'Habitación Eco', en: 'Eco Room' }, capacity: 2, price: 130 },
+      { name: { es: 'Cabaña Solar', en: 'Solar Cabin' }, capacity: 4, price: 220 },
+      { name: { es: 'Suite Sustentable', en: 'Sustainable Suite' }, capacity: 3, price: 180 }
+    ],
+    location: {
+      address: 'Callejón Verde 8',
+      coordinates: [18.9840, -99.0905],
+      neighborhood: 'Barrio del Niño Jesús'
+    },
+    contact: {
+      phone: '+52 739 395 0017',
+      email: 'eco@posadatepoztli.com',
+      website: 'https://posadatepoztli.eco'
+    },
+    features: ['zero-waste', 'renewable-energy', 'permaculture-garden', 'eco-workshops'],
+    featured: true,
+    sustainability: true,
+    petFriendly: true,
+    adultsOnly: false
+  },
+  {
+    id: 'hotel-colonial-plaza',
+    name: {
+      es: 'Hotel Colonial Plaza',
+      en: 'Hotel Colonial Plaza'
+    },
+    description: {
+      es: 'Hotel histórico frente a la plaza principal con arquitectura colonial del siglo XVIII restaurada',
+      en: 'Historic hotel facing the main plaza with restored 18th century colonial architecture'
+    },
+    category: 'historic',
+    priceRange: '$$$',
+    rating: 4.4,
+    reviews: 567,
+    images: ['https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    amenities: ['restaurant', 'bar', 'wifi', 'parking', 'concierge', 'breakfast'],
+    roomTypes: [
+      { name: { es: 'Habitación Colonial', en: 'Colonial Room' }, capacity: 2, price: 200 },
+      { name: { es: 'Suite Virreinal', en: 'Viceregal Suite' }, capacity: 3, price: 300 },
+      { name: { es: 'Suite Plaza', en: 'Plaza Suite' }, capacity: 4, price: 400 }
+    ],
+    location: {
+      address: 'Plaza Principal 1',
+      coordinates: [18.9847, -99.0937],
+      neighborhood: 'Centro Histórico'
+    },
+    contact: {
+      phone: '+52 739 395 0018',
+      email: 'reservas@colonialplaza.com',
+      website: 'https://colonialplaza.com'
+    },
+    features: ['historic-building', 'plaza-views', 'cultural-tours', 'antique-furniture'],
+    featured: true,
+    sustainability: false,
+    petFriendly: true,
+    adultsOnly: false
+  },
+  {
+    id: 'hostal-viajeros',
+    name: {
+      es: 'Hostal de los Viajeros',
+      en: 'Travelers Hostel'
+    },
+    description: {
+      es: 'Hostal económico para mochileros y viajeros jóvenes con ambiente internacional y actividades grupales',
+      en: 'Budget hostel for backpackers and young travelers with international atmosphere and group activities'
+    },
+    category: 'hostel',
+    priceRange: '$',
+    rating: 4.2,
+    reviews: 743,
+    images: ['https://images.unsplash.com/photo-1555854877-bab0e564b8d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    amenities: ['shared-kitchen', 'common-area', 'wifi', 'laundry', 'lockers'],
+    roomTypes: [
+      { name: { es: 'Cama en Dormitorio', en: 'Dorm Bed' }, capacity: 1, price: 25 },
+      { name: { es: 'Habitación Privada', en: 'Private Room' }, capacity: 2, price: 60 },
+      { name: { es: 'Habitación Familiar', en: 'Family Room' }, capacity: 4, price: 100 }
+    ],
+    location: {
+      address: 'Calle Moctezuma 23',
+      coordinates: [18.9843, -99.0932],
+      neighborhood: 'Centro'
+    },
+    contact: {
+      phone: '+52 739 395 0019',
+      email: 'hola@hostalviajeros.com',
+      website: 'https://hostalviajeros.com'
+    },
+    features: ['international-crowd', 'group-tours', 'party-atmosphere', 'travel-info'],
+    featured: false,
+    sustainability: false,
+    petFriendly: false,
+    adultsOnly: false
+  },
+  {
+    id: 'hacienda-monte-calvario',
+    name: {
+      es: 'Hacienda Monte Calvario',
+      en: 'Hacienda Monte Calvario'
+    },
+    description: {
+      es: 'Hacienda restaurada del siglo XIX con extensos jardines, capilla colonial y experiencias ecuestres',
+      en: 'Restored 19th century hacienda with extensive gardens, colonial chapel and equestrian experiences'
+    },
+    category: 'luxury',
+    priceRange: '$$$$',
+    rating: 4.9,
+    reviews: 124,
+    images: ['https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    amenities: ['horse-riding', 'chapel', 'gardens', 'restaurant', 'bar', 'pool', 'spa', 'wifi'],
+    roomTypes: [
+      { name: { es: 'Habitación Hacienda', en: 'Hacienda Room' }, capacity: 2, price: 400 },
+      { name: { es: 'Suite Patrón', en: 'Master Suite' }, capacity: 3, price: 600 },
+      { name: { es: 'Villa Independiente', en: 'Private Villa' }, capacity: 6, price: 900 }
+    ],
+    location: {
+      address: 'Camino a Monte Calvario, Km 2',
+      coordinates: [18.9890, -99.0850],
+      neighborhood: 'Monte Calvario'
+    },
+    contact: {
+      phone: '+52 739 395 0020',
+      email: 'reservas@haciendamontecalvario.com',
+      website: 'https://haciendamontecalvario.com'
+    },
+    features: ['historic-hacienda', 'horseback-riding', 'private-chapel', 'wedding-venue'],
+    featured: true,
+    sustainability: true,
     petFriendly: true,
     adultsOnly: false
   }

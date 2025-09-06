@@ -305,6 +305,321 @@ const sampleRentals: Rental[] = [
     hasKitchen: true,
     hasWifi: true,
     hasParking: false
+  },
+  {
+    id: 'penthouse-tepoztlan',
+    name: {
+      es: 'Penthouse Tepoztlán Centro',
+      en: 'Tepoztlán Downtown Penthouse'
+    },
+    description: {
+      es: 'Penthouse de lujo en el corazón del centro histórico con terraza privada y vistas a 360° del pueblo y montañas.',
+      en: 'Luxury penthouse in the heart of the historic center with private terrace and 360° views of town and mountains.'
+    },
+    category: 'apartment',
+    priceRange: '$$$$',
+    rating: 4.9,
+    reviews: 87,
+    images: [
+      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1571079570759-1f0e821ad1b6?w=800&h=600&fit=crop'
+    ],
+    amenities: ['kitchen', 'wifi', 'ac', 'terrace', 'washer', 'tv'],
+    roomInfo: {
+      bedrooms: 3,
+      bathrooms: 2,
+      maxGuests: 6,
+      pricePerNight: 4200
+    },
+    location: {
+      address: 'Plaza de Armas 8, Piso 4',
+      coordinates: [19.0125, -99.0938],
+      neighborhood: 'Centro Histórico'
+    },
+    contact: {
+      phone: '+52 739 111 7777',
+      email: 'penthouse@tepozlux.com',
+      website: 'tepozlux.com'
+    },
+    features: ['panoramic-views', 'rooftop-terrace', 'luxury-finishes', 'historic-location'],
+    featured: true,
+    instantBook: false,
+    petFriendly: false,
+    familyFriendly: true,
+    workFriendly: true,
+    hasKitchen: true,
+    hasWifi: true,
+    hasParking: false
+  },
+  {
+    id: 'casa-adobe-tradicional',
+    name: {
+      es: 'Casa de Adobe Tradicional',
+      en: 'Traditional Adobe House'
+    },
+    description: {
+      es: 'Casa tradicional de adobe de 200 años restaurada con técnicas ancestrales, jardín con plantas medicinales.',
+      en: '200-year-old traditional adobe house restored with ancestral techniques, medicinal plant garden.'
+    },
+    category: 'house',
+    priceRange: '$$',
+    rating: 4.6,
+    reviews: 156,
+    images: [
+      'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop'
+    ],
+    amenities: ['kitchen', 'wifi', 'fireplace', 'garden', 'terrace'],
+    roomInfo: {
+      bedrooms: 2,
+      bathrooms: 2,
+      maxGuests: 5,
+      pricePerNight: 1600
+    },
+    location: {
+      address: 'Calle de las Flores 34',
+      coordinates: [19.0140, -99.0920],
+      neighborhood: 'Barrio de la Santísima'
+    },
+    contact: {
+      phone: '+52 739 111 8888',
+      email: 'adobe@casatradicional.com',
+      website: 'casatradicional.com'
+    },
+    features: ['adobe-walls', 'medicinal-garden', 'traditional-architecture', 'cultural-experience'],
+    featured: true,
+    instantBook: true,
+    petFriendly: true,
+    familyFriendly: true,
+    workFriendly: false,
+    hasKitchen: true,
+    hasWifi: true,
+    hasParking: true
+  },
+  {
+    id: 'studio-artist-retreat',
+    name: {
+      es: 'Estudio Retiro de Artista',
+      en: 'Artist Retreat Studio'
+    },
+    description: {
+      es: 'Estudio luminoso diseñado para artistas con caballete, materiales incluidos y vista inspiradora a los cerros.',
+      en: 'Bright studio designed for artists with easel, materials included and inspiring mountain views.'
+    },
+    category: 'studio',
+    priceRange: '$',
+    rating: 4.4,
+    reviews: 203,
+    images: [
+      'https://images.unsplash.com/photo-1586105251261-72a756497a11?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1560448204-61dc36dc98c8?w=800&h=600&fit=crop'
+    ],
+    amenities: ['kitchen', 'wifi', 'art-supplies', 'natural-light'],
+    roomInfo: {
+      bedrooms: 1,
+      bathrooms: 1,
+      maxGuests: 2,
+      pricePerNight: 900
+    },
+    location: {
+      address: 'Callejón del Arte 15',
+      coordinates: [19.0118, -99.0928],
+      neighborhood: 'San Miguel'
+    },
+    contact: {
+      phone: '+52 739 111 9999',
+      email: 'studio@artistretreat.com',
+      website: 'artistretreat.com'
+    },
+    features: ['art-studio', 'natural-light', 'mountain-views', 'creative-space'],
+    featured: false,
+    instantBook: true,
+    petFriendly: false,
+    familyFriendly: false,
+    workFriendly: true,
+    hasKitchen: true,
+    hasWifi: true,
+    hasParking: false
+  },
+  {
+    id: 'villa-spa-wellness',
+    name: {
+      es: 'Villa Spa & Wellness',
+      en: 'Villa Spa & Wellness'
+    },
+    description: {
+      es: 'Villa exclusiva con spa privado, jacuzzi exterior, sauna y terapista personal disponible.',
+      en: 'Exclusive villa with private spa, outdoor jacuzzi, sauna and personal therapist available.'
+    },
+    category: 'villa',
+    priceRange: '$$$$',
+    rating: 4.8,
+    reviews: 98,
+    images: [
+      'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1582063289852-62e3ba2747f8?w=800&h=600&fit=crop'
+    ],
+    amenities: ['kitchen', 'wifi', 'parking', 'pool', 'garden', 'spa', 'jacuzzi', 'sauna'],
+    roomInfo: {
+      bedrooms: 4,
+      bathrooms: 4,
+      maxGuests: 8,
+      pricePerNight: 5500
+    },
+    location: {
+      address: 'Privada Bienestar 3',
+      coordinates: [19.0160, -99.0880],
+      neighborhood: 'Las Ventanas'
+    },
+    contact: {
+      phone: '+52 739 111 0000',
+      email: 'reservas@villaspa.com',
+      website: 'villaspa.com'
+    },
+    features: ['private-spa', 'wellness-programs', 'luxury-amenities', 'therapeutic-treatments'],
+    featured: true,
+    instantBook: false,
+    petFriendly: false,
+    familyFriendly: true,
+    workFriendly: false,
+    hasKitchen: true,
+    hasWifi: true,
+    hasParking: true
+  },
+  {
+    id: 'cabana-familiar-bosque',
+    name: {
+      es: 'Cabaña Familiar del Bosque',
+      en: 'Family Forest Cabin'
+    },
+    description: {
+      es: 'Cabaña de madera con 3 recámaras, fogata exterior, zona de juegos infantiles y senderos naturales.',
+      en: 'Wooden cabin with 3 bedrooms, outdoor fire pit, children\'s play area and nature trails.'
+    },
+    category: 'cabin',
+    priceRange: '$$',
+    rating: 4.5,
+    reviews: 234,
+    images: [
+      'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop'
+    ],
+    amenities: ['kitchen', 'wifi', 'fireplace', 'garden', 'playground', 'bbq'],
+    roomInfo: {
+      bedrooms: 3,
+      bathrooms: 2,
+      maxGuests: 8,
+      pricePerNight: 1800
+    },
+    location: {
+      address: 'Sendero del Bosque, Km 1.5',
+      coordinates: [19.0185, -99.0845],
+      neighborhood: 'Valle'
+    },
+    contact: {
+      phone: '+52 739 111 1111',
+      email: 'familia@cabanabosque.com',
+      website: 'cabanabosque.com'
+    },
+    features: ['family-friendly', 'nature-trails', 'outdoor-activities', 'campfire'],
+    featured: false,
+    instantBook: true,
+    petFriendly: true,
+    familyFriendly: true,
+    workFriendly: false,
+    hasKitchen: true,
+    hasWifi: true,
+    hasParking: true
+  },
+  {
+    id: 'loft-industrial-chic',
+    name: {
+      es: 'Loft Industrial Chic',
+      en: 'Industrial Chic Loft'
+    },
+    description: {
+      es: 'Loft moderno con diseño industrial, techos altos, mezzanine y decoración contemporánea urbana.',
+      en: 'Modern loft with industrial design, high ceilings, mezzanine and contemporary urban decor.'
+    },
+    category: 'loft',
+    priceRange: '$$$',
+    rating: 4.7,
+    reviews: 145,
+    images: [
+      'https://images.unsplash.com/photo-1586105251261-72a756497a11?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1560448204-61dc36dc98c8?w=800&h=600&fit=crop'
+    ],
+    amenities: ['kitchen', 'wifi', 'ac', 'washer', 'tv', 'sound-system'],
+    roomInfo: {
+      bedrooms: 2,
+      bathrooms: 2,
+      maxGuests: 4,
+      pricePerNight: 2200
+    },
+    location: {
+      address: 'Av. Revolución 1910, 78',
+      coordinates: [19.0130, -99.0935],
+      neighborhood: 'Centro'
+    },
+    contact: {
+      phone: '+52 739 111 2222',
+      email: 'loft@industrialchic.com',
+      website: 'industrialchic.com'
+    },
+    features: ['modern-design', 'high-ceilings', 'urban-style', 'mezzanine'],
+    featured: false,
+    instantBook: true,
+    petFriendly: false,
+    familyFriendly: true,
+    workFriendly: true,
+    hasKitchen: true,
+    hasWifi: true,
+    hasParking: false
+  },
+  {
+    id: 'casa-yoga-meditation',
+    name: {
+      es: 'Casa Yoga & Meditación',
+      en: 'Yoga & Meditation House'
+    },
+    description: {
+      es: 'Casa especializada en retiros espirituales con sala de yoga, jardín zen y desayunos veganos.',
+      en: 'House specialized in spiritual retreats with yoga room, zen garden and vegan breakfasts.'
+    },
+    category: 'house',
+    priceRange: '$$',
+    rating: 4.9,
+    reviews: 167,
+    images: [
+      'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1571079570759-1f0e821ad1b6?w=800&h=600&fit=crop'
+    ],
+    amenities: ['kitchen', 'wifi', 'yoga-room', 'meditation-garden', 'organic-breakfast'],
+    roomInfo: {
+      bedrooms: 3,
+      bathrooms: 2,
+      maxGuests: 6,
+      pricePerNight: 1900
+    },
+    location: {
+      address: 'Sendero de la Paz 21',
+      coordinates: [19.0175, -99.0890],
+      neighborhood: 'Los Ocotes'
+    },
+    contact: {
+      phone: '+52 739 111 3333',
+      email: 'zen@casayoga.com',
+      website: 'casayoga.com'
+    },
+    features: ['spiritual-retreats', 'yoga-classes', 'meditation-space', 'vegan-cuisine'],
+    featured: true,
+    instantBook: false,
+    petFriendly: false,
+    familyFriendly: false,
+    workFriendly: false,
+    hasKitchen: true,
+    hasWifi: true,
+    hasParking: true
   }
 ]
 

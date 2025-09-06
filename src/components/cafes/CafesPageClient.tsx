@@ -10,10 +10,12 @@ import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
+import { Card, CardContent } from '@/components/ui/card'
 import { 
   Search, 
   Filter, 
-  X
+  X,
+  Star
 } from 'lucide-react'
 
 interface CafesPageClientProps {
@@ -352,6 +354,66 @@ export default function CafesPageClient({ locale }: CafesPageClientProps) {
             </div>
           </div>
         )}
+
+        {/* All Cafés & Bakeries Directory Button */}
+        <div className="text-center py-16">
+          <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-12 shadow-2xl max-w-4xl mx-auto">
+            <div className="text-6xl mb-6 opacity-80">📊</div>
+            <h2 className="text-3xl font-bold text-white mb-4 font-sans">
+              {locale === 'es' ? 'Directorio Completo' : 'Complete Directory'}
+            </h2>
+            <p className="text-white/70 text-lg mb-8 max-w-2xl mx-auto">
+              {locale === 'es' 
+                ? 'Explora todos los cafés y panaderías en una vista de tabla avanzada con filtros, búsqueda y exportación de datos.'
+                : 'Explore all cafés and bakeries in an advanced table view with filters, search and data export capabilities.'
+              }
+            </p>
+            <Button
+              onClick={() => window.location.href = `/${locale}/eat/cafes-bakeries/all-cafes-bakeries`}
+              size="lg"
+              className="bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white border-0 shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 px-8 py-4 text-lg"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">🗂️</span>
+                <span className="font-semibold">
+                  {locale === 'es' ? 'Ver Todos los Cafés & Panaderías' : 'View All Cafés & Bakeries'}
+                </span>
+              </div>
+            </Button>
+          </div>
+        </div>
+
+        {/* Business Owner CTA */}
+        <div className="text-center py-12">
+          <Card className="bg-gradient-to-r from-amber-400/10 to-orange-400/10 backdrop-blur-xl border-white/20 p-12 max-w-4xl mx-auto">
+            <CardContent className="space-y-6">
+              <h2 className="text-3xl font-bold text-white">
+                {locale === 'es' 
+                  ? '¿Tienes un café o panadería en Tepoztlán?' 
+                  : 'Do you own a café or bakery in Tepoztlán?'
+                }
+              </h2>
+              <p className="text-white/80 text-lg max-w-2xl mx-auto">
+                {locale === 'es' 
+                  ? 'Únete a nuestra plataforma y conecta con miles de visitantes que buscan experiencias auténticas de café y repostería artesanal en este Pueblo Mágico.'
+                  : 'Join our platform and connect with thousands of visitors looking for authentic coffee and artisan bakery experiences in this Magical Town.'
+                }
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button className="bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white px-8 py-6 text-lg">
+                  <Star className="w-5 h-5 mr-2" />
+                  {locale === 'es' ? 'Agregar mi Negocio' : 'Add my Business'}
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="border-white/30 bg-white/10 text-white hover:bg-white/20 px-8 py-6 text-lg"
+                >
+                  {locale === 'es' ? 'Más Información' : 'Learn More'}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
 
       </div>
     </div>

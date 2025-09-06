@@ -10,10 +10,12 @@ import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
+import { Card, CardContent } from '@/components/ui/card'
 import { 
   Search, 
   Filter, 
-  X
+  X,
+  Star
 } from 'lucide-react'
 
 interface StreetFoodPageClientProps {
@@ -365,6 +367,66 @@ export default function StreetFoodPageClient({ locale }: StreetFoodPageClientPro
             </div>
           </div>
         )}
+
+        {/* All Street Food Directory Button */}
+        <div className="text-center py-16">
+          <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-12 shadow-2xl max-w-4xl mx-auto">
+            <div className="text-6xl mb-6 opacity-80">📊</div>
+            <h2 className="text-3xl font-bold text-white mb-4 font-sans">
+              {locale === 'es' ? 'Directorio Completo' : 'Complete Directory'}
+            </h2>
+            <p className="text-white/70 text-lg mb-8 max-w-2xl mx-auto">
+              {locale === 'es' 
+                ? 'Explora toda la comida callejera en una vista de tabla avanzada con filtros, búsqueda y exportación de datos.'
+                : 'Explore all street food in an advanced table view with filters, search and data export capabilities.'
+              }
+            </p>
+            <Button
+              onClick={() => window.location.href = `/${locale}/eat/street-food/all-street-food`}
+              size="lg"
+              className="bg-gradient-to-r from-green-400 to-yellow-400 hover:from-green-500 hover:to-yellow-500 text-black border-0 shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 px-8 py-4 text-lg"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">🗂️</span>
+                <span className="font-semibold">
+                  {locale === 'es' ? 'Ver Toda la Comida Callejera' : 'View All Street Food'}
+                </span>
+              </div>
+            </Button>
+          </div>
+        </div>
+
+        {/* Business Owner CTA */}
+        <div className="text-center py-12">
+          <Card className="bg-gradient-to-r from-green-400/10 to-yellow-400/10 backdrop-blur-xl border-white/20 p-12 max-w-4xl mx-auto">
+            <CardContent className="space-y-6">
+              <h2 className="text-3xl font-bold text-white">
+                {locale === 'es' 
+                  ? '¿Tienes un puesto de comida en Tepoztlán?' 
+                  : 'Do you have a food stand in Tepoztlán?'
+                }
+              </h2>
+              <p className="text-white/80 text-lg max-w-2xl mx-auto">
+                {locale === 'es' 
+                  ? 'Únete a nuestra plataforma y conecta con miles de visitantes que buscan auténticos sabores callejeros y antojitos tradicionales en este Pueblo Mágico.'
+                  : 'Join our platform and connect with thousands of visitors looking for authentic street flavors and traditional antojitos in this Magical Town.'
+                }
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button className="bg-gradient-to-r from-green-400 to-yellow-400 hover:from-green-500 hover:to-yellow-500 text-black px-8 py-6 text-lg">
+                  <Star className="w-5 h-5 mr-2" />
+                  {locale === 'es' ? 'Agregar mi Puesto' : 'Add my Stand'}
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="border-white/30 bg-white/10 text-white hover:bg-white/20 px-8 py-6 text-lg"
+                >
+                  {locale === 'es' ? 'Más Información' : 'Learn More'}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   )

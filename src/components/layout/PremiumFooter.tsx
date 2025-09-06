@@ -256,7 +256,7 @@ export default function PremiumFooter({ lang }: PremiumFooterProps) {
           <div className="max-w-7xl mx-auto px-4 py-6">
             <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
               <div className="text-white/60 text-sm">
-                © {new Date().getFullYear()} TODOTEPOZ. 
+                © 2025 TODOTEPOZ. 
                 {lang === 'es' 
                   ? ' Todos los derechos reservados.' 
                   : ' All rights reserved.'
