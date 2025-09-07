@@ -109,7 +109,7 @@ export default function BarsPageClient({ locale }: BarsPageClientProps) {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-teal-400 to-cyan-400 blur-lg" />
               <Badge className="relative bg-gradient-to-r from-teal-400 to-cyan-400 text-white px-8 py-3 text-sm font-semibold tracking-wider uppercase border-0 shadow-2xl">
-                🍷 {locale === 'es' ? 'Bares y Pulquerías Premium' : 'Premium Bars & Pulquerias'} 🍸
+                🌵 {locale === 'es' ? 'Tradición y Diversión' : 'Tradition & Fun'} 🎉
               </Badge>
             </div>
             <div className="h-px w-20 bg-gradient-to-l from-transparent to-cyan-400" />
@@ -117,7 +117,7 @@ export default function BarsPageClient({ locale }: BarsPageClientProps) {
           
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 font-sans">
             <span className="text-white drop-shadow-2xl">
-              {locale === 'es' ? 'Vida Nocturna de ' : 'Nightlife of '}
+              {locale === 'es' ? 'Sabor Social de ' : 'Social Flavors of '}
             </span>
             <br />
             <span className="bg-gradient-to-r from-teal-300 via-cyan-300 to-emerald-300 bg-clip-text text-transparent drop-shadow-2xl">
@@ -127,8 +127,8 @@ export default function BarsPageClient({ locale }: BarsPageClientProps) {
           
           <p className="text-xl md:text-2xl text-white/80 font-light max-w-4xl mx-auto leading-relaxed mb-8">
             {locale === 'es' 
-              ? 'Descubre la vibrante vida nocturna de Tepoztlán. Desde pulquerías tradicionales hasta bares modernos con mezcal artesanal.'
-              : 'Discover Tepoztlán\'s vibrant nightlife. From traditional pulquerias to modern bars with artisanal mezcal.'
+              ? 'Vive la experiencia de las bebidas tradicionales mexicanas. Pulquerías históricas, mezcalerías artesanales y espacios sociales únicos para compartir con amigos.'
+              : 'Experience traditional Mexican beverages. Historic pulquerías, artisanal mezcal bars, and unique social spaces to share with friends.'
             }
           </p>
 
@@ -146,9 +146,9 @@ export default function BarsPageClient({ locale }: BarsPageClientProps) {
             </div>
             <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
               <div className="text-3xl font-bold text-emerald-400 mb-2">
-                {bars.filter(b => b.liveMusic).length}
+                {bars.filter(b => b.atmosphere === 'traditional' || b.atmosphere === 'casual').length}
               </div>
-              <div className="text-white/70 text-sm">{locale === 'es' ? 'Con Música' : 'Live Music'}</div>
+              <div className="text-white/70 text-sm">{locale === 'es' ? 'Ambiente Social' : 'Social Atmosphere'}</div>
             </div>
           </div>
         </div>

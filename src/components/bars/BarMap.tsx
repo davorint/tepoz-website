@@ -100,7 +100,7 @@ export default function BarMap({ locale, selectedBars, onBarSelect, className }:
             image: new Circle({
               radius: bar.featured ? 18 : 14,
               fill: new Fill({
-                color: selectedBars.some(b => b.id === bar.id) ? 'rgba(168, 85, 247, 0.9)' : typeStyle.color
+                color: selectedBars.some(b => b.id === bar.id) ? 'rgba(251, 146, 60, 0.9)' : typeStyle.color
               }),
               stroke: new Stroke({
                 color: '#ffffff',
@@ -219,8 +219,8 @@ export default function BarMap({ locale, selectedBars, onBarSelect, className }:
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 blur-xl opacity-50" />
-                  <div className="relative bg-gradient-to-r from-purple-500 to-pink-500 p-3 rounded-2xl shadow-2xl">
+                  <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-orange-500 blur-xl opacity-50" />
+                  <div className="relative bg-gradient-to-r from-amber-500 to-orange-500 p-3 rounded-2xl shadow-2xl">
                     <MapPin className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -230,14 +230,14 @@ export default function BarMap({ locale, selectedBars, onBarSelect, className }:
                   </CardTitle>
                   <p className="text-white/70 mt-1">
                     {locale === 'es' 
-                      ? `Mostrando ${barsToShow.length} establecimientos nocturnos en Tepoztlán`
-                      : `Showing ${barsToShow.length} nightlife venues in Tepoztlán`
+                      ? `Mostrando ${barsToShow.length} lugares sociales y tradicionales en Tepoztlán`
+                      : `Showing ${barsToShow.length} social and traditional venues in Tepoztlán`
                     }
                   </p>
                 </div>
               </div>
-              <Badge variant="outline" className="text-lg px-6 py-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 text-white border-purple-500/30 backdrop-blur-sm">
-                <Wine className="h-4 w-4 mr-2 text-purple-500" />
+              <Badge variant="outline" className="text-lg px-6 py-3 bg-gradient-to-r from-amber-500/10 to-orange-500/10 text-white border-amber-500/30 backdrop-blur-sm">
+                <Wine className="h-4 w-4 mr-2 text-amber-500" />
                 {barsToShow.length} {locale === 'es' ? 'Bares' : 'Bars'}
               </Badge>
             </div>
@@ -251,7 +251,7 @@ export default function BarMap({ locale, selectedBars, onBarSelect, className }:
                 {!mapLoaded && (
                   <div className="absolute inset-0 flex items-center justify-center bg-slate-900/90">
                     <div className="text-center">
-                      <div className="w-16 h-16 border-4 border-purple-500/20 border-t-purple-500 rounded-full animate-spin mx-auto mb-4" />
+                      <div className="w-16 h-16 border-4 border-amber-500/20 border-t-amber-500 rounded-full animate-spin mx-auto mb-4" />
                       <p className="text-white/60 text-lg">
                         {locale === 'es' ? 'Cargando mapa de bares...' : 'Loading bars map...'}
                       </p>
@@ -275,7 +275,7 @@ export default function BarMap({ locale, selectedBars, onBarSelect, className }:
                     </Button>
                     <Button
                       size="sm"
-                      className="w-10 h-10 p-0 bg-gradient-to-r from-purple-500 to-pink-500 text-white"
+                      className="w-10 h-10 p-0 bg-gradient-to-r from-amber-500 to-orange-500 text-white"
                     >
                       <Navigation className="w-4 h-4" />
                     </Button>
@@ -299,7 +299,7 @@ export default function BarMap({ locale, selectedBars, onBarSelect, className }:
           <Card className="border-0 bg-white/5 backdrop-blur-xl shadow-2xl rounded-3xl">
             <CardContent className="p-6">
               <div className="flex items-start gap-4">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center shadow-xl">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 flex items-center justify-center shadow-xl">
                   <span className="text-2xl">{barTypeStyles[selectedBar.type]?.emoji || '🍷'}</span>
                 </div>
                 <div className="flex-1">
@@ -434,7 +434,7 @@ export default function BarMap({ locale, selectedBars, onBarSelect, className }:
                   </div>
 
                   <div className="flex items-center gap-2 mt-4">
-                    <Button size="sm" className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+                    <Button size="sm" className="bg-gradient-to-r from-amber-500 to-orange-500 text-white">
                       <Navigation className="w-3 h-3 mr-1" />
                       {locale === 'es' ? 'Direcciones' : 'Directions'}
                     </Button>

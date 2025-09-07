@@ -450,7 +450,7 @@ export default function AllBarsPulqueriasPageClient({ locale }: AllBarsPulqueria
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-teal-900 to-slate-900 relative overflow-hidden">
-      {/* Ultra Premium Background - Matching nightlife theme */}
+      {/* Ultra Premium Background - Matching social/cultural theme */}
       <div className="absolute inset-0">
         {/* Animated gradient orbs */}
         <div className="absolute top-20 left-20 w-[35rem] h-[35rem] bg-teal-500/20 rounded-full blur-3xl animate-pulse" />
@@ -487,14 +487,14 @@ export default function AllBarsPulqueriasPageClient({ locale }: AllBarsPulqueria
             </span>
             <br />
             <span className="bg-gradient-to-r from-teal-300 via-cyan-300 to-emerald-300 bg-clip-text text-transparent drop-shadow-2xl">
-              {locale === 'es' ? 'Vida Nocturna' : 'Nightlife'}
+              {locale === 'es' ? 'Bebidas Tradicionales' : 'Traditional Beverages'}
             </span>
           </h1>
           
           <p className="text-xl md:text-2xl text-white/80 font-light max-w-4xl mx-auto leading-relaxed">
             {locale === 'es' 
-              ? 'Explora y filtra todos los bares y pulquerías con herramientas avanzadas de búsqueda y análisis'
-              : 'Explore and filter all bars and pulquerías with advanced search and analysis tools'
+              ? 'Descubre cantinas históricas, pulquerías tradicionales y mezcalerías artesanales con herramientas avanzadas de búsqueda'
+              : 'Discover historic cantinas, traditional pulquerías and artisanal mezcal bars with advanced search tools'
             }
           </p>
         </div>
@@ -607,9 +607,9 @@ export default function AllBarsPulqueriasPageClient({ locale }: AllBarsPulqueria
                     <CardContent className="p-6 text-center">
                       <div className="flex items-center justify-between mb-3">
                         <div>
-                          <p className="text-sm text-white/70 mb-1">{locale === 'es' ? 'Con Música en Vivo' : 'Live Music Venues'}</p>
+                          <p className="text-sm text-white/70 mb-1">{locale === 'es' ? 'Lugares Tradicionales' : 'Traditional Venues'}</p>
                           <p className="text-3xl font-bold text-white">
-                            {barData.filter(bar => bar.liveMusic).length}
+                            {barData.filter(bar => bar.atmosphere === 'traditional' || bar.type === 'pulqueria' || bar.type === 'cantina').length}
                           </p>
                         </div>
                         <div className="relative">
