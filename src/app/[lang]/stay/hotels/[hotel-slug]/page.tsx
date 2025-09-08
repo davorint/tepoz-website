@@ -9,6 +9,7 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
+import { generateHotelStructuredData } from '@/lib/seo-utils'
 import { 
   MapPin, 
   Star, 
@@ -52,6 +53,21 @@ export default function HotelPage({ params }: HotelPageProps) {
         
         const foundHotel = HotelService.getHotelBySlug(hotelSlug, lang)
         setHotel(foundHotel || null)
+        
+        // Add structured data
+        if (foundHotel) {
+          const structuredData = generateHotelStructuredData(foundHotel, lang, hotelSlug)
+          const script = document.createElement('script')
+          script.type = 'application/ld+json'
+          script.text = JSON.stringify(structuredData)
+          document.head.appendChild(script)
+          
+          // Clean up function
+          return () => {
+            document.head.removeChild(script)
+          }
+        }
+        
         setLoading(false)
       } catch (error) {
         console.error('Error loading hotel:', error)

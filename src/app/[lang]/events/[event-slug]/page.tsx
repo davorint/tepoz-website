@@ -5,6 +5,8 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
+import { generateEventStructuredData } from '@/lib/seo-utils'
+import { Metadata } from 'next'
 import { 
   MapPin, 
   Star, 
@@ -26,6 +28,65 @@ interface EventPageProps {
     lang: Locale
     'event-slug': string
   }>
+}
+
+export async function generateMetadata({ params }: EventPageProps): Promise<Metadata> {
+  const { lang, 'event-slug': eventSlug } = await params
+  const event = EventService.getEventBySlug(eventSlug, lang)
+
+  if (!event) {
+    return {
+      title: lang === 'es' ? 'Evento no encontrado' : 'Event not found'
+    }
+  }
+
+  const eventName = EventService.getEventName(event, lang)
+  const eventDescription = EventService.getEventDescription(event, lang)
+  const baseUrl = 'https://tepoztlan.com'
+  
+  return {
+    title: `${eventName} - ${lang === 'es' ? 'Eventos en Tepoztlán' : 'Events in Tepoztlán'}`,
+    description: eventDescription.substring(0, 160),
+    keywords: [
+      eventName,
+      EventService.getEventCategoryLabel(event.category, lang),
+      lang === 'es' ? 'eventos Tepoztlán' : 'Tepoztlán events',
+      lang === 'es' ? 'actividades' : 'activities',
+      ...EventService.getEventTags(event, lang)
+    ],
+    openGraph: {
+      title: eventName,
+      description: eventDescription,
+      type: 'website',
+      url: `${baseUrl}/${lang}/events/${eventSlug}`,
+      images: [
+        {
+          url: `${baseUrl}${event.images[0]}`,
+          width: 1200,
+          height: 630,
+          alt: eventName,
+        }
+      ],
+      locale: lang === 'es' ? 'es_MX' : 'en_US'
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: eventName,
+      description: eventDescription.substring(0, 140),
+      images: [`${baseUrl}${event.images[0]}`],
+    },
+    alternates: {
+      canonical: `${baseUrl}/${lang}/events/${eventSlug}`,
+      languages: {
+        'es': `${baseUrl}/es/eventos/${eventSlug}`,
+        'en': `${baseUrl}/en/events/${eventSlug}`,
+      },
+    },
+    robots: {
+      index: true,
+      follow: true,
+    }
+  }
 }
 
 export default async function EventPage({ params }: EventPageProps) {
@@ -57,7 +118,16 @@ export default async function EventPage({ params }: EventPageProps) {
     })
   }
 
+  const structuredData = generateEventStructuredData(event, lang, eventSlug)
+
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData)
+        }}
+      />
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-amber-900 to-orange-900">
       <div className="container mx-auto px-4 py-8">
         {/* Hero Section */}
@@ -308,5 +378,6 @@ export default async function EventPage({ params }: EventPageProps) {
         </div>
       </div>
     </div>
+    </>
   )
 }

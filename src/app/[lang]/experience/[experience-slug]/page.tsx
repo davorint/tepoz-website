@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import ExperienceActions from '@/components/experiences/ExperienceActions'
+import { generateExperienceStructuredData } from '@/lib/seo-utils'
+import { Metadata } from 'next'
 import { 
   MapPin, 
   Star, 
@@ -26,6 +28,65 @@ interface ExperiencePageProps {
   }>
 }
 
+export async function generateMetadata({ params }: ExperiencePageProps): Promise<Metadata> {
+  const { lang, 'experience-slug': experienceSlug } = await params
+  const experience = ExperienceService.getExperienceBySlug(experienceSlug, lang)
+
+  if (!experience) {
+    return {
+      title: lang === 'es' ? 'Experiencia no encontrada' : 'Experience not found'
+    }
+  }
+
+  const experienceName = ExperienceService.getExperienceName(experience, lang)
+  const experienceDescription = ExperienceService.getExperienceDescription(experience, lang)
+  const baseUrl = 'https://tepoztlan.com'
+  
+  return {
+    title: `${experienceName} - ${lang === 'es' ? 'Experiencias en Tepoztlán' : 'Experiences in Tepoztlán'}`,
+    description: experienceDescription.substring(0, 160),
+    keywords: [
+      experienceName,
+      experience.category,
+      lang === 'es' ? 'experiencias Tepoztlán' : 'Tepoztlán experiences',
+      lang === 'es' ? 'actividades' : 'activities',
+      ...experience.tags[lang]
+    ],
+    openGraph: {
+      title: experienceName,
+      description: experienceDescription,
+      type: 'website',
+      url: `${baseUrl}/${lang}/experience/${experienceSlug}`,
+      images: [
+        {
+          url: `${baseUrl}${experience.images[0]}`,
+          width: 1200,
+          height: 630,
+          alt: experienceName,
+        }
+      ],
+      locale: lang === 'es' ? 'es_MX' : 'en_US'
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: experienceName,
+      description: experienceDescription.substring(0, 140),
+      images: [`${baseUrl}${experience.images[0]}`],
+    },
+    alternates: {
+      canonical: `${baseUrl}/${lang}/experience/${experienceSlug}`,
+      languages: {
+        'es': `${baseUrl}/es/experiencias/${experienceSlug}`,
+        'en': `${baseUrl}/en/experience/${experienceSlug}`,
+      },
+    },
+    robots: {
+      index: true,
+      follow: true,
+    }
+  }
+}
+
 export default async function ExperiencePage({ params }: ExperiencePageProps) {
   const { lang, 'experience-slug': experienceSlug } = await params
   
@@ -35,8 +96,16 @@ export default async function ExperiencePage({ params }: ExperiencePageProps) {
     notFound()
   }
 
+  const structuredData = generateExperienceStructuredData(experience, lang, experienceSlug)
 
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData)
+        }}
+      />
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-amber-900 to-orange-900">
       <div className="container mx-auto px-4 py-8">
         {/* Hero Section */}
@@ -243,5 +312,6 @@ export default async function ExperiencePage({ params }: ExperiencePageProps) {
         </div>
       </div>
     </div>
+    </>
   )
 }
