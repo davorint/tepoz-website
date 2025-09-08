@@ -5,6 +5,7 @@ import { Locale } from '@/lib/i18n'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 import { 
   Star, 
   MapPin, 
@@ -42,12 +43,12 @@ const amenityIcons: Record<string, React.ReactNode> = {
 }
 
 const categoryGradients: Record<string, string> = {
-  'boutique': 'from-purple-400 to-pink-400',
-  'resort': 'from-blue-400 to-cyan-400',
+  'boutique': 'from-amber-400 to-orange-400',
+  'resort': 'from-orange-400 to-red-400',
   'eco': 'from-green-400 to-emerald-400',
-  'luxury': 'from-amber-400 to-yellow-400',
+  'luxury': 'from-amber-500 to-yellow-400',
   'budget': 'from-gray-400 to-slate-400',
-  'hostel': 'from-orange-400 to-red-400'
+  'hostel': 'from-red-400 to-orange-400'
 }
 
 export default function HotelCard({ hotel, locale, viewMode = 'grid' }: HotelCardProps) {
@@ -127,9 +128,11 @@ export default function HotelCard({ hotel, locale, viewMode = 'grid' }: HotelCar
                   )}
                 </div>
                 <div className="ml-auto flex gap-2">
-                  <Button size="sm" className="bg-gradient-to-r from-amber-400 to-yellow-400 text-white">
-                    {locale === 'es' ? 'Ver Detalles' : 'View Details'}
-                  </Button>
+                  <Link href={`/${locale}/stay/hotels/${HotelService.generateSlug(hotel, locale)}`}>
+                    <Button size="sm" className="bg-gradient-to-r from-amber-400 to-yellow-400 text-white">
+                      {locale === 'es' ? 'Ver Detalles' : 'View Details'}
+                    </Button>
+                  </Link>
                   <Button size="sm" variant="ghost" className="text-white/60 hover:text-white">
                     <Heart className="w-4 h-4" />
                   </Button>
@@ -221,13 +224,13 @@ export default function HotelCard({ hotel, locale, viewMode = 'grid' }: HotelCar
             </Badge>
           )}
           {hotel.petFriendly && (
-            <Badge className="bg-blue-400/20 text-blue-400 border-blue-400/30">
+            <Badge className="bg-amber-400/20 text-amber-400 border-amber-400/30">
               <Dog className="w-3 h-3 mr-1" />
               Pet OK
             </Badge>
           )}
           {hotel.adultsOnly && (
-            <Badge className="bg-purple-400/20 text-purple-400 border-purple-400/30">
+            <Badge className="bg-red-400/20 text-red-400 border-red-400/30">
               <Users className="w-3 h-3 mr-1" />
               +18
             </Badge>
@@ -257,10 +260,12 @@ export default function HotelCard({ hotel, locale, viewMode = 'grid' }: HotelCar
               </Button>
             </div>
           </div>
-          <Button className="w-full bg-gradient-to-r from-amber-400 to-yellow-400 hover:from-amber-500 hover:to-yellow-500 text-white">
-            {locale === 'es' ? 'Ver Disponibilidad' : 'Check Availability'}
-            <ChevronRight className="w-4 h-4 ml-2" />
-          </Button>
+          <Link href={`/${locale}/stay/hotels/${HotelService.generateSlug(hotel, locale)}`}>
+            <Button className="w-full bg-gradient-to-r from-amber-400 to-yellow-400 hover:from-amber-500 hover:to-yellow-500 text-white">
+              {locale === 'es' ? 'Ver Disponibilidad' : 'Check Availability'}
+              <ChevronRight className="w-4 h-4 ml-2" />
+            </Button>
+          </Link>
         </div>
       </CardContent>
     </Card>

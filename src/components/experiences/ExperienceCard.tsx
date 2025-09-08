@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { Locale } from '@/lib/i18n'
 import { Experience, ExperienceService } from '@/lib/experiences'
 import { Button } from '@/components/ui/button'
@@ -30,6 +31,23 @@ export default function ExperienceCard({
   viewMode = 'grid', 
   animationDelay = 0 
 }: ExperienceCardProps) {
+  const handlePhoneClick = () => {
+    if (experience.phone) {
+      window.open(`tel:${experience.phone}`, '_self')
+    }
+  }
+
+  const handleWebsiteClick = () => {
+    if (experience.website) {
+      window.open(experience.website, '_blank', 'noopener,noreferrer')
+    }
+  }
+
+  const handleHeartClick = () => {
+    // TODO: Implement favorite functionality
+    console.log('Heart clicked for experience:', experience.id)
+  }
+
   const getCategoryColor = () => {
     const categoryColors = {
       'adventure': 'from-teal-400 to-cyan-400',
@@ -245,20 +263,37 @@ export default function ExperienceCard({
 
           {/* Actions */}
           <div className={`flex gap-3 ${viewMode === 'list' ? 'mt-auto' : ''}`}>
-            <Button className="flex-1 bg-gradient-to-r from-teal-400 to-cyan-400 hover:from-teal-500 hover:to-cyan-500 text-white border-0 shadow-xl font-semibold">
-              {locale === 'es' ? 'Ver Detalles' : 'View Details'}
-            </Button>
+            <Link 
+              href={`/${locale}/experience/${ExperienceService.generateSlug(experience, locale)}`}
+              className="flex-1"
+            >
+              <Button className="w-full bg-gradient-to-r from-teal-400 to-cyan-400 hover:from-teal-500 hover:to-cyan-500 text-white border-0 shadow-xl font-semibold">
+                {locale === 'es' ? 'Ver Detalles' : 'View Details'}
+              </Button>
+            </Link>
             {experience.phone && (
-              <Button size="sm" className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 border-0 aspect-square p-0">
+              <Button 
+                size="sm" 
+                className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 border-0 aspect-square p-0"
+                onClick={handlePhoneClick}
+              >
                 <Phone className="w-4 h-4" />
               </Button>
             )}
             {experience.website && (
-              <Button size="sm" className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 border-0 aspect-square p-0">
+              <Button 
+                size="sm" 
+                className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 border-0 aspect-square p-0"
+                onClick={handleWebsiteClick}
+              >
                 <Globe className="w-4 h-4" />
               </Button>
             )}
-            <Button size="sm" className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 border-0 aspect-square p-0">
+            <Button 
+              size="sm" 
+              className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 border-0 aspect-square p-0"
+              onClick={handleHeartClick}
+            >
               <Heart className="w-4 h-4" />
             </Button>
           </div>

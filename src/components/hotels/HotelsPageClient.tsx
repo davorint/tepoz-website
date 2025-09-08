@@ -102,20 +102,20 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-amber-900 to-orange-900 relative overflow-hidden">
       {/* Ultra Premium Background */}
       <div className="absolute inset-0">
         {/* Animated gradient orbs */}
-        <div className="absolute top-20 left-20 w-[35rem] h-[35rem] bg-blue-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-20 w-[40rem] h-[40rem] bg-indigo-500/20 rounded-full blur-3xl animate-pulse animation-delay-2s" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[45rem] h-[45rem] bg-purple-500/10 rounded-full blur-3xl animate-pulse animation-delay-4s" />
+        <div className="absolute top-20 left-20 w-[35rem] h-[35rem] bg-amber-500/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-20 w-[40rem] h-[40rem] bg-orange-500/20 rounded-full blur-3xl animate-pulse animation-delay-2s" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[45rem] h-[45rem] bg-red-500/10 rounded-full blur-3xl animate-pulse animation-delay-4s" />
         
         {/* Premium mesh gradient */}
-        <div className="absolute inset-0 bg-[radial-gradient(at_top_left,_transparent,_rgba(59,130,246,0.2)),radial-gradient(at_bottom_right,_transparent,_rgba(99,102,241,0.2))]" />
+        <div className="absolute inset-0 bg-[radial-gradient(at_top_left,_transparent,_rgba(245,158,11,0.2)),radial-gradient(at_bottom_right,_transparent,_rgba(249,115,22,0.2))]" />
         
         {/* Grid pattern overlay */}
         <div className="absolute inset-0 opacity-5" style={{
-          backgroundImage: `linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(rgba(245, 158, 11, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(245, 158, 11, 0.1) 1px, transparent 1px)`,
           backgroundSize: '50px 50px'
         }} />
       </div>
@@ -124,14 +124,14 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
         {/* Premium Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 mb-8">
-            <div className="h-px w-20 bg-gradient-to-r from-transparent to-blue-400" />
+            <div className="h-px w-20 bg-gradient-to-r from-transparent to-amber-400" />
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-indigo-400 blur-lg" />
-              <Badge className="relative bg-gradient-to-r from-blue-400 to-indigo-400 text-white px-8 py-3 text-sm font-semibold tracking-wider uppercase border-0 shadow-2xl">
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-400 blur-lg" />
+              <Badge className="relative bg-gradient-to-r from-amber-400 to-orange-400 text-white px-8 py-3 text-sm font-semibold tracking-wider uppercase border-0 shadow-2xl">
                 🏨 {locale === 'es' ? 'Hoteles Premium' : 'Premium Hotels'} 🏨
               </Badge>
             </div>
-            <div className="h-px w-20 bg-gradient-to-l from-transparent to-indigo-400" />
+            <div className="h-px w-20 bg-gradient-to-l from-transparent to-orange-400" />
           </div>
           
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 font-sans">
@@ -139,7 +139,7 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
               {locale === 'es' ? 'Hospedaje en ' : 'Stay in '}
             </span>
             <br />
-            <span className="bg-gradient-to-r from-blue-300 via-indigo-300 to-purple-300 bg-clip-text text-transparent drop-shadow-2xl">
+            <span className="bg-gradient-to-r from-amber-300 via-orange-300 to-red-300 bg-clip-text text-transparent drop-shadow-2xl">
               Tepoztlán
             </span>
           </h1>
@@ -154,15 +154,15 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
             <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
-              <div className="text-3xl font-bold text-blue-400 mb-2">{hotels.length}</div>
+              <div className="text-3xl font-bold text-amber-400 mb-2">{hotels.length}</div>
               <div className="text-white/70 text-sm">{locale === 'es' ? 'Hoteles' : 'Hotels'}</div>
             </div>
             <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
-              <div className="text-3xl font-bold text-indigo-400 mb-2">4.7</div>
+              <div className="text-3xl font-bold text-orange-400 mb-2">4.7</div>
               <div className="text-white/70 text-sm">{locale === 'es' ? 'Calificación Promedio' : 'Average Rating'}</div>
             </div>
             <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
-              <div className="text-3xl font-bold text-purple-400 mb-2">1.8K+</div>
+              <div className="text-3xl font-bold text-red-400 mb-2">1.8K+</div>
               <div className="text-white/70 text-sm">{locale === 'es' ? 'Reseñas' : 'Reviews'}</div>
             </div>
           </div>
@@ -185,7 +185,7 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
               </div>
               <Button
                 onClick={() => setShowFilters(!showFilters)}
-                className="h-12 px-6 bg-gradient-to-r from-blue-400 to-indigo-400 hover:from-blue-500 hover:to-indigo-500 text-white border-0 shadow-xl"
+                className="h-12 px-6 bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white border-0 shadow-xl"
               >
                 <Filter className="w-4 h-4 mr-2" />
                 {locale === 'es' ? 'Filtros' : 'Filters'}
@@ -218,7 +218,7 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
                   variant={viewMode === 'grid' ? 'default' : 'ghost'}
                   size="sm"
                   className={viewMode === 'grid' 
-                    ? 'bg-gradient-to-r from-blue-400 to-indigo-400 text-white' 
+                    ? 'bg-gradient-to-r from-amber-400 to-orange-400 text-white' 
                     : 'text-white/70 hover:text-white hover:bg-white/10'
                   }
                 >
@@ -229,7 +229,7 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
                   variant={viewMode === 'list' ? 'default' : 'ghost'}
                   size="sm"
                   className={viewMode === 'list' 
-                    ? 'bg-gradient-to-r from-blue-400 to-indigo-400 text-white' 
+                    ? 'bg-gradient-to-r from-amber-400 to-orange-400 text-white' 
                     : 'text-white/70 hover:text-white hover:bg-white/10'
                   }
                 >
@@ -286,7 +286,7 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
                             id={amenity.id}
                             checked={selectedAmenities.includes(amenity.id)}
                             onCheckedChange={(checked) => handleAmenityChange(amenity.id, checked as boolean)}
-                            className="border-white/30 data-[state=checked]:bg-blue-400 data-[state=checked]:border-blue-400"
+                            className="border-white/30 data-[state=checked]:bg-amber-400 data-[state=checked]:border-amber-400"
                           />
                           <Label htmlFor={amenity.id} className="text-white/90 text-sm cursor-pointer">
                             {locale === 'es' ? amenity.es : amenity.en}
@@ -316,7 +316,7 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
                           id="petFriendly"
                           checked={petFriendlyFilter === true}
                           onCheckedChange={(checked) => setPetFriendlyFilter(checked ? true : undefined)}
-                          className="border-white/30 data-[state=checked]:bg-blue-400 data-[state=checked]:border-blue-400"
+                          className="border-white/30 data-[state=checked]:bg-amber-400 data-[state=checked]:border-amber-400"
                         />
                         <Label htmlFor="petFriendly" className="text-white/90 text-sm cursor-pointer">
                           🐕 {locale === 'es' ? 'Mascotas OK' : 'Pet Friendly'}
@@ -327,7 +327,7 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
                           id="adultsOnly"
                           checked={adultsOnlyFilter === true}
                           onCheckedChange={(checked) => setAdultsOnlyFilter(checked ? true : undefined)}
-                          className="border-white/30 data-[state=checked]:bg-purple-400 data-[state=checked]:border-purple-400"
+                          className="border-white/30 data-[state=checked]:bg-red-400 data-[state=checked]:border-red-400"
                         />
                         <Label htmlFor="adultsOnly" className="text-white/90 text-sm cursor-pointer">
                           🔞 {locale === 'es' ? 'Solo Adultos' : 'Adults Only'}
@@ -384,7 +384,7 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
               </p>
               <Button
                 onClick={clearFilters}
-                className="bg-gradient-to-r from-blue-400 to-indigo-400 hover:from-blue-500 hover:to-indigo-500 text-white border-0 shadow-xl"
+                className="bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white border-0 shadow-xl"
               >
                 {locale === 'es' ? 'Limpiar Filtros' : 'Clear Filters'}
               </Button>
@@ -397,8 +397,8 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
           <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-8 shadow-2xl max-w-2xl mx-auto">
             <div className="flex flex-col items-center space-y-6">
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-indigo-400 blur-xl opacity-50" />
-                <div className="relative bg-gradient-to-r from-blue-400 to-indigo-400 p-4 rounded-2xl shadow-2xl">
+                <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-400 blur-xl opacity-50" />
+                <div className="relative bg-gradient-to-r from-amber-400 to-orange-400 p-4 rounded-2xl shadow-2xl">
                   <Database className="h-12 w-12 text-white" />
                 </div>
               </div>
@@ -416,7 +416,7 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
               </div>
               
               <Link href={`/${locale}/stay/hotels/all-hotels`}>
-                <Button className="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white px-8 py-4 text-lg font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300">
+                <Button className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white px-8 py-4 text-lg font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300">
                   <Database className="w-5 h-5 mr-3" />
                   {locale === 'es' ? 'Ver Directorio Completo' : 'View Complete Directory'}
                 </Button>
@@ -427,7 +427,7 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
 
         {/* Business Owner CTA */}
         <div className="text-center py-12">
-          <Card className="bg-gradient-to-r from-blue-400/10 to-indigo-400/10 backdrop-blur-xl border-white/20 p-12 max-w-4xl mx-auto">
+          <Card className="bg-gradient-to-r from-amber-400/10 to-orange-400/10 backdrop-blur-xl border-white/20 p-12 max-w-4xl mx-auto">
             <CardContent className="space-y-6">
               <h2 className="text-3xl font-bold text-white">
                 {locale === 'es' 
@@ -442,7 +442,7 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
                 }
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button className="bg-gradient-to-r from-blue-400 to-indigo-400 hover:from-blue-500 hover:to-indigo-500 text-white px-8 py-6 text-lg">
+                <Button className="bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white px-8 py-6 text-lg">
                   <Star className="w-5 h-5 mr-2" />
                   {locale === 'es' ? 'Agregar mi Hotel' : 'Add my Hotel'}
                 </Button>

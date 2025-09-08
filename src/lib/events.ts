@@ -165,9 +165,7 @@ export const sampleEvents: Event[] = [
     },
     currency: 'MXN',
     images: [
-      'https://images.unsplash.com/photo-1533906966484-a9c978a3f090?q=80&w=2069',
-      'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070',
-      'https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=2070'
+      '/carnaval.jpg'
     ],
     featured: true,
     tags: {
@@ -245,9 +243,7 @@ export const sampleEvents: Event[] = [
     priceAmount: 50,
     currency: 'MXN',
     images: [
-      'https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2070',
-      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070',
-      'https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=2070'
+      '/equinox.jpg'
     ],
     featured: true,
     tags: {
@@ -329,9 +325,7 @@ export const sampleEvents: Event[] = [
     },
     currency: 'MXN',
     images: [
-      'https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2070',
-      'https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=2070',
-      'https://images.unsplash.com/photo-1566737236500-c8ac43014a8e?q=80&w=2070'
+      '/MercadoTepoztlan.jpg'
     ],
     featured: true,
     tags: {
@@ -409,9 +403,7 @@ export const sampleEvents: Event[] = [
     priceAmount: 350,
     currency: 'MXN',
     images: [
-      'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=2070',
-      'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?q=80&w=2070',
-      'https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=2070'
+      '/jazz.jpg'
     ],
     featured: false,
     tags: {
@@ -494,9 +486,7 @@ export const sampleEvents: Event[] = [
     priceAmount: 450,
     currency: 'MXN',
     images: [
-      'https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=2070',
-      'https://images.unsplash.com/photo-1452860606245-08befc0ff44b?q=80&w=2070',
-      'https://images.unsplash.com/photo-1594736797933-d0d19b4b4d89?q=80&w=2070'
+      '/tallerCeramica.jpg'
     ],
     featured: false,
     tags: {
@@ -801,5 +791,28 @@ export class EventService {
       'family-friendly': { es: 'Familiar', en: 'Family-friendly' }
     }
     return labels[atmosphere][locale]
+  }
+
+  static generateSlug(event: Event, locale: 'es' | 'en'): string {
+    const name = event.name[locale]
+    return name
+      .toLowerCase()
+      .replace(/[áàäâã]/g, 'a')
+      .replace(/[éèëê]/g, 'e')
+      .replace(/[íìïî]/g, 'i')
+      .replace(/[óòöôõ]/g, 'o')
+      .replace(/[úùüû]/g, 'u')
+      .replace(/[ñ]/g, 'n')
+      .replace(/[ç]/g, 'c')
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .trim()
+  }
+
+  static getEventBySlug(slug: string, locale: 'es' | 'en'): Event | undefined {
+    return sampleEvents.find(event => 
+      this.generateSlug(event, locale) === slug
+    )
   }
 }

@@ -745,4 +745,55 @@ export class HotelService {
   static getHotelsByPriceRange(priceRange: string): Hotel[] {
     return hotels.filter(h => h.priceRange === priceRange)
   }
+
+  static generateSlug(hotel: Hotel, locale: Locale): string {
+    const name = hotel.name[locale]
+    return name
+      .toLowerCase()
+      .replace(/[áàäâã]/g, 'a')
+      .replace(/[éèëê]/g, 'e')
+      .replace(/[íìïî]/g, 'i')
+      .replace(/[óòöôõ]/g, 'o')
+      .replace(/[úùüû]/g, 'u')
+      .replace(/[ñ]/g, 'n')
+      .replace(/[ç]/g, 'c')
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .trim()
+  }
+
+  static getHotelBySlug(slug: string, locale: Locale): Hotel | undefined {
+    return hotels.find(hotel => 
+      this.generateSlug(hotel, locale) === slug
+    )
+  }
+
+  static sortHotels(hotels: Hotel[], sortBy: string): Hotel[] {
+    return [...hotels].sort((a, b) => {
+      switch (sortBy) {
+        case 'rating':
+          return b.rating - a.rating
+        case 'name':
+          return a.name.en.localeCompare(b.name.en)
+        case 'priceAsc':
+          const priceOrderA = a.priceRange === '$' ? 1 : a.priceRange === '$$' ? 2 : a.priceRange === '$$$' ? 3 : 4
+          const priceOrderB = b.priceRange === '$' ? 1 : b.priceRange === '$$' ? 2 : b.priceRange === '$$$' ? 3 : 4
+          return priceOrderA - priceOrderB
+        case 'priceDesc':
+          const priceOrderDescA = a.priceRange === '$' ? 1 : a.priceRange === '$$' ? 2 : a.priceRange === '$$$' ? 3 : 4
+          const priceOrderDescB = b.priceRange === '$' ? 1 : b.priceRange === '$$' ? 2 : b.priceRange === '$$$' ? 3 : 4
+          return priceOrderDescB - priceOrderDescA
+        case 'reviews':
+          return b.reviews - a.reviews
+        default:
+          return 0
+      }
+    })
+  }
+
+  static getCategoryLabel(category: string, locale: Locale): string {
+    const labels = hotelCategories.find(cat => cat.id === category)
+    return labels ? labels[locale] : category
+  }
 }

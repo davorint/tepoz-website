@@ -143,9 +143,8 @@ export const mockExperiences: Experience[] = [
     priceAmount: 450,
     currency: 'MXN',
     images: [
-      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1454391304352-2bf4678b1a7a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80'
+      '/tepozteco.png',
+      '/tepozteco-pyramid.jpg'
     ],
     featured: true,
     tags: {
@@ -240,8 +239,7 @@ export const mockExperiences: Experience[] = [
     priceAmount: 800,
     currency: 'MXN',
     images: [
-      'https://images.unsplash.com/photo-1544737151406-6e4c999de2a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80'
+      '/temazcal.jpg'
     ],
     featured: true,
     tags: {
@@ -336,8 +334,7 @@ export const mockExperiences: Experience[] = [
     priceAmount: 350,
     currency: 'MXN',
     images: [
-      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80'
+      '/tepoztlan-hero.jpg'
     ],
     featured: false,
     tags: {
@@ -432,8 +429,8 @@ export const mockExperiences: Experience[] = [
     priceAmount: 1200,
     currency: 'MXN',
     images: [
-      'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1606787947604-46c24704aa69?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80'
+      '/MercadoTepoztlan.jpg',
+      '/traditional-market.jpg'
     ],
     featured: true,
     tags: {
@@ -665,5 +662,28 @@ export class ExperienceService {
 
   static getExperienceShortDescription(experience: Experience, locale: Locale): string {
     return experience.shortDescription[locale]
+  }
+
+  static generateSlug(experience: Experience, locale: Locale): string {
+    const name = experience.name[locale]
+    return name
+      .toLowerCase()
+      .replace(/[áàäâã]/g, 'a')
+      .replace(/[éèëê]/g, 'e')
+      .replace(/[íìïî]/g, 'i')
+      .replace(/[óòöôõ]/g, 'o')
+      .replace(/[úùüû]/g, 'u')
+      .replace(/[ñ]/g, 'n')
+      .replace(/[ç]/g, 'c')
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .trim()
+  }
+
+  static getExperienceBySlug(slug: string, locale: Locale): Experience | undefined {
+    return mockExperiences.find(experience => 
+      this.generateSlug(experience, locale) === slug
+    )
   }
 }

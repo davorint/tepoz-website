@@ -120,7 +120,7 @@ export default function EventsPageClient({ locale }: EventsPageClientProps) {
   // Show loading state during hydration
   if (!isClient) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-amber-900 to-orange-900 flex items-center justify-center">
         <div className="text-white text-xl">
           {locale === 'es' ? 'Cargando eventos...' : 'Loading events...'}
         </div>
@@ -129,29 +129,29 @@ export default function EventsPageClient({ locale }: EventsPageClientProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-amber-900 to-orange-900 relative overflow-hidden">
       {/* Ultra Premium Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-purple-900/40 via-transparent to-transparent" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-pink-900/30 via-transparent to-transparent" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900/20 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-amber-900/40 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-orange-900/30 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-yellow-900/20 via-transparent to-transparent" />
       
       {/* Animated gradient orbs */}
-      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float" />
-      <div className="absolute top-3/4 -right-20 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float-delay" />
-      <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float-slow" />
+      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-amber-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float" />
+      <div className="absolute top-3/4 -right-20 w-96 h-96 bg-orange-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float-delay" />
+      <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float-slow" />
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 py-12">
         {/* Hero Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center justify-center mb-6 p-1 bg-white/10 backdrop-blur-xl rounded-full border border-white/20">
-            <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-full p-3">
+            <div className="bg-gradient-to-r from-amber-500 to-orange-500 rounded-full p-3">
               <Calendar className="h-8 w-8 text-white" />
             </div>
           </div>
           
           <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">
-            <span className="bg-gradient-to-r from-purple-300 via-pink-300 to-indigo-300 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-amber-300 via-orange-300 to-yellow-300 bg-clip-text text-transparent">
               {locale === 'es' ? 'Eventos en Tepoztlán' : 'Events in Tepoztlán'}
             </span>
           </h1>
@@ -176,7 +176,7 @@ export default function EventsPageClient({ locale }: EventsPageClientProps) {
                     placeholder={locale === 'es' ? 'Buscar eventos, festivales, ceremonias...' : 'Search events, festivals, ceremonies...'}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-purple-400 focus:ring-purple-400/20"
+                    className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-amber-400 focus:ring-amber-400/20"
                   />
                 </div>
 
@@ -358,7 +358,7 @@ export default function EventsPageClient({ locale }: EventsPageClientProps) {
         <div className="mb-12">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {[
-              { id: 'all', name: locale === 'es' ? 'Todos' : 'All', icon: Calendar, gradient: 'from-purple-500 to-pink-500' },
+              { id: 'all', name: locale === 'es' ? 'Todos' : 'All', icon: Calendar, gradient: 'from-amber-500 to-orange-500' },
               { id: 'festival', name: locale === 'es' ? 'Festivales' : 'Festivals', icon: Music, gradient: 'from-purple-500 to-pink-600' },
               { id: 'spiritual', name: locale === 'es' ? 'Espirituales' : 'Spiritual', icon: Sparkles, gradient: 'from-orange-500 to-red-600' },
               { id: 'cultural', name: locale === 'es' ? 'Culturales' : 'Cultural', icon: Camera, gradient: 'from-blue-500 to-indigo-600' },
@@ -372,7 +372,7 @@ export default function EventsPageClient({ locale }: EventsPageClientProps) {
                   variant="ghost"
                   onClick={() => setSelectedCategory(category.id)}
                   className={`relative group h-auto p-0 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] ${
-                    isActive ? 'ring-2 ring-purple-400/50' : ''
+                    isActive ? 'ring-2 ring-amber-400/50' : ''
                   }`}
                 >
                   <div className="p-4 text-center">
@@ -400,7 +400,7 @@ export default function EventsPageClient({ locale }: EventsPageClientProps) {
               }
             </p>
             {hasActiveFilters && (
-              <Badge className="bg-purple-400/20 text-purple-300 border border-purple-400/30">
+              <Badge className="bg-amber-400/20 text-amber-300 border border-amber-400/30">
                 {locale === 'es' ? 'Filtrado' : 'Filtered'}
               </Badge>
             )}
@@ -456,7 +456,7 @@ export default function EventsPageClient({ locale }: EventsPageClientProps) {
               }
             </p>
             {hasActiveFilters && (
-              <Button onClick={clearFilters} className="bg-gradient-to-r from-purple-500 to-pink-500">
+              <Button onClick={clearFilters} className="bg-gradient-to-r from-amber-500 to-orange-500">
                 {locale === 'es' ? 'Limpiar filtros' : 'Clear filters'}
               </Button>
             )}
@@ -468,7 +468,7 @@ export default function EventsPageClient({ locale }: EventsPageClientProps) {
           <div className="text-center mb-16">
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-2xl hover:shadow-3xl transform hover:scale-[1.02] transition-all duration-300"
+              className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-2xl hover:shadow-3xl transform hover:scale-[1.02] transition-all duration-300"
             >
               {locale === 'es' ? 'Ver Más Eventos' : 'View More Events'}
             </Button>
@@ -477,11 +477,11 @@ export default function EventsPageClient({ locale }: EventsPageClientProps) {
 
         {/* CTA Section for Event Organizers */}
         <div className="mb-16">
-          <Card className="bg-gradient-to-r from-purple-400/10 to-pink-400/10 backdrop-blur-xl border-white/20 p-12 max-w-4xl mx-auto">
+          <Card className="bg-gradient-to-r from-amber-400/10 to-pink-400/10 backdrop-blur-xl border-white/20 p-12 max-w-4xl mx-auto">
             <CardContent className="space-y-6">
               <div className="text-center">
                 <div className="inline-flex items-center justify-center mb-6 p-1 bg-white/10 backdrop-blur-xl rounded-full border border-white/20">
-                  <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-full p-3">
+                  <div className="bg-gradient-to-r from-amber-500 to-orange-500 rounded-full p-3">
                     <Sparkles className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -503,7 +503,7 @@ export default function EventsPageClient({ locale }: EventsPageClientProps) {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                   <Button 
                     size="lg" 
-                    className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300"
+                    className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300"
                   >
                     <Calendar className="h-5 w-5 mr-2" />
                     {locale === 'es' ? 'Publicar Mi Evento' : 'List My Event'}
@@ -527,7 +527,7 @@ export default function EventsPageClient({ locale }: EventsPageClientProps) {
         <div className="text-center">
           <Card className="bg-white/5 backdrop-blur-xl border-white/10 p-8 max-w-2xl mx-auto">
             <CardContent className="space-y-4">
-              <Calendar className="h-12 w-12 mx-auto text-purple-400 mb-4" />
+              <Calendar className="h-12 w-12 mx-auto text-amber-400 mb-4" />
               <h2 className="text-2xl font-bold text-white">
                 {locale === 'es' 
                   ? 'No te Pierdas Ningún Evento' 
@@ -545,7 +545,7 @@ export default function EventsPageClient({ locale }: EventsPageClientProps) {
                   placeholder={locale === 'es' ? 'Tu email' : 'Your email'}
                   className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
                 />
-                <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white">
+                <Button className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-purple-600 hover:to-pink-600 text-white">
                   {locale === 'es' ? 'Suscribirse' : 'Subscribe'}
                 </Button>
               </div>
