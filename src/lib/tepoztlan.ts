@@ -93,7 +93,7 @@ const tepoztlanAttractions: TepoztlanAttraction[] = [
       es: '$75 MXN entrada + costo del sendero',
       en: '$75 MXN entrance + trail cost'
     },
-    imageUrl: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop',
+    imageUrl: '/tepozteco.png',
     location: {
       es: '2.5 km del centro (sendero)',
       en: '2.5 km from center (trail)'
@@ -163,7 +163,7 @@ const tepoztlanAttractions: TepoztlanAttraction[] = [
       es: 'Entrada libre',
       en: 'Free entrance'
     },
-    imageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop',
+    imageUrl: '/mercadoArtesanias.jpg',
     location: {
       es: 'Centro histórico, cerca de la plaza principal',
       en: 'Historic center, near main plaza'
@@ -218,7 +218,7 @@ const tepoztlanAttractions: TepoztlanAttraction[] = [
       es: '$45 MXN entrada',
       en: '$45 MXN entrance'
     },
-    imageUrl: 'https://images.unsplash.com/photo-1520637736862-4d197d17c92a?w=800&h=600&fit=crop',
+    imageUrl: '/iglesiaNatividad.jpg',
     location: {
       es: 'Plaza principal, Centro',
       en: 'Main plaza, Downtown'
@@ -274,7 +274,7 @@ const tepoztlanAttractions: TepoztlanAttraction[] = [
       es: 'Entrada libre',
       en: 'Free entrance'
     },
-    imageUrl: 'https://images.unsplash.com/photo-1539650116574-75c0c6d73da9?w=800&h=600&fit=crop',
+    imageUrl: '/zocaloTepoztlan.jpg',
     location: {
       es: 'Centro del pueblo',
       en: 'Town center'
@@ -329,7 +329,7 @@ const tepoztlanAttractions: TepoztlanAttraction[] = [
       es: '$45 MXN entrada',
       en: '$45 MXN entrance'
     },
-    imageUrl: 'https://images.unsplash.com/photo-1562774053-701939374585?w=800&h=600&fit=crop',
+    imageUrl: '/Museo_Pellicer.jpg',
     location: {
       es: 'Ex Convento de la Natividad, Centro',
       en: 'Former Convent of the Nativity, Downtown'
@@ -384,7 +384,7 @@ const tepoztlanAttractions: TepoztlanAttraction[] = [
       es: 'Entrada libre',
       en: 'Free entrance'
     },
-    imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
+    imageUrl: '/tepozteco-pyramid.jpg',
     location: {
       es: '500m del centro',
       en: '500m from center'
