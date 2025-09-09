@@ -90,8 +90,8 @@ const sanJuanAttractions: SanJuanAttraction[] = [
       en: '$50 MXN entrance'
     },
     images: [
-      'https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=600&fit=crop'
+      'https://images.unsplash.com/photo-1609960554796-4cee89edbf02?w=800&h=600&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=800&h=600&fit=crop&q=80'
     ],
     location: {
       address: 'Cerro del Tepozteco, San Juan Tlacotenco',
@@ -153,8 +153,8 @@ const sanJuanAttractions: SanJuanAttraction[] = [
       en: '$300 MXN with specialized guide'
     },
     images: [
-      'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1578662996442-48f60103fc7e?w=800&h=600&fit=crop'
+      'https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=800&h=600&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1578662996442-48f60103fc7e?w=800&h=600&fit=crop&q=80'
     ],
     location: {
       address: 'San Juan Tlacotenco, Morelos',
@@ -216,8 +216,8 @@ const sanJuanAttractions: SanJuanAttraction[] = [
       en: '$200 MXN guided entrance'
     },
     images: [
-      'https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop'
+      'https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=800&h=600&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&q=80'
     ],
     location: {
       address: 'San Juan Tlacotenco, Morelos',
@@ -279,8 +279,8 @@ const sanJuanAttractions: SanJuanAttraction[] = [
       en: '$30 MXN entrance'
     },
     images: [
-      'https://images.unsplash.com/photo-1562774053-701939374585?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1580655653885-65763b2597d0?w=800&h=600&fit=crop'
+      'https://images.unsplash.com/photo-1562774053-701939374585?w=800&h=600&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1580655653885-65763b2597d0?w=800&h=600&fit=crop&q=80'
     ],
     location: {
       address: 'Centro de San Juan Tlacotenco',
@@ -342,8 +342,8 @@ const sanJuanAttractions: SanJuanAttraction[] = [
       en: 'Free entrance'
     },
     images: [
-      'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1608205011156-72dd6c2d82ac?w=800&h=600&fit=crop'
+      'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=800&h=600&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1608205011156-72dd6c2d82ac?w=800&h=600&fit=crop&q=80'
     ],
     location: {
       address: 'Centro de San Juan Tlacotenco',
@@ -405,8 +405,8 @@ const sanJuanAttractions: SanJuanAttraction[] = [
       en: '$500 MXN per person'
     },
     images: [
-      'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&h=600&fit=crop'
+      'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&h=600&fit=crop&q=80'
     ],
     location: {
       address: 'San Juan Tlacotenco',
