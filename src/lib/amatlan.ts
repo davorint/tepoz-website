@@ -90,8 +90,8 @@ const amatlanAttractions: AmatlanAttraction[] = [
       en: '$50 MXN entrance'
     },
     images: [
-      'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1566576537028-be4eac33ba83?w=800&h=600&fit=crop'
+      '/pozasQuetzalcoatl.jpg',
+      '/pozasQuetzalcoatl.jpg'
     ],
     location: {
       address: 'Amatlán de Quetzalcóatl, Morelos',
@@ -153,8 +153,8 @@ const amatlanAttractions: AmatlanAttraction[] = [
       en: 'Free entrance (guide recommended)'
     },
     images: [
-      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=800&h=600&fit=crop'
+      '/cerroVentana.jpg',
+      '/cerroVentana.jpg'
     ],
     location: {
       address: 'Amatlán de Quetzalcóatl, Morelos',
@@ -216,8 +216,8 @@ const amatlanAttractions: AmatlanAttraction[] = [
       en: 'Free entrance'
     },
     images: [
-      'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&h=600&fit=crop'
+      '/casaQuetzalcoatl.jpg',
+      '/casaQuetzalcoatl.jpg'
     ],
     location: {
       address: 'Centro de Amatlán, Morelos',
@@ -279,8 +279,8 @@ const amatlanAttractions: AmatlanAttraction[] = [
       en: '$600-800 MXN per person'
     },
     images: [
-      'https://images.unsplash.com/photo-1600298881974-6be191ceeda1?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800&h=600&fit=crop'
+      '/TemazcalTradicional.webp',
+      '/temazcal.jpg'
     ],
     location: {
       address: 'Varios lugares en Amatlán',
@@ -342,8 +342,8 @@ const amatlanAttractions: AmatlanAttraction[] = [
       en: '$300 MXN with guide'
     },
     images: [
-      'https://images.unsplash.com/photo-1533387520709-752d83de3630?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1571863269856-52fd6ab3c7d5?w=800&h=600&fit=crop'
+      '/senderoNahuatl.jpg',
+      '/senderoNahuatl.jpg'
     ],
     location: {
       address: 'Bosque de Amatlán',
@@ -405,8 +405,8 @@ const amatlanAttractions: AmatlanAttraction[] = [
       en: '$400-600 MXN hands-on workshop'
     },
     images: [
-      'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1578662996442-48f60103fc7e?w=800&h=600&fit=crop'
+      '/TallerAlfareria.jpg',
+      '/tallerCeramica.jpg'
     ],
     location: {
       address: 'Barrio de artesanos, Amatlán',
