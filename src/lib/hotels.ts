@@ -91,7 +91,7 @@ const hotels: Hotel[] = [
     priceRange: '$$$$',
     rating: 4.9,
     reviews: 342,
-    images: ['https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    images: ['/HotelAmoxtli.jpg'],
     amenities: ['pool', 'spa', 'restaurant', 'bar', 'wifi', 'parking', 'gym'],
     roomTypes: [
       { name: { es: 'Suite Valley View', en: 'Suite Valley View' }, capacity: 2, price: 450 },
@@ -127,7 +127,7 @@ const hotels: Hotel[] = [
     priceRange: '$$$',
     rating: 4.7,
     reviews: 523,
-    images: ['https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    images: ['/posada-del-tepozteco.jpg'],
     amenities: ['pool', 'restaurant', 'wifi', 'parking', 'breakfast'],
     roomTypes: [
       { name: { es: 'Habitación Estándar', en: 'Standard Room' }, capacity: 2, price: 180 },
@@ -163,7 +163,7 @@ const hotels: Hotel[] = [
     priceRange: '$$$',
     rating: 4.8,
     reviews: 287,
-    images: ['https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    images: ['/casaAmates.jpeg'],
     amenities: ['pool', 'spa', 'restaurant', 'wifi', 'parking', 'breakfast'],
     roomTypes: [
       { name: { es: 'Habitación Deluxe', en: 'Deluxe Room' }, capacity: 2, price: 220 },
@@ -199,7 +199,7 @@ const hotels: Hotel[] = [
     priceRange: '$$',
     rating: 4.6,
     reviews: 198,
-    images: ['https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    images: ['/home-ecoposada-tepoztli.jpg'],
     amenities: ['restaurant', 'wifi', 'parking', 'breakfast'],
     roomTypes: [
       { name: { es: 'Cabaña Eco', en: 'Eco Cabin' }, capacity: 2, price: 120 },
@@ -235,7 +235,7 @@ const hotels: Hotel[] = [
     priceRange: '$$$',
     rating: 4.5,
     reviews: 412,
-    images: ['https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    images: ['/posada_Lapalma.jpg'],
     amenities: ['pool', 'spa', 'gym', 'restaurant', 'bar', 'wifi', 'parking'],
     roomTypes: [
       { name: { es: 'Habitación Vista Montaña', en: 'Mountain View Room' }, capacity: 2, price: 200 },
@@ -271,7 +271,7 @@ const hotels: Hotel[] = [
     priceRange: '$',
     rating: 4.3,
     reviews: 567,
-    images: ['https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    images: ['/hostal-de-la-luz-spa.jpg'],
     amenities: ['wifi', 'breakfast'],
     roomTypes: [
       { name: { es: 'Dormitorio Compartido', en: 'Shared Dorm' }, capacity: 8, price: 35 },
@@ -307,7 +307,7 @@ const hotels: Hotel[] = [
     priceRange: '$$$$',
     rating: 4.8,
     reviews: 156,
-    images: ['https://images.unsplash.com/photo-1596436889106-be35e843f974?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    images: ['/casaAmates.jpeg'],
     amenities: ['pool', 'spa', 'restaurant', 'bar', 'wifi', 'parking', 'gym'],
     roomTypes: [
       { name: { es: 'Suite Artista', en: 'Artist Suite' }, capacity: 2, price: 380 },
@@ -343,7 +343,7 @@ const hotels: Hotel[] = [
     priceRange: '$$',
     rating: 4.4,
     reviews: 389,
-    images: ['https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    images: ['/posada-del-tepozteco.jpg'],
     amenities: ['restaurant', 'wifi', 'parking', 'breakfast'],
     roomTypes: [
       { name: { es: 'Habitación Sencilla', en: 'Single Room' }, capacity: 1, price: 90 },
@@ -379,7 +379,7 @@ const hotels: Hotel[] = [
     priceRange: '$$',
     rating: 4.5,
     reviews: 234,
-    images: ['https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    images: ['/HotelAmoxtli.jpg'],
     amenities: ['wifi', 'breakfast', 'parking', 'garden'],
     roomTypes: [
       { name: { es: 'Habitación Estándar', en: 'Standard Room' }, capacity: 2, price: 120 },
@@ -415,7 +415,7 @@ const hotels: Hotel[] = [
     priceRange: '$$$',
     rating: 4.3,
     reviews: 445,
-    images: ['https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    images: ['/hotel-Quetzal.jpg'],
     amenities: ['wifi', 'gym', 'business-center', 'parking', 'restaurant', 'bar'],
     roomTypes: [
       { name: { es: 'Habitación Ejecutiva', en: 'Executive Room' }, capacity: 2, price: 220 },
@@ -452,7 +452,7 @@ const hotels: Hotel[] = [
     priceRange: '$$$',
     rating: 4.8,
     reviews: 167,
-    images: ['https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    images: ['/casaAmates.jpeg'],
     amenities: ['spa', 'yoga', 'meditation', 'organic-restaurant', 'wifi', 'pool'],
     roomTypes: [
       { name: { es: 'Habitación Zen', en: 'Zen Room' }, capacity: 2, price: 250 },
@@ -489,7 +489,7 @@ const hotels: Hotel[] = [
     priceRange: '$$',
     rating: 4.6,
     reviews: 298,
-    images: ['https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    images: ['/posada-del-tepozteco.jpg'],
     amenities: ['jacuzzi', 'romantic-dining', 'wifi', 'breakfast', 'couples-massage'],
     roomTypes: [
       { name: { es: 'Suite Romántica', en: 'Romantic Suite' }, capacity: 2, price: 180 },
@@ -525,7 +525,7 @@ const hotels: Hotel[] = [
     priceRange: '$$',
     rating: 4.7,
     reviews: 189,
-    images: ['https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    images: ['/home-ecoposada-tepoztli.jpg'],
     amenities: ['solar-power', 'organic-garden', 'composting', 'wifi', 'breakfast'],
     roomTypes: [
       { name: { es: 'Habitación Eco', en: 'Eco Room' }, capacity: 2, price: 130 },
@@ -562,7 +562,7 @@ const hotels: Hotel[] = [
     priceRange: '$$$',
     rating: 4.4,
     reviews: 567,
-    images: ['https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    images: ['/posada-del-tepozteco.jpg'],
     amenities: ['restaurant', 'bar', 'wifi', 'parking', 'concierge', 'breakfast'],
     roomTypes: [
       { name: { es: 'Habitación Colonial', en: 'Colonial Room' }, capacity: 2, price: 200 },
@@ -599,7 +599,7 @@ const hotels: Hotel[] = [
     priceRange: '$',
     rating: 4.2,
     reviews: 743,
-    images: ['https://images.unsplash.com/photo-1555854877-bab0e564b8d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    images: ['/iglesiaNatividad.jpg'],
     amenities: ['shared-kitchen', 'common-area', 'wifi', 'laundry', 'lockers'],
     roomTypes: [
       { name: { es: 'Cama en Dormitorio', en: 'Dorm Bed' }, capacity: 1, price: 25 },
@@ -636,7 +636,7 @@ const hotels: Hotel[] = [
     priceRange: '$$$$',
     rating: 4.9,
     reviews: 124,
-    images: ['https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+    images: ['/HotelAmoxtli.jpg'],
     amenities: ['horse-riding', 'chapel', 'gardens', 'restaurant', 'bar', 'pool', 'spa', 'wifi'],
     roomTypes: [
       { name: { es: 'Habitación Hacienda', en: 'Hacienda Room' }, capacity: 2, price: 400 },
