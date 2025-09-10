@@ -1,32 +1,38 @@
 'use client'
 
-// All React hooks removed for testing
+import { useState, useMemo, useCallback } from 'react'
 import { motion } from 'motion/react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Label } from '@/components/ui/label'
 import { 
+  MapPin, 
   Mountain, 
   Utensils, 
   Hotel,
   Search,
   Filter,
+  X,
   Star,
+  Clock,
   Sparkles,
   TrendingUp,
   Eye,
   Heart,
+  Share2,
+  Layers,
   Coffee,
   ShoppingBag,
   Palette,
   TreePine
 } from 'lucide-react'
 import { Locale } from '@/lib/i18n'
-// Map component and dynamic imports removed for testing
 
-interface InteractiveMapSectionProps {
+interface MinimalMapSectionProps {
   lang: Locale
 }
 
@@ -130,11 +136,59 @@ const attractions = [
   }
 ]
 
-export default function InteractiveMapSection({ lang }: InteractiveMapSectionProps) {
-  // All state and handlers removed for testing - static mock version
-  const filteredAttractions: typeof attractions = attractions
-  const searchQuery = ''
-  const selectedCategory = 'all'
+export default function MinimalMapSection({ lang }: MinimalMapSectionProps) {
+  const [selectedAttraction, setSelectedAttraction] = useState<typeof attractions[0] | null>(null)
+  
+  // Filters state
+  const [searchQuery, setSearchQuery] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('all')
+  const [showFilters, setShowFilters] = useState(false)
+  const [sortBy, setSortBy] = useState<'featured' | 'rating' | 'distance' | 'name'>('featured')
+  const [viewMode, setViewMode] = useState<'map' | 'list'>('map')
+  const [priceFilter, setPriceFilter] = useState<string[]>([])
+  
+  // Filter attractions
+  const filteredAttractions = useMemo(() => {
+    return attractions.filter(attraction => {
+      const matchesSearch = searchQuery === '' || 
+        (lang === 'es' ? attraction.nameEs : attraction.nameEn).toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (lang === 'es' ? attraction.descriptionEs : attraction.description).toLowerCase().includes(searchQuery.toLowerCase())
+      
+      const matchesCategory = selectedCategory === 'all' || attraction.category === selectedCategory
+      const matchesPrice = priceFilter.length === 0 || priceFilter.includes(attraction.priceRange)
+      
+      return matchesSearch && matchesCategory && matchesPrice
+    }).sort((a, b) => {
+      switch (sortBy) {
+        case 'featured':
+          if (a.featured && !b.featured) return -1
+          if (!a.featured && b.featured) return 1
+          return b.rating - a.rating
+        case 'rating':
+          return b.rating - a.rating
+        case 'name':
+          const nameA = lang === 'es' ? a.nameEs : a.nameEn
+          const nameB = lang === 'es' ? b.nameEs : b.nameEn
+          return nameA.localeCompare(nameB)
+        default:
+          return 0
+      }
+    })
+  }, [searchQuery, selectedCategory, priceFilter, sortBy, lang])
+
+  const handlePriceFilter = useCallback((price: string, checked: boolean) => {
+    if (checked) {
+      setPriceFilter(prev => [...prev, price])
+    } else {
+      setPriceFilter(prev => prev.filter(p => p !== price))
+    }
+  }, [])
+
+  const clearFilters = useCallback(() => {
+    setSearchQuery('')
+    setSelectedCategory('all')
+    setPriceFilter([])
+  }, [])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden font-sans">
@@ -230,24 +284,30 @@ export default function InteractiveMapSection({ lang }: InteractiveMapSectionPro
                   type="text"
                   placeholder={lang === 'es' ? 'Buscar lugares, restaurantes, hoteles...' : 'Search places, restaurants, hotels...'}
                   value={searchQuery}
-                  onChange={() => {/* disabled */}}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-12 h-12 bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder-white/50"
                 />
               </div>
               <Button
-                onClick={() => {/* disabled */}}
+                onClick={() => setShowFilters(!showFilters)}
                 className="h-12 px-6 bg-gradient-to-r from-emerald-400 to-cyan-400 hover:from-emerald-500 hover:to-cyan-500 text-white border-0 shadow-xl"
               >
                 <Filter className="w-4 h-4 mr-2" />
                 {lang === 'es' ? 'Filtros' : 'Filters'}
               </Button>
-              {/* View mode toggle removed */}
+              <Button
+                onClick={() => setViewMode(viewMode === 'map' ? 'list' : 'map')}
+                className="h-12 px-6 bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20"
+              >
+                {viewMode === 'map' ? <Layers className="w-4 h-4 mr-2" /> : <MapPin className="w-4 h-4 mr-2" />}
+                {viewMode === 'map' ? (lang === 'es' ? 'Ver Lista' : 'View List') : (lang === 'es' ? 'Ver Mapa' : 'View Map')}
+              </Button>
             </div>
 
             {/* Controls */}
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="flex items-center gap-4">
-                <Select value="featured" onValueChange={() => {/* disabled */}}>
+                <Select value={sortBy} onValueChange={(value: 'featured' | 'rating' | 'distance' | 'name') => setSortBy(value)}>
                   <SelectTrigger className="w-48 bg-white/10 backdrop-blur-sm border-white/20 text-white">
                     <SelectValue />
                   </SelectTrigger>
@@ -267,7 +327,7 @@ export default function InteractiveMapSection({ lang }: InteractiveMapSectionPro
               {/* Category Pills */}
               <div className="flex items-center gap-2 flex-wrap">
                 <Badge 
-                  onClick={() => {/* disabled */}}
+                  onClick={() => setSelectedCategory('all')}
                   className={`cursor-pointer px-4 py-2 transition-all ${
                     selectedCategory === 'all' 
                       ? 'bg-gradient-to-r from-emerald-400 to-cyan-400 text-white' 
@@ -279,7 +339,7 @@ export default function InteractiveMapSection({ lang }: InteractiveMapSectionPro
                 {Object.entries(categoryStyles).map(([key, style]) => (
                   <Badge
                     key={key}
-                    onClick={() => {/* disabled */}}
+                    onClick={() => setSelectedCategory(key)}
                     className={`cursor-pointer px-4 py-2 transition-all ${
                       selectedCategory === key
                         ? 'bg-gradient-to-r ' + style.color + ' text-white'
@@ -292,21 +352,73 @@ export default function InteractiveMapSection({ lang }: InteractiveMapSectionPro
                 ))}
               </div>
             </div>
+
+            {/* Advanced Filters */}
+            {showFilters && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                transition={{ duration: 0.3 }}
+                className="mt-8 pt-8 border-t border-white/10"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                  {/* Price Range Filter */}
+                  <div>
+                    <Label className="text-white font-semibold mb-3 block">{lang === 'es' ? 'Precio' : 'Price'}</Label>
+                    <div className="space-y-2">
+                      {['$', '$$', '$$$', '$$$$'].map((price) => (
+                        <div key={price} className="flex items-center space-x-2">
+                          <Checkbox
+                            id={price}
+                            checked={priceFilter.includes(price)}
+                            onCheckedChange={(checked) => handlePriceFilter(price, checked as boolean)}
+                            className="border-white/30 data-[state=checked]:bg-emerald-400 data-[state=checked]:border-emerald-400"
+                          />
+                          <Label htmlFor={price} className="text-white/90 cursor-pointer">{price}</Label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Clear Filters */}
+                  <div className="md:col-span-3 flex items-end">
+                    <Button
+                      onClick={clearFilters}
+                      className="bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20"
+                    >
+                      <X className="w-4 h-4 mr-2" />
+                      {lang === 'es' ? 'Limpiar Filtros' : 'Clear Filters'}
+                    </Button>
+                  </div>
+                </div>
+              </motion.div>
+            )}
           </div>
         </motion.div>
 
         {/* Main Content Area */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* List View Only */}
+          {/* Map or List View */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             className="lg:col-span-2"
           >
-            {/* Map removed - only showing list view */}
-            <div className="grid gap-4">
-                {filteredAttractions.map((attraction, index: number) => (
+            {viewMode === 'map' ? (
+              <Card className="overflow-hidden border-0 bg-white/5 backdrop-blur-xl shadow-2xl">
+                <CardContent className="p-0">
+                  <div className="w-full h-[600px] bg-slate-800 relative rounded-2xl overflow-hidden flex items-center justify-center">
+                    <div className="text-white text-center">
+                      <h3 className="text-2xl font-bold mb-4">Map Disabled for Testing</h3>
+                      <p className="text-lg">Testing everything except the map component</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ) : (
+              <div className="grid gap-4">
+                {filteredAttractions.map((attraction, index) => (
                   <motion.div
                     key={attraction.id}
                     initial={{ opacity: 0, y: 20 }}
@@ -314,8 +426,12 @@ export default function InteractiveMapSection({ lang }: InteractiveMapSectionPro
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                   >
                     <Card 
-                      className="cursor-pointer transition-all duration-300 hover:scale-[1.02] border-0 bg-white/5 backdrop-blur-xl hover:bg-white/10"
-                      onClick={() => {/* disabled */}}
+                      className={`cursor-pointer transition-all duration-300 hover:scale-[1.02] border-0 bg-white/5 backdrop-blur-xl hover:bg-white/10 ${
+                        selectedAttraction?.id === attraction.id 
+                          ? 'ring-2 ring-emerald-400 bg-white/10' 
+                          : ''
+                      }`}
+                      onClick={() => setSelectedAttraction(attraction)}
                     >
                       <CardContent className="p-6">
                         <div className="flex items-start gap-4">
@@ -349,6 +465,12 @@ export default function InteractiveMapSection({ lang }: InteractiveMapSectionPro
                               <Badge className="bg-white/10 text-white/70">
                                 {attraction.priceRange}
                               </Badge>
+                              {attraction.hours && (
+                                <div className="flex items-center gap-1 text-white/60 text-sm">
+                                  <Clock className="w-3 h-3" />
+                                  {attraction.hours}
+                                </div>
+                              )}
                             </div>
 
                             <div className="flex items-center gap-2 mt-4">
@@ -359,6 +481,9 @@ export default function InteractiveMapSection({ lang }: InteractiveMapSectionPro
                               <Button size="sm" variant="ghost" className="text-white/60 hover:text-white">
                                 <Heart className="w-3 h-3" />
                               </Button>
+                              <Button size="sm" variant="ghost" className="text-white/60 hover:text-white">
+                                <Share2 className="w-3 h-3" />
+                              </Button>
                             </div>
                           </div>
                         </div>
@@ -366,7 +491,8 @@ export default function InteractiveMapSection({ lang }: InteractiveMapSectionPro
                     </Card>
                   </motion.div>
                 ))}
-            </div>
+              </div>
+            )}
           </motion.div>
 
           {/* Side Panel - Attractions List */}
@@ -381,7 +507,7 @@ export default function InteractiveMapSection({ lang }: InteractiveMapSectionPro
             </h3>
             
             <div className="space-y-4 max-h-[600px] overflow-y-auto custom-scrollbar">
-              {filteredAttractions.map((attraction, index: number) => (
+              {filteredAttractions.map((attraction, index) => (
                 <motion.div
                   key={attraction.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -389,8 +515,12 @@ export default function InteractiveMapSection({ lang }: InteractiveMapSectionPro
                   transition={{ duration: 0.6, delay: 0.1 * index }}
                 >
                   <Card 
-                    className="cursor-pointer transition-all duration-300 hover:shadow-lg border-0 bg-white/5 backdrop-blur-xl hover:bg-white/10"
-                    onClick={() => {/* disabled */}}
+                    className={`cursor-pointer transition-all duration-300 hover:shadow-lg border-0 bg-white/5 backdrop-blur-xl hover:bg-white/10 ${
+                      selectedAttraction?.id === attraction.id 
+                        ? 'ring-2 ring-emerald-400 bg-white/10' 
+                        : ''
+                    }`}
+                    onClick={() => setSelectedAttraction(attraction)}
                   >
                     <CardContent className="p-4">
                       <div className="flex items-center gap-3">
@@ -424,6 +554,14 @@ export default function InteractiveMapSection({ lang }: InteractiveMapSectionPro
       </div>
 
       <style jsx>{`
+        .animation-delay-2s {
+          animation-delay: 2s;
+        }
+        
+        .animation-delay-4s {
+          animation-delay: 4s;
+        }
+        
         .custom-scrollbar {
           scrollbar-width: thin;
           scrollbar-color: rgba(16, 185, 129, 0.3) transparent;

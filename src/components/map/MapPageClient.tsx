@@ -10,10 +10,10 @@ const EnhancedMapSection = dynamic(
   }
 )
 
-interface MapWrapperProps {
+interface MapPageClientProps {
   lang: Locale
 }
 
-export default function MapWrapper({ lang }: MapWrapperProps) {
+export default function MapPageClient({ lang }: MapPageClientProps) {
   return <EnhancedMapSection lang={lang} />
 }
