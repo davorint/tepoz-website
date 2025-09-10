@@ -21,6 +21,19 @@ import {
   Bookmark
 } from 'lucide-react'
 import { Locale } from '@/lib/i18n'
+import dynamic from 'next/dynamic'
+
+const MapTiler3D = dynamic(() => import('@/components/map/MapTiler3D'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-[700px] bg-gradient-to-br from-slate-800/80 to-slate-900/80 relative rounded-2xl overflow-hidden flex items-center justify-center border-2 border-slate-600/50">
+      <div className="text-center text-white">
+        <div className="text-6xl mb-4">🗺️</div>
+        <p className="text-xl font-semibold text-slate-300">Cargando mapa 3D...</p>
+      </div>
+    </div>
+  )
+})
 
 interface EnhancedMapSectionProps {
   lang: Locale
@@ -264,21 +277,8 @@ export default function EnhancedMapSection({ lang }: EnhancedMapSectionProps) {
           >
             <Card className="overflow-hidden border-0 bg-white/5 backdrop-blur-xl shadow-2xl">
               <CardContent className="p-0">
-                <div className="w-full h-[700px] bg-gradient-to-br from-red-600/80 to-red-800/80 relative rounded-2xl overflow-hidden flex items-center justify-center border-4 border-red-400/50">
-                  <div className="text-center text-white">
-                    <div className="text-9xl mb-6">🗺️</div>
-                    <h3 className="text-5xl font-bold mb-4 bg-gradient-to-r from-red-300 to-pink-300 bg-clip-text text-transparent">
-                      {lang === 'es' ? 'MAPA INTERACTIVO' : 'INTERACTIVE MAP'}
-                    </h3>
-                    <p className="text-3xl font-semibold text-red-200">
-                      {lang === 'es' ? 'PRÓXIMAMENTE DISPONIBLE' : 'COMING SOON'}
-                    </p>
-                    <div className="mt-8 px-8 py-4 bg-red-500/30 backdrop-blur-xl rounded-full border-2 border-red-300/60">
-                      <p className="text-xl text-red-100 font-bold">
-                        {lang === 'es' ? '🚧 AQUÍ APARECERÁ EL MAPA 🚧' : '🚧 MAP WILL APPEAR HERE 🚧'}
-                      </p>
-                    </div>
-                  </div>
+                <div className="w-full h-[700px] relative rounded-2xl overflow-hidden">
+                  <MapTiler3D className="rounded-2xl" />
                 </div>
               </CardContent>
             </Card>
