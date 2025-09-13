@@ -179,6 +179,14 @@ export default function StaticNavigation({ lang, translations }: StaticNavigatio
               <NavigationMenuContent className="animate-in fade-in slide-in-from-top-2 duration-300">
                 <div className="grid gap-3 p-6 md:w-[300px]">
                   <NavigationMenuLink asChild>
+                    <Link href={`/${lang}/business-finder`} className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] hover:shadow-md focus:bg-accent focus:text-accent-foreground">
+                      <div className="text-sm font-medium leading-none">Business Finder</div>
+                      <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                        {lang === 'es' ? 'Buscador de negocios con mapa' : 'Business search with map integration'}
+                      </p>
+                    </Link>
+                  </NavigationMenuLink>
+                  <NavigationMenuLink asChild>
                     <Link href={`/${lang}/landing-2`} className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] hover:shadow-md focus:bg-accent focus:text-accent-foreground">
                       <div className="text-sm font-medium leading-none">Landing 2</div>
                       <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
