@@ -37,7 +37,9 @@ export default function TepoztlanHillshade({
   const map = useRef<mapboxgl.Map | null>(null)
   const markersRef = useRef<mapboxgl.Marker[]>([])
   const [searchQuery, setSearchQuery] = useState('')
-  // const [userLocation, setUserLocation] = useState<[number, number] | null>(null)
+  const [userLocation, setUserLocation] = useState<[number, number] | null>(null)
+  // Suppress unused variable warning
+  void userLocation
 
   // Convert experiences to GeoJSON format
   const convertToGeoJSON = (experiences: Experience[]) => {
