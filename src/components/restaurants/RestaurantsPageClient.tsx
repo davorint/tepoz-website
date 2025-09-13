@@ -100,19 +100,19 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50/40 from-20% via-red-50/30 via-50% to-yellow-50/20 to-80% dark:bg-gradient-to-br dark:from-slate-900 dark:via-blue-900 dark:to-slate-900 relative overflow-hidden">
       {/* Ultra Premium Background */}
       <div className="absolute inset-0">
-        {/* Animated gradient orbs */}
-        <div className="absolute top-20 left-20 w-[35rem] h-[35rem] bg-orange-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-20 w-[40rem] h-[40rem] bg-red-500/20 rounded-full blur-3xl animate-pulse animation-delay-2s" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[45rem] h-[45rem] bg-yellow-500/10 rounded-full blur-3xl animate-pulse animation-delay-4s" />
+        {/* Animated gradient orbs - independent light/dark controls */}
+        <div className="absolute top-20 left-20 w-[35rem] h-[35rem] bg-orange-400/15 dark:bg-orange-500/20 rounded-full blur-2xl dark:blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-20 w-[40rem] h-[40rem] bg-red-400/12 dark:bg-red-500/20 rounded-full blur-2xl dark:blur-3xl animate-pulse animation-delay-2s" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[45rem] h-[45rem] bg-yellow-400/8 dark:bg-yellow-500/10 rounded-full blur-2xl dark:blur-3xl animate-pulse animation-delay-4s" />
         
-        {/* Premium mesh gradient */}
-        <div className="absolute inset-0 bg-[radial-gradient(at_top_left,_transparent,_rgba(251,146,60,0.2)),radial-gradient(at_bottom_right,_transparent,_rgba(239,68,68,0.2))]" />
+        {/* Premium mesh gradient - independent controls */}
+        <div className="absolute inset-0 bg-[radial-gradient(at_top_left,_transparent,_rgba(251,146,60,0.1)),radial-gradient(at_bottom_right,_transparent,_rgba(239,68,68,0.1))] dark:bg-[radial-gradient(at_top_left,_transparent,_rgba(251,146,60,0.2)),radial-gradient(at_bottom_right,_transparent,_rgba(239,68,68,0.2))]" />
         
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 opacity-5" style={{
+        {/* Grid pattern overlay - independent opacity */}
+        <div className="absolute inset-0 opacity-3 dark:opacity-5" style={{
           backgroundImage: `linear-gradient(rgba(251, 146, 60, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(251, 146, 60, 0.1) 1px, transparent 1px)`,
           backgroundSize: '50px 50px'
         }} />
@@ -120,7 +120,7 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-12">
         {/* Premium Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 relative">
           <div className="inline-flex items-center gap-3 mb-8">
             <div className="h-px w-20 bg-gradient-to-r from-transparent to-orange-400" />
             <div className="relative">
@@ -133,16 +133,16 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
           </div>
           
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 font-sans">
-            <span className="text-white drop-shadow-2xl">
+            <span className="text-slate-800 dark:text-white drop-shadow-lg dark:drop-shadow-2xl">
               {locale === 'es' ? 'Sabores de ' : 'Flavors of '}
             </span>
             <br />
-            <span className="bg-gradient-to-r from-orange-300 via-red-300 to-yellow-300 bg-clip-text text-transparent drop-shadow-2xl">
-              <span className="text-orange-300">TODO</span>TEPOZ
+            <span className="bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 dark:from-orange-300 dark:via-red-300 dark:to-yellow-300 bg-clip-text text-transparent drop-shadow-lg dark:drop-shadow-2xl">
+              <span className="text-orange-500 dark:text-orange-300">TODO</span>TEPOZ
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-white/80 font-light max-w-4xl mx-auto leading-relaxed mb-8">
+          <p className="text-xl md:text-2xl text-slate-700 dark:text-white/80 font-light max-w-4xl mx-auto leading-relaxed mb-8">
             {locale === 'es' 
               ? 'Descubre la rica gastronomía de Tepoztlán. Desde cocina tradicional mexicana hasta fusión contemporánea.'
               : 'Discover the rich gastronomy of Tepoztlán. From traditional Mexican cuisine to contemporary fusion.'
@@ -151,39 +151,39 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
 
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
-            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
-              <div className="text-3xl font-bold text-orange-400 mb-2">{restaurants.length}</div>
-              <div className="text-white/70 text-sm">{locale === 'es' ? 'Restaurantes' : 'Restaurants'}</div>
+            <div className="bg-white/70 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-xl rounded-2xl border border-slate-300/20 dark:border-white/10 p-6 shadow-lg shadow-slate-300/15 dark:shadow-white/12 hover:bg-white/80 dark:hover:bg-white/8 hover:scale-105 dark:hover:scale-110 transition-all duration-300 dark:duration-500 cursor-pointer group">
+              <div className="text-3xl font-bold text-orange-500 dark:text-orange-400 mb-2 drop-shadow-sm dark:drop-shadow-md">{restaurants.length}</div>
+              <div className="text-slate-600 dark:text-white/70 text-sm group-hover:text-slate-800 dark:group-hover:text-white transition-colors duration-200 dark:duration-300">{locale === 'es' ? 'Restaurantes' : 'Restaurants'}</div>
             </div>
-            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
-              <div className="text-3xl font-bold text-red-400 mb-2">4.6</div>
-              <div className="text-white/70 text-sm">{locale === 'es' ? 'Calificación Promedio' : 'Average Rating'}</div>
+            <div className="bg-white/70 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-xl rounded-2xl border border-slate-300/20 dark:border-white/10 p-6 shadow-lg shadow-slate-300/15 dark:shadow-white/12 hover:bg-white/80 dark:hover:bg-white/8 hover:scale-105 dark:hover:scale-110 transition-all duration-300 dark:duration-500 cursor-pointer group">
+              <div className="text-3xl font-bold text-red-500 dark:text-red-400 mb-2 drop-shadow-sm dark:drop-shadow-md">4.6</div>
+              <div className="text-slate-600 dark:text-white/70 text-sm group-hover:text-slate-800 dark:group-hover:text-white transition-colors duration-200 dark:duration-300">{locale === 'es' ? 'Calificación Promedio' : 'Average Rating'}</div>
             </div>
-            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
-              <div className="text-3xl font-bold text-yellow-400 mb-2">2K+</div>
-              <div className="text-white/70 text-sm">{locale === 'es' ? 'Reseñas' : 'Reviews'}</div>
+            <div className="bg-white/70 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-xl rounded-2xl border border-slate-300/20 dark:border-white/10 p-6 shadow-lg shadow-slate-300/15 dark:shadow-white/12 hover:bg-white/80 dark:hover:bg-white/8 hover:scale-105 dark:hover:scale-110 transition-all duration-300 dark:duration-500 cursor-pointer group">
+              <div className="text-3xl font-bold text-yellow-500 dark:text-yellow-400 mb-2 drop-shadow-sm dark:drop-shadow-md">2K+</div>
+              <div className="text-slate-600 dark:text-white/70 text-sm group-hover:text-slate-800 dark:group-hover:text-white transition-colors duration-200 dark:duration-300">{locale === 'es' ? 'Reseñas' : 'Reviews'}</div>
             </div>
           </div>
         </div>
 
         {/* Search and Filters */}
         <div className="mb-12">
-          <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-8 shadow-2xl">
+          <div className="bg-white/70 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-xl rounded-3xl border border-slate-300/20 dark:border-white/10 p-8 shadow-xl shadow-slate-300/20 dark:shadow-white/15 hover:bg-white/80 dark:hover:bg-white/8 transition-all duration-300 dark:duration-500">
             {/* Search Bar */}
             <div className="flex flex-col md:flex-row gap-4 mb-6">
               <div className="relative flex-1">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50 w-5 h-5" />
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-500 dark:text-white/50 w-5 h-5" />
                 <Input
                   type="text"
                   placeholder={locale === 'es' ? 'Buscar restaurantes, platillos, cocina...' : 'Search restaurants, dishes, cuisine...'}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-12 h-12 bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder-white/50"
+                  className="pl-12 h-12 bg-white/80 dark:bg-white/10 backdrop-blur-sm dark:backdrop-blur-md border-slate-300/30 dark:border-white/20 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-white/50 hover:bg-white/90 dark:hover:bg-white/15 focus:bg-white/95 dark:focus:bg-white/15 transition-all duration-200 dark:duration-300"
                 />
               </div>
               <Button
                 onClick={() => setShowFilters(!showFilters)}
-                className="h-12 px-6 bg-gradient-to-r from-orange-400 to-red-400 hover:from-orange-500 hover:to-red-500 text-white border-0 shadow-xl"
+                className="h-12 px-6 bg-gradient-to-r from-orange-400 to-red-400 hover:from-orange-500 hover:to-red-500 dark:from-orange-400 dark:to-red-400 dark:hover:from-orange-500 dark:hover:to-red-500 text-white border-0 shadow-lg shadow-orange-400/20 dark:shadow-orange-400/30 hover:scale-105 dark:hover:scale-110 transition-all duration-200 dark:duration-300"
               >
                 <Filter className="w-4 h-4 mr-2" />
                 {locale === 'es' ? 'Filtros' : 'Filters'}
@@ -194,18 +194,18 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="flex items-center gap-4">
                 <Select value={sortBy} onValueChange={(value: string) => setSortBy(value as 'featured' | 'rating' | 'price' | 'name')}>
-                  <SelectTrigger className="w-48 bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                  <SelectTrigger className="w-48 bg-white/80 dark:bg-white/10 backdrop-blur-sm dark:backdrop-blur-md border-slate-300/30 dark:border-white/20 text-slate-900 dark:text-white hover:bg-white/90 dark:hover:bg-white/15 transition-all duration-200 dark:duration-300">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-slate-600">
-                    <SelectItem value="featured" className="text-white">{locale === 'es' ? 'Destacados' : 'Featured'}</SelectItem>
-                    <SelectItem value="rating" className="text-white">{locale === 'es' ? 'Mejor Calificados' : 'Highest Rated'}</SelectItem>
-                    <SelectItem value="price" className="text-white">{locale === 'es' ? 'Precio' : 'Price'}</SelectItem>
-                    <SelectItem value="name" className="text-white">{locale === 'es' ? 'Nombre' : 'Name'}</SelectItem>
+                  <SelectContent className="bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600">
+                    <SelectItem value="featured" className="text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700">{locale === 'es' ? 'Destacados' : 'Featured'}</SelectItem>
+                    <SelectItem value="rating" className="text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700">{locale === 'es' ? 'Mejor Calificados' : 'Highest Rated'}</SelectItem>
+                    <SelectItem value="price" className="text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700">{locale === 'es' ? 'Precio' : 'Price'}</SelectItem>
+                    <SelectItem value="name" className="text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700">{locale === 'es' ? 'Nombre' : 'Name'}</SelectItem>
                   </SelectContent>
                 </Select>
 
-                <div className="text-white/70 text-sm">
+                <div className="text-slate-600 dark:text-white/70 text-sm">
                   {filteredRestaurants.length} {locale === 'es' ? 'resultados' : 'results'}
                 </div>
               </div>
@@ -216,8 +216,8 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
                   variant={viewMode === 'grid' ? 'default' : 'ghost'}
                   size="sm"
                   className={viewMode === 'grid' 
-                    ? 'bg-gradient-to-r from-orange-400 to-red-400 text-white' 
-                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                    ? 'bg-gradient-to-r from-orange-400 to-red-400 text-white shadow-lg shadow-orange-400/20 dark:shadow-orange-400/30' 
+                    : 'text-slate-600 dark:text-white/70 hover:text-slate-800 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-white/10'
                   }
                 >
                   Grid
@@ -227,8 +227,8 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
                   variant={viewMode === 'list' ? 'default' : 'ghost'}
                   size="sm"
                   className={viewMode === 'list' 
-                    ? 'bg-gradient-to-r from-orange-400 to-red-400 text-white' 
-                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                    ? 'bg-gradient-to-r from-orange-400 to-red-400 text-white shadow-lg shadow-orange-400/20 dark:shadow-orange-400/30' 
+                    : 'text-slate-600 dark:text-white/70 hover:text-slate-800 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-white/10'
                   }
                 >
                   List
@@ -242,14 +242,14 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                   {/* Cuisine Filter */}
                   <div>
-                    <Label className="text-white font-semibold mb-3 block">{locale === 'es' ? 'Cocina' : 'Cuisine'}</Label>
+                    <Label className="text-slate-800 dark:text-white font-semibold mb-3 block">{locale === 'es' ? 'Cocina' : 'Cuisine'}</Label>
                     <Select value={selectedCuisine} onValueChange={setSelectedCuisine}>
-                      <SelectTrigger className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                      <SelectTrigger className="bg-white/80 dark:bg-white/10 backdrop-blur-sm dark:backdrop-blur-md border-slate-300/30 dark:border-white/20 text-slate-900 dark:text-white hover:bg-white/90 dark:hover:bg-white/15 transition-all duration-200 dark:duration-300">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent className="bg-slate-800 border-slate-600">
+                      <SelectContent className="bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600">
                         {cuisineTypes.map((cuisine) => (
-                          <SelectItem key={cuisine.id} value={cuisine.id} className="text-white">
+                          <SelectItem key={cuisine.id} value={cuisine.id} className="text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700">
                             {locale === 'es' ? cuisine.es : cuisine.en}
                           </SelectItem>
                         ))}
@@ -259,14 +259,14 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
 
                   {/* Atmosphere Filter */}
                   <div>
-                    <Label className="text-white font-semibold mb-3 block">{locale === 'es' ? 'Ambiente' : 'Atmosphere'}</Label>
+                    <Label className="text-slate-800 dark:text-white font-semibold mb-3 block">{locale === 'es' ? 'Ambiente' : 'Atmosphere'}</Label>
                     <Select value={selectedAtmosphere} onValueChange={setSelectedAtmosphere}>
-                      <SelectTrigger className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                      <SelectTrigger className="bg-white/80 dark:bg-white/10 backdrop-blur-sm dark:backdrop-blur-md border-slate-300/30 dark:border-white/20 text-slate-900 dark:text-white hover:bg-white/90 dark:hover:bg-white/15 transition-all duration-200 dark:duration-300">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent className="bg-slate-800 border-slate-600">
+                      <SelectContent className="bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600">
                         {atmosphereTypes.map((atmosphere) => (
-                          <SelectItem key={atmosphere.id} value={atmosphere.id} className="text-white">
+                          <SelectItem key={atmosphere.id} value={atmosphere.id} className="text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700">
                             {locale === 'es' ? atmosphere.es : atmosphere.en}
                           </SelectItem>
                         ))}
@@ -276,14 +276,14 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
 
                   {/* Price Range Filter */}
                   <div>
-                    <Label className="text-white font-semibold mb-3 block">{locale === 'es' ? 'Precio' : 'Price'}</Label>
+                    <Label className="text-slate-800 dark:text-white font-semibold mb-3 block">{locale === 'es' ? 'Precio' : 'Price'}</Label>
                     <Select value={selectedPriceRange} onValueChange={setSelectedPriceRange}>
-                      <SelectTrigger className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                      <SelectTrigger className="bg-white/80 dark:bg-white/10 backdrop-blur-sm dark:backdrop-blur-md border-slate-300/30 dark:border-white/20 text-slate-900 dark:text-white hover:bg-white/90 dark:hover:bg-white/15 transition-all duration-200 dark:duration-300">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent className="bg-slate-800 border-slate-600">
+                      <SelectContent className="bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600">
                         {priceRanges.map((price) => (
-                          <SelectItem key={price.id} value={price.id} className="text-white">
+                          <SelectItem key={price.id} value={price.id} className="text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700">
                             {price.symbol} {locale === 'es' ? price.es : price.en}
                           </SelectItem>
                         ))}
@@ -293,7 +293,7 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
 
                   {/* Dietary Restrictions */}
                   <div>
-                    <Label className="text-white font-semibold mb-3 block">{locale === 'es' ? 'Dieta' : 'Dietary'}</Label>
+                    <Label className="text-slate-800 dark:text-white font-semibold mb-3 block">{locale === 'es' ? 'Dieta' : 'Dietary'}</Label>
                     <div className="space-y-2">
                       {dietaryOptions.map((option) => (
                         <div key={option.id} className="flex items-center space-x-2">
@@ -303,7 +303,7 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
                             onCheckedChange={(checked) => handleDietaryChange(option.id, checked as boolean)}
                             className="border-white/30 data-[state=checked]:bg-orange-400 data-[state=checked]:border-orange-400"
                           />
-                          <Label htmlFor={option.id} className="text-white/90 text-sm cursor-pointer">
+                          <Label htmlFor={option.id} className="text-slate-700 dark:text-white/90 text-sm cursor-pointer hover:text-slate-900 dark:hover:text-white transition-colors duration-200 dark:duration-300">
                             {option.emoji} {locale === 'es' ? option.es : option.en}
                           </Label>
                         </div>
@@ -316,7 +316,7 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
                 <div className="mt-6 text-center">
                   <Button
                     onClick={clearFilters}
-                    className="bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20"
+                    className="bg-white/80 dark:bg-white/10 backdrop-blur-sm dark:backdrop-blur-md border border-slate-300/30 dark:border-white/20 text-slate-900 dark:text-white hover:bg-white/90 dark:hover:bg-white/20 hover:scale-105 dark:hover:scale-110 transition-all duration-200 dark:duration-300"
                   >
                     <X className="w-4 h-4 mr-2" />
                     {locale === 'es' ? 'Limpiar Filtros' : 'Clear Filters'}
@@ -347,12 +347,12 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
         {/* Empty State */}
         {filteredRestaurants.length === 0 && (
           <div className="text-center py-20">
-            <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-16 shadow-2xl max-w-2xl mx-auto">
-              <div className="text-8xl mb-8 opacity-50">🍽️</div>
-              <h3 className="text-3xl font-bold text-white mb-4 font-sans">
+            <div className="bg-white/70 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-xl rounded-3xl border border-slate-300/20 dark:border-white/10 p-16 shadow-xl shadow-slate-300/20 dark:shadow-white/15 max-w-2xl mx-auto">
+              <div className="text-8xl mb-8 opacity-40 dark:opacity-50">🍽️</div>
+              <h3 className="text-3xl font-bold text-slate-800 dark:text-white mb-4 font-sans">
                 {locale === 'es' ? 'No se encontraron restaurantes' : 'No restaurants found'}
               </h3>
-              <p className="text-white/70 text-lg mb-8">
+              <p className="text-slate-600 dark:text-white/70 text-lg mb-8">
                 {locale === 'es' 
                   ? 'Intenta ajustar los filtros o modificar tu búsqueda'
                   : 'Try adjusting your filters or modify your search'
@@ -370,12 +370,12 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
 
         {/* All Restaurants Directory Button */}
         <div className="text-center py-16">
-          <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-12 shadow-2xl max-w-4xl mx-auto">
-            <div className="text-6xl mb-6 opacity-80">📊</div>
-            <h2 className="text-3xl font-bold text-white mb-4 font-sans">
+          <div className="bg-white/70 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-xl rounded-3xl border border-slate-300/20 dark:border-white/10 p-12 shadow-xl shadow-slate-300/20 dark:shadow-white/15 max-w-4xl mx-auto hover:bg-white/80 dark:hover:bg-white/8 transition-all duration-300 dark:duration-500">
+            <div className="text-6xl mb-6 opacity-60 dark:opacity-80">📊</div>
+            <h2 className="text-3xl font-bold text-slate-800 dark:text-white mb-4 font-sans">
               {locale === 'es' ? 'Directorio Completo' : 'Complete Directory'}
             </h2>
-            <p className="text-white/70 text-lg mb-8 max-w-2xl mx-auto">
+            <p className="text-slate-600 dark:text-white/70 text-lg mb-8 max-w-2xl mx-auto">
               {locale === 'es' 
                 ? 'Explora todos los restaurantes en una vista de tabla avanzada con filtros, búsqueda y exportación de datos.'
                 : 'Explore all restaurants in an advanced table view with filters, search and data export capabilities.'
@@ -398,15 +398,15 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
 
         {/* Business Owner CTA */}
         <div className="text-center py-12">
-          <Card className="bg-gradient-to-r from-orange-400/10 to-red-400/10 backdrop-blur-xl border-white/20 p-12 max-w-4xl mx-auto">
+          <Card className="bg-gradient-to-r from-orange-400/20 to-red-400/20 dark:from-orange-400/10 dark:to-red-400/10 backdrop-blur-md dark:backdrop-blur-xl border-slate-300/30 dark:border-white/20 p-12 max-w-4xl mx-auto shadow-lg shadow-orange-400/15 dark:shadow-orange-400/20 hover:shadow-xl hover:shadow-orange-400/25 dark:hover:shadow-orange-400/30 transition-all duration-300 dark:duration-500">
             <CardContent className="space-y-6">
-              <h2 className="text-3xl font-bold text-white">
+              <h2 className="text-3xl font-bold text-slate-800 dark:text-white">
                 {locale === 'es' 
                   ? '¿Tienes un restaurante en Tepoztlán?' 
                   : 'Do you own a restaurant in Tepoztlán?'
                 }
               </h2>
-              <p className="text-white/80 text-lg max-w-2xl mx-auto">
+              <p className="text-slate-600 dark:text-white/80 text-lg max-w-2xl mx-auto">
                 {locale === 'es' 
                   ? 'Únete a nuestra plataforma y conecta con miles de visitantes que buscan experiencias gastronómicas auténticas en el corazón de este Pueblo Mágico.'
                   : 'Join our platform and connect with thousands of visitors looking for authentic culinary experiences in the heart of this Magical Town.'
@@ -419,7 +419,7 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
                 </Button>
                 <Button 
                   variant="outline" 
-                  className="border-white/30 bg-white/10 text-white hover:bg-white/20 px-8 py-6 text-lg"
+                  className="border-slate-400/30 dark:border-white/30 bg-white/80 dark:bg-white/10 text-slate-800 dark:text-white hover:bg-white/90 dark:hover:bg-white/20 px-8 py-6 text-lg hover:scale-105 dark:hover:scale-110 transition-all duration-200 dark:duration-300"
                 >
                   {locale === 'es' ? 'Más Información' : 'Learn More'}
                 </Button>

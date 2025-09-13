@@ -147,7 +147,7 @@ export default async function LanguageLayout({
     <LanguageProvider lang={lang}>
       <ThemeProvider
         attribute="class"
-        defaultTheme="system"
+        defaultTheme="dark"
         enableSystem
         disableTransitionOnChange
       >

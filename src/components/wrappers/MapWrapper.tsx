@@ -3,8 +3,8 @@
 import { Locale } from '@/lib/i18n'
 import dynamic from 'next/dynamic'
 
-const EnhancedMapSection = dynamic(
-  () => import('@/components/sections/EnhancedMapSection'),
+const EnhancedMapSectionProduction = dynamic(
+  () => import('@/components/sections/EnhancedMapSectionProduction'),
   { 
     ssr: false
   }
@@ -15,5 +15,5 @@ interface MapWrapperProps {
 }
 
 export default function MapWrapper({ lang }: MapWrapperProps) {
-  return <EnhancedMapSection lang={lang} />
+  return <EnhancedMapSectionProduction lang={lang} />
 }

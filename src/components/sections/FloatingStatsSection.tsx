@@ -89,13 +89,13 @@ const additionalStats = [
 
 export default function FloatingStatsSection({ lang }: FloatingStatsSectionProps) {
   return (
-    <section className="py-32 px-4 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
+    <section className="py-32 px-4 bg-gradient-to-br from-white via-gray-25/5 to-white dark:from-slate-900 dark:via-blue-900 dark:to-slate-900 relative overflow-hidden">
       {/* Ultra Premium animated background */}
       <div className="absolute inset-0">
         {/* Animated gradient orbs */}
-        <div className="absolute top-20 left-20 w-[30rem] h-[30rem] bg-blue-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-20 w-[35rem] h-[35rem] bg-cyan-500/20 rounded-full blur-3xl animate-pulse animation-delay-2s" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] bg-sky-500/10 rounded-full blur-3xl animate-pulse animation-delay-4s" />
+        <div className="absolute top-20 left-20 w-[30rem] h-[30rem] bg-blue-500/1 dark:bg-blue-500/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-20 w-[35rem] h-[35rem] bg-cyan-500/3 dark:bg-cyan-500/20 rounded-full blur-3xl animate-pulse animation-delay-2s" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] bg-sky-500/1 dark:bg-sky-500/10 rounded-full blur-3xl animate-pulse animation-delay-4s" />
         
         {/* Grid pattern overlay */}
         <div className="absolute inset-0 opacity-10" style={{
@@ -104,34 +104,34 @@ export default function FloatingStatsSection({ lang }: FloatingStatsSectionProps
         }} />
         
         {/* Premium mesh gradient */}
-        <div className="absolute inset-0 bg-[radial-gradient(at_top_left,_transparent,_rgba(59,130,246,0.2)),radial-gradient(at_bottom_right,_transparent,_rgba(14,165,233,0.2))]" />
+        <div className="absolute inset-0 bg-[radial-gradient(at_top_left,_transparent,_rgba(59,130,246,0.05)),radial-gradient(at_bottom_right,_transparent,_rgba(14,165,233,0.05))]" />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Ultra Premium Section header */}
         <div className="text-center mb-20">
           <div className="inline-flex items-center gap-3 mb-8">
-            <div className="h-px w-16 bg-gradient-to-r from-transparent to-blue-400" />
+            <div className="h-px w-16 bg-gradient-to-r from-transparent to-blue-300" />
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-cyan-400 blur-md" />
-              <div className="relative bg-gradient-to-r from-blue-400 to-cyan-400 text-white px-8 py-3 rounded-full text-sm font-semibold tracking-wider uppercase">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-300 to-cyan-300 blur-md" />
+              <div className="relative bg-gradient-to-r from-blue-300 to-cyan-300 text-white px-8 py-3 rounded-full text-sm font-semibold tracking-wider uppercase">
                 {lang === 'es' ? '📊 Estadísticas del Directorio' : '📊 Directory Statistics'}
               </div>
             </div>
-            <div className="h-px w-16 bg-gradient-to-l from-transparent to-cyan-400" />
+            <div className="h-px w-16 bg-gradient-to-l from-transparent to-cyan-300" />
           </div>
           
           <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 font-sans">
-            <span className="text-white drop-shadow-2xl">
+            <span className="text-gray-800 dark:text-white drop-shadow-2xl">
               {lang === 'es' ? 'Nuestro Directorio en' : 'Our Directory by'}
             </span>
             <br />
-            <span className="bg-gradient-to-r from-blue-300 via-cyan-300 to-sky-300 bg-clip-text text-transparent drop-shadow-2xl">
+            <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-sky-400 dark:from-blue-300 dark:via-cyan-300 dark:to-sky-300 bg-clip-text text-transparent drop-shadow-2xl">
               {lang === 'es' ? 'Números' : 'Numbers'}
             </span>
           </h2>
           
-          <p className="text-xl md:text-2xl text-white/80 font-light max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-gray-500 dark:text-white/80 font-light max-w-3xl mx-auto leading-relaxed">
             {lang === 'es' 
               ? 'La plataforma líder para conectar negocios y visitantes en Tepoztlán'
               : 'The leading platform connecting businesses and visitors in Tepoztlán'
@@ -153,7 +153,7 @@ export default function FloatingStatsSection({ lang }: FloatingStatsSectionProps
                 <div className={`absolute inset-0 bg-gradient-to-r ${stat.gradient} opacity-0 group-hover:opacity-30 blur-xl transition-all duration-700 rounded-3xl`} />
                 
                 {/* Glassmorphism card */}
-                <div className="relative bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl overflow-hidden transform-gpu transition-all duration-500 group-hover:scale-[1.02] group-hover:bg-white/15">
+                <div className="relative bg-white/40 dark:bg-white/10 backdrop-blur-xl rounded-3xl border border-gray-200/20 dark:border-white/20 shadow-xl hover:shadow-2xl overflow-hidden transform-gpu transition-all duration-500 group-hover:scale-[1.02] group-hover:bg-white/60 dark:group-hover:bg-white/15">
                   
                   {/* Top accent bar */}
                   <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${stat.gradient} opacity-80 group-hover:h-2 transition-all duration-500`} />
@@ -164,8 +164,8 @@ export default function FloatingStatsSection({ lang }: FloatingStatsSectionProps
                       <div className={`absolute inset-0 bg-gradient-to-r ${stat.gradient} rounded-2xl blur-xl opacity-40 group-hover:opacity-60 transition-all duration-500 animate-pulse`} />
                       <div className="relative w-20 h-20 mx-auto">
                         <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} rounded-2xl opacity-20 rotate-6 group-hover:rotate-12 transition-all duration-500`} />
-                        <div className="relative bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center h-full border border-white/20 group-hover:border-white/30">
-                          <Icon className="w-10 h-10 text-white" />
+                        <div className="relative bg-white/15 dark:bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center h-full border border-gray-200/20 dark:border-white/20 group-hover:border-gray-300/30 dark:group-hover:border-white/30">
+                          <Icon className="w-10 h-10 text-gray-500 dark:text-white" />
                         </div>
                       </div>
                     </div>
@@ -184,16 +184,16 @@ export default function FloatingStatsSection({ lang }: FloatingStatsSectionProps
                     
                     {/* Label */}
                     <div className="text-center mb-4">
-                      <p className="text-white/90 font-medium text-lg">
+                      <p className="text-gray-600 dark:text-white/90 font-medium text-lg">
                         {lang === 'es' ? stat.label : stat.labelEn}
                       </p>
                     </div>
                     
                     {/* Trend indicator */}
-                    <div className="bg-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/10">
+                    <div className="bg-white/15 dark:bg-white/5 backdrop-blur-sm rounded-xl p-3 border border-gray-200/15 dark:border-white/10">
                       <div className="flex items-center justify-center gap-2">
                         <span className="text-lg">{stat.trend}</span>
-                        <span className="text-xs text-white/60 font-light">
+                        <span className="text-xs text-gray-400 dark:text-white/60 font-light">
                           {lang === 'es' ? stat.trendLabel : stat.trendLabelEn}
                         </span>
                       </div>
@@ -206,7 +206,7 @@ export default function FloatingStatsSection({ lang }: FloatingStatsSectionProps
         </div>
 
         {/* Additional mini stats */}
-        <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-8 shadow-2xl">
+        <div className="bg-white/40 dark:bg-white/5 backdrop-blur-xl rounded-3xl border border-gray-200/20 dark:border-white/10 p-8 shadow-xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {additionalStats.map((stat, index) => {
               const Icon = stat.icon
@@ -216,13 +216,13 @@ export default function FloatingStatsSection({ lang }: FloatingStatsSectionProps
                   className="text-center group animate-fade-in-up"
                   style={{ animationDelay: `${600 + index * 100}ms` }}
                 >
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full mb-3 group-hover:scale-110 transition-transform">
+                  <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-300 to-cyan-300 rounded-full mb-3 group-hover:scale-110 transition-transform">
                     <Icon className="w-6 h-6 text-white" />
                   </div>
-                  <div className="text-2xl font-bold text-white mb-1">
+                  <div className="text-2xl font-bold text-gray-700 dark:text-white mb-1">
                     {stat.value}
                   </div>
-                  <div className="text-sm text-white/60">
+                  <div className="text-sm text-gray-400 dark:text-white/60">
                     {lang === 'es' ? stat.label : stat.labelEn}
                   </div>
                 </div>
@@ -233,12 +233,12 @@ export default function FloatingStatsSection({ lang }: FloatingStatsSectionProps
 
         {/* Premium CTA */}
         <div className="text-center mt-16">
-          <div className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-400/10 to-cyan-400/10 backdrop-blur-sm border border-white/20 rounded-full text-white">
-            <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full animate-pulse" />
+          <div className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-300/5 to-cyan-300/5 backdrop-blur-sm border border-gray-200/15 dark:border-white/20 rounded-full text-gray-700 dark:text-white">
+            <div className="w-3 h-3 bg-gradient-to-r from-blue-300 to-cyan-300 rounded-full animate-pulse" />
             <span className="font-medium">
               {lang === 'es' ? 'Datos actualizados en tiempo real' : 'Real-time updated data'}
             </span>
-            <div className="w-3 h-3 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full animate-pulse animation-delay-1s" />
+            <div className="w-3 h-3 bg-gradient-to-r from-cyan-300 to-blue-300 rounded-full animate-pulse animation-delay-1s" />
           </div>
         </div>
       </div>

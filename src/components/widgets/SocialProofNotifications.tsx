@@ -188,14 +188,14 @@ export default function SocialProofNotifications({ lang }: SocialProofNotificati
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    // Show first notification after 3 seconds
+    // Show first notification after 30 seconds
     const showTimer = setTimeout(() => {
       setIsVisible(true)
-    }, 3000)
+    }, 30000)
 
     const interval = setInterval(() => {
       setCurrentNotification((prev) => (prev + 1) % notifications.length)
-    }, 8000) // Change notification every 8 seconds
+    }, 120000) // Change notification every 2 minutes
 
     return () => {
       clearTimeout(showTimer)
@@ -205,11 +205,11 @@ export default function SocialProofNotifications({ lang }: SocialProofNotificati
 
   const handleClose = () => {
     setIsVisible(false)
-    // Show next notification after 15 seconds
+    // Show next notification after 2 minutes
     setTimeout(() => {
       setCurrentNotification((prev) => (prev + 1) % notifications.length)
       setIsVisible(true)
-    }, 15000)
+    }, 120000)
   }
 
   return (
@@ -245,7 +245,7 @@ export default function SocialProofNotifications({ lang }: SocialProofNotificati
               className="absolute bottom-0 left-0 h-1 bg-tepoztlan-sunset rounded-b"
               initial={{ width: "100%" }}
               animate={{ width: "0%" }}
-              transition={{ duration: 8, ease: "linear" }}
+              transition={{ duration: 120, ease: "linear" }}
             />
           </motion.div>
         )}

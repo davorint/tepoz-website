@@ -1,3 +1,4 @@
+
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { 
@@ -13,6 +14,7 @@ import { Locale } from '@/lib/i18n'
 import { Translations } from '@/types/translations'
 import { cn } from '@/lib/utils'
 import { buildLocalizedUrl } from '@/lib/url-mapping'
+import { ModeToggle } from '@/components/theme/mode-toggle-wrapper'
 
 interface StaticNavigationProps {
   lang: Locale
@@ -35,14 +37,14 @@ export default function StaticNavigation({ lang, translations }: StaticNavigatio
           <div className="h-8 w-8 bg-gradient-to-br from-orange-500 to-red-500 rounded-md flex items-center justify-center transition-all duration-300 group-hover:rotate-12 group-hover:shadow-lg group-hover:shadow-orange-500/25">
             <span className="text-white font-bold text-sm transition-transform duration-300 group-hover:scale-110">T</span>
           </div>
-          <span className="font-bold text-lg transition-colors duration-300">
+          <span className="font-bold text-lg transition-colors duration-300 text-white dark:text-white">
             <span className="group-hover:text-orange-500">TODO</span>
             <span className="text-orange-500 group-hover:text-orange-600">TEPOZ</span>
           </span>
         </Link>
 
         {/* Navigation Menu with Submenus */}
-        <NavigationMenu className="hidden md:flex">
+        <NavigationMenu className="hidden md:flex text-white dark:text-white">
           <NavigationMenuList>
             <NavigationMenuItem className="animate-in fade-in slide-in-from-bottom-2 duration-500 fill-mode-both [animation-delay:100ms]">
               <NavigationMenuTrigger className="transition-all duration-300 hover:scale-105">{translations.nav.discover}</NavigationMenuTrigger>
@@ -175,7 +177,7 @@ export default function StaticNavigation({ lang, translations }: StaticNavigatio
         </NavigationMenu>
 
         {/* Right Side Actions */}
-        <div className="flex items-center space-x-2 animate-in fade-in slide-in-from-right-4 duration-700 [animation-delay:300ms]">
+        <div className="flex items-center space-x-2 animate-in fade-in slide-in-from-right-4 duration-700 [animation-delay:300ms] text-white dark:text-white">
           {/* Language Toggle */}
           {/* Simple Server-Side Language Toggle */}
           <Button variant="ghost" size="sm" asChild className="group gap-1 transition-all duration-300 hover:scale-105 hover:shadow-md">
@@ -189,6 +191,9 @@ export default function StaticNavigation({ lang, translations }: StaticNavigatio
               </span>
             </Link>
           </Button>
+          
+          {/* Theme Toggle */}
+          <ModeToggle />
           
           {/* Search Button */}
           <Button variant="ghost" size="sm" asChild className="hidden sm:flex group transition-all duration-300 hover:scale-105 hover:shadow-md">

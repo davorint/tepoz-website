@@ -120,8 +120,8 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
   // Show loading state during hydration
   if (!isClient) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-teal-900 to-slate-900 flex items-center justify-center">
-        <div className="text-white text-xl">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-slate-50 dark:bg-gradient-to-br dark:from-slate-900 dark:via-teal-900 dark:to-slate-900 flex items-center justify-center">
+        <div className="text-slate-900 dark:text-white text-xl">
           {locale === 'es' ? 'Cargando experiencias...' : 'Loading experiences...'}
         </div>
       </div>
@@ -129,16 +129,16 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-teal-900 to-slate-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-slate-50 dark:bg-gradient-to-br dark:from-slate-900 dark:via-teal-900 dark:to-slate-900 relative overflow-hidden">
       {/* Ultra Premium Background - Teal/Cyan Theme */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-teal-900/40 via-transparent to-transparent" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-cyan-900/30 via-transparent to-transparent" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-turquoise-900/20 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-teal-200/20 dark:from-teal-900/40 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-cyan-200/15 dark:from-cyan-900/30 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-turquoise-200/10 dark:from-turquoise-900/20 via-transparent to-transparent" />
       
       {/* Animated gradient orbs */}
-      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-teal-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float" />
-      <div className="absolute top-3/4 -right-20 w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float-delay" />
-      <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-turquoise-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float-slow" />
+      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-teal-500/10 dark:bg-teal-500/20 rounded-full mix-blend-multiply filter blur-xl animate-float" />
+      <div className="absolute top-3/4 -right-20 w-96 h-96 bg-cyan-500/10 dark:bg-cyan-500/20 rounded-full mix-blend-multiply filter blur-xl animate-float-delay" />
+      <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-turquoise-500/10 dark:bg-turquoise-500/20 rounded-full mix-blend-multiply filter blur-xl animate-float-slow" />
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 py-12">
@@ -150,13 +150,13 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
             </div>
           </div>
           
-          <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">
-            <span className="bg-gradient-to-r from-teal-300 via-cyan-300 to-turquoise-300 bg-clip-text text-transparent">
+          <h1 className="text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-6">
+            <span className="bg-gradient-to-r from-teal-600 via-cyan-600 to-turquoise-600 dark:from-teal-300 dark:via-cyan-300 dark:to-turquoise-300 bg-clip-text text-transparent">
               {locale === 'es' ? 'Experiencias en Tepoztlán' : 'Experiences in Tepoztlán'}
             </span>
           </h1>
           
-          <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-slate-700 dark:text-white/70 max-w-3xl mx-auto leading-relaxed">
             {locale === 'es' 
               ? 'Vive aventuras transformadoras, conecta con la naturaleza sagrada y descubre la magia ancestral de Tepoztlán a través de experiencias únicas e inolvidables.'
               : 'Live transformative adventures, connect with sacred nature and discover the ancient magic of Tepoztlán through unique and unforgettable experiences.'
@@ -166,17 +166,17 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
 
         {/* Search and Filters Bar */}
         <div className="mb-12">
-          <Card className="bg-white/10 backdrop-blur-xl border-white/20 shadow-2xl">
+          <Card className="bg-white/80 dark:bg-white/10 backdrop-blur-xl border-slate-200/50 dark:border-white/20 shadow-2xl">
             <CardContent className="p-6">
               <div className="flex flex-col lg:flex-row gap-4 items-center">
                 {/* Search */}
                 <div className="relative flex-1">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50 h-4 w-4" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-500 dark:text-white/50 h-4 w-4" />
                   <Input
                     placeholder={locale === 'es' ? 'Buscar aventuras, retiros, ceremonias...' : 'Search adventures, retreats, ceremonies...'}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-teal-400 focus:ring-teal-400/20"
+                    className="pl-10 bg-white/80 dark:bg-white/10 border-slate-300 dark:border-white/20 text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-white/50 focus:border-teal-400 focus:ring-teal-400/20"
                   />
                 </div>
 
@@ -186,7 +186,7 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
                     variant={selectedDuration === 'full-day' ? 'default' : 'outline'}
                     size="sm"
                     onClick={() => setSelectedDuration(selectedDuration === 'full-day' ? 'all' : 'full-day')}
-                    className="bg-white/10 hover:bg-white/20 text-white border-white/20"
+                    className="bg-slate-200/50 dark:bg-white/10 hover:bg-slate-300/50 dark:hover:bg-white/20 text-slate-900 dark:text-white border-slate-300 dark:border-white/20"
                   >
                     {locale === 'es' ? 'Día Completo' : 'Full Day'}
                   </Button>
@@ -194,7 +194,7 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
                     variant={featuredOnly ? 'default' : 'outline'}
                     size="sm"
                     onClick={() => setFeaturedOnly(!featuredOnly)}
-                    className="bg-white/10 hover:bg-white/20 text-white border-white/20"
+                    className="bg-slate-200/50 dark:bg-white/10 hover:bg-slate-300/50 dark:hover:bg-white/20 text-slate-900 dark:text-white border-slate-300 dark:border-white/20"
                   >
                     <Star className="h-4 w-4 mr-1" />
                     {locale === 'es' ? 'Destacadas' : 'Featured'}
@@ -203,7 +203,7 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
                     variant={selectedCategory === 'adventure' ? 'default' : 'outline'}
                     size="sm"
                     onClick={() => setSelectedCategory(selectedCategory === 'adventure' ? 'all' : 'adventure')}
-                    className="bg-white/10 hover:bg-white/20 text-white border-white/20"
+                    className="bg-slate-200/50 dark:bg-white/10 hover:bg-slate-300/50 dark:hover:bg-white/20 text-slate-900 dark:text-white border-slate-300 dark:border-white/20"
                   >
                     {locale === 'es' ? 'Aventura' : 'Adventure'}
                   </Button>
@@ -212,7 +212,7 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
                     variant="outline"
                     size="sm"
                     onClick={() => setShowFilters(!showFilters)}
-                    className="bg-white/10 hover:bg-white/20 text-white border-white/20"
+                    className="bg-slate-200/50 dark:bg-white/10 hover:bg-slate-300/50 dark:hover:bg-white/20 text-slate-900 dark:text-white border-slate-300 dark:border-white/20"
                   >
                     <Filter className="h-4 w-4 mr-1" />
                     {locale === 'es' ? 'Filtros' : 'Filters'}
@@ -226,11 +226,11 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                     {/* Category Filter */}
                     <div>
-                      <Label className="text-white/80 text-sm mb-2 block">
+                      <Label className="text-slate-700 dark:text-white/80 text-sm mb-2 block">
                         {locale === 'es' ? 'Categoría' : 'Category'}
                       </Label>
                       <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                        <SelectTrigger className="bg-white/10 border-white/20 text-white">
+                        <SelectTrigger className="bg-white/80 dark:bg-white/10 border-slate-300 dark:border-white/20 text-slate-900 dark:text-white">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -246,11 +246,11 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
 
                     {/* Atmosphere Filter */}
                     <div>
-                      <Label className="text-white/80 text-sm mb-2 block">
+                      <Label className="text-slate-700 dark:text-white/80 text-sm mb-2 block">
                         {locale === 'es' ? 'Ambiente' : 'Atmosphere'}
                       </Label>
                       <Select value={selectedAtmosphere} onValueChange={setSelectedAtmosphere}>
-                        <SelectTrigger className="bg-white/10 border-white/20 text-white">
+                        <SelectTrigger className="bg-white/80 dark:bg-white/10 border-slate-300 dark:border-white/20 text-slate-900 dark:text-white">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -266,11 +266,11 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
 
                     {/* Type Filter */}
                     <div>
-                      <Label className="text-white/80 text-sm mb-2 block">
+                      <Label className="text-slate-700 dark:text-white/80 text-sm mb-2 block">
                         {locale === 'es' ? 'Tipo' : 'Type'}
                       </Label>
                       <Select value={selectedType} onValueChange={setSelectedType}>
-                        <SelectTrigger className="bg-white/10 border-white/20 text-white">
+                        <SelectTrigger className="bg-white/80 dark:bg-white/10 border-slate-300 dark:border-white/20 text-slate-900 dark:text-white">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -288,11 +288,11 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
 
                     {/* Price Filter */}
                     <div>
-                      <Label className="text-white/80 text-sm mb-2 block">
+                      <Label className="text-slate-700 dark:text-white/80 text-sm mb-2 block">
                         {locale === 'es' ? 'Precio' : 'Price'}
                       </Label>
                       <Select value={selectedPriceRange} onValueChange={setSelectedPriceRange}>
-                        <SelectTrigger className="bg-white/10 border-white/20 text-white">
+                        <SelectTrigger className="bg-white/80 dark:bg-white/10 border-slate-300 dark:border-white/20 text-slate-900 dark:text-white">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -307,11 +307,11 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
 
                     {/* Duration Filter */}
                     <div>
-                      <Label className="text-white/80 text-sm mb-2 block">
+                      <Label className="text-slate-700 dark:text-white/80 text-sm mb-2 block">
                         {locale === 'es' ? 'Duración' : 'Duration'}
                       </Label>
                       <Select value={selectedDuration} onValueChange={setSelectedDuration}>
-                        <SelectTrigger className="bg-white/10 border-white/20 text-white">
+                        <SelectTrigger className="bg-white/80 dark:bg-white/10 border-slate-300 dark:border-white/20 text-slate-900 dark:text-white">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -332,7 +332,7 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
                         checked={featuredOnly}
                         onCheckedChange={(checked) => setFeaturedOnly(checked === true)}
                       />
-                      <Label htmlFor="featured" className="text-white/80 text-sm">
+                      <Label htmlFor="featured" className="text-slate-700 dark:text-white/80 text-sm">
                         {locale === 'es' ? 'Solo experiencias destacadas' : 'Featured experiences only'}
                       </Label>
                     </div>
@@ -342,7 +342,7 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
                         variant="ghost"
                         size="sm"
                         onClick={clearFilters}
-                        className="text-white/70 hover:text-white hover:bg-white/10"
+                        className="text-slate-600 dark:text-white/70 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/10"
                       >
                         <X className="h-4 w-4 mr-1" />
                         {locale === 'es' ? 'Limpiar filtros' : 'Clear filters'}
@@ -372,7 +372,7 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
                   key={category.id}
                   variant="ghost"
                   onClick={() => setSelectedCategory(category.id)}
-                  className={`relative group h-auto p-0 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] ${
+                  className={`relative group h-auto p-0 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-slate-200/50 dark:border-white/20 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] ${
                     isActive ? 'ring-2 ring-teal-400/50' : ''
                   }`}
                 >
@@ -380,8 +380,8 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
                     <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${category.gradient} flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform`}>
                       <Icon className="h-6 w-6 text-white" />
                     </div>
-                    <h3 className="font-semibold text-white text-sm mb-1">{category.name}</h3>
-                    <p className="text-xs text-white/60">
+                    <h3 className="font-semibold text-slate-900 dark:text-white text-sm mb-1">{category.name}</h3>
+                    <p className="text-xs text-slate-600 dark:text-white/60">
                       {getCategoryCount(category.id)} {locale === 'es' ? 'experiencias' : 'experiences'}
                     </p>
                   </div>
@@ -394,14 +394,14 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
         {/* View Mode Toggle & Results Count */}
         <div className="flex justify-between items-center mb-8">
           <div className="flex items-center gap-4">
-            <p className="text-white/70">
+            <p className="text-slate-600 dark:text-white/70">
               {locale === 'es' 
                 ? `Mostrando ${filteredExperiences.length} de ${experiences.length} experiencias`
                 : `Showing ${filteredExperiences.length} of ${experiences.length} experiences`
               }
             </p>
             {hasActiveFilters && (
-              <Badge className="bg-teal-400/20 text-teal-300 border border-teal-400/30">
+              <Badge className="bg-teal-100 dark:bg-teal-400/20 text-teal-700 dark:text-teal-300 border border-teal-300 dark:border-teal-400/30">
                 {locale === 'es' ? 'Filtrado' : 'Filtered'}
               </Badge>
             )}
@@ -446,11 +446,11 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
           </div>
         ) : (
           <div className="text-center py-16">
-            <Compass className="h-16 w-16 text-white/30 mx-auto mb-4" />
-            <h3 className="text-2xl font-bold text-white mb-4">
+            <Compass className="h-16 w-16 text-slate-400 dark:text-white/30 mx-auto mb-4" />
+            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
               {locale === 'es' ? 'No se encontraron experiencias' : 'No experiences found'}
             </h3>
-            <p className="text-white/60 mb-6">
+            <p className="text-slate-600 dark:text-white/60 mb-6">
               {locale === 'es' 
                 ? 'Intenta ajustar tus filtros o buscar algo diferente'
                 : 'Try adjusting your filters or searching for something different'
@@ -466,23 +466,23 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
 
         {/* CTA Section for Experience Providers */}
         <div className="mb-16">
-          <Card className="bg-gradient-to-r from-teal-400/10 to-cyan-400/10 backdrop-blur-xl border-white/20 p-12 max-w-4xl mx-auto">
+          <Card className="bg-gradient-to-r from-teal-100/30 to-cyan-100/30 dark:from-teal-400/10 dark:to-cyan-400/10 backdrop-blur-xl border-slate-200/50 dark:border-white/20 p-12 max-w-4xl mx-auto">
             <CardContent className="space-y-6">
               <div className="text-center">
-                <div className="inline-flex items-center justify-center mb-6 p-1 bg-white/10 backdrop-blur-xl rounded-full border border-white/20">
+                <div className="inline-flex items-center justify-center mb-6 p-1 bg-white/50 dark:bg-white/10 backdrop-blur-xl rounded-full border border-slate-200 dark:border-white/20">
                   <div className="bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full p-3">
                     <Sun className="h-8 w-8 text-white" />
                   </div>
                 </div>
                 
-                <h2 className="text-3xl font-bold text-white mb-4">
+                <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
                   {locale === 'es' 
                     ? '¿Ofreces experiencias en Tepoztlán?' 
                     : 'Do you offer experiences in Tepoztlán?'
                   }
                 </h2>
                 
-                <p className="text-white/70 text-lg mb-8 max-w-2xl mx-auto">
+                <p className="text-slate-700 dark:text-white/70 text-lg mb-8 max-w-2xl mx-auto">
                   {locale === 'es'
                     ? 'Únete a nuestra plataforma y comparte tus aventuras únicas con viajeros de todo el mundo. Desde temazcales hasta escaladas, ayudamos a conectar experiencias auténticas con exploradores conscientes.'
                     : 'Join our platform and share your unique adventures with travelers from around the world. From temazcals to climbs, we help connect authentic experiences with conscious explorers.'
@@ -501,7 +501,7 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
                   <Button 
                     variant="outline" 
                     size="lg"
-                    className="bg-white/10 hover:bg-white/20 text-white border-white/30 backdrop-blur-sm"
+                    className="bg-white/70 dark:bg-white/10 hover:bg-white/80 dark:hover:bg-white/20 text-slate-900 dark:text-white border-slate-300 dark:border-white/30 backdrop-blur-sm"
                   >
                     <Heart className="h-5 w-5 mr-2" />
                     {locale === 'es' ? 'Más Información' : 'Learn More'}
@@ -514,16 +514,16 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
 
         {/* Newsletter Section */}
         <div className="text-center">
-          <Card className="bg-white/5 backdrop-blur-xl border-white/10 p-8 max-w-2xl mx-auto">
+          <Card className="bg-white/60 dark:bg-white/5 backdrop-blur-xl border-slate-200/50 dark:border-white/10 p-8 max-w-2xl mx-auto">
             <CardContent className="space-y-4">
-              <Compass className="h-12 w-12 mx-auto text-teal-400 mb-4" />
-              <h2 className="text-2xl font-bold text-white">
+              <Compass className="h-12 w-12 mx-auto text-teal-600 dark:text-teal-400 mb-4" />
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
                 {locale === 'es' 
                   ? 'Descubre Nuevas Aventuras' 
                   : 'Discover New Adventures'
                 }
               </h2>
-              <p className="text-white/70 max-w-lg mx-auto">
+              <p className="text-slate-700 dark:text-white/70 max-w-lg mx-auto">
                 {locale === 'es'
                   ? 'Suscríbete y recibe las mejores experiencias, aventuras espirituales y retiros de bienestar en Tepoztlán.'
                   : 'Subscribe and receive the best experiences, spiritual adventures and wellness retreats in Tepoztlán.'
@@ -532,7 +532,7 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
               <div className="flex gap-3 max-w-md mx-auto">
                 <Input
                   placeholder={locale === 'es' ? 'Tu email' : 'Your email'}
-                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                  className="bg-white/80 dark:bg-white/10 border-slate-300 dark:border-white/20 text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-white/50"
                 />
                 <Button className="bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white">
                   {locale === 'es' ? 'Suscribirse' : 'Subscribe'}

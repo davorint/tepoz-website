@@ -1,5 +1,30 @@
 @import "tailwindcss";
 
+/* Tailwind CSS 4.1 Dark Mode Configuration */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Mapbox Fullscreen Support - Required for webkit browsers */
+:-webkit-full-screen {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+:fullscreen {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Mapbox container fullscreen styles */
+.mapboxgl-map:-webkit-full-screen {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.mapboxgl-map:fullscreen {
+  width: 100% !important;
+  height: 100% !important;
+}
+
 /* Premium Animation Keyframes */
 @keyframes gradient-shift {
   0%, 100% { transform: translateX(0%) translateY(0%); }
@@ -184,49 +209,50 @@
 
 @layer base {
   :root {
+    /* Light Mode - Complementary to current dark mode */
     /* shadcn/ui compatible CSS variables */
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
+    --background: 25 20% 98%;  /* Warm white with slight earth tone */
+    --foreground: 25 15% 15%;  /* Dark earth brown for text */
     
     /* Card Components */
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
+    --card-foreground: 25 15% 15%;
     
     /* Popover & Dropdown */
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
+    --popover-foreground: 25 15% 15%;
     
-    /* Primary - Tepoztlán Earth Brown */
-    --primary: 25 76% 31%;
+    /* Primary - Tepoztlán Earth Brown (darker in light mode) */
+    --primary: 25 76% 35%;
     --primary-foreground: 0 0% 98%;
     
-    /* Secondary - Stone Gray */
-    --secondary: 25 17% 45%;
-    --secondary-foreground: 0 0% 98%;
+    /* Secondary - Stone Gray (adjusted for light) */
+    --secondary: 25 12% 88%;
+    --secondary-foreground: 25 15% 25%;
     
-    /* Muted - Enhanced contrast */
-    --muted: 25 10% 94%;
-    --muted-foreground: 25 8% 25%;
+    /* Muted - Enhanced contrast for light mode */
+    --muted: 25 8% 92%;
+    --muted-foreground: 25 10% 45%;
     
-    /* Accent - Sunset Orange */
-    --accent: 9 100% 64%;
-    --accent-foreground: 0 0% 9%;
+    /* Accent - Sunset Orange (slightly darker for light mode) */
+    --accent: 9 90% 58%;
+    --accent-foreground: 0 0% 98%;
     
     /* Destructive */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     
-    /* Borders & Inputs */
-    --border: 25 14% 89%;
-    --input: 25 14% 89%;
-    --ring: 25 76% 31%;
+    /* Borders & Inputs - Subtle earth tones */
+    --border: 25 15% 85%;
+    --input: 25 15% 90%;
+    --ring: 25 76% 35%;
     
-    /* Chart Colors - Tourism Analytics */
-    --chart-1: 25 76% 31%;  /* Earth */
-    --chart-2: 9 100% 64%;   /* Sunset */
-    --chart-3: 120 61% 34%;  /* Forest */
-    --chart-4: 197 71% 73%;  /* Sky */
-    --chart-5: 25 45% 40%;   /* Stone */
+    /* Chart Colors - Tourism Analytics (adjusted for light) */
+    --chart-1: 25 76% 40%;   /* Earth - darker */
+    --chart-2: 9 90% 58%;    /* Sunset - slightly muted */
+    --chart-3: 120 50% 40%;  /* Forest - deeper */
+    --chart-4: 197 60% 55%;  /* Sky - less bright */
+    --chart-5: 25 35% 50%;   /* Stone - balanced */
     
     /* Border Radius */
     --radius: 0.75rem;
@@ -235,6 +261,10 @@
     --hero-height: 70vh;
     --nav-height: 4rem;
     --footer-height: 20rem;
+    
+    /* Light mode glassmorphism colors */
+    --glass-light: rgba(255, 255, 255, 0.85);
+    --glass-light-border: rgba(139, 69, 19, 0.2);
   }
   
   .dark {

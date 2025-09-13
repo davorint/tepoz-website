@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Bebas_Neue, Playfair_Display, Montserrat } from "next/font/google";
 import "./globals.css";
+import "maplibre-gl/dist/maplibre-gl.css";
+import { ThemeProvider } from "@/components/theme/theme-provider";
+import { GlobalLoadingProvider } from "@/components/providers/GlobalLoadingProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 const bebasNeue = Bebas_Neue({ 
@@ -152,8 +155,17 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="Tepoztlán Guide" />
       </head>
-      <body className={`${inter.className} ${bebasNeue.variable} ${playfairDisplay.variable} ${montserrat.variable} antialiased`}>
-        {children}
+      <body className={`${inter.className} ${bebasNeue.variable} ${playfairDisplay.variable} ${montserrat.variable} antialiased bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <GlobalLoadingProvider>
+            {children}
+          </GlobalLoadingProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

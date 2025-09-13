@@ -149,27 +149,27 @@ export default function PremiumTestimonialsSection({ lang }: PremiumTestimonials
   const currentTestimonials = testimonials[lang]
 
   return (
-    <section className="py-24 px-4 bg-gradient-to-br from-blue-50 via-white to-cyan-50/30 relative overflow-hidden">
+    <section className="py-24 px-4 bg-gradient-to-br from-white via-gray-25/5 to-white dark:from-slate-900 dark:via-blue-900/50 dark:to-slate-800 relative overflow-hidden">
       {/* Subtle animated background */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/3 -right-20 w-96 h-96 bg-blue-300/30 rounded-full blur-3xl" />
-        <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-cyan-300/30 rounded-full blur-3xl" />
-        <div className="absolute top-2/3 left-1/3 w-80 h-80 bg-indigo-300/20 rounded-full blur-3xl" />
+        <div className="absolute top-1/3 -right-20 w-96 h-96 bg-blue-300/2 dark:bg-blue-500/20 rounded-full blur-3xl" />
+        <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-cyan-300/8 dark:bg-cyan-500/20 rounded-full blur-3xl" />
+        <div className="absolute top-2/3 left-1/3 w-80 h-80 bg-indigo-300/5 dark:bg-indigo-500/10 rounded-full blur-3xl" />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Clean Modern Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
-            <Star className="w-4 h-4 fill-blue-800" />
+          <div className="inline-flex items-center gap-2 bg-blue-50 dark:bg-blue-900/50 text-blue-700 dark:text-blue-200 px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <Star className="w-4 h-4 fill-blue-700" />
             <span>{lang === 'es' ? 'Testimonios Verificados' : 'Verified Reviews'}</span>
           </div>
           
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 font-sans">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-800 dark:text-white font-sans">
             {lang === 'es' ? 'Historias de Nuestros Visitantes' : 'Stories from Our Visitors'}
           </h2>
           
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-gray-500 dark:text-gray-300">
             {lang === 'es' 
               ? 'Descubre experiencias auténticas de quienes han visitado Tepoztlán'
               : 'Discover authentic experiences from those who have visited Tepoztlán'
@@ -184,12 +184,12 @@ export default function PremiumTestimonialsSection({ lang }: PremiumTestimonials
               key={testimonial.id} 
               className="break-inside-avoid"
             >
-              <Card className="bg-white/80 backdrop-blur-md border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden group hover:bg-white/90">
+              <Card className="bg-white/60 dark:bg-white/10 backdrop-blur-md border border-white/30 dark:border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group hover:bg-white/80 dark:hover:bg-white/15">
                 <CardContent className="p-6">
                   {/* Modern Quote Design */}
                   <div className="relative mb-4">
-                    <Quote className="absolute -top-2 -left-2 w-8 h-8 text-blue-100" />
-                    <p className="relative text-gray-700 leading-relaxed pl-6">
+                    <Quote className="absolute -top-2 -left-2 w-8 h-8 text-blue-50 dark:text-blue-900/50" />
+                    <p className="relative text-gray-600 dark:text-gray-300 leading-relaxed pl-6">
                       {testimonial.text}
                     </p>
                   </div>
@@ -211,35 +211,35 @@ export default function PremiumTestimonialsSection({ lang }: PremiumTestimonials
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
-                        <p className="font-semibold text-gray-900">{testimonial.name}</p>
+                        <p className="font-semibold text-gray-800 dark:text-white">{testimonial.name}</p>
                         {testimonial.verified && (
-                          <svg className="w-4 h-4 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+                          <svg className="w-4 h-4 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                           </svg>
                         )}
                       </div>
-                      <p className="text-sm text-gray-500">{testimonial.location} • {testimonial.date}</p>
+                      <p className="text-sm text-gray-400 dark:text-gray-400">{testimonial.location} • {testimonial.date}</p>
                     </div>
                   </div>
 
                   {/* Category Tag */}
-                  <div className="mt-4 pt-4 border-t border-gray-100/50">
-                    <span className="inline-block px-3 py-1 bg-gradient-to-r from-blue-100/80 to-cyan-100/80 backdrop-blur-sm text-blue-800 rounded-full text-xs font-medium border border-blue-200/30">
+                  <div className="mt-4 pt-4 border-t border-gray-100/50 dark:border-gray-600/30">
+                    <span className="inline-block px-3 py-1 bg-gradient-to-r from-blue-50/60 to-cyan-50/60 backdrop-blur-sm text-blue-700 rounded-full text-xs font-medium border border-blue-100/20">
                       {testimonial.category}
                     </span>
                   </div>
 
                   {/* Interaction Bar */}
                   <div className="flex items-center gap-4 mt-4 pt-4 border-t border-gray-100/50">
-                    <button className="flex items-center gap-1 text-gray-500 hover:text-blue-600 transition-colors">
+                    <button className="flex items-center gap-1 text-gray-400 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
                       <ThumbsUp className="w-4 h-4" />
                       <span className="text-xs">{lang === 'es' ? 'Útil' : 'Helpful'}</span>
                     </button>
-                    <button className="flex items-center gap-1 text-gray-500 hover:text-blue-600 transition-colors">
+                    <button className="flex items-center gap-1 text-gray-400 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
                       <MessageCircle className="w-4 h-4" />
                       <span className="text-xs">{lang === 'es' ? 'Comentar' : 'Comment'}</span>
                     </button>
-                    <button className="flex items-center gap-1 text-gray-500 hover:text-blue-600 transition-colors">
+                    <button className="flex items-center gap-1 text-gray-400 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
                       <Camera className="w-4 h-4" />
                       <span className="text-xs">{lang === 'es' ? 'Ver fotos' : 'View photos'}</span>
                     </button>
@@ -251,30 +251,30 @@ export default function PremiumTestimonialsSection({ lang }: PremiumTestimonials
         </div>
 
         {/* Simple Stats Bar */}
-        <div className="mt-16 bg-white/70 backdrop-blur-md rounded-2xl shadow-xl border border-white/50 p-8">
+        <div className="mt-16 bg-white/50 dark:bg-white/10 backdrop-blur-md rounded-2xl shadow-lg border border-white/30 dark:border-white/20 p-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-gray-900 mb-1">4.9</div>
-              <div className="text-sm text-gray-600">{lang === 'es' ? 'Calificación' : 'Rating'}</div>
+              <div className="text-3xl font-bold text-gray-800 dark:text-white mb-1">4.9</div>
+              <div className="text-sm text-gray-500 dark:text-gray-300">{lang === 'es' ? 'Calificación' : 'Rating'}</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-gray-900 mb-1">500+</div>
-              <div className="text-sm text-gray-600">{lang === 'es' ? 'Reseñas' : 'Reviews'}</div>
+              <div className="text-3xl font-bold text-gray-800 dark:text-white mb-1">500+</div>
+              <div className="text-sm text-gray-500 dark:text-gray-300">{lang === 'es' ? 'Reseñas' : 'Reviews'}</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-gray-900 mb-1">98%</div>
-              <div className="text-sm text-gray-600">{lang === 'es' ? 'Recomiendan' : 'Recommend'}</div>
+              <div className="text-3xl font-bold text-gray-800 dark:text-white mb-1">98%</div>
+              <div className="text-sm text-gray-500 dark:text-gray-300">{lang === 'es' ? 'Recomiendan' : 'Recommend'}</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-gray-900 mb-1">#1</div>
-              <div className="text-sm text-gray-600">{lang === 'es' ? 'En Morelos' : 'In Morelos'}</div>
+              <div className="text-3xl font-bold text-gray-800 dark:text-white mb-1">#1</div>
+              <div className="text-sm text-gray-500 dark:text-gray-300">{lang === 'es' ? 'En Morelos' : 'In Morelos'}</div>
             </div>
           </div>
         </div>
 
         {/* Simple CTA */}
         <div className="text-center mt-12">
-          <button className="inline-flex items-center gap-2 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-full transition-colors">
+          <button className="inline-flex items-center gap-2 px-8 py-3 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-full transition-colors">
             {lang === 'es' ? 'Ver todas las reseñas' : 'View all reviews'}
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />

@@ -41,6 +41,7 @@ const translations = {
     open: 'Abierto',
     closed: 'Cerrado',
     rating: 'Calificación',
+    featured: 'Destacado'
   },
   en: {
     viewDetails: 'View Details',
@@ -48,6 +49,7 @@ const translations = {
     open: 'Open',
     closed: 'Closed',
     rating: 'Rating',
+    featured: 'Featured'
   }
 }
 

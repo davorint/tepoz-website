@@ -227,13 +227,13 @@ export default function RestaurantMap({ locale, selectedRestaurants, onRestauran
                   <div className="absolute top-4 right-4 flex flex-col space-y-2">
                     <Button
                       size="sm"
-                      className="w-10 h-10 p-0 bg-white/10 backdrop-blur-xl border border-white/20 text-white hover:bg-white/20"
+                      className="w-10 h-10 p-0 bg-white/80 dark:bg-white/10 backdrop-blur-md dark:backdrop-blur-xl border border-slate-300/30 dark:border-white/20 text-slate-800 dark:text-white hover:bg-white/90 dark:hover:bg-white/20 transition-all duration-200 dark:duration-300"
                     >
                       <ZoomIn className="w-4 h-4" />
                     </Button>
                     <Button
                       size="sm"
-                      className="w-10 h-10 p-0 bg-white/10 backdrop-blur-xl border border-white/20 text-white hover:bg-white/20"
+                      className="w-10 h-10 p-0 bg-white/80 dark:bg-white/10 backdrop-blur-md dark:backdrop-blur-xl border border-slate-300/30 dark:border-white/20 text-slate-800 dark:text-white hover:bg-white/90 dark:hover:bg-white/20 transition-all duration-200 dark:duration-300"
                     >
                       <ZoomOut className="w-4 h-4" />
                     </Button>
@@ -260,7 +260,7 @@ export default function RestaurantMap({ locale, selectedRestaurants, onRestauran
           transition={{ duration: 0.3 }}
           className="mt-6"
         >
-          <Card className="border-0 bg-white/5 backdrop-blur-xl shadow-2xl rounded-3xl">
+          <Card className="border-0 bg-white/70 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-xl shadow-xl shadow-slate-300/20 dark:shadow-white/15 rounded-3xl hover:bg-white/80 dark:hover:bg-white/8 transition-all duration-300 dark:duration-500">
             <CardContent className="p-6">
               <div className="flex items-start gap-4">
                 <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-orange-400 to-amber-400 flex items-center justify-center shadow-xl">
@@ -269,13 +269,13 @@ export default function RestaurantMap({ locale, selectedRestaurants, onRestauran
                 <div className="flex-1">
                   <div className="flex items-start justify-between mb-2">
                     <div>
-                      <h3 className="font-bold text-white text-lg">
+                      <h3 className="font-bold text-slate-800 dark:text-white text-lg">
                         {RestaurantService.getRestaurantName(selectedRestaurant, locale)}
                       </h3>
-                      <p className="text-white/70 text-sm mt-1">
+                      <p className="text-slate-600 dark:text-white/70 text-sm mt-1">
                         {RestaurantService.getRestaurantDescription(selectedRestaurant, locale)}
                       </p>
-                      <p className="text-white/60 text-sm mt-1 flex items-center gap-1">
+                      <p className="text-slate-500 dark:text-white/60 text-sm mt-1 flex items-center gap-1">
                         <MapPin className="w-3 h-3" />
                         {RestaurantService.getRestaurantAddress(selectedRestaurant, locale)}
                       </p>
@@ -297,19 +297,19 @@ export default function RestaurantMap({ locale, selectedRestaurants, onRestauran
                   <div className="flex items-center gap-4 mt-3">
                     <div className="flex items-center gap-1">
                       <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                      <span className="text-white font-medium">{selectedRestaurant.rating}</span>
-                      <span className="text-white/50 text-sm">({selectedRestaurant.reviewCount})</span>
+                      <span className="text-slate-800 dark:text-white font-medium">{selectedRestaurant.rating}</span>
+                      <span className="text-slate-500 dark:text-white/50 text-sm">({selectedRestaurant.reviewCount})</span>
                     </div>
-                    <Badge className="bg-white/10 text-white/70">
+                    <Badge className="bg-white/80 dark:bg-white/10 text-slate-600 dark:text-white/70">
                       {selectedRestaurant.priceRange}
                     </Badge>
-                    <Badge className="bg-gradient-to-r from-orange-400/20 to-amber-400/20 text-orange-300 border-orange-400/30">
+                    <Badge className="bg-gradient-to-r from-orange-400/30 to-amber-400/30 dark:from-orange-400/20 dark:to-amber-400/20 text-orange-600 dark:text-orange-300 border-orange-400/50 dark:border-orange-400/30">
                       {RestaurantService.getRestaurantCuisine(selectedRestaurant, locale)}
                     </Badge>
                   </div>
 
                   {/* Restaurant Info */}
-                  <div className="flex items-center gap-1 mt-3 text-white/80 text-sm">
+                  <div className="flex items-center gap-1 mt-3 text-slate-600 dark:text-white/80 text-sm">
                     <Clock className="w-4 h-4" />
                     <span>{RestaurantService.getRestaurantHours(selectedRestaurant, locale)}</span>
                   </div>
@@ -371,19 +371,19 @@ export default function RestaurantMap({ locale, selectedRestaurants, onRestauran
                       {locale === 'es' ? 'Direcciones' : 'Directions'}
                     </Button>
                     {selectedRestaurant.phone && (
-                      <Button size="sm" variant="ghost" className="text-white/60 hover:text-white">
+                      <Button size="sm" variant="ghost" className="text-slate-500 dark:text-white/60 hover:text-slate-800 dark:hover:text-white transition-colors duration-200 dark:duration-300">
                         <Phone className="w-3 h-3" />
                       </Button>
                     )}
                     {selectedRestaurant.website && (
-                      <Button size="sm" variant="ghost" className="text-white/60 hover:text-white">
+                      <Button size="sm" variant="ghost" className="text-slate-500 dark:text-white/60 hover:text-slate-800 dark:hover:text-white transition-colors duration-200 dark:duration-300">
                         <Globe className="w-3 h-3" />
                       </Button>
                     )}
-                    <Button size="sm" variant="ghost" className="text-white/60 hover:text-white">
+                    <Button size="sm" variant="ghost" className="text-slate-500 dark:text-white/60 hover:text-slate-800 dark:hover:text-white transition-colors duration-200 dark:duration-300">
                       <Heart className="w-3 h-3" />
                     </Button>
-                    <Button size="sm" variant="ghost" className="text-white/60 hover:text-white">
+                    <Button size="sm" variant="ghost" className="text-slate-500 dark:text-white/60 hover:text-slate-800 dark:hover:text-white transition-colors duration-200 dark:duration-300">
                       <Share2 className="w-3 h-3" />
                     </Button>
                   </div>

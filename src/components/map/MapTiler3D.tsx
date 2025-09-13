@@ -3,12 +3,21 @@
 import { useEffect, useRef } from 'react'
 import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
+import { tepoztlanPlaces, getPriceSymbol } from '@/data/tepoztlan-places'
 
 interface MapTiler3DProps {
   className?: string
+  onPlaceSelect?: (placeId: string) => void
+  selectedCategory?: string
+  searchQuery?: string
 }
 
-export default function MapTiler3D({ className = '' }: MapTiler3DProps) {
+export default function MapTiler3D({ 
+  className = '', 
+  onPlaceSelect,
+  selectedCategory = 'all',
+  searchQuery = ''
+}: MapTiler3DProps) {
   const mapContainer = useRef<HTMLDivElement>(null)
   const map = useRef<maplibregl.Map | null>(null)
 
@@ -80,40 +89,106 @@ export default function MapTiler3D({ className = '' }: MapTiler3DProps) {
           }
         })
 
-        // Add markers for important locations
-        const tepoztlanMarkers = [
-          {
-            coordinates: [-99.1017, 18.9847] as [number, number],
-            title: 'Centro de Tepoztlán',
-            color: '#10b981'
-          },
-          {
-            coordinates: [-99.0983, 18.9875] as [number, number],
-            title: 'Pirámide del Tepozteco',
-            color: '#3b82f6'
-          }
-        ]
+        // Add markers for all places from data
+        const categoryColors: Record<string, string> = {
+          restaurant: '#f97316', // orange
+          hotel: '#8b5cf6', // purple
+          attraction: '#10b981', // emerald
+          cafe: '#a78bfa', // violet
+          shopping: '#ec4899', // pink
+          culture: '#3b82f6', // blue
+          bar: '#ef4444' // red
+        }
 
-        tepoztlanMarkers.forEach(marker => {
+        const categoryIcons: Record<string, string> = {
+          restaurant: '🍽️',
+          hotel: '🏨',
+          attraction: '🏔️',
+          cafe: '☕',
+          shopping: '🛍️',
+          culture: '🎨',
+          bar: '🍺'
+        }
+
+        // Filter places based on category and search
+        const filteredPlaces = tepoztlanPlaces.filter(place => {
+          const matchesCategory = selectedCategory === 'all' || place.category === selectedCategory
+          const matchesSearch = !searchQuery || 
+            place.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            place.description.toLowerCase().includes(searchQuery.toLowerCase())
+          return matchesCategory && matchesSearch
+        })
+
+        // Add markers for filtered places
+        filteredPlaces.forEach(place => {
           const el = document.createElement('div')
           el.className = 'custom-marker'
           el.style.cssText = `
-            background-color: ${marker.color};
-            width: 20px;
-            height: 20px;
+            background-color: ${categoryColors[place.category]};
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             border: 3px solid white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: transform 0.2s;
+          `
+          el.innerHTML = categoryIcons[place.category]
+          
+          el.addEventListener('mouseenter', () => {
+            el.style.transform = 'scale(1.2)'
+          })
+          el.addEventListener('mouseleave', () => {
+            el.style.transform = 'scale(1)'
+          })
+
+          const popupContent = `
+            <div style="min-width: 200px; font-family: system-ui, -apple-system, sans-serif;">
+              <h3 style="margin: 0 0 8px 0; color: #1f2937; font-size: 16px; font-weight: 600;">
+                ${place.name}
+              </h3>
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                <span style="color: #facc15; font-size: 14px;">★ ${place.rating}</span>
+                <span style="color: #6b7280; font-size: 14px;">•</span>
+                <span style="color: #6b7280; font-size: 14px;">${getPriceSymbol(place.priceLevel)}</span>
+              </div>
+              <p style="margin: 0 0 8px 0; color: #4b5563; font-size: 13px; line-height: 1.4;">
+                ${place.description.substring(0, 100)}...
+              </p>
+              ${place.address ? `
+                <p style="margin: 0; color: #6b7280; font-size: 12px;">
+                  📍 ${place.address}
+                </p>
+              ` : ''}
+              ${place.hours ? `
+                <p style="margin: 4px 0 0 0; color: #6b7280; font-size: 12px;">
+                  🕐 ${place.hours}
+                </p>
+              ` : ''}
+            </div>
           `
 
           new maplibregl.Marker(el)
-            .setLngLat(marker.coordinates)
+            .setLngLat(place.coordinates)
             .setPopup(
-              new maplibregl.Popup({ offset: 25 })
-                .setHTML(`<h3 style="margin:0; color: #1f2937;">${marker.title}</h3>`)
+              new maplibregl.Popup({ 
+                offset: 25,
+                maxWidth: '300px'
+              })
+                .setHTML(popupContent)
             )
             .addTo(map.current!)
+
+          // Add click handler for place selection
+          el.addEventListener('click', () => {
+            if (onPlaceSelect) {
+              onPlaceSelect(place.id)
+            }
+          })
         })
 
         // Add navigation controls
@@ -143,7 +218,7 @@ export default function MapTiler3D({ className = '' }: MapTiler3DProps) {
         map.current = null
       }
     }
-  }, [])
+  }, [onPlaceSelect, selectedCategory, searchQuery])
 
   return (
     <div 

@@ -472,19 +472,19 @@ export default function AllRestaurantsPageClient({ locale }: AllRestaurantsPageC
   }, [gridApi])
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50/40 from-20% via-red-50/30 via-50% to-yellow-50/20 to-80% dark:bg-gradient-to-br dark:from-slate-900 dark:via-blue-900 dark:to-slate-900 relative overflow-hidden">
       {/* Ultra Premium Background - Matching main restaurants page */}
       <div className="absolute inset-0">
-        {/* Animated gradient orbs */}
-        <div className="absolute top-20 left-20 w-[35rem] h-[35rem] bg-orange-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-20 w-[40rem] h-[40rem] bg-red-500/20 rounded-full blur-3xl animate-pulse animation-delay-2s" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[45rem] h-[45rem] bg-yellow-500/10 rounded-full blur-3xl animate-pulse animation-delay-4s" />
+        {/* Animated gradient orbs - independent light/dark controls */}
+        <div className="absolute top-20 left-20 w-[35rem] h-[35rem] bg-orange-400/15 dark:bg-orange-500/20 rounded-full blur-2xl dark:blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-20 w-[40rem] h-[40rem] bg-red-400/12 dark:bg-red-500/20 rounded-full blur-2xl dark:blur-3xl animate-pulse animation-delay-2s" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[45rem] h-[45rem] bg-yellow-400/8 dark:bg-yellow-500/10 rounded-full blur-2xl dark:blur-3xl animate-pulse animation-delay-4s" />
         
-        {/* Premium mesh gradient */}
-        <div className="absolute inset-0 bg-[radial-gradient(at_top_left,_transparent,_rgba(251,146,60,0.2)),radial-gradient(at_bottom_right,_transparent,_rgba(239,68,68,0.2))]" />
+        {/* Premium mesh gradient - independent controls */}
+        <div className="absolute inset-0 bg-[radial-gradient(at_top_left,_transparent,_rgba(251,146,60,0.1)),radial-gradient(at_bottom_right,_transparent,_rgba(239,68,68,0.1))] dark:bg-[radial-gradient(at_top_left,_transparent,_rgba(251,146,60,0.2)),radial-gradient(at_bottom_right,_transparent,_rgba(239,68,68,0.2))]" />
         
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 opacity-5" style={{
+        {/* Grid pattern overlay - independent opacity */}
+        <div className="absolute inset-0 opacity-3 dark:opacity-5" style={{
           backgroundImage: `linear-gradient(rgba(251, 146, 60, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(251, 146, 60, 0.1) 1px, transparent 1px)`,
           backgroundSize: '50px 50px'
         }} />
@@ -492,7 +492,7 @@ export default function AllRestaurantsPageClient({ locale }: AllRestaurantsPageC
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-12">
         {/* Premium Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 relative">
           <div className="inline-flex items-center gap-3 mb-8">
             <div className="h-px w-20 bg-gradient-to-r from-transparent to-orange-400" />
             <div className="relative">
@@ -505,16 +505,16 @@ export default function AllRestaurantsPageClient({ locale }: AllRestaurantsPageC
           </div>
           
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 font-sans">
-            <span className="text-white drop-shadow-2xl">
+            <span className="text-slate-800 dark:text-white drop-shadow-lg dark:drop-shadow-2xl">
               {locale === 'es' ? 'Base de Datos' : 'Database'}
             </span>
             <br />
-            <span className="bg-gradient-to-r from-orange-300 via-red-300 to-yellow-300 bg-clip-text text-transparent drop-shadow-2xl">
+            <span className="bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 dark:from-orange-300 dark:via-red-300 dark:to-yellow-300 bg-clip-text text-transparent drop-shadow-lg dark:drop-shadow-2xl">
               {locale === 'es' ? 'Gastronómica' : 'Gastronomic'}
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-white/80 font-light max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-slate-700 dark:text-white/80 font-light max-w-4xl mx-auto leading-relaxed">
             {locale === 'es' 
               ? 'Explora y filtra todos los restaurantes con herramientas avanzadas de búsqueda y análisis'
               : 'Explore and filter all restaurants with advanced search and analysis tools'
@@ -527,8 +527,8 @@ export default function AllRestaurantsPageClient({ locale }: AllRestaurantsPageC
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <Card className="mb-6 bg-white/5 backdrop-blur-xl border-white/10 shadow-2xl rounded-3xl">
-            <CardHeader className="border-b border-white/10 pb-6">
+          <Card className="mb-6 bg-white/70 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-xl border-slate-300/20 dark:border-white/10 shadow-xl shadow-slate-300/20 dark:shadow-white/15 rounded-3xl hover:bg-white/80 dark:hover:bg-white/8 transition-all duration-300 dark:duration-500">
+            <CardHeader className="border-b border-slate-300/20 dark:border-white/10 pb-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className="relative">
@@ -538,10 +538,10 @@ export default function AllRestaurantsPageClient({ locale }: AllRestaurantsPageC
                     </div>
                   </div>
                   <div>
-                    <CardTitle className="text-3xl font-bold text-white">
+                    <CardTitle className="text-3xl font-bold text-slate-800 dark:text-white">
                       {locale === 'es' ? 'Análisis de Datos' : 'Data Analysis'}
                     </CardTitle>
-                    <CardDescription className="text-white/70 mt-1">
+                    <CardDescription className="text-slate-600 dark:text-white/70 mt-1">
                       {locale === 'es' 
                         ? 'Herramientas profesionales de búsqueda y filtrado'
                         : 'Professional search and filtering tools'
@@ -550,12 +550,12 @@ export default function AllRestaurantsPageClient({ locale }: AllRestaurantsPageC
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Badge variant="outline" className="text-lg px-6 py-3 bg-gradient-to-r from-orange-400/10 to-red-400/10 text-white border-orange-400/30 backdrop-blur-sm">
+                  <Badge variant="outline" className="text-lg px-6 py-3 bg-gradient-to-r from-orange-400/30 to-red-400/30 dark:from-orange-400/10 dark:to-red-400/10 text-slate-800 dark:text-white border-orange-400/50 dark:border-orange-400/30 backdrop-blur-sm">
                     <Activity className="h-4 w-4 mr-2 text-orange-400" />
-                    <span className="font-bold">{restaurantData.length}</span> {locale === 'es' ? 'Registros' : 'Records'}
+                    <span className="font-bold text-orange-600 dark:text-orange-400">{restaurantData.length}</span> {locale === 'es' ? 'Registros' : 'Records'}
                   </Badge>
                   {selectedRows.length > 0 && (
-                    <Badge className="text-lg px-6 py-3 bg-gradient-to-r from-orange-400 to-red-400 text-white shadow-xl">
+                    <Badge className="text-lg px-6 py-3 bg-gradient-to-r from-orange-400 to-red-400 text-white shadow-xl hover:from-orange-500 hover:to-red-500 transition-all duration-200">
                       <span className="font-bold">{selectedRows.length}</span> {locale === 'es' ? 'Seleccionados' : 'Selected'}
                     </Badge>
                   )}
@@ -570,18 +570,18 @@ export default function AllRestaurantsPageClient({ locale }: AllRestaurantsPageC
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3, delay: 0.1 }}
                 >
-                  <Card className="bg-gradient-to-br from-orange-400/10 to-red-400/10 backdrop-blur-xl border-orange-400/20 hover:border-orange-400/40 transition-all duration-300 hover:shadow-xl group">
+                  <Card className="bg-gradient-to-br from-orange-400/20 to-red-400/20 dark:from-orange-400/10 dark:to-red-400/10 backdrop-blur-md dark:backdrop-blur-xl border-orange-400/40 dark:border-orange-400/20 hover:border-orange-400/60 dark:hover:border-orange-400/40 transition-all duration-300 hover:shadow-xl group">
                     <CardContent className="p-4">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-sm text-orange-300 font-medium">{locale === 'es' ? 'Destacados' : 'Featured'}</p>
-                          <p className="text-3xl font-bold text-white mt-1">
+                          <p className="text-sm text-orange-600 dark:text-orange-300 font-medium">{locale === 'es' ? 'Destacados' : 'Featured'}</p>
+                          <p className="text-3xl font-bold text-slate-800 dark:text-white mt-1">
                             {restaurantData.filter(r => r.featured).length}
                           </p>
                         </div>
                         <div className="relative">
-                          <div className="absolute inset-0 bg-orange-400 blur-xl opacity-50 group-hover:opacity-70 transition-opacity" />
-                          <Star className="h-10 w-10 text-orange-400 relative" />
+                          <div className="absolute inset-0 bg-orange-400 blur-xl opacity-30 dark:opacity-50 group-hover:opacity-50 dark:group-hover:opacity-70 transition-opacity" />
+                          <Star className="h-10 w-10 text-orange-500 dark:text-orange-400 relative" />
                         </div>
                       </div>
                     </CardContent>
@@ -593,21 +593,21 @@ export default function AllRestaurantsPageClient({ locale }: AllRestaurantsPageC
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3, delay: 0.2 }}
                 >
-                  <Card className="bg-gradient-to-br from-yellow-400/10 to-orange-400/10 backdrop-blur-xl border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300 hover:shadow-xl group">
+                  <Card className="bg-gradient-to-br from-yellow-400/20 to-orange-400/20 dark:from-yellow-400/10 dark:to-orange-400/10 backdrop-blur-md dark:backdrop-blur-xl border-yellow-400/40 dark:border-yellow-400/20 hover:border-yellow-400/60 dark:hover:border-yellow-400/40 transition-all duration-300 hover:shadow-xl group">
                     <CardContent className="p-4">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-sm text-yellow-300 font-medium">{locale === 'es' ? 'Calificación Promedio' : 'Average Rating'}</p>
+                          <p className="text-sm text-yellow-600 dark:text-yellow-300 font-medium">{locale === 'es' ? 'Calificación Promedio' : 'Average Rating'}</p>
                           <div className="flex items-baseline gap-1 mt-1">
-                            <p className="text-3xl font-bold text-white">
+                            <p className="text-3xl font-bold text-slate-800 dark:text-white">
                               {(restaurantData.reduce((sum, r) => sum + r.rating, 0) / restaurantData.length || 0).toFixed(1)}
                             </p>
-                            <span className="text-yellow-400 text-xl">★</span>
+                            <span className="text-yellow-500 dark:text-yellow-400 text-xl">★</span>
                           </div>
                         </div>
                         <div className="relative">
-                          <div className="absolute inset-0 bg-yellow-400 blur-xl opacity-50 group-hover:opacity-70 transition-opacity" />
-                          <Utensils className="h-10 w-10 text-yellow-400 relative" />
+                          <div className="absolute inset-0 bg-yellow-400 blur-xl opacity-30 dark:opacity-50 group-hover:opacity-50 dark:group-hover:opacity-70 transition-opacity" />
+                          <Utensils className="h-10 w-10 text-yellow-500 dark:text-yellow-400 relative" />
                         </div>
                       </div>
                     </CardContent>
@@ -619,18 +619,18 @@ export default function AllRestaurantsPageClient({ locale }: AllRestaurantsPageC
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3, delay: 0.3 }}
                 >
-                  <Card className="bg-gradient-to-br from-red-400/10 to-orange-400/10 backdrop-blur-xl border-red-400/20 hover:border-red-400/40 transition-all duration-300 hover:shadow-xl group">
+                  <Card className="bg-gradient-to-br from-red-400/20 to-orange-400/20 dark:from-red-400/10 dark:to-orange-400/10 backdrop-blur-md dark:backdrop-blur-xl border-red-400/40 dark:border-red-400/20 hover:border-red-400/60 dark:hover:border-red-400/40 transition-all duration-300 hover:shadow-xl group">
                     <CardContent className="p-4">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-sm text-red-300 font-medium">{locale === 'es' ? 'Total Reseñas' : 'Total Reviews'}</p>
-                          <p className="text-3xl font-bold text-white mt-1">
+                          <p className="text-sm text-red-600 dark:text-red-300 font-medium">{locale === 'es' ? 'Total Reseñas' : 'Total Reviews'}</p>
+                          <p className="text-3xl font-bold text-slate-800 dark:text-white mt-1">
                             {restaurantData.reduce((sum, r) => sum + r.reviewCount, 0).toLocaleString()}
                           </p>
                         </div>
                         <div className="relative">
-                          <div className="absolute inset-0 bg-red-400 blur-xl opacity-50 group-hover:opacity-70 transition-opacity" />
-                          <Activity className="h-10 w-10 text-red-400 relative" />
+                          <div className="absolute inset-0 bg-red-400 blur-xl opacity-30 dark:opacity-50 group-hover:opacity-50 dark:group-hover:opacity-70 transition-opacity" />
+                          <Activity className="h-10 w-10 text-red-500 dark:text-red-400 relative" />
                         </div>
                       </div>
                     </CardContent>
@@ -642,29 +642,29 @@ export default function AllRestaurantsPageClient({ locale }: AllRestaurantsPageC
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3, delay: 0.4 }}
                 >
-                  <Card className="bg-gradient-to-br from-amber-400/10 to-yellow-400/10 backdrop-blur-xl border-amber-400/20 hover:border-amber-400/40 transition-all duration-300 hover:shadow-xl group">
+                  <Card className="bg-gradient-to-br from-amber-400/20 to-yellow-400/20 dark:from-amber-400/10 dark:to-yellow-400/10 backdrop-blur-md dark:backdrop-blur-xl border-amber-400/40 dark:border-amber-400/20 hover:border-amber-400/60 dark:hover:border-amber-400/40 transition-all duration-300 hover:shadow-xl group">
                     <CardContent className="p-4">
                       <div className="flex items-center justify-between">
                         <div className="flex-1 mr-2">
-                          <p className="text-sm text-amber-300 font-medium">
+                          <p className="text-sm text-amber-600 dark:text-amber-300 font-medium">
                             {selectedRows.length > 0 ? (locale === 'es' ? 'Restaurante Seleccionado' : 'Selected Restaurant') : (locale === 'es' ? 'Tipos de Cocina' : 'Cuisine Types')}
                           </p>
                           {selectedRows.length > 0 ? (
-                            <p className="text-lg font-bold text-white leading-tight mt-1">
+                            <p className="text-lg font-bold text-slate-800 dark:text-white leading-tight mt-1">
                               {RestaurantService.getRestaurantName(selectedRows[0], locale)}
                             </p>
                           ) : (
-                            <p className="text-3xl font-bold text-white mt-1">
+                            <p className="text-3xl font-bold text-slate-800 dark:text-white mt-1">
                               {new Set(restaurantData.map(r => r.primaryCuisine)).size}
                             </p>
                           )}
                         </div>
                         <div className="relative">
-                          <div className="absolute inset-0 bg-amber-400 blur-xl opacity-50 group-hover:opacity-70 transition-opacity" />
+                          <div className="absolute inset-0 bg-amber-400 blur-xl opacity-30 dark:opacity-50 group-hover:opacity-50 dark:group-hover:opacity-70 transition-opacity" />
                           {selectedRows.length > 0 ? (
-                            <Store className="h-10 w-10 text-amber-400 relative flex-shrink-0" />
+                            <Store className="h-10 w-10 text-amber-500 dark:text-amber-400 relative flex-shrink-0" />
                           ) : (
-                            <MapPin className="h-10 w-10 text-amber-400 relative flex-shrink-0" />
+                            <MapPin className="h-10 w-10 text-amber-500 dark:text-amber-400 relative flex-shrink-0" />
                           )}
                         </div>
                       </div>
@@ -674,39 +674,39 @@ export default function AllRestaurantsPageClient({ locale }: AllRestaurantsPageC
               </div>
               
               {/* Controls Bar */}
-              <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-6 mb-6">
+              <div className="bg-white/70 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-sm rounded-2xl border border-slate-300/20 dark:border-white/10 p-6 mb-6 shadow-lg shadow-slate-300/15 dark:shadow-white/12 hover:bg-white/80 dark:hover:bg-white/8 transition-all duration-300 dark:duration-500">
                 <div className="flex flex-wrap gap-4">
                   {/* Quick Filter */}
                   <div className="flex-1 min-w-[300px]">
                     <div className="relative">
-                      <Filter className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50 w-5 h-5" />
+                      <Filter className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-500 dark:text-white/50 w-5 h-5" />
                       <Input
                         type="text"
                         placeholder={locale === 'es' ? 'Búsqueda rápida en todos los campos...' : 'Quick search across all fields...'}
                         value={quickFilter}
                         onChange={(e) => setQuickFilter(e.target.value)}
-                        className="w-full pl-12 h-12 bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder-white/50 focus:border-orange-400/50 transition-colors"
+                        className="w-full pl-12 h-12 bg-white/80 dark:bg-white/10 backdrop-blur-sm dark:backdrop-blur-md border-slate-300/30 dark:border-white/20 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-white/50 hover:bg-white/90 dark:hover:bg-white/15 focus:bg-white/95 dark:focus:bg-white/15 focus:border-orange-500/50 dark:focus:border-orange-400/50 transition-all duration-200 dark:duration-300"
                       />
                     </div>
                   </div>
                 
                   {/* Page Size */}
                   <Select value={paginationPageSize.toString()} onValueChange={(v) => setPaginationPageSize(Number(v))}>
-                    <SelectTrigger className="w-[140px] h-12 bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/15 transition-colors">
+                    <SelectTrigger className="w-[140px] h-12 bg-white/80 dark:bg-white/10 backdrop-blur-sm dark:backdrop-blur-md border-slate-300/30 dark:border-white/20 text-slate-900 dark:text-white hover:bg-white/90 dark:hover:bg-white/15 transition-all duration-200 dark:duration-300">
                       <SelectValue placeholder="Filas" />
                     </SelectTrigger>
-                    <SelectContent className="bg-slate-800 border-slate-600">
-                      <SelectItem value="10" className="text-white hover:bg-slate-700">10 {locale === 'es' ? 'filas' : 'rows'}</SelectItem>
-                      <SelectItem value="20" className="text-white hover:bg-slate-700">20 {locale === 'es' ? 'filas' : 'rows'}</SelectItem>
-                      <SelectItem value="50" className="text-white hover:bg-slate-700">50 {locale === 'es' ? 'filas' : 'rows'}</SelectItem>
-                      <SelectItem value="100" className="text-white hover:bg-slate-700">100 {locale === 'es' ? 'filas' : 'rows'}</SelectItem>
+                    <SelectContent className="bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600">
+                      <SelectItem value="10" className="text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700">10 {locale === 'es' ? 'filas' : 'rows'}</SelectItem>
+                      <SelectItem value="20" className="text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700">20 {locale === 'es' ? 'filas' : 'rows'}</SelectItem>
+                      <SelectItem value="50" className="text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700">50 {locale === 'es' ? 'filas' : 'rows'}</SelectItem>
+                      <SelectItem value="100" className="text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700">100 {locale === 'es' ? 'filas' : 'rows'}</SelectItem>
                     </SelectContent>
                   </Select>
                 
                   {/* Action Buttons */}
                   <Button 
                     onClick={clearFilters} 
-                    className="h-12 gap-2 bg-gradient-to-r from-red-500/20 to-orange-500/20 hover:from-red-500/30 hover:to-orange-500/30 text-white border border-red-400/30 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-red-500/20"
+                    className="h-12 gap-2 bg-gradient-to-r from-red-400/30 to-orange-400/30 dark:from-red-500/20 dark:to-orange-500/20 hover:from-red-500/40 dark:hover:from-red-500/30 hover:to-orange-500/40 dark:hover:to-orange-500/30 text-slate-800 dark:text-white border border-red-400/50 dark:border-red-400/30 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-red-500/20 dark:hover:shadow-red-500/20"
                   >
                     <Filter className="h-4 w-4" />
                     {locale === 'es' ? 'Limpiar Filtros' : 'Clear Filters'}
@@ -714,7 +714,7 @@ export default function AllRestaurantsPageClient({ locale }: AllRestaurantsPageC
                   
                   <Button 
                     onClick={autosizeColumns} 
-                    className="h-12 gap-2 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 hover:from-yellow-500/30 hover:to-orange-500/30 text-white border border-yellow-400/30 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-yellow-500/20"
+                    className="h-12 gap-2 bg-gradient-to-r from-yellow-400/30 to-orange-400/30 dark:from-yellow-500/20 dark:to-orange-500/20 hover:from-yellow-500/40 dark:hover:from-yellow-500/30 hover:to-orange-500/40 dark:hover:to-orange-500/30 text-slate-800 dark:text-white border border-yellow-400/50 dark:border-yellow-400/30 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-yellow-500/20 dark:hover:shadow-yellow-500/20"
                   >
                     <Columns className="h-4 w-4" />
                     {locale === 'es' ? 'Ajustar Columnas' : 'Autosize Columns'}
