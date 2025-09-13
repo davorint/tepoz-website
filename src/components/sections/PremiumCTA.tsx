@@ -1,3 +1,5 @@
+'use client'
+
 import { Locale } from '@/lib/i18n'
 import Image from 'next/image'
 
