@@ -178,7 +178,7 @@ interface ApollonianLoaderProps {
   message?: string
 }
 
-export default function ApollonianLoader({ message = "Loading Platform..." }: ApollonianLoaderProps) {
+export default function ApollonianLoader({ message = "Loading Platform" }: ApollonianLoaderProps) {
   return (
     <div className="fixed inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 z-50 flex flex-col items-center justify-center">
       <div className="w-96 h-96">

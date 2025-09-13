@@ -33,10 +33,10 @@ interface GlobalLoadingProviderProps {
 
 export function GlobalLoadingProvider({ children }: GlobalLoadingProviderProps) {
   const [isLoading, setIsLoading] = useState(false)
-  const [loadingMessage, setLoadingMessage] = useState('Loading Platform...')
+  const [loadingMessage, setLoadingMessage] = useState('Loading Platform')
   const pathname = usePathname()
 
-  const startLoading = (message = 'Loading Platform...') => {
+  const startLoading = (message = 'Loading Platform') => {
     setLoadingMessage(message)
     setIsLoading(true)
   }
@@ -72,7 +72,7 @@ export function GlobalLoadingProvider({ children }: GlobalLoadingProviderProps) 
 
     if (shouldShowLoading) {
       const isSpanish = pathname?.startsWith('/es')
-      const message = isSpanish ? 'Cargando lo desconocido...' : 'Loading the unknown...'
+      const message = isSpanish ? 'Cargando lo desconocido' : 'Loading the unknown'
       startLoading(message)
       
       // Mark as visited

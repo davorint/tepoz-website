@@ -23,7 +23,7 @@ export const translations = {
     },
     // Common
     common: {
-      loading: 'Cargando...',
+      loading: 'Cargando',
       error: 'Error',
       retry: 'Reintentar',
       back: 'Atrás',
@@ -164,7 +164,7 @@ export const translations = {
     },
     // Common
     common: {
-      loading: 'Loading...',
+      loading: 'Loading',
       error: 'Error',
       retry: 'Retry',
       back: 'Back',

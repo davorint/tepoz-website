@@ -93,11 +93,11 @@ export default function RestaurantDetailClient({ slug, locale }: RestaurantDetai
 
       <div className="relative z-10">
         {/* Header with Back Button */}
-        <div className="bg-white/70 dark:bg-gray-900/50 backdrop-blur-md dark:backdrop-blur-xl border-b border-slate-300/20 dark:border-white/10 sticky top-0 z-20">
+        <div className="bg-white/40 dark:bg-gray-900/50 backdrop-blur-xl dark:backdrop-blur-xl border-b border-white/50 dark:border-white/10 shadow-lg sticky top-0 z-20">
           <div className="max-w-7xl mx-auto px-4 py-4">
             <div className="flex items-center justify-between">
               <Link href={`/${locale}/eat/restaurants`}>
-                <Button variant="ghost" className="text-slate-600 dark:text-white/70 hover:text-slate-800 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-white/10">
+                <Button variant="ghost" className="bg-white/30 dark:bg-transparent backdrop-blur-md dark:backdrop-blur-none text-slate-700 dark:text-white/70 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-white/10 border border-white/40 dark:border-transparent">
                   <ChevronLeft className="w-5 h-5 mr-2" />
                   {locale === 'es' ? 'Volver' : 'Back'}
                 </Button>
@@ -105,11 +105,11 @@ export default function RestaurantDetailClient({ slug, locale }: RestaurantDetai
               <div className="flex gap-2">
                 <Button
                   onClick={() => setIsFavorite(!isFavorite)}
-                  className="bg-white/80 dark:bg-white/10 backdrop-blur-sm dark:backdrop-blur-md border border-slate-300/30 dark:border-white/20 hover:bg-white/90 dark:hover:bg-white/20"
+                  className="bg-white/50 dark:bg-white/10 backdrop-blur-lg dark:backdrop-blur-md border border-white/60 dark:border-white/20 hover:bg-white/70 dark:hover:bg-white/20 shadow-sm"
                 >
                   <Heart className={`w-5 h-5 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-slate-600 dark:text-white/70'}`} />
                 </Button>
-                <Button className="bg-white/80 dark:bg-white/10 backdrop-blur-sm dark:backdrop-blur-md border border-slate-300/30 dark:border-white/20 hover:bg-white/90 dark:hover:bg-white/20">
+                <Button className="bg-white/50 dark:bg-white/10 backdrop-blur-lg dark:backdrop-blur-md border border-white/60 dark:border-white/20 hover:bg-white/70 dark:hover:bg-white/20 shadow-sm">
                   <Share2 className="w-5 h-5 text-slate-600 dark:text-white/70" />
                 </Button>
               </div>
@@ -201,10 +201,10 @@ export default function RestaurantDetailClient({ slug, locale }: RestaurantDetai
             {/* Left Column - Main Info */}
             <div className="lg:col-span-2 space-y-8">
               {/* Quick Actions */}
-              <div className="bg-white/70 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-xl rounded-3xl border border-slate-300/20 dark:border-white/10 p-6 shadow-xl shadow-slate-300/20 dark:shadow-white/15">
+              <div className="bg-white/30 dark:bg-white/5 backdrop-blur-2xl dark:backdrop-blur-xl rounded-3xl border border-white/50 dark:border-white/10 p-6 shadow-xl shadow-sky-200/30 dark:shadow-white/15">
                 <div className="flex flex-wrap gap-4">
                   {restaurant.phone && (
-                    <Button className="flex-1 min-w-[200px] bg-gradient-to-r from-orange-400 to-red-400 hover:from-orange-500 hover:to-red-500 text-white">
+                    <Button className="flex-1 min-w-[200px] bg-white/40 dark:bg-gradient-to-r from-white/40 dark:from-orange-400 to-white/30 dark:to-red-400 backdrop-blur-lg dark:backdrop-blur-none hover:bg-white/60 dark:hover:from-orange-500 dark:hover:to-red-500 text-slate-800 dark:text-white border border-white/50 dark:border-transparent shadow-sm">
                       <Phone className="w-5 h-5 mr-2" />
                       {locale === 'es' ? 'Llamar' : 'Call'}
                     </Button>
@@ -212,13 +212,13 @@ export default function RestaurantDetailClient({ slug, locale }: RestaurantDetai
                   {restaurant.website && (
                     <Button
                       onClick={() => window.open(restaurant.website, '_blank')}
-                      className="flex-1 min-w-[200px] bg-slate-700/90 dark:bg-white/20 hover:bg-slate-800 dark:hover:bg-white/30 text-white"
+                      className="flex-1 min-w-[200px] bg-white/40 dark:bg-white/20 backdrop-blur-lg dark:backdrop-blur-none hover:bg-white/60 dark:hover:bg-white/30 text-slate-800 dark:text-white border border-white/50 dark:border-transparent shadow-sm"
                     >
                       <Globe className="w-5 h-5 mr-2" />
                       {locale === 'es' ? 'Sitio Web' : 'Website'}
                     </Button>
                   )}
-                  <Button className="flex-1 min-w-[200px] bg-green-500 hover:bg-green-600 text-white">
+                  <Button className="flex-1 min-w-[200px] bg-white/40 dark:bg-green-500 backdrop-blur-lg dark:backdrop-blur-none hover:bg-white/60 dark:hover:bg-green-600 text-slate-800 dark:text-white border border-white/50 dark:border-transparent shadow-sm">
                     <Navigation className="w-5 h-5 mr-2" />
                     {locale === 'es' ? 'Cómo Llegar' : 'Get Directions'}
                   </Button>
@@ -226,7 +226,7 @@ export default function RestaurantDetailClient({ slug, locale }: RestaurantDetai
               </div>
 
               {/* About Section */}
-              <div className="bg-white/70 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-xl rounded-3xl border border-slate-300/20 dark:border-white/10 p-8 shadow-xl shadow-slate-300/20 dark:shadow-white/15">
+              <div className="bg-white/30 dark:bg-white/5 backdrop-blur-2xl dark:backdrop-blur-xl rounded-3xl border border-white/50 dark:border-white/10 p-8 shadow-xl shadow-sky-200/30 dark:shadow-white/15">
                 <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-4 flex items-center">
                   <ChefHat className="w-6 h-6 mr-3 text-orange-500 dark:text-orange-400" />
                   {locale === 'es' ? 'Acerca de' : 'About'}
@@ -283,7 +283,7 @@ export default function RestaurantDetailClient({ slug, locale }: RestaurantDetai
               </div>
 
               {/* Menu Preview */}
-              <div className="bg-white/70 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-xl rounded-3xl border border-slate-300/20 dark:border-white/10 p-8 shadow-xl shadow-slate-300/20 dark:shadow-white/15">
+              <div className="bg-white/30 dark:bg-white/5 backdrop-blur-2xl dark:backdrop-blur-xl rounded-3xl border border-white/50 dark:border-white/10 p-8 shadow-xl shadow-sky-200/30 dark:shadow-white/15">
                 <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-6 flex items-center">
                   <Utensils className="w-6 h-6 mr-3 text-orange-500 dark:text-orange-400" />
                   {locale === 'es' ? 'Menú Destacado' : 'Featured Menu'}
@@ -303,7 +303,7 @@ export default function RestaurantDetailClient({ slug, locale }: RestaurantDetai
                   </TabsList>
 
                   <TabsContent value="appetizers" className="mt-6 space-y-4">
-                    <div className="p-4 bg-white/50 dark:bg-white/5 rounded-xl">
+                    <div className="p-4 bg-white/20 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-none rounded-xl">
                       <div className="flex justify-between items-start mb-2">
                         <div>
                           <h4 className="font-semibold text-slate-800 dark:text-white">
@@ -316,7 +316,7 @@ export default function RestaurantDetailClient({ slug, locale }: RestaurantDetai
                         <span className="text-orange-500 dark:text-orange-400 font-bold">$120</span>
                       </div>
                     </div>
-                    <div className="p-4 bg-white/50 dark:bg-white/5 rounded-xl">
+                    <div className="p-4 bg-white/20 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-none rounded-xl">
                       <div className="flex justify-between items-start mb-2">
                         <div>
                           <h4 className="font-semibold text-slate-800 dark:text-white">
@@ -332,7 +332,7 @@ export default function RestaurantDetailClient({ slug, locale }: RestaurantDetai
                   </TabsContent>
 
                   <TabsContent value="mains" className="mt-6 space-y-4">
-                    <div className="p-4 bg-white/50 dark:bg-white/5 rounded-xl">
+                    <div className="p-4 bg-white/20 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-none rounded-xl">
                       <div className="flex justify-between items-start mb-2">
                         <div>
                           <h4 className="font-semibold text-slate-800 dark:text-white">
@@ -345,7 +345,7 @@ export default function RestaurantDetailClient({ slug, locale }: RestaurantDetai
                         <span className="text-orange-500 dark:text-orange-400 font-bold">$280</span>
                       </div>
                     </div>
-                    <div className="p-4 bg-white/50 dark:bg-white/5 rounded-xl">
+                    <div className="p-4 bg-white/20 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-none rounded-xl">
                       <div className="flex justify-between items-start mb-2">
                         <div>
                           <h4 className="font-semibold text-slate-800 dark:text-white">
@@ -361,7 +361,7 @@ export default function RestaurantDetailClient({ slug, locale }: RestaurantDetai
                   </TabsContent>
 
                   <TabsContent value="desserts" className="mt-6 space-y-4">
-                    <div className="p-4 bg-white/50 dark:bg-white/5 rounded-xl">
+                    <div className="p-4 bg-white/20 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-none rounded-xl">
                       <div className="flex justify-between items-start mb-2">
                         <div>
                           <h4 className="font-semibold text-slate-800 dark:text-white">
@@ -379,14 +379,14 @@ export default function RestaurantDetailClient({ slug, locale }: RestaurantDetai
               </div>
 
               {/* Reviews Section */}
-              <div className="bg-white/70 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-xl rounded-3xl border border-slate-300/20 dark:border-white/10 p-8 shadow-xl shadow-slate-300/20 dark:shadow-white/15">
+              <div className="bg-white/30 dark:bg-white/5 backdrop-blur-2xl dark:backdrop-blur-xl rounded-3xl border border-white/50 dark:border-white/10 p-8 shadow-xl shadow-sky-200/30 dark:shadow-white/15">
                 <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-6 flex items-center">
                   <MessageCircle className="w-6 h-6 mr-3 text-orange-500 dark:text-orange-400" />
                   {locale === 'es' ? 'Reseñas Recientes' : 'Recent Reviews'}
                 </h2>
 
                 <div className="space-y-4">
-                  <div className="p-4 bg-white/50 dark:bg-white/5 rounded-xl">
+                  <div className="p-4 bg-white/20 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-none rounded-xl">
                     <div className="flex items-start justify-between mb-2">
                       <div>
                         <div className="flex items-center gap-2 mb-1">
@@ -409,7 +409,7 @@ export default function RestaurantDetailClient({ slug, locale }: RestaurantDetai
                     </p>
                   </div>
 
-                  <div className="p-4 bg-white/50 dark:bg-white/5 rounded-xl">
+                  <div className="p-4 bg-white/20 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-none rounded-xl">
                     <div className="flex items-start justify-between mb-2">
                       <div>
                         <div className="flex items-center gap-2 mb-1">
@@ -442,7 +442,7 @@ export default function RestaurantDetailClient({ slug, locale }: RestaurantDetai
             {/* Right Column - Sidebar */}
             <div className="space-y-6">
               {/* Location & Hours */}
-              <div className="bg-white/70 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-xl rounded-3xl border border-slate-300/20 dark:border-white/10 p-6 shadow-xl shadow-slate-300/20 dark:shadow-white/15 sticky top-24">
+              <div className="bg-white/30 dark:bg-white/5 backdrop-blur-2xl dark:backdrop-blur-xl rounded-3xl border border-white/50 dark:border-white/10 p-6 shadow-xl shadow-sky-200/30 dark:shadow-white/15 sticky top-24">
                 <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-4 flex items-center">
                   <MapPinned className="w-5 h-5 mr-2 text-orange-500 dark:text-orange-400" />
                   {locale === 'es' ? 'Ubicación y Horarios' : 'Location & Hours'}

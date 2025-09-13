@@ -24,7 +24,7 @@ const dictionaries = {
     // Common UI elements
     ui: {
       home: 'Inicio',
-      loading: 'Cargando...',
+      loading: 'Cargando',
       error: 'Error',
       notFound: 'Página no encontrada',
       backHome: 'Volver al inicio'
@@ -52,7 +52,7 @@ const dictionaries = {
     // Common UI elements
     ui: {
       home: 'Home',
-      loading: 'Loading...',
+      loading: 'Loading',
       error: 'Error',
       notFound: 'Page not found',
       backHome: 'Back to home'

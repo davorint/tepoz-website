@@ -639,7 +639,7 @@ export function ClusteredBusinessMap({
               animate={{ opacity: [0.7, 1, 0.7] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              {lang === 'es' ? 'Cargando mapa con clustering...' : 'Loading clustered map...'}
+              {lang === 'es' ? 'Cargando mapa con clustering' : 'Loading clustered map'}
             </motion.p>
           </div>
         </div>

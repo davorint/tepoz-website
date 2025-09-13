@@ -515,7 +515,7 @@ export function BusinessMap({
               animate={{ opacity: [0.7, 1, 0.7] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              {lang === 'es' ? 'Cargando mapa interactivo...' : 'Loading interactive map...'}
+              {lang === 'es' ? 'Cargando mapa interactivo' : 'Loading interactive map'}
             </motion.p>
             <motion.div 
               className="mt-4 w-48 h-2 bg-slate-700 rounded-full overflow-hidden mx-auto"
