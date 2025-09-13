@@ -100,16 +100,16 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50/40 from-20% via-red-50/30 via-50% to-yellow-50/20 to-80% dark:bg-gradient-to-br dark:from-slate-900 dark:via-blue-900 dark:to-slate-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-sky-100 via-sky-200/50 via-30% through-blue-200/40 through-60% to-indigo-300/30 dark:bg-gradient-to-b dark:from-sky-950 dark:via-sky-900/80 dark:via-30% dark:through-blue-900/60 dark:through-60% dark:to-indigo-950/90 relative overflow-hidden">
       {/* Ultra Premium Background */}
       <div className="absolute inset-0">
         {/* Animated gradient orbs - independent light/dark controls */}
-        <div className="absolute top-20 left-20 w-[35rem] h-[35rem] bg-orange-400/15 dark:bg-orange-500/20 rounded-full blur-2xl dark:blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-20 w-[40rem] h-[40rem] bg-red-400/12 dark:bg-red-500/20 rounded-full blur-2xl dark:blur-3xl animate-pulse animation-delay-2s" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[45rem] h-[45rem] bg-yellow-400/8 dark:bg-yellow-500/10 rounded-full blur-2xl dark:blur-3xl animate-pulse animation-delay-4s" />
+        <div className="absolute top-20 left-20 w-[35rem] h-[35rem] bg-white/40 dark:bg-sky-400/15 rounded-full blur-3xl dark:blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-20 w-[40rem] h-[40rem] bg-white/30 dark:bg-blue-400/10 rounded-full blur-3xl dark:blur-3xl animate-pulse animation-delay-2s" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[45rem] h-[45rem] bg-white/25 dark:bg-indigo-400/8 rounded-full blur-3xl dark:blur-3xl animate-pulse animation-delay-4s" />
         
         {/* Premium mesh gradient - independent controls */}
-        <div className="absolute inset-0 bg-[radial-gradient(at_top_left,_transparent,_rgba(251,146,60,0.1)),radial-gradient(at_bottom_right,_transparent,_rgba(239,68,68,0.1))] dark:bg-[radial-gradient(at_top_left,_transparent,_rgba(251,146,60,0.2)),radial-gradient(at_bottom_right,_transparent,_rgba(239,68,68,0.2))]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(224,242,254,0.4),_transparent_50%),radial-gradient(ellipse_at_bottom,_rgba(147,197,253,0.3),_transparent_50%)] dark:bg-[radial-gradient(ellipse_at_top,_rgba(56,189,248,0.1),_transparent_50%),radial-gradient(ellipse_at_bottom,_rgba(99,102,241,0.1),_transparent_50%)]" />
         
         {/* Grid pattern overlay - independent opacity */}
         <div className="absolute inset-0 opacity-3 dark:opacity-5" style={{
@@ -398,7 +398,7 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
 
         {/* Business Owner CTA */}
         <div className="text-center py-12">
-          <Card className="bg-gradient-to-r from-orange-400/20 to-red-400/20 dark:from-orange-400/10 dark:to-red-400/10 backdrop-blur-md dark:backdrop-blur-xl border-slate-300/30 dark:border-white/20 p-12 max-w-4xl mx-auto shadow-lg shadow-orange-400/15 dark:shadow-orange-400/20 hover:shadow-xl hover:shadow-orange-400/25 dark:hover:shadow-orange-400/30 transition-all duration-300 dark:duration-500">
+          <Card className="bg-white/70 dark:from-orange-400/10 dark:to-red-400/10 backdrop-blur-md dark:backdrop-blur-xl border border-slate-300/20 dark:border-white/20 p-12 max-w-4xl mx-auto shadow-xl shadow-slate-300/20 dark:shadow-orange-400/20 hover:bg-white/80 hover:shadow-xl dark:hover:shadow-orange-400/30 transition-all duration-300 dark:duration-500">
             <CardContent className="space-y-6">
               <h2 className="text-3xl font-bold text-slate-800 dark:text-white">
                 {locale === 'es' 

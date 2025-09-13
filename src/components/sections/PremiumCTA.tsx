@@ -128,7 +128,7 @@ export default function PremiumCTA({ lang }: PremiumCTAProps) {
               <div className="text-3xl font-bold bg-gradient-to-r from-orange-400 to-purple-400 bg-clip-text text-transparent group-hover:scale-110 transition-transform">
                 {stat.number}
               </div>
-              <div className="text-sm text-gray-500 dark:text-gray-400 mt-2 group-hover:text-gray-700 dark:group-hover:text-white transition-colors">
+              <div className="text-sm text-black dark:text-gray-400 mt-2 group-hover:text-gray-700 dark:group-hover:text-white transition-colors">
                 {stat.label}
               </div>
             </div>

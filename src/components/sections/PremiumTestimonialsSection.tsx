@@ -169,7 +169,7 @@ export default function PremiumTestimonialsSection({ lang }: PremiumTestimonials
             {lang === 'es' ? 'Historias de Nuestros Visitantes' : 'Stories from Our Visitors'}
           </h2>
           
-          <p className="text-lg text-gray-500 dark:text-gray-300">
+          <p className="text-lg text-gray-600 dark:text-gray-300">
             {lang === 'es' 
               ? 'Descubre experiencias auténticas de quienes han visitado Tepoztlán'
               : 'Discover authentic experiences from those who have visited Tepoztlán'
@@ -199,7 +199,7 @@ export default function PremiumTestimonialsSection({ lang }: PremiumTestimonials
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
                     ))}
-                    <span className="ml-2 text-sm text-gray-500">5.0</span>
+                    <span className="ml-2 text-sm text-gray-600">5.0</span>
                   </div>
 
                   {/* Author Info */}
@@ -218,7 +218,7 @@ export default function PremiumTestimonialsSection({ lang }: PremiumTestimonials
                           </svg>
                         )}
                       </div>
-                      <p className="text-sm text-gray-400 dark:text-gray-400">{testimonial.location} • {testimonial.date}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{testimonial.location} • {testimonial.date}</p>
                     </div>
                   </div>
 
@@ -231,15 +231,15 @@ export default function PremiumTestimonialsSection({ lang }: PremiumTestimonials
 
                   {/* Interaction Bar */}
                   <div className="flex items-center gap-4 mt-4 pt-4 border-t border-gray-100/50">
-                    <button className="flex items-center gap-1 text-gray-400 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
+                    <button className="flex items-center gap-1 text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
                       <ThumbsUp className="w-4 h-4" />
                       <span className="text-xs">{lang === 'es' ? 'Útil' : 'Helpful'}</span>
                     </button>
-                    <button className="flex items-center gap-1 text-gray-400 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
+                    <button className="flex items-center gap-1 text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
                       <MessageCircle className="w-4 h-4" />
                       <span className="text-xs">{lang === 'es' ? 'Comentar' : 'Comment'}</span>
                     </button>
-                    <button className="flex items-center gap-1 text-gray-400 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
+                    <button className="flex items-center gap-1 text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
                       <Camera className="w-4 h-4" />
                       <span className="text-xs">{lang === 'es' ? 'Ver fotos' : 'View photos'}</span>
                     </button>
@@ -255,19 +255,19 @@ export default function PremiumTestimonialsSection({ lang }: PremiumTestimonials
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
               <div className="text-3xl font-bold text-gray-800 dark:text-white mb-1">4.9</div>
-              <div className="text-sm text-gray-500 dark:text-gray-300">{lang === 'es' ? 'Calificación' : 'Rating'}</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">{lang === 'es' ? 'Calificación' : 'Rating'}</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-gray-800 dark:text-white mb-1">500+</div>
-              <div className="text-sm text-gray-500 dark:text-gray-300">{lang === 'es' ? 'Reseñas' : 'Reviews'}</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">{lang === 'es' ? 'Reseñas' : 'Reviews'}</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-gray-800 dark:text-white mb-1">98%</div>
-              <div className="text-sm text-gray-500 dark:text-gray-300">{lang === 'es' ? 'Recomiendan' : 'Recommend'}</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">{lang === 'es' ? 'Recomiendan' : 'Recommend'}</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-gray-800 dark:text-white mb-1">#1</div>
-              <div className="text-sm text-gray-500 dark:text-gray-300">{lang === 'es' ? 'En Morelos' : 'In Morelos'}</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">{lang === 'es' ? 'En Morelos' : 'In Morelos'}</div>
             </div>
           </div>
         </div>

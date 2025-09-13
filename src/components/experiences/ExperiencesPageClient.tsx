@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Locale } from '@/lib/i18n'
 import { Experience, ExperienceService, experienceCategories, atmosphereTypes, experienceTypes } from '@/lib/experiences'
 import ExperienceCard from './ExperienceCard'
+import TepoztlanHillshade from './TepoztlanHillshade'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
@@ -22,7 +23,8 @@ import {
   Sparkles,
   Camera,
   Leaf,
-  Sun
+  Sun,
+  Navigation
 } from 'lucide-react'
 
 interface ExperiencesPageClientProps {
@@ -39,10 +41,12 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
   const [selectedType, setSelectedType] = useState('all')
   const [selectedPriceRange, setSelectedPriceRange] = useState('all')
   const [selectedDuration, setSelectedDuration] = useState('all')
-  const [sortBy] = useState<'rating' | 'name' | 'price' | 'duration'>('rating')
+  const [sortBy, setSortBy] = useState<'rating' | 'name' | 'price' | 'duration' | 'distance'>('rating')
   const [showFilters, setShowFilters] = useState(false)
+  const [userLocation, setUserLocation] = useState<[number, number] | null>(null)
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [featuredOnly, setFeaturedOnly] = useState(false)
+  const [mapFlyToExperience, setMapFlyToExperience] = useState<((experience: Experience) => void) | null>(null)
 
   // Load experiences on component mount - avoiding hydration issues
   useEffect(() => {
@@ -94,10 +98,10 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
     }
 
     // Apply sorting
-    filtered = ExperienceService.sortExperiences(filtered, sortBy)
+    filtered = ExperienceService.sortExperiences(filtered, sortBy, userLocation || undefined)
 
     setFilteredExperiences(filtered)
-  }, [experiences, searchQuery, selectedCategory, selectedAtmosphere, selectedType, selectedPriceRange, selectedDuration, sortBy, featuredOnly, locale])
+  }, [experiences, searchQuery, selectedCategory, selectedAtmosphere, selectedType, selectedPriceRange, selectedDuration, sortBy, featuredOnly, locale, userLocation])
 
   const clearFilters = () => {
     setSearchQuery('')
@@ -164,6 +168,72 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
           </p>
         </div>
 
+        {/* Interactive Hillshade Map Section */}
+        <div className="mb-16 hillshade-map-section">
+          <Card className="bg-white/80 dark:bg-white/10 backdrop-blur-xl border-slate-200/50 dark:border-white/20 shadow-2xl overflow-hidden">
+            <CardContent className="p-0">
+              <div className="p-6 pb-0">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full p-2">
+                    <Mountain className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                      {locale === 'es' ? 'Explora el Valle Mágico' : 'Explore the Magic Valley'}
+                    </h2>
+                    <p className="text-sm text-slate-600 dark:text-white/70">
+                      {locale === 'es' 
+                        ? 'Descubre la majestuosa topografía de Tepoztlán y sus alrededores' 
+                        : 'Discover the majestic topography of Tepoztlán and its surroundings'
+                      }
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <TepoztlanHillshade 
+                className="w-full" 
+                height="500px" 
+                locale={locale}
+                experiences={filteredExperiences}
+                showGeocoding={true}
+                showSidebar={false}
+                onLocationSearch={(query) => {
+                  setSearchQuery(query)
+                  // Scroll to results section
+                  setTimeout(() => {
+                    const resultsSection = document.querySelector('.experiences-results')
+                    if (resultsSection) {
+                      resultsSection.scrollIntoView({ behavior: 'smooth' })
+                    }
+                  }, 100)
+                }}
+                onExperienceSelect={(experience) => {
+                  // Scroll to the selected experience card
+                  setTimeout(() => {
+                    const experienceCard = document.querySelector(`[data-experience-id="${experience.id}"]`)
+                    if (experienceCard) {
+                      experienceCard.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                      // Add a temporary highlight effect
+                      experienceCard.classList.add('ring-4', 'ring-teal-400/50')
+                      setTimeout(() => {
+                        experienceCard.classList.remove('ring-4', 'ring-teal-400/50')
+                      }, 3000)
+                    }
+                  }, 100)
+                }}
+                onUserLocationSet={(location) => {
+                  setUserLocation(location)
+                  // Automatically sort by distance when user location is set
+                  setSortBy('distance')
+                }}
+                onMapReady={(flyToFn) => {
+                  setMapFlyToExperience(() => flyToFn)
+                }}
+              />
+            </CardContent>
+          </Card>
+        </div>
+
         {/* Search and Filters Bar */}
         <div className="mb-12">
           <Card className="bg-white/80 dark:bg-white/10 backdrop-blur-xl border-slate-200/50 dark:border-white/20 shadow-2xl">
@@ -199,6 +269,18 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
                     <Star className="h-4 w-4 mr-1" />
                     {locale === 'es' ? 'Destacadas' : 'Featured'}
                   </Button>
+                  
+                  {userLocation && (
+                    <Button
+                      variant={sortBy === 'distance' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => setSortBy(sortBy === 'distance' ? 'rating' : 'distance')}
+                      className="bg-slate-200/50 dark:bg-white/10 hover:bg-slate-300/50 dark:hover:bg-white/20 text-slate-900 dark:text-white border-slate-300 dark:border-white/20"
+                    >
+                      <Navigation className="h-4 w-4 mr-1" />
+                      {locale === 'es' ? 'Por Distancia' : 'By Distance'}
+                    </Button>
+                  )}
                   <Button
                     variant={selectedCategory === 'adventure' ? 'default' : 'outline'}
                     size="sm"
@@ -429,7 +511,7 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
 
         {/* Experiences Grid */}
         {filteredExperiences.length > 0 ? (
-          <div className={`mb-16 ${
+          <div className={`experiences-results mb-16 ${
             viewMode === 'grid' 
               ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'
               : 'space-y-6'
@@ -441,6 +523,16 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
                 locale={locale}
                 viewMode={viewMode}
                 animationDelay={index * 100}
+                onViewOnMap={(experience) => {
+                  if (mapFlyToExperience) {
+                    mapFlyToExperience(experience)
+                    // Scroll to map section
+                    const mapSection = document.querySelector('.hillshade-map-section')
+                    if (mapSection) {
+                      mapSection.scrollIntoView({ behavior: 'smooth' })
+                    }
+                  }
+                }}
               />
             ))}
           </div>

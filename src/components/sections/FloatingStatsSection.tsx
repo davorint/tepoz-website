@@ -131,7 +131,7 @@ export default function FloatingStatsSection({ lang }: FloatingStatsSectionProps
             </span>
           </h2>
           
-          <p className="text-xl md:text-2xl text-gray-500 dark:text-white/80 font-light max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-gray-700 dark:text-white/80 font-light max-w-3xl mx-auto leading-relaxed">
             {lang === 'es' 
               ? 'La plataforma líder para conectar negocios y visitantes en Tepoztlán'
               : 'The leading platform connecting businesses and visitors in Tepoztlán'
@@ -193,7 +193,7 @@ export default function FloatingStatsSection({ lang }: FloatingStatsSectionProps
                     <div className="bg-white/15 dark:bg-white/5 backdrop-blur-sm rounded-xl p-3 border border-gray-200/15 dark:border-white/10">
                       <div className="flex items-center justify-center gap-2">
                         <span className="text-lg">{stat.trend}</span>
-                        <span className="text-xs text-gray-400 dark:text-white/60 font-light">
+                        <span className="text-xs text-gray-600 dark:text-white/60 font-light">
                           {lang === 'es' ? stat.trendLabel : stat.trendLabelEn}
                         </span>
                       </div>
@@ -222,7 +222,7 @@ export default function FloatingStatsSection({ lang }: FloatingStatsSectionProps
                   <div className="text-2xl font-bold text-gray-700 dark:text-white mb-1">
                     {stat.value}
                   </div>
-                  <div className="text-sm text-gray-400 dark:text-white/60">
+                  <div className="text-sm text-gray-600 dark:text-white/60">
                     {lang === 'es' ? stat.label : stat.labelEn}
                   </div>
                 </div>

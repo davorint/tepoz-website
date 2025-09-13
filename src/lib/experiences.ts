@@ -2,6 +2,7 @@ import { Locale } from './i18n'
 
 export interface Experience {
   id: string
+  slug?: string
   name: {
     es: string
     en: string
@@ -198,8 +199,8 @@ export const mockExperiences: Experience[] = [
       es: ['Desayuno ligero', 'Hidratación previa', 'Descanso suficiente'],
       en: ['Light breakfast', 'Pre-hydration', 'Adequate rest']
     },
-    latitude: 18.9889,
-    longitude: -99.1001,
+    latitude: 19.00067,
+    longitude: -99.101503,
     verified: true,
     sustainable: true,
     indigenous: false
@@ -293,8 +294,8 @@ export const mockExperiences: Experience[] = [
       es: ['Ayuno de 3 horas', 'Hidratación', 'Intención clara', 'Mente abierta'],
       en: ['3-hour fast', 'Hydration', 'Clear intention', 'Open mind']
     },
-    latitude: 18.9835,
-    longitude: -99.0962,
+    latitude: 18.9860,
+    longitude: -99.0991,
     verified: true,
     sustainable: true,
     indigenous: true
@@ -593,7 +594,7 @@ export class ExperienceService {
     return filtered
   }
 
-  static sortExperiences(experiences: Experience[], sortBy: string): Experience[] {
+  static sortExperiences(experiences: Experience[], sortBy: string, userLocation?: [number, number]): Experience[] {
     return [...experiences].sort((a, b) => {
       switch (sortBy) {
         case 'rating':
@@ -609,6 +610,22 @@ export class ExperienceService {
             return match ? parseInt(match[0]) : 0
           }
           return getDurationHours(a) - getDurationHours(b)
+        case 'distance':
+          if (!userLocation) return 0
+          const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
+            const R = 6371 // Earth's radius in kilometers
+            const dLat = (lat2 - lat1) * Math.PI / 180
+            const dLon = (lon2 - lon1) * Math.PI / 180
+            const calc = 
+              Math.sin(dLat/2) * Math.sin(dLat/2) +
+              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+              Math.sin(dLon/2) * Math.sin(dLon/2)
+            const c = 2 * Math.atan2(Math.sqrt(calc), Math.sqrt(1-calc))
+            return R * c
+          }
+          const distA = a.latitude && a.longitude ? calculateDistance(userLocation[1], userLocation[0], a.latitude, a.longitude) : Infinity
+          const distB = b.latitude && b.longitude ? calculateDistance(userLocation[1], userLocation[0], b.latitude, b.longitude) : Infinity
+          return distA - distB
         default:
           return 0
       }

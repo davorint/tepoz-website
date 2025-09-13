@@ -117,7 +117,7 @@ const premiumBenefits = [
 
 export default function InteractiveCTASection({ lang }: InteractiveCTASectionProps) {
   return (
-    <section className="py-32 px-4 bg-gradient-to-br from-white via-gray-25/5 to-white dark:from-indigo-900 dark:via-blue-900 dark:to-indigo-900 relative overflow-hidden">
+    <section className="py-24 px-4 bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-indigo-900 dark:via-blue-900 dark:to-indigo-900 relative overflow-hidden">
       {/* Ultra Premium animated background */}
       <div className="absolute inset-0">
         {/* Large animated orbs */}
@@ -159,7 +159,7 @@ export default function InteractiveCTASection({ lang }: InteractiveCTASectionPro
             </span>
           </h2>
           
-          <p className="text-xl md:text-2xl text-gray-500 dark:text-white/80 font-light max-w-3xl mx-auto leading-relaxed mb-8">
+          <p className="text-xl md:text-2xl text-gray-700 dark:text-white/80 font-medium max-w-3xl mx-auto leading-relaxed mb-8">
             {lang === 'es' 
               ? 'Tu puerta de entrada a los mejores negocios y servicios de Tepoztlán'
               : 'Your gateway to the best businesses and services in Tepoztlán'
@@ -177,7 +177,7 @@ export default function InteractiveCTASection({ lang }: InteractiveCTASectionPro
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <Icon className="w-5 h-5 text-cyan-300" />
-                  <span className="text-sm font-medium text-gray-500 dark:text-white/70">
+                  <span className="text-sm font-medium text-gray-700 dark:text-white/70">
                     {lang === 'es' ? benefit.text : benefit.textEn}
                   </span>
                 </div>
@@ -193,7 +193,7 @@ export default function InteractiveCTASection({ lang }: InteractiveCTASectionPro
               <h3 className="text-3xl font-bold text-gray-700 dark:text-white mb-3 font-sans">
                 {lang === 'es' ? 'Acciones Rápidas' : 'Quick Actions'}
               </h3>
-              <p className="text-gray-500 dark:text-white/60">
+              <p className="text-gray-600 dark:text-white/60">
                 {lang === 'es' ? 'Herramientas para explorar y conectar con negocios' : 'Tools to explore and connect with businesses'}
               </p>
             </div>
@@ -229,12 +229,12 @@ export default function InteractiveCTASection({ lang }: InteractiveCTASectionPro
                         <div className="font-bold text-xl text-gray-700 dark:text-white mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:from-cyan-400 dark:group-hover:from-cyan-300 group-hover:to-blue-400 dark:group-hover:to-blue-300 transition-all">
                           {lang === 'es' ? action.titleEs : action.titleEn}
                         </div>
-                        <div className="text-gray-500 dark:text-white/70 text-sm leading-relaxed">
+                        <div className="text-gray-600 dark:text-white/70 text-sm leading-relaxed">
                           {lang === 'es' ? action.descEs : action.descEn}
                         </div>
                       </div>
                       
-                      <ChevronRight className="w-6 h-6 text-gray-300 dark:text-white/50 group-hover:text-gray-500 dark:group-hover:text-white group-hover:translate-x-2 transition-all" />
+                      <ChevronRight className="w-6 h-6 text-gray-400 dark:text-white/50 group-hover:text-gray-600 dark:group-hover:text-white group-hover:translate-x-2 transition-all" />
                     </div>
                   </Button>
                 </div>
@@ -259,10 +259,10 @@ export default function InteractiveCTASection({ lang }: InteractiveCTASectionPro
                     <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-amber-400 to-orange-400 rounded-2xl mb-4 shadow-2xl">
                       <Sparkles className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-3xl font-bold text-white mb-3">
+                    <h3 className="text-3xl font-bold text-gray-800 dark:text-white mb-3">
                       {lang === 'es' ? 'Acceso VIP' : 'VIP Access'}
                     </h3>
-                    <p className="text-white/70">
+                    <p className="text-gray-600 dark:text-white/70">
                       {lang === 'es' 
                         ? 'Únete a nuestra lista exclusiva para ofertas premium'
                         : 'Join our exclusive list for premium offers'
@@ -274,11 +274,11 @@ export default function InteractiveCTASection({ lang }: InteractiveCTASectionPro
                     <div className="relative group">
                       <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-400 rounded-xl blur opacity-0 group-hover:opacity-50 transition-opacity" />
                       <div className="relative">
-                        <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60 w-5 h-5 z-10" />
+                        <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-white/60 w-5 h-5 z-10" />
                         <input
                           type="email"
                           placeholder={lang === 'es' ? 'tu@email.com' : 'your@email.com'}
-                          className="w-full pl-12 pr-4 h-14 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-white/40 focus:bg-white/10 focus:border-amber-400 transition-all duration-300 focus:outline-none"
+                          className="w-full pl-12 pr-4 h-14 bg-gray-100 dark:bg-white/5 backdrop-blur-sm border border-gray-300 dark:border-white/20 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-white/40 focus:bg-gray-50 dark:focus:bg-white/10 focus:border-amber-400 dark:focus:border-amber-400 transition-all duration-300 focus:outline-none"
                         />
                       </div>
                     </div>
@@ -309,7 +309,7 @@ export default function InteractiveCTASection({ lang }: InteractiveCTASectionPro
                     <div className={`absolute inset-0 bg-gradient-to-r ${feature.gradient} opacity-0 group-hover:opacity-30 blur-lg transition-all duration-500 rounded-2xl`} />
                     
                     {/* Glassmorphism feature card */}
-                    <Card className="relative bg-white/8 backdrop-blur-xl border border-white/15 shadow-lg hover:shadow-xl rounded-2xl overflow-hidden group-hover:bg-white/12 transition-all duration-500">
+                    <Card className="relative bg-gray-100/90 dark:bg-white/8 backdrop-blur-xl border border-gray-200/50 dark:border-white/15 shadow-lg hover:shadow-xl rounded-2xl overflow-hidden hover:bg-gray-200/90 dark:hover:bg-white/12 transition-all duration-500">
                       <CardContent className="p-6 text-center">
                         <div className="relative mb-4">
                           <div className={`absolute inset-0 bg-gradient-to-r ${feature.gradient} rounded-xl blur-lg opacity-40 group-hover:opacity-60 transition-opacity`} />
@@ -317,10 +317,10 @@ export default function InteractiveCTASection({ lang }: InteractiveCTASectionPro
                             <Icon className="w-7 h-7 text-white" />
                           </div>
                         </div>
-                        <div className="font-bold text-white mb-1">
+                        <div className="font-bold text-gray-800 dark:text-white mb-1">
                           {lang === 'es' ? feature.titleEs : feature.titleEn}
                         </div>
-                        <div className="text-xs text-white/60">
+                        <div className="text-xs text-gray-600 dark:text-white/60">
                           {lang === 'es' ? feature.descEs : feature.titleEn}
                         </div>
                       </CardContent>
@@ -346,7 +346,7 @@ export default function InteractiveCTASection({ lang }: InteractiveCTASectionPro
                   <div className="w-3 h-3 bg-blue-300 rounded-full animate-pulse animation-delay-1s" />
                   <div className="w-3 h-3 bg-indigo-300 rounded-full animate-pulse animation-delay-2s" />
                 </div>
-                <span className="text-white font-semibold text-lg">
+                <span className="text-gray-800 dark:text-white font-semibold text-lg">
                   {lang === 'es' ? 'Más de 10,000 experiencias exitosas' : 'Over 10,000 successful experiences'}
                 </span>
                 <Award className="w-6 h-6 text-amber-400" />

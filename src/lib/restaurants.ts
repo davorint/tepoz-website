@@ -2,6 +2,7 @@ import { Locale } from './i18n'
 
 export interface Restaurant {
   id: string
+  slug: string
   name: {
     es: string
     en: string
@@ -52,6 +53,7 @@ export interface Restaurant {
 export const mockRestaurants: Restaurant[] = [
   {
     id: '1',
+    slug: 'la-casa-del-tepozteco',
     name: {
       es: 'La Casa del Tepozteco',
       en: 'Tepozteco House Restaurant'
@@ -104,6 +106,7 @@ export const mockRestaurants: Restaurant[] = [
   },
   {
     id: '2',
+    slug: 'los-colorines',
     name: {
       es: 'Los Colorines',
       en: 'Los Colorines Traditional Restaurant'
@@ -154,6 +157,7 @@ export const mockRestaurants: Restaurant[] = [
   },
   {
     id: '3',
+    slug: 'el-jardin-de-los-sabores',
     name: {
       es: 'El Jardín de los Sabores',
       en: 'The Garden of Flavors'
@@ -206,6 +210,7 @@ export const mockRestaurants: Restaurant[] = [
   },
   {
     id: '4',
+    slug: 'la-terraza-del-centro',
     name: {
       es: 'La Terraza del Centro',
       en: 'Downtown Terrace Restaurant'
@@ -258,6 +263,7 @@ export const mockRestaurants: Restaurant[] = [
   },
   {
     id: '5',
+    slug: 'tacos-y-antojitos-lupita',
     name: {
       es: 'Tacos y Antojitos Lupita',
       en: 'Lupita\'s Tacos & Antojitos'
@@ -308,6 +314,7 @@ export const mockRestaurants: Restaurant[] = [
   },
   {
     id: '6',
+    slug: 'cafe-de-la-montana',
     name: {
       es: 'Café de la Montaña',
       en: 'Mountain Coffee House'
@@ -431,6 +438,10 @@ export class RestaurantService {
 
   static getRestaurantById(id: string): Restaurant | undefined {
     return mockRestaurants.find(restaurant => restaurant.id === id)
+  }
+
+  static getRestaurantBySlug(slug: string): Restaurant | undefined {
+    return mockRestaurants.find(restaurant => restaurant.slug === slug)
   }
 
   static getRestaurantName(restaurant: Restaurant, locale: Locale): string {

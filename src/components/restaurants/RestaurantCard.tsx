@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { Locale } from '@/lib/i18n'
 import { Restaurant, RestaurantService } from '@/lib/restaurants'
 import { Button } from '@/components/ui/button'
@@ -41,7 +42,7 @@ export default function RestaurantCard({
       <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-red-400 opacity-0 group-hover:opacity-15 dark:group-hover:opacity-20 blur-lg dark:blur-xl transition-all duration-500 dark:duration-700 rounded-3xl" />
       
       {/* Glassmorphism card */}
-      <Card className={`relative bg-white/70 dark:bg-white/10 backdrop-blur-md dark:backdrop-blur-xl rounded-3xl border border-slate-300/20 dark:border-white/20 shadow-lg shadow-slate-300/20 dark:shadow-white/12 hover:shadow-2xl dark:hover:shadow-3xl hover:shadow-slate-400/25 dark:hover:shadow-white/20 overflow-hidden transform-gpu transition-all duration-300 dark:duration-500 group-hover:scale-[1.02] dark:group-hover:scale-[1.02] hover:bg-white/80 dark:group-hover:bg-white/15 ${
+      <Card className={`relative bg-white/50 dark:bg-white/10 backdrop-blur-lg dark:backdrop-blur-xl rounded-3xl border border-white/30 dark:border-white/20 shadow-lg shadow-slate-300/20 dark:shadow-white/12 hover:shadow-2xl dark:hover:shadow-3xl hover:shadow-slate-400/25 dark:hover:shadow-white/20 overflow-hidden transform-gpu transition-all duration-300 dark:duration-500 group-hover:scale-[1.02] dark:group-hover:scale-[1.02] hover:bg-white/60 dark:group-hover:bg-white/15 ${
         viewMode === 'list' ? 'flex' : ''
       }`}>
         {/* Featured Badge */}
@@ -59,7 +60,7 @@ export default function RestaurantCard({
             size="sm"
             className="h-10 w-10 p-0 bg-white/80 dark:bg-white/20 backdrop-blur-sm dark:backdrop-blur-md border border-slate-300/30 dark:border-white/30 hover:bg-white/90 dark:hover:bg-white/30 rounded-full hover:scale-110 dark:hover:scale-125 transition-all duration-200 dark:duration-300"
           >
-            <Heart className="h-4 w-4 text-white" />
+            <Heart className="h-4 w-4 text-slate-700 dark:text-white" />
           </Button>
         </div>
 
@@ -186,16 +187,18 @@ export default function RestaurantCard({
 
           {/* Actions */}
           <div className={`flex gap-3 ${viewMode === 'list' ? 'mt-auto' : ''}`}>
-            <Button className="flex-1 bg-gradient-to-r from-orange-400 to-red-400 hover:from-orange-500 hover:to-red-500 text-white border-0 shadow-xl">
-              {locale === 'es' ? 'Ver Detalles' : 'View Details'}
-            </Button>
+            <Link href={`/${locale}/eat/restaurants/${restaurant.slug}`} className="flex-1">
+              <Button className="w-full bg-gradient-to-r from-orange-400 to-red-400 hover:from-orange-500 hover:to-red-500 text-white border-0 shadow-xl">
+                {locale === 'es' ? 'Ver Detalles' : 'View Details'}
+              </Button>
+            </Link>
             {restaurant.phone && (
-              <Button size="sm" className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 border-0 aspect-square p-0">
+              <Button size="sm" className="bg-slate-700/90 dark:bg-white/20 backdrop-blur-sm text-white hover:bg-slate-800 dark:hover:bg-white/30 border-0 aspect-square p-0">
                 <Phone className="w-4 h-4" />
               </Button>
             )}
             {restaurant.website && (
-              <Button size="sm" className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 border-0 aspect-square p-0">
+              <Button size="sm" className="bg-slate-700/90 dark:bg-white/20 backdrop-blur-sm text-white hover:bg-slate-800 dark:hover:bg-white/30 border-0 aspect-square p-0">
                 <Globe className="w-4 h-4" />
               </Button>
             )}

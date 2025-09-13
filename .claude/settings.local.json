@@ -3,7 +3,10 @@
     "allow": [
       "Bash(npm run lint)",
       "Bash(npx tsc:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "WebFetch(domain:docs.mapbox.com)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []

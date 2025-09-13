@@ -23,29 +23,48 @@ interface ExperienceCardProps {
   locale: Locale
   viewMode?: 'grid' | 'list'
   animationDelay?: number
+  onViewOnMap?: (experience: Experience) => void
 }
 
 export default function ExperienceCard({ 
   experience, 
   locale, 
   viewMode = 'grid', 
-  animationDelay = 0 
+  animationDelay = 0,
+  onViewOnMap
 }: ExperienceCardProps) {
-  const handlePhoneClick = () => {
+  const handlePhoneClick = (e: React.MouseEvent) => {
+    e.stopPropagation() // Prevent card click
     if (experience.phone) {
       window.open(`tel:${experience.phone}`, '_self')
     }
   }
 
-  const handleWebsiteClick = () => {
+  const handleWebsiteClick = (e: React.MouseEvent) => {
+    e.stopPropagation() // Prevent card click
     if (experience.website) {
       window.open(experience.website, '_blank', 'noopener,noreferrer')
     }
   }
 
-  const handleHeartClick = () => {
+  const handleHeartClick = (e: React.MouseEvent) => {
+    e.stopPropagation() // Prevent card click
     // TODO: Implement favorite functionality
     console.log('Heart clicked for experience:', experience.id)
+  }
+
+  const handleViewOnMap = (e: React.MouseEvent) => {
+    e.stopPropagation() // Prevent card click
+    if (onViewOnMap) {
+      onViewOnMap(experience)
+    }
+  }
+
+  const handleCardClick = () => {
+    // If experience has coordinates and onViewOnMap is available, navigate to map
+    if (experience.latitude && experience.longitude && onViewOnMap) {
+      onViewOnMap(experience)
+    }
   }
 
   const getCategoryColor = () => {
@@ -85,16 +104,20 @@ export default function ExperienceCard({
 
   return (
     <div 
-      className="group relative animate-fade-in-up"
+      className="group relative animate-fade-in-up transition-all duration-300"
       style={{ animationDelay: `${animationDelay}ms` }}
+      data-experience-id={experience.id}
     >
       {/* Card glow effect - Teal/Cyan Theme */}
       <div className={`absolute inset-0 bg-gradient-to-r ${getCategoryColor()} opacity-0 group-hover:opacity-20 blur-xl transition-all duration-700 rounded-3xl`} />
       
-      {/* Glassmorphism card */}
-      <Card className={`relative bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl overflow-hidden transform-gpu transition-all duration-500 group-hover:scale-[1.02] group-hover:bg-white/15 ${
-        viewMode === 'list' ? 'flex' : ''
-      }`}>
+      {/* Glassmorphism card with improved light mode readability */}
+      <Card 
+        className={`relative bg-white/95 dark:bg-white/10 backdrop-blur-xl rounded-3xl border border-gray-200/50 dark:border-white/20 shadow-2xl hover:shadow-3xl overflow-hidden transform-gpu transition-all duration-500 group-hover:scale-[1.02] group-hover:bg-white dark:group-hover:bg-white/15 cursor-pointer ${
+          viewMode === 'list' ? 'flex' : ''
+        }`}
+        onClick={handleCardClick}
+      >
         {/* Featured Badge */}
         {experience.featured && (
           <div className="absolute top-4 left-4 z-10">
@@ -124,8 +147,8 @@ export default function ExperienceCard({
 
         {/* Price Badge */}
         <div className="absolute top-4 right-4 z-10">
-          <div className="bg-white/20 backdrop-blur-sm border border-white/30 rounded-2xl px-3 py-2 text-center shadow-lg">
-            <div className="text-sm font-bold text-white">
+          <div className="bg-white/90 dark:bg-white/20 backdrop-blur-sm border border-gray-200 dark:border-white/30 rounded-2xl px-3 py-2 text-center shadow-lg">
+            <div className="text-sm font-bold text-gray-900 dark:text-white">
               {experience.price[locale]}
             </div>
           </div>
@@ -165,15 +188,15 @@ export default function ExperienceCard({
         <CardContent className={`p-6 ${viewMode === 'list' ? 'flex-1' : ''}`}>
           {/* Header */}
           <div className="mb-4">
-            <h3 className="text-xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:from-teal-300 group-hover:to-cyan-300 transition-all">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:from-teal-600 dark:group-hover:from-teal-300 group-hover:to-cyan-600 dark:group-hover:to-cyan-300 transition-all">
               {ExperienceService.getExperienceName(experience, locale)}
             </h3>
             
             <div className="flex items-center gap-3 mb-2 flex-wrap">
-              <div className="flex items-center bg-white/10 backdrop-blur-sm rounded-full px-3 py-1 border border-white/20">
+              <div className="flex items-center bg-gray-100/80 dark:bg-white/10 backdrop-blur-sm rounded-full px-3 py-1 border border-gray-300 dark:border-white/20">
                 <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                <span className="ml-1 text-white text-sm font-bold">{experience.rating}</span>
-                <span className="ml-1 text-white/70 text-xs">({experience.reviewCount})</span>
+                <span className="ml-1 text-gray-900 dark:text-white text-sm font-bold">{experience.rating}</span>
+                <span className="ml-1 text-gray-600 dark:text-white/70 text-xs">({experience.reviewCount})</span>
               </div>
               
               <Badge className="bg-teal-400/20 text-teal-300 border border-teal-400/30">
@@ -181,7 +204,7 @@ export default function ExperienceCard({
               </Badge>
 
               {/* Type Badge */}
-              <Badge variant="outline" className="text-xs border-white/30 text-white/70 capitalize">
+              <Badge variant="outline" className="text-xs border-gray-300 dark:border-white/30 text-gray-600 dark:text-white/70 capitalize">
                 {experience.type === 'individual' ? (locale === 'es' ? 'Individual' : 'Individual') :
                  experience.type === 'group' ? (locale === 'es' ? 'Grupo' : 'Group') :
                  (locale === 'es' ? 'Privado' : 'Private')}
@@ -190,7 +213,7 @@ export default function ExperienceCard({
           </div>
 
           {/* Description */}
-          <p className="text-white/70 text-sm mb-4 line-clamp-2">
+          <p className="text-gray-600 dark:text-white/70 text-sm mb-4 line-clamp-2">
             {ExperienceService.getExperienceShortDescription(experience, locale)}
           </p>
 
@@ -198,12 +221,12 @@ export default function ExperienceCard({
           <div className="mb-4">
             <div className="flex flex-wrap gap-1">
               {experience.highlights[locale].slice(0, viewMode === 'list' ? 3 : 2).map((highlight, idx) => (
-                <Badge key={idx} variant="outline" className="text-xs border-white/30 text-white/80">
+                <Badge key={idx} variant="outline" className="text-xs border-gray-300 dark:border-white/30 text-gray-700 dark:text-white/80">
                   {highlight}
                 </Badge>
               ))}
               {experience.highlights[locale].length > (viewMode === 'list' ? 3 : 2) && (
-                <Badge variant="outline" className="text-xs border-white/30 text-white/60">
+                <Badge variant="outline" className="text-xs border-gray-300 dark:border-white/30 text-gray-500 dark:text-white/60">
                   +{experience.highlights[locale].length - (viewMode === 'list' ? 3 : 2)}
                 </Badge>
               )}
@@ -212,12 +235,12 @@ export default function ExperienceCard({
 
           {/* Info */}
           <div className="space-y-2 mb-4 text-sm">
-            <div className="flex items-center text-white/70">
-              <MapPin className="w-4 h-4 mr-2 text-teal-400" />
+            <div className="flex items-center text-gray-600 dark:text-white/70">
+              <MapPin className="w-4 h-4 mr-2 text-teal-500 dark:text-teal-400" />
               <span className="line-clamp-1">{experience.location[locale]}</span>
             </div>
-            <div className="flex items-center text-white/70">
-              <Users className="w-4 h-4 mr-2 text-teal-400" />
+            <div className="flex items-center text-gray-600 dark:text-white/70">
+              <Users className="w-4 h-4 mr-2 text-teal-500 dark:text-teal-400" />
               {experience.maxParticipants ? 
                 `${locale === 'es' ? 'Máx' : 'Max'} ${experience.maxParticipants} ${locale === 'es' ? 'personas' : 'people'}` :
                 locale === 'es' ? 'Grupo flexible' : 'Flexible group'
@@ -249,11 +272,11 @@ export default function ExperienceCard({
           {/* Provider Info - Grid View Only */}
           {viewMode === 'grid' && (
             <div className="mb-4 text-sm">
-              <div className="flex items-center text-white/60">
+              <div className="flex items-center text-gray-500 dark:text-white/60">
                 <span>{locale === 'es' ? 'Por:' : 'By:'} </span>
-                <span className="font-medium text-white/80 ml-1">{experience.provider.name}</span>
+                <span className="font-medium text-gray-700 dark:text-white/80 ml-1">{experience.provider.name}</span>
                 {experience.provider.certification && (
-                  <Badge variant="outline" className="ml-2 text-xs border-white/30 text-white/60">
+                  <Badge variant="outline" className="ml-2 text-xs border-gray-300 dark:border-white/30 text-gray-500 dark:text-white/60">
                     {experience.provider.certification}
                   </Badge>
                 )}
@@ -266,6 +289,7 @@ export default function ExperienceCard({
             <Link 
               href={`/${locale}/experience/${ExperienceService.generateSlug(experience, locale)}`}
               className="flex-1"
+              onClick={(e) => e.stopPropagation()} // Prevent card click
             >
               <Button className="w-full bg-gradient-to-r from-teal-400 to-cyan-400 hover:from-teal-500 hover:to-cyan-500 text-white border-0 shadow-xl font-semibold">
                 {locale === 'es' ? 'Ver Detalles' : 'View Details'}
@@ -274,7 +298,7 @@ export default function ExperienceCard({
             {experience.phone && (
               <Button 
                 size="sm" 
-                className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 border-0 aspect-square p-0"
+                className="bg-gray-200/80 dark:bg-white/20 backdrop-blur-sm text-gray-700 dark:text-white hover:bg-gray-300/80 dark:hover:bg-white/30 border-0 aspect-square p-0"
                 onClick={handlePhoneClick}
               >
                 <Phone className="w-4 h-4" />
@@ -283,15 +307,25 @@ export default function ExperienceCard({
             {experience.website && (
               <Button 
                 size="sm" 
-                className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 border-0 aspect-square p-0"
+                className="bg-gray-200/80 dark:bg-white/20 backdrop-blur-sm text-gray-700 dark:text-white hover:bg-gray-300/80 dark:hover:bg-white/30 border-0 aspect-square p-0"
                 onClick={handleWebsiteClick}
               >
                 <Globe className="w-4 h-4" />
               </Button>
             )}
+            {experience.latitude && experience.longitude && onViewOnMap && (
+              <Button 
+                size="sm" 
+                className="bg-gray-200/80 dark:bg-white/20 backdrop-blur-sm text-gray-700 dark:text-white hover:bg-gray-300/80 dark:hover:bg-white/30 border-0 aspect-square p-0"
+                onClick={handleViewOnMap}
+                title={locale === 'es' ? 'Ver en mapa' : 'View on map'}
+              >
+                <MapPin className="w-4 h-4" />
+              </Button>
+            )}
             <Button 
               size="sm" 
-              className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 border-0 aspect-square p-0"
+              className="bg-gray-200/80 dark:bg-white/20 backdrop-blur-sm text-gray-700 dark:text-white hover:bg-gray-300/80 dark:hover:bg-white/30 border-0 aspect-square p-0"
               onClick={handleHeartClick}
             >
               <Heart className="w-4 h-4" />
