@@ -82,7 +82,7 @@ export default function RestaurantDetailClient({ slug, locale }: RestaurantDetai
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-200 via-sky-300/70 via-30% through-blue-400/50 through-60% to-indigo-400/40 dark:bg-gradient-to-b dark:from-sky-950 dark:via-sky-800 dark:via-30% dark:through-blue-800/70 dark:through-60% dark:to-indigo-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-sky-200 via-sky-300/70 via-blue-400/50 to-indigo-400/40 dark:bg-gradient-to-b dark:from-sky-950 dark:via-sky-800 dark:via-blue-800/70 dark:to-indigo-900 relative overflow-hidden">
       {/* Premium Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-20 w-[35rem] h-[35rem] bg-white/40 dark:bg-sky-400/15 rounded-full blur-3xl dark:blur-3xl animate-pulse" />
