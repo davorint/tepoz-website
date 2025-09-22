@@ -24,16 +24,16 @@ const socialLinks = [
 
 const businessLinks = {
   es: [
-    { name: 'Restaurantes', href: '/es/eat/restaurants' },
+    { name: 'Restaurantes', href: '/es/food-drink/restaurants' },
     { name: 'Hospedajes', href: '/es/stay' },
-    { name: 'Bares y Cantinas', href: '/es/eat/bars' },
+    { name: 'Bares y Cantinas', href: '/es/food-drink/bars' },
     { name: 'Regalos', href: '/es/shop/gifts' },
     { name: 'Spas', href: '/es/experience/spas' }
   ],
   en: [
-    { name: 'Restaurants', href: '/en/eat/restaurants' },
+    { name: 'Restaurants', href: '/en/food-drink/restaurants' },
     { name: 'Accommodations', href: '/en/stay' },
-    { name: 'Bars & Cantinas', href: '/en/eat/bars' },
+    { name: 'Bars & Cantinas', href: '/en/food-drink/bars' },
     { name: 'Gifts', href: '/en/shop/gifts' },
     { name: 'Spas', href: '/en/experience/spas' }
   ]

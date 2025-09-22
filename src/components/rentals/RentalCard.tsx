@@ -1,298 +1,39 @@
-'use client'
-
-import { Rental, RentalService } from '@/lib/rentals'
 import { Locale } from '@/lib/i18n'
-import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { 
-  Star, 
-  MapPin, 
-  Wifi, 
-  Car, 
-  Users,
-  Bed,
-  Bath,
-  ChefHat,
-  Heart,
-  Share2,
-  ChevronRight,
-  Home,
-  Zap,
-  Tv,
-  Wind,
-  TreePine
-} from 'lucide-react'
-import Image from 'next/image'
+import { Rental, RentalServiceStatic } from '@/lib/rentals'
+import { BusinessCard } from '@/components/business/BusinessCard'
+import { rentalCardConfig } from './RentalCardConfig'
 
 interface RentalCardProps {
   rental: Rental
   locale: Locale
   viewMode?: 'grid' | 'list'
+  animationDelay?: number
 }
 
-const amenityIcons: Record<string, React.ReactNode> = {
-  'kitchen': <ChefHat className="w-4 h-4" />,
-  'wifi': <Wifi className="w-4 h-4" />,
-  'parking': <Car className="w-4 h-4" />,
-  'pool': <Users className="w-4 h-4" />,
-  'garden': <TreePine className="w-4 h-4" />,
-  'terrace': <Home className="w-4 h-4" />,
-  'ac': <Wind className="w-4 h-4" />,
-  'heating': <Zap className="w-4 h-4" />,
-  'washer': <Home className="w-4 h-4" />,
-  'tv': <Tv className="w-4 h-4" />,
-  'fireplace': <Zap className="w-4 h-4" />
-}
-
-const categoryGradients: Record<string, string> = {
-  'apartment': 'from-blue-400 to-cyan-400',
-  'house': 'from-green-400 to-emerald-400',
-  'villa': 'from-purple-400 to-pink-400',
-  'studio': 'from-orange-400 to-red-400',
-  'cabin': 'from-amber-400 to-yellow-400',
-  'loft': 'from-slate-400 to-gray-400'
-}
-
-export default function RentalCard({ rental, locale, viewMode = 'grid' }: RentalCardProps) {
-  const name = RentalService.getRentalName(rental, locale)
-  const description = RentalService.getRentalDescription(rental, locale)
-
-  if (viewMode === 'list') {
-    return (
-      <Card className="bg-white/5 backdrop-blur-xl border-white/10 hover:bg-white/10 transition-all duration-300 overflow-hidden group">
-        <CardContent className="p-6">
-          <div className="flex gap-6">
-            {/* Image */}
-            <div className="relative w-48 h-32 rounded-xl overflow-hidden flex-shrink-0">
-              <div className="absolute inset-0 bg-gradient-to-br from-slate-800/50 to-transparent z-10" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10" />
-              <Image
-                src={rental.images[0]}
-                alt={name}
-                fill
-                className="object-cover group-hover:scale-110 transition-transform duration-500"
-              />
-              {rental.featured && (
-                <Badge className="absolute top-2 left-2 z-20 bg-gradient-to-r from-amber-400 to-yellow-400 text-white border-0">
-                  ⭐ {locale === 'es' ? 'Destacado' : 'Featured'}
-                </Badge>
-              )}
-            </div>
-
-            {/* Content */}
-            <div className="flex-1 min-w-0">
-              <div className="flex items-start justify-between mb-2">
-                <div>
-                  <h3 className="text-lg font-bold text-white mb-1 group-hover:text-amber-400 transition-colors">
-                    {name}
-                  </h3>
-                  <p className="text-white/60 text-sm line-clamp-1">
-                    {description}
-                  </p>
-                </div>
-                <Badge className={`bg-gradient-to-r ${categoryGradients[rental.category]} text-white border-0`}>
-                  {rental.category}
-                </Badge>
-              </div>
-
-              {/* Details */}
-              <div className="flex items-center gap-4 mb-3">
-                <div className="flex items-center gap-1">
-                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                  <span className="text-white font-medium">{rental.rating}</span>
-                  <span className="text-white/50 text-sm">({rental.reviews})</span>
-                </div>
-                <Badge className="bg-white/10 text-white/70 border-white/20">
-                  {rental.priceRange}
-                </Badge>
-                <div className="flex items-center gap-1 text-white/60">
-                  <MapPin className="w-3 h-3" />
-                  <span className="text-sm">{rental.location.neighborhood}</span>
-                </div>
-                <div className="flex items-center gap-2 text-white/60">
-                  <div className="flex items-center gap-1">
-                    <Bed className="w-3 h-3" />
-                    <span className="text-xs">{rental.roomInfo.bedrooms}</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Bath className="w-3 h-3" />
-                    <span className="text-xs">{rental.roomInfo.bathrooms}</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Users className="w-3 h-3" />
-                    <span className="text-xs">{rental.roomInfo.maxGuests}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Amenities */}
-              <div className="flex items-center gap-3">
-                <div className="flex gap-2">
-                  {rental.amenities.slice(0, 5).map((amenity) => (
-                    <div key={amenity} className="text-white/50">
-                      {amenityIcons[amenity]}
-                    </div>
-                  ))}
-                  {rental.amenities.length > 5 && (
-                    <span className="text-white/50 text-sm">+{rental.amenities.length - 5}</span>
-                  )}
-                </div>
-                <div className="ml-auto flex gap-2">
-                  <Button size="sm" className="bg-gradient-to-r from-amber-400 to-yellow-400 text-white">
-                    {locale === 'es' ? 'Ver Detalles' : 'View Details'}
-                  </Button>
-                  <Button size="sm" variant="ghost" className="text-white/60 hover:text-white">
-                    <Heart className="w-4 h-4" />
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    )
-  }
-
-  // Grid View
+export default function RentalCard({
+  rental,
+  locale,
+  viewMode = 'grid',
+  animationDelay = 0
+}: RentalCardProps) {
   return (
-    <Card className="bg-white/5 backdrop-blur-xl border-white/10 hover:bg-white/10 transition-all duration-300 overflow-hidden group h-full">
-      {/* Image */}
-      <div className="relative h-48 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-800/50 to-transparent z-10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10" />
-        <Image
-          src={rental.images[0]}
-          alt={name}
-          fill
-          className="object-cover group-hover:scale-110 transition-transform duration-700"
-        />
-        {rental.featured && (
-          <Badge className="absolute top-3 left-3 z-20 bg-gradient-to-r from-amber-400 to-yellow-400 text-white border-0 shadow-xl">
-            ⭐ {locale === 'es' ? 'Destacado' : 'Featured'}
-          </Badge>
-        )}
-        <Badge className={`absolute top-3 right-3 z-20 bg-gradient-to-r ${categoryGradients[rental.category]} text-white border-0 shadow-xl`}>
-          {rental.category}
-        </Badge>
-        {rental.instantBook && (
-          <Badge className="absolute bottom-3 left-3 z-20 bg-green-500 text-white border-0 shadow-xl">
-            {locale === 'es' ? 'Reserva Inmediata' : 'Instant Book'}
-          </Badge>
-        )}
-      </div>
-
-      <CardContent className="p-6 space-y-4">
-        {/* Title & Rating */}
-        <div>
-          <h3 className="font-bold text-white text-lg mb-1 group-hover:text-amber-400 transition-colors">
-            {name}
-          </h3>
-          <p className="text-white/60 text-sm line-clamp-2">
-            {description}
-          </p>
-        </div>
-
-        {/* Rating & Reviews */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1">
-              <Star className="w-4 h-4 text-yellow-400 fill-current" />
-              <span className="text-white font-medium">{rental.rating}</span>
-            </div>
-            <span className="text-white/50 text-sm">({rental.reviews} {locale === 'es' ? 'reseñas' : 'reviews'})</span>
-          </div>
-          <Badge className="bg-white/10 text-white/70 border-white/20">
-            {rental.priceRange}
-          </Badge>
-        </div>
-
-        {/* Location */}
-        <div className="flex items-center gap-2 text-white/60">
-          <MapPin className="w-4 h-4" />
-          <span className="text-sm">{rental.location.neighborhood}</span>
-        </div>
-
-        {/* Room Info */}
-        <div className="flex items-center gap-4 text-white/70">
-          <div className="flex items-center gap-1">
-            <Bed className="w-4 h-4" />
-            <span className="text-sm">{rental.roomInfo.bedrooms} {locale === 'es' ? 'rec' : 'bed'}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Bath className="w-4 h-4" />
-            <span className="text-sm">{rental.roomInfo.bathrooms} {locale === 'es' ? 'baño' : 'bath'}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Users className="w-4 h-4" />
-            <span className="text-sm">{rental.roomInfo.maxGuests} {locale === 'es' ? 'huésp.' : 'guests'}</span>
-          </div>
-        </div>
-
-        {/* Amenities */}
-        <div className="flex flex-wrap gap-2">
-          {rental.amenities.slice(0, 4).map((amenity) => (
-            <div key={amenity} className="flex items-center gap-1 bg-white/10 rounded-full px-2 py-1">
-              <span className="text-white/70 text-xs">
-                {amenityIcons[amenity]}
-              </span>
-            </div>
-          ))}
-          {rental.amenities.length > 4 && (
-            <Badge className="bg-white/10 text-white/50 border-0 text-xs">
-              +{rental.amenities.length - 4}
-            </Badge>
-          )}
-        </div>
-
-        {/* Features */}
-        <div className="flex gap-2">
-          {rental.petFriendly && (
-            <Badge className="bg-blue-400/20 text-blue-400 border-blue-400/30">
-              🐕 Pet OK
-            </Badge>
-          )}
-          {rental.familyFriendly && (
-            <Badge className="bg-green-400/20 text-green-400 border-green-400/30">
-              👨‍👩‍👧‍👦 Family
-            </Badge>
-          )}
-          {rental.workFriendly && (
-            <Badge className="bg-purple-400/20 text-purple-400 border-purple-400/30">
-              💻 Work
-            </Badge>
-          )}
-        </div>
-
-        {/* Price */}
-        <div className="border-t border-white/10 pt-4">
-          <div className="flex items-end justify-between mb-3">
-            <div>
-              <p className="text-white/50 text-xs">
-                {locale === 'es' ? 'Desde' : 'From'}
-              </p>
-              <p className="text-white text-2xl font-bold">
-                ${rental.roomInfo.pricePerNight}
-                <span className="text-sm font-normal text-white/50">
-                  /{locale === 'es' ? 'noche' : 'night'}
-                </span>
-              </p>
-            </div>
-            <div className="flex gap-2">
-              <Button size="sm" variant="ghost" className="text-white/60 hover:text-white">
-                <Heart className="w-4 h-4" />
-              </Button>
-              <Button size="sm" variant="ghost" className="text-white/60 hover:text-white">
-                <Share2 className="w-4 h-4" />
-              </Button>
-            </div>
-          </div>
-          <Button className="w-full bg-gradient-to-r from-amber-400 to-yellow-400 hover:from-amber-500 hover:to-yellow-500 text-white">
-            {locale === 'es' ? 'Ver Disponibilidad' : 'Check Availability'}
-            <ChevronRight className="w-4 h-4 ml-2" />
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+    <BusinessCard
+      business={rental}
+      locale={locale}
+      config={rentalCardConfig}
+      viewMode={viewMode}
+      animationDelay={animationDelay}
+      getName={RentalServiceStatic.getRentalName}
+      getDescription={RentalServiceStatic.getRentalDescription}
+      getAddress={RentalServiceStatic.getRentalAddress}
+      getHours={RentalServiceStatic.getRentalHours}
+      getSpecialties={RentalServiceStatic.getRentalSpecialties}
+      customAmenities={{
+        instantBook: rental.instantBook,
+        petFriendly: rental.petFriendly,
+        workFriendly: rental.workFriendly,
+        familyFriendly: rental.familyFriendly
+      }}
+    />
   )
 }

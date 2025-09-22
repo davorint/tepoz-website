@@ -86,12 +86,12 @@ export default function MapboxTestPage() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-slate-900 p-8">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 p-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold text-white mb-4 text-center">
+        <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-4 text-center">
           Mapbox Fullscreen Control Debug Test
         </h1>
-        <p className="text-white/70 mb-8 text-center">
+        <p className="text-slate-700 dark:text-white/70 mb-8 text-center">
           Check browser console for debugging information
         </p>
         <div 
@@ -99,8 +99,8 @@ export default function MapboxTestPage() {
           className="w-full h-96 bg-gray-800 rounded-lg"
         />
         <div className="mt-4 bg-white/5 rounded-lg p-4">
-          <h2 className="text-white font-semibold mb-2">Expected Results:</h2>
-          <ul className="text-white/70 text-sm space-y-1">
+          <h2 className="text-slate-900 dark:text-white font-semibold mb-2">Expected Results:</h2>
+          <ul className="text-slate-700 dark:text-white/70 text-sm space-y-1">
             <li>• Fullscreen button should appear in top-right corner</li>
             <li>• Console should show fullscreen API availability</li>
             <li>• DOM query should find .mapboxgl-ctrl-fullscreen elements</li>

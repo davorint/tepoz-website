@@ -473,7 +473,7 @@ export default function AllCafesBakeriesPageClient({ locale }: AllCafesBakeriesP
   }, [gridApi])
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-amber-900 to-slate-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-sky-200 via-sky-300/70 via-blue-400/50 to-indigo-400/40 dark:bg-gradient-to-b dark:from-slate-950 dark:via-amber-800 dark:to-slate-900 relative overflow-hidden">
       {/* Ultra Premium Background - Matching main cafes page */}
       <div className="absolute inset-0">
         {/* Animated gradient orbs */}
@@ -498,7 +498,7 @@ export default function AllCafesBakeriesPageClient({ locale }: AllCafesBakeriesP
             <div className="h-px w-20 bg-gradient-to-r from-transparent to-amber-400" />
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-400 blur-lg" />
-              <Badge className="relative bg-gradient-to-r from-amber-400 to-orange-400 text-white px-8 py-3 text-sm font-semibold tracking-wider uppercase border-0 shadow-2xl">
+              <Badge className="relative bg-gradient-to-r from-amber-400 to-orange-400 text-slate-900 dark:text-white px-8 py-3 text-sm font-semibold tracking-wider uppercase border-0 shadow-2xl">
                 📊 {locale === 'es' ? 'Directorio Completo' : 'Complete Directory'} 📊
               </Badge>
             </div>
@@ -506,7 +506,7 @@ export default function AllCafesBakeriesPageClient({ locale }: AllCafesBakeriesP
           </div>
           
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 font-sans">
-            <span className="text-white drop-shadow-2xl">
+            <span className="text-slate-900 dark:text-white drop-shadow-2xl">
               {locale === 'es' ? 'Base de Datos' : 'Database'}
             </span>
             <br />
@@ -515,7 +515,7 @@ export default function AllCafesBakeriesPageClient({ locale }: AllCafesBakeriesP
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-white/80 font-light max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-slate-700 dark:text-white/80 font-light max-w-4xl mx-auto leading-relaxed">
             {locale === 'es' 
               ? 'Explora y filtra todos los cafés y panaderías con herramientas avanzadas de búsqueda y análisis'
               : 'Explore and filter all cafés and bakeries with advanced search and analysis tools'
@@ -535,14 +535,14 @@ export default function AllCafesBakeriesPageClient({ locale }: AllCafesBakeriesP
                   <div className="relative">
                     <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-400 blur-xl opacity-50" />
                     <div className="relative bg-gradient-to-r from-amber-400 to-orange-400 p-3 rounded-2xl shadow-2xl">
-                      <Coffee className="h-8 w-8 text-white" />
+                      <Coffee className="h-8 w-8 text-slate-900 dark:text-white" />
                     </div>
                   </div>
                   <div>
-                    <CardTitle className="text-3xl font-bold text-white">
+                    <CardTitle className="text-3xl font-bold text-slate-900 dark:text-white">
                       {locale === 'es' ? 'Análisis de Datos' : 'Data Analysis'}
                     </CardTitle>
-                    <CardDescription className="text-white/70 mt-1">
+                    <CardDescription className="text-slate-700 dark:text-white/70 mt-1">
                       {locale === 'es' 
                         ? 'Herramientas profesionales de búsqueda y filtrado'
                         : 'Professional search and filtering tools'
@@ -551,12 +551,12 @@ export default function AllCafesBakeriesPageClient({ locale }: AllCafesBakeriesP
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Badge variant="outline" className="text-lg px-6 py-3 bg-gradient-to-r from-amber-400/10 to-orange-400/10 text-white border-amber-400/30 backdrop-blur-sm">
+                  <Badge variant="outline" className="text-lg px-6 py-3 bg-gradient-to-r from-amber-400/10 to-orange-400/10 text-slate-900 dark:text-white border-amber-400/30 backdrop-blur-sm">
                     <Activity className="h-4 w-4 mr-2 text-amber-400" />
                     <span className="font-bold">{cafeData.length}</span> {locale === 'es' ? 'Registros' : 'Records'}
                   </Badge>
                   {selectedRows.length > 0 && (
-                    <Badge className="text-lg px-6 py-3 bg-gradient-to-r from-amber-400 to-orange-400 text-white shadow-xl">
+                    <Badge className="text-lg px-6 py-3 bg-gradient-to-r from-amber-400 to-orange-400 text-slate-900 dark:text-white shadow-xl">
                       <span className="font-bold">{selectedRows.length}</span> {locale === 'es' ? 'Seleccionados' : 'Selected'}
                     </Badge>
                   )}
@@ -576,7 +576,7 @@ export default function AllCafesBakeriesPageClient({ locale }: AllCafesBakeriesP
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="text-sm text-amber-300 font-medium">{locale === 'es' ? 'Destacados' : 'Featured'}</p>
-                          <p className="text-3xl font-bold text-white mt-1">
+                          <p className="text-3xl font-bold text-slate-900 dark:text-white mt-1">
                             {cafeData.filter(c => c.featured).length}
                           </p>
                         </div>
@@ -600,7 +600,7 @@ export default function AllCafesBakeriesPageClient({ locale }: AllCafesBakeriesP
                         <div>
                           <p className="text-sm text-orange-300 font-medium">{locale === 'es' ? 'Calificación Promedio' : 'Average Rating'}</p>
                           <div className="flex items-baseline gap-1 mt-1">
-                            <p className="text-3xl font-bold text-white">
+                            <p className="text-3xl font-bold text-slate-900 dark:text-white">
                               {(cafeData.reduce((sum, c) => sum + c.rating, 0) / cafeData.length || 0).toFixed(1)}
                             </p>
                             <span className="text-orange-400 text-xl">⭐</span>
@@ -625,7 +625,7 @@ export default function AllCafesBakeriesPageClient({ locale }: AllCafesBakeriesP
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="text-sm text-yellow-300 font-medium">{locale === 'es' ? 'Total Reseñas' : 'Total Reviews'}</p>
-                          <p className="text-3xl font-bold text-white mt-1">
+                          <p className="text-3xl font-bold text-slate-900 dark:text-white mt-1">
                             {cafeData.reduce((sum, c) => sum + c.reviewCount, 0).toLocaleString()}
                           </p>
                         </div>
@@ -651,11 +651,11 @@ export default function AllCafesBakeriesPageClient({ locale }: AllCafesBakeriesP
                             {selectedRows.length > 0 ? (locale === 'es' ? 'Café Seleccionado' : 'Selected Café') : (locale === 'es' ? 'Tipos de Cafés' : 'Café Types')}
                           </p>
                           {selectedRows.length > 0 ? (
-                            <p className="text-lg font-bold text-white leading-tight mt-1">
+                            <p className="text-lg font-bold text-slate-900 dark:text-white leading-tight mt-1">
                               {CafeService.getCafeName(selectedRows[0], locale)}
                             </p>
                           ) : (
-                            <p className="text-3xl font-bold text-white mt-1">
+                            <p className="text-3xl font-bold text-slate-900 dark:text-white mt-1">
                               {new Set(cafeData.map(c => c.primaryType)).size}
                             </p>
                           )}
@@ -680,13 +680,13 @@ export default function AllCafesBakeriesPageClient({ locale }: AllCafesBakeriesP
                   {/* Quick Filter */}
                   <div className="flex-1 min-w-[300px]">
                     <div className="relative">
-                      <Filter className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50 w-5 h-5" />
+                      <Filter className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-600 dark:text-white/50 w-5 h-5" />
                       <Input
                         type="text"
                         placeholder={locale === 'es' ? 'Búsqueda rápida en todos los campos...' : 'Quick search across all fields...'}
                         value={quickFilter}
                         onChange={(e) => setQuickFilter(e.target.value)}
-                        className="w-full pl-12 h-12 bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder-white/50 focus:border-amber-400/50 transition-colors"
+                        className="w-full pl-12 h-12 bg-white/20 dark:bg-white/10 backdrop-blur-sm border-slate-300/30 dark:border-white/20 text-slate-900 dark:text-white placeholder-slate-600 dark:placeholder-white/50 focus:border-amber-400/50 transition-colors"
                       />
                     </div>
                   </div>

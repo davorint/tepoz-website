@@ -9,16 +9,27 @@ import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { 
-  Search, 
-  SlidersHorizontal, 
-  Grid3X3, 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
+import {
+  Search,
+  SlidersHorizontal,
+  Grid3X3,
   List,
   Mountain,
   Calendar,
-  Heart
+  Heart,
+  Home,
+  Compass
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import Link from 'next/link'
 
 interface AmatlanPageClientProps {
   locale: Locale
@@ -86,7 +97,7 @@ export default function AmatlanPageClient({ locale }: AmatlanPageClientProps) {
   const mustSeeAttractions = AmatlanService.getMustSeeAttractions()
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-900">
+    <div className="relative min-h-screen bg-gradient-to-b from-emerald-50 via-green-50 to-teal-50 dark:bg-gradient-to-br dark:from-slate-900 dark:via-emerald-900 dark:to-slate-900">
       {/* Ultra Premium Background */}
       <div className="absolute inset-0">
         {/* Animated gradient orbs */}
@@ -105,13 +116,44 @@ export default function AmatlanPageClient({ locale }: AmatlanPageClientProps) {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-12">
+        {/* Breadcrumb */}
+        <div className="mb-8">
+          <Breadcrumb className="text-slate-900 dark:text-slate-700 dark:text-white/70">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href={`/${locale}`} className="flex items-center gap-1.5 hover:text-emerald-400 transition-colors">
+                    <Home className="w-4 h-4" />
+                    {locale === 'es' ? 'Inicio' : 'Home'}
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href={`/${locale}/discover`} className="flex items-center gap-1.5 hover:text-emerald-400 transition-colors">
+                    <Compass className="w-4 h-4" />
+                    {locale === 'es' ? 'Descubre' : 'Discover'}
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage className="flex items-center gap-1.5 font-medium text-emerald-400">
+                  🌊 Amatlán
+                </BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+
         {/* Premium Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 mb-8">
             <div className="h-px w-20 bg-gradient-to-r from-transparent to-emerald-400" />
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-teal-400 blur-lg" />
-              <Badge className="relative bg-gradient-to-r from-emerald-400 to-teal-400 text-white px-8 py-3 text-sm font-semibold tracking-wider uppercase border-0 shadow-2xl">
+              <Badge className="relative bg-gradient-to-r from-emerald-400 to-teal-400 text-slate-900 dark:text-white px-8 py-3 text-sm font-semibold tracking-wider uppercase border-0 shadow-2xl">
                 🐍 {locale === 'es' ? 'Lugar de Nacimiento de Quetzalcóatl' : 'Birthplace of Quetzalcoatl'} ✨
               </Badge>
             </div>
@@ -119,7 +161,7 @@ export default function AmatlanPageClient({ locale }: AmatlanPageClientProps) {
           </div>
           
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 font-sans">
-            <span className="text-white drop-shadow-2xl">
+            <span className="text-slate-900 dark:text-white drop-shadow-2xl">
               {locale === 'es' ? 'Descubre ' : 'Discover '}
             </span>
             <br />
@@ -128,10 +170,10 @@ export default function AmatlanPageClient({ locale }: AmatlanPageClientProps) {
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-white/80 font-light max-w-4xl mx-auto leading-relaxed mb-8">
+          <p className="text-xl md:text-2xl text-slate-900 dark:text-slate-700 dark:text-white/80 font-light max-w-4xl mx-auto leading-relaxed mb-8">
             {locale === 'es' 
-              ? 'Lugar sagrado donde nació Quetzalcóatl, la serpiente emplumada. Descubre cenotes de aguas turquesas, cascadas cristalinas y la energía mística ancestral.'
-              : 'Sacred place where Quetzalcoatl, the feathered serpent, was born. Discover turquoise water cenotes, crystal waterfalls and ancestral mystical energy.'
+              ? 'Lugar ancestral donde nació Quetzalcóatl, la serpiente emplumada. Descubre cenotes de aguas turquesas, cascadas cristalinas y la energía mística ancestral.'
+              : 'Ancestral place where Quetzalcoatl, the feathered serpent, was born. Discover turquoise water cenotes, crystal waterfalls and ancestral mystical energy.'
             }
           </p>
 
@@ -139,15 +181,15 @@ export default function AmatlanPageClient({ locale }: AmatlanPageClientProps) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto mb-8">
             <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
               <div className="text-3xl font-bold text-emerald-400 mb-2">{filteredAttractions.length}</div>
-              <div className="text-white/70 text-sm">{locale === 'es' ? 'Atracciones' : 'Attractions'}</div>
+              <div className="text-slate-900 dark:text-slate-700 dark:text-white/70 text-sm">{locale === 'es' ? 'Atracciones' : 'Attractions'}</div>
             </div>
             <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
               <div className="text-3xl font-bold text-teal-400 mb-2">{mustSeeAttractions.length}</div>
-              <div className="text-white/70 text-sm">{locale === 'es' ? 'Imperdibles' : 'Must See'}</div>
+              <div className="text-slate-900 dark:text-slate-700 dark:text-white/70 text-sm">{locale === 'es' ? 'Imperdibles' : 'Must See'}</div>
             </div>
             <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
               <div className="text-3xl font-bold text-cyan-400 mb-2">947</div>
-              <div className="text-white/70 text-sm">{locale === 'es' ? 'Año d.C.' : 'AD Year'}</div>
+              <div className="text-slate-900 dark:text-slate-700 dark:text-white/70 text-sm">{locale === 'es' ? 'Año d.C.' : 'AD Year'}</div>
             </div>
           </div>
 
@@ -162,17 +204,17 @@ export default function AmatlanPageClient({ locale }: AmatlanPageClientProps) {
             {/* Search Bar */}
             <div className="flex flex-col md:flex-row gap-4">
               <div className="relative flex-1">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-900 dark:text-white/40" />
                 <Input
-                  placeholder={locale === 'es' ? 'Buscar lugares sagrados, pozas, senderos...' : 'Search sacred sites, pools, trails...'}
+                  placeholder={locale === 'es' ? 'Buscar lugares ancestrales, pozas, senderos...' : 'Search ancient sites, pools, trails...'}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-12 h-12 bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder:text-white/40 text-base"
+                  className="pl-12 h-12 bg-white/80 dark:bg-white/10 backdrop-blur-sm border-emerald-300/50 dark:border-white/20 text-slate-900 dark:text-white placeholder:text-slate-900 dark:text-white/40 text-base"
                 />
               </div>
               <Button
                 onClick={() => setShowFilters(!showFilters)}
-                className="h-12 px-6 bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-500 hover:to-teal-500 text-white border-0 shadow-xl"
+                className="h-12 px-6 bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-500 hover:to-teal-500 text-slate-900 dark:text-white border-0 shadow-xl"
               >
                 <SlidersHorizontal className="w-4 h-4 mr-2" />
                 {locale === 'es' ? 'Filtros' : 'Filters'}
@@ -188,23 +230,23 @@ export default function AmatlanPageClient({ locale }: AmatlanPageClientProps) {
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="flex items-center gap-4">
                 <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-48 bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                  <SelectTrigger className="w-48 bg-white/80 dark:bg-white/10 backdrop-blur-sm border-emerald-300/50 dark:border-white/20 text-slate-900 dark:text-white">
                     <SelectValue placeholder={locale === 'es' ? 'Ordenar por' : 'Sort by'} />
                   </SelectTrigger>
                   <SelectContent className="bg-slate-800 border-slate-600">
-                    <SelectItem value="featured" className="text-white">
+                    <SelectItem value="featured" className="text-slate-900 dark:text-white">
                       {locale === 'es' ? 'Destacados' : 'Featured'}
                     </SelectItem>
-                    <SelectItem value="popular" className="text-white">
+                    <SelectItem value="popular" className="text-slate-900 dark:text-white">
                       {locale === 'es' ? 'Popular' : 'Popular'}
                     </SelectItem>
-                    <SelectItem value="difficulty" className="text-white">
+                    <SelectItem value="difficulty" className="text-slate-900 dark:text-white">
                       {locale === 'es' ? 'Dificultad' : 'Difficulty'}
                     </SelectItem>
                   </SelectContent>
                 </Select>
 
-                <div className="text-white/70 text-sm">
+                <div className="text-slate-900 dark:text-slate-700 dark:text-white/70 text-sm">
                   {filteredAttractions.length} {locale === 'es' ? 'resultados' : 'results'}
                 </div>
               </div>
@@ -216,8 +258,8 @@ export default function AmatlanPageClient({ locale }: AmatlanPageClientProps) {
                   variant={viewMode === 'grid' ? 'default' : 'ghost'}
                   size="sm"
                   className={viewMode === 'grid' 
-                    ? 'bg-gradient-to-r from-emerald-400 to-teal-400 text-white' 
-                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                    ? 'bg-gradient-to-r from-emerald-400 to-teal-400 text-slate-900 dark:text-white' 
+                    : 'text-slate-900 dark:text-slate-700 dark:text-white/70 hover:text-slate-900 dark:text-white hover:bg-white/80 dark:bg-white/10'
                   }
                 >
                   <Grid3X3 className="w-4 h-4 mr-2" />
@@ -228,8 +270,8 @@ export default function AmatlanPageClient({ locale }: AmatlanPageClientProps) {
                   variant={viewMode === 'list' ? 'default' : 'ghost'}
                   size="sm"
                   className={viewMode === 'list' 
-                    ? 'bg-gradient-to-r from-emerald-400 to-teal-400 text-white' 
-                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                    ? 'bg-gradient-to-r from-emerald-400 to-teal-400 text-slate-900 dark:text-white' 
+                    : 'text-slate-900 dark:text-slate-700 dark:text-white/70 hover:text-slate-900 dark:text-white hover:bg-white/80 dark:bg-white/10'
                   }
                 >
                   <List className="w-4 h-4 mr-2" />
@@ -242,7 +284,7 @@ export default function AmatlanPageClient({ locale }: AmatlanPageClientProps) {
             {showFilters && (
               <div className="mt-8 pt-8 border-t border-white/10">
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-lg font-semibold text-white">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
                     {locale === 'es' ? 'Filtros Avanzados' : 'Advanced Filters'}
                   </h3>
                   {activeFiltersCount > 0 && (
@@ -250,7 +292,7 @@ export default function AmatlanPageClient({ locale }: AmatlanPageClientProps) {
                       variant="ghost"
                       size="sm"
                       onClick={clearFilters}
-                      className="text-white/60 hover:text-white hover:bg-white/10"
+                      className="text-slate-900 dark:text-white/60 hover:text-slate-900 dark:text-white hover:bg-white/80 dark:bg-white/10"
                     >
                       {locale === 'es' ? 'Limpiar Todo' : 'Clear All'}
                     </Button>
@@ -260,7 +302,7 @@ export default function AmatlanPageClient({ locale }: AmatlanPageClientProps) {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Category Filter */}
                   <div>
-                    <label className="text-white font-semibold mb-3 block">
+                    <label className="text-slate-900 dark:text-white font-semibold mb-3 block">
                       {locale === 'es' ? 'Categoría' : 'Category'}
                     </label>
                     <div className="flex flex-wrap gap-2">
@@ -271,8 +313,8 @@ export default function AmatlanPageClient({ locale }: AmatlanPageClientProps) {
                           className={cn(
                             "cursor-pointer transition-all px-4 py-2",
                             selectedCategory === category.id
-                              ? `bg-gradient-to-r ${category.color} text-white border-0`
-                              : "bg-white/10 text-white/70 border-white/20 hover:bg-white/20"
+                              ? `bg-gradient-to-r ${category.color} text-slate-900 dark:text-white border-0`
+                              : "bg-white/80 dark:bg-white/10 text-slate-900 dark:text-slate-700 dark:text-white/70 border-emerald-300/50 dark:border-white/20 hover:bg-white/20"
                           )}
                         >
                           <span className="mr-2">{category.emoji}</span>
@@ -284,27 +326,27 @@ export default function AmatlanPageClient({ locale }: AmatlanPageClientProps) {
 
                   {/* Difficulty Filter */}
                   <div>
-                    <label className="text-white font-semibold mb-3 block">
+                    <label className="text-slate-900 dark:text-white font-semibold mb-3 block">
                       {locale === 'es' ? 'Dificultad' : 'Difficulty'}
                     </label>
                     <Select value={selectedDifficulty} onValueChange={setSelectedDifficulty}>
-                      <SelectTrigger className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                      <SelectTrigger className="bg-white/80 dark:bg-white/10 backdrop-blur-sm border-emerald-300/50 dark:border-white/20 text-slate-900 dark:text-white">
                         <SelectValue placeholder={locale === 'es' ? 'Todas' : 'All'} />
                       </SelectTrigger>
                       <SelectContent className="bg-slate-800 border-slate-600">
-                        <SelectItem value="all" className="text-white">
+                        <SelectItem value="all" className="text-slate-900 dark:text-white">
                           {locale === 'es' ? 'Todas' : 'All'}
                         </SelectItem>
-                        <SelectItem value="easy" className="text-white">
+                        <SelectItem value="easy" className="text-slate-900 dark:text-white">
                           {locale === 'es' ? 'Fácil' : 'Easy'}
                         </SelectItem>
-                        <SelectItem value="moderate" className="text-white">
+                        <SelectItem value="moderate" className="text-slate-900 dark:text-white">
                           {locale === 'es' ? 'Moderado' : 'Moderate'}
                         </SelectItem>
-                        <SelectItem value="hard" className="text-white">
+                        <SelectItem value="hard" className="text-slate-900 dark:text-white">
                           {locale === 'es' ? 'Difícil' : 'Hard'}
                         </SelectItem>
-                        <SelectItem value="extreme" className="text-white">
+                        <SelectItem value="extreme" className="text-slate-900 dark:text-white">
                           {locale === 'es' ? 'Extremo' : 'Extreme'}
                         </SelectItem>
                       </SelectContent>
@@ -321,11 +363,11 @@ export default function AmatlanPageClient({ locale }: AmatlanPageClientProps) {
         <div className="mb-12">
           {filteredAttractions.length === 0 ? (
             <div className="text-center py-16">
-              <Mountain className="w-16 h-16 text-white/20 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-2">
+              <Mountain className="w-16 h-16 text-slate-900 dark:text-white/20 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
                 {locale === 'es' ? 'No se encontraron atracciones' : 'No attractions found'}
               </h3>
-              <p className="text-white/60 mb-4">
+              <p className="text-slate-900 dark:text-white/60 mb-4">
                 {locale === 'es' 
                   ? 'Intenta ajustar tus filtros para encontrar más opciones.'
                   : 'Try adjusting your filters to find more options.'
@@ -333,7 +375,7 @@ export default function AmatlanPageClient({ locale }: AmatlanPageClientProps) {
               </p>
               <Button 
                 onClick={clearFilters} 
-                className="bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-500 hover:to-teal-500 text-white"
+                className="bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-500 hover:to-teal-500 text-slate-900 dark:text-white"
               >
                 {locale === 'es' ? 'Limpiar Filtros' : 'Clear Filters'}
               </Button>
@@ -359,26 +401,26 @@ export default function AmatlanPageClient({ locale }: AmatlanPageClientProps) {
 
         {/* Bottom CTA */}
         <div className="text-center py-12">
-          <Card className="bg-gradient-to-r from-emerald-400/10 to-teal-400/10 backdrop-blur-xl border-white/20 p-12 max-w-4xl mx-auto">
+          <Card className="bg-gradient-to-r from-emerald-400/10 to-teal-400/10 backdrop-blur-xl border-emerald-300/50 dark:border-white/20 p-12 max-w-4xl mx-auto">
             <CardContent className="space-y-6">
-              <h2 className="text-3xl font-bold text-white">
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
                 {locale === 'es' 
                   ? '¿Listo para explorar lo místico?' 
                   : 'Ready to explore the mystical?'
                 }
               </h2>
-              <p className="text-white/80 text-lg max-w-2xl mx-auto">
+              <p className="text-slate-900 dark:text-slate-700 dark:text-white/80 text-lg max-w-2xl mx-auto">
                 {locale === 'es'
                   ? 'Reserva tu visita guiada y descubre los secretos ancestrales de Amatlán de Quetzalcóatl'
                   : 'Book your guided visit and discover the ancestral secrets of Amatlán de Quetzalcóatl'
                 }
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button className="bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-500 hover:to-teal-500 text-white px-8 py-6 text-lg">
+                <Button className="bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-500 hover:to-teal-500 text-slate-900 dark:text-white px-8 py-6 text-lg">
                   <Calendar className="w-5 h-5 mr-2" />
                   {locale === 'es' ? 'Reservar Tour' : 'Book Tour'}
                 </Button>
-                <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 px-8 py-6 text-lg">
+                <Button variant="outline" className="border-emerald-300/50 dark:border-white/20 text-slate-900 dark:text-white hover:bg-white/80 dark:bg-white/10 px-8 py-6 text-lg">
                   <Heart className="w-5 h-5 mr-2" />
                   {locale === 'es' ? 'Guardar Lugares' : 'Save Places'}
                 </Button>

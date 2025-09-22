@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { EcoLodge, EcoLodgeService, ecoLodgeCategories, ecoAmenityTypes, ecoLodgePriceRanges } from '@/lib/eco-lodges'
+import { EcoLodge, EcoLodgeServiceStatic, ecoLodgeCategories, ecoAmenityTypes, ecoLodgePriceRanges } from '@/lib/eco-lodges'
 import { Locale } from '@/lib/i18n'
 import EcoLodgeCard from './EcoLodgeCard'
 import { Button } from '@/components/ui/button'
@@ -52,7 +52,7 @@ export default function EcoLodgesPageClient({ locale }: EcoLodgesPageClientProps
 
   // Filter and sort lodges
   useEffect(() => {
-    let lodges = EcoLodgeService.searchEcoLodges(
+    let lodges = EcoLodgeServiceStatic.searchEcoLodges(
       searchQuery,
       selectedCategory,
       selectedPriceRange,
@@ -72,7 +72,7 @@ export default function EcoLodgesPageClient({ locale }: EcoLodgesPageClientProps
         case 'rating':
           return b.rating - a.rating
         case 'reviews':
-          return b.reviews - a.reviews
+          return (b.reviews?.length || 0) - (a.reviews?.length || 0)
         default:
           return 0
       }
@@ -118,19 +118,19 @@ export default function EcoLodgesPageClient({ locale }: EcoLodgesPageClientProps
   ].reduce((a, b) => a + b, 0)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-green-900 to-emerald-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-emerald-50 via-green-50 to-teal-50 dark:bg-gradient-to-br dark:from-slate-900 dark:via-green-900 dark:to-emerald-900 relative overflow-hidden">
       {/* Ultra Premium Background */}
       <div className="absolute inset-0">
         {/* Animated gradient orbs */}
-        <div className="absolute top-20 left-20 w-[35rem] h-[35rem] bg-green-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-20 w-[40rem] h-[40rem] bg-emerald-500/20 rounded-full blur-3xl animate-pulse animation-delay-2s" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[45rem] h-[45rem] bg-lime-500/10 rounded-full blur-3xl animate-pulse animation-delay-4s" />
+        <div className="absolute top-20 left-20 w-[35rem] h-[35rem] bg-green-200/40 dark:bg-green-500/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-20 w-[40rem] h-[40rem] bg-emerald-200/40 dark:bg-emerald-500/20 rounded-full blur-3xl animate-pulse animation-delay-2s" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[45rem] h-[45rem] bg-lime-200/30 dark:bg-lime-500/10 rounded-full blur-3xl animate-pulse animation-delay-4s" />
         
         {/* Premium mesh gradient */}
-        <div className="absolute inset-0 bg-[radial-gradient(at_top_left,_transparent,_rgba(34,197,94,0.2)),radial-gradient(at_bottom_right,_transparent,_rgba(16,185,129,0.2))]" />
+        <div className="absolute inset-0 bg-[radial-gradient(at_top_left,_transparent,_rgba(34,197,94,0.1)),radial-gradient(at_bottom_right,_transparent,_rgba(16,185,129,0.1))] dark:bg-[radial-gradient(at_top_left,_transparent,_rgba(34,197,94,0.2)),radial-gradient(at_bottom_right,_transparent,_rgba(16,185,129,0.2))]" />
         
         {/* Grid pattern overlay */}
-        <div className="absolute inset-0 opacity-5" style={{
+        <div className="absolute inset-0 opacity-5 dark:opacity-5" style={{
           backgroundImage: `linear-gradient(rgba(34, 197, 94, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 197, 94, 0.1) 1px, transparent 1px)`,
           backgroundSize: '50px 50px'
         }} />
@@ -141,27 +141,27 @@ export default function EcoLodgesPageClient({ locale }: EcoLodgesPageClientProps
         {/* Premium Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 mb-8">
-            <div className="h-px w-20 bg-gradient-to-r from-transparent to-green-400" />
+            <div className="h-px w-20 bg-gradient-to-r from-transparent to-green-600 dark:to-green-400" />
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-emerald-400 blur-lg" />
-              <Badge className="relative bg-gradient-to-r from-green-400 to-emerald-400 text-white px-8 py-3 text-sm font-semibold tracking-wider uppercase border-0 shadow-2xl">
+              <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400 blur-lg" />
+              <Badge className="relative bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400 text-white px-8 py-3 text-sm font-semibold tracking-wider uppercase border-0 shadow-2xl">
                 🌿 {locale === 'es' ? 'Turismo Sustentable' : 'Sustainable Tourism'} 🌿
               </Badge>
             </div>
-            <div className="h-px w-20 bg-gradient-to-l from-transparent to-emerald-400" />
+            <div className="h-px w-20 bg-gradient-to-l from-transparent to-emerald-600 dark:to-emerald-400" />
           </div>
           
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 font-sans">
-            <span className="text-white drop-shadow-2xl">
+            <span className="text-slate-900 dark:text-white drop-shadow-2xl">
               {locale === 'es' ? 'Eco Lodges' : 'Eco Lodges'}
             </span>
             <br />
-            <span className="bg-gradient-to-r from-green-300 via-emerald-300 to-lime-300 bg-clip-text text-transparent drop-shadow-2xl">
-              <span className="text-green-300">TODO</span>TEPOZ
+            <span className="bg-gradient-to-r from-green-700 via-emerald-700 to-lime-700 dark:from-green-300 dark:via-emerald-300 dark:to-lime-300 bg-clip-text text-transparent drop-shadow-2xl">
+              <span className="text-green-700 dark:text-green-300">TODO</span>TEPOZ
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-white/80 font-light max-w-4xl mx-auto leading-relaxed mb-8">
+          <p className="text-xl md:text-2xl text-slate-700 dark:text-white/80 font-light max-w-4xl mx-auto leading-relaxed mb-8">
             {locale === 'es' 
               ? 'Descubre alojamientos ecológicos únicos donde el lujo se encuentra con la sostenibilidad. Conecta con la naturaleza sin sacrificar comodidad.'
               : 'Discover unique eco-friendly accommodations where luxury meets sustainability. Connect with nature without sacrificing comfort.'
@@ -170,39 +170,39 @@ export default function EcoLodgesPageClient({ locale }: EcoLodgesPageClientProps
 
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
-            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
-              <div className="text-3xl font-bold text-green-400 mb-2">{filteredLodges.length}</div>
-              <div className="text-white/70 text-sm">{locale === 'es' ? 'Eco Lodges' : 'Eco Lodges'}</div>
+            <div className="bg-white/90 dark:bg-white/5 backdrop-blur-xl rounded-2xl border border-green-300/50 dark:border-white/10 p-6 shadow-2xl">
+              <div className="text-3xl font-bold text-green-700 dark:text-green-400 mb-2">{filteredLodges.length}</div>
+              <div className="text-slate-600 dark:text-white/70 text-sm">{locale === 'es' ? 'Eco Lodges' : 'Eco Lodges'}</div>
             </div>
-            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
-              <div className="text-3xl font-bold text-emerald-400 mb-2">100%</div>
-              <div className="text-white/70 text-sm">{locale === 'es' ? 'Sustentables' : 'Sustainable'}</div>
+            <div className="bg-white/90 dark:bg-white/5 backdrop-blur-xl rounded-2xl border border-green-300/50 dark:border-white/10 p-6 shadow-2xl">
+              <div className="text-3xl font-bold text-emerald-700 dark:text-emerald-400 mb-2">100%</div>
+              <div className="text-slate-600 dark:text-white/70 text-sm">{locale === 'es' ? 'Sustentables' : 'Sustainable'}</div>
             </div>
-            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
-              <div className="text-3xl font-bold text-lime-400 mb-2">4.8</div>
-              <div className="text-white/70 text-sm">{locale === 'es' ? 'Calificación Promedio' : 'Average Rating'}</div>
+            <div className="bg-white/90 dark:bg-white/5 backdrop-blur-xl rounded-2xl border border-green-300/50 dark:border-white/10 p-6 shadow-2xl">
+              <div className="text-3xl font-bold text-lime-700 dark:text-lime-400 mb-2">4.8</div>
+              <div className="text-slate-600 dark:text-white/70 text-sm">{locale === 'es' ? 'Calificación Promedio' : 'Average Rating'}</div>
             </div>
           </div>
         </div>
 
         {/* Search and Filters */}
         <div className="mb-12">
-          <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-8 shadow-2xl">
+          <div className="bg-white/90 dark:bg-white/5 backdrop-blur-xl rounded-3xl border border-green-300/50 dark:border-white/10 p-8 shadow-2xl">
             {/* Search Bar */}
             <div className="flex flex-col md:flex-row gap-4 mb-6">
               <div className="relative flex-1">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50 w-5 h-5" />
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-500 dark:text-white/50 w-5 h-5" />
                 <Input
                   type="text"
                   placeholder={locale === 'es' ? 'Buscar eco lodges, ubicación, características...' : 'Search eco lodges, location, features...'}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-12 h-12 bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder-white/50"
+                  className="pl-12 h-12 bg-white/70 dark:bg-white/10 backdrop-blur-sm border-green-300/50 dark:border-white/20 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-white/50"
                 />
               </div>
               <Button
                 onClick={() => setShowFilters(!showFilters)}
-                className="h-12 px-6 bg-gradient-to-r from-green-400 to-emerald-400 hover:from-green-500 hover:to-emerald-500 text-white border-0 shadow-xl"
+                className="h-12 px-6 bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400 hover:from-green-700 hover:to-emerald-700 dark:hover:from-green-500 dark:hover:to-emerald-500 text-white border-0 shadow-xl"
               >
                 <SlidersHorizontal className="w-4 h-4 mr-2" />
                 {locale === 'es' ? 'Filtros' : 'Filters'}
@@ -218,7 +218,7 @@ export default function EcoLodgesPageClient({ locale }: EcoLodgesPageClientProps
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="flex items-center gap-4">
                 <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-48 bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                  <SelectTrigger className="w-48 bg-white/70 dark:bg-white/10 backdrop-blur-sm border-green-300/50 dark:border-white/20 text-slate-900 dark:text-white">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent className="bg-slate-800 border-slate-600">
@@ -240,7 +240,7 @@ export default function EcoLodgesPageClient({ locale }: EcoLodgesPageClientProps
                   </SelectContent>
                 </Select>
 
-                <div className="text-white/70 text-sm">
+                <div className="text-slate-600 dark:text-white/70 text-sm">
                   {filteredLodges.length} {locale === 'es' ? 'resultados' : 'results'}
                 </div>
               </div>
@@ -250,9 +250,9 @@ export default function EcoLodgesPageClient({ locale }: EcoLodgesPageClientProps
                   onClick={() => setViewMode('grid')}
                   variant={viewMode === 'grid' ? 'default' : 'ghost'}
                   size="sm"
-                  className={viewMode === 'grid' 
-                    ? 'bg-gradient-to-r from-green-400 to-emerald-400 text-white' 
-                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                  className={viewMode === 'grid'
+                    ? 'bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400 text-white'
+                    : 'text-slate-600 dark:text-white/70 hover:text-slate-900 dark:hover:text-white hover:bg-white/40 dark:hover:bg-white/10'
                   }
                 >
                   <Grid3X3 className="w-4 h-4 mr-2" />
@@ -262,9 +262,9 @@ export default function EcoLodgesPageClient({ locale }: EcoLodgesPageClientProps
                   onClick={() => setViewMode('list')}
                   variant={viewMode === 'list' ? 'default' : 'ghost'}
                   size="sm"
-                  className={viewMode === 'list' 
-                    ? 'bg-gradient-to-r from-green-400 to-emerald-400 text-white' 
-                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                  className={viewMode === 'list'
+                    ? 'bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400 text-white'
+                    : 'text-slate-600 dark:text-white/70 hover:text-slate-900 dark:hover:text-white hover:bg-white/40 dark:hover:bg-white/10'
                   }
                 >
                   <List className="w-4 h-4 mr-2" />
@@ -275,9 +275,9 @@ export default function EcoLodgesPageClient({ locale }: EcoLodgesPageClientProps
 
             {/* Advanced Filters */}
             {showFilters && (
-              <div className="mt-8 pt-8 border-t border-white/10">
+              <div className="mt-8 pt-8 border-t border-green-300/40 dark:border-white/10">
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-lg font-semibold text-white">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
                     {locale === 'es' ? 'Filtros Avanzados' : 'Advanced Filters'}
                   </h3>
                   {activeFiltersCount > 0 && (
@@ -285,7 +285,7 @@ export default function EcoLodgesPageClient({ locale }: EcoLodgesPageClientProps
                       variant="ghost"
                       size="sm"
                       onClick={clearAllFilters}
-                      className="text-white/60 hover:text-white hover:bg-white/10"
+                      className="text-slate-600 dark:text-white/60 hover:text-slate-900 dark:hover:text-white hover:bg-white/40 dark:hover:bg-white/10"
                     >
                       {locale === 'es' ? 'Limpiar Todo' : 'Clear All'}
                     </Button>
@@ -295,11 +295,11 @@ export default function EcoLodgesPageClient({ locale }: EcoLodgesPageClientProps
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {/* Category Filter */}
                   <div>
-                    <label className="text-white font-semibold mb-3 block">
+                    <label className="text-slate-900 dark:text-white font-semibold mb-3 block">
                       {locale === 'es' ? 'Tipo' : 'Category'}
                     </label>
                     <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                      <SelectTrigger className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                      <SelectTrigger className="bg-white/70 dark:bg-white/10 backdrop-blur-sm border-green-300/50 dark:border-white/20 text-slate-900 dark:text-white">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent className="bg-slate-800 border-slate-600">
@@ -314,11 +314,11 @@ export default function EcoLodgesPageClient({ locale }: EcoLodgesPageClientProps
 
                   {/* Price Range Filter */}
                   <div>
-                    <label className="text-white font-semibold mb-3 block">
+                    <label className="text-slate-900 dark:text-white font-semibold mb-3 block">
                       {locale === 'es' ? 'Precio' : 'Price'}
                     </label>
                     <Select value={selectedPriceRange} onValueChange={setSelectedPriceRange}>
-                      <SelectTrigger className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                      <SelectTrigger className="bg-white/70 dark:bg-white/10 backdrop-blur-sm border-green-300/50 dark:border-white/20 text-slate-900 dark:text-white">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent className="bg-slate-800 border-slate-600">
@@ -334,7 +334,7 @@ export default function EcoLodgesPageClient({ locale }: EcoLodgesPageClientProps
 
                 {/* Eco Features */}
                 <div className="mt-6 pt-6 border-t border-white/10">
-                  <label className="text-white font-semibold mb-4 block">
+                  <label className="text-slate-900 dark:text-white font-semibold mb-4 block">
                     {locale === 'es' ? 'Características Ecológicas' : 'Eco Features'}
                   </label>
                   <div className="flex flex-wrap gap-3">
@@ -382,7 +382,7 @@ export default function EcoLodgesPageClient({ locale }: EcoLodgesPageClientProps
 
                 {/* Eco Amenities */}
                 <div className="mt-6">
-                  <label className="text-white font-semibold mb-4 block">
+                  <label className="text-slate-900 dark:text-white font-semibold mb-4 block">
                     {locale === 'es' ? 'Amenidades Ecológicas' : 'Eco Amenities'}
                   </label>
                   <div className="flex flex-wrap gap-3">
@@ -437,7 +437,7 @@ export default function EcoLodgesPageClient({ locale }: EcoLodgesPageClientProps
             {filteredLodges.map((lodge) => (
               <EcoLodgeCard
                 key={lodge.id}
-                lodge={lodge}
+                ecoLodge={lodge}
                 locale={locale}
                 viewMode={viewMode}
               />

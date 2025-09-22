@@ -1,54 +1,9 @@
 import { Locale } from './i18n'
+import { Restaurant as BaseRestaurant } from './types/business'
+import { BusinessService } from './services/BusinessService'
 
-export interface Restaurant {
-  id: string
-  slug: string
-  name: {
-    es: string
-    en: string
-  }
-  description: {
-    es: string
-    en: string
-  }
-  cuisine: {
-    es: string
-    en: string
-  }
-  priceRange: '$' | '$$' | '$$$' | '$$$$'
-  rating: number
-  reviewCount: number
-  images: string[]
-  address: {
-    es: string
-    en: string
-  }
-  coordinates: [number, number] // [longitude, latitude]
-  phone?: string
-  website?: string
-  email?: string
-  hours: {
-    es: string
-    en: string
-  }
-  amenities: string[]
-  specialties: {
-    es: string[]
-    en: string[]
-  }
-  atmosphere: 'casual' | 'fine-dining' | 'family' | 'romantic' | 'traditional' | 'modern'
-  dietary: ('vegetarian' | 'vegan' | 'gluten-free' | 'organic')[]
-  verified: boolean
-  featured: boolean
-  delivery: boolean
-  reservation: boolean
-  outdoorSeating: boolean
-  liveMusic: boolean
-  parking: boolean
-  wifi: boolean
-  acceptsCards: boolean
-  alcoholic: boolean
-}
+// Export the Restaurant type from the base types
+export type Restaurant = BaseRestaurant
 
 export const mockRestaurants: Restaurant[] = [
   {
@@ -394,13 +349,54 @@ export const priceRanges = [
   { id: '$$$$', es: 'Lujo', en: 'Luxury', symbol: '$$$$' }
 ]
 
-export class RestaurantService {
-  static getAllRestaurants(): Restaurant[] {
+export class RestaurantService extends BusinessService<Restaurant> {
+  private static instance: RestaurantService
+
+  static getInstance(): RestaurantService {
+    if (!RestaurantService.instance) {
+      RestaurantService.instance = new RestaurantService()
+    }
+    return RestaurantService.instance
+  }
+
+  // Implementation of abstract methods
+  getAllItems(): Restaurant[] {
     return mockRestaurants
   }
 
-  static getFeaturedRestaurants(): Restaurant[] {
+  getFeaturedItems(): Restaurant[] {
     return mockRestaurants.filter(restaurant => restaurant.featured)
+  }
+
+  protected getEntityName(restaurant: Restaurant, locale: Locale): string {
+    return restaurant.name[locale]
+  }
+
+  protected getEntityDescription(restaurant: Restaurant, locale: Locale): string {
+    return restaurant.description[locale]
+  }
+
+  protected matchesCategory(restaurant: Restaurant, cuisine: string): boolean {
+    return restaurant.cuisine.es.toLowerCase().replace(/\s+/g, '-') === cuisine ||
+           restaurant.cuisine.en.toLowerCase().replace(/\s+/g, '-') === cuisine
+  }
+
+  protected matchesAtmosphere(restaurant: Restaurant, atmosphere: string): boolean {
+    return restaurant.atmosphere === atmosphere
+  }
+
+  // Restaurant-specific methods
+  getRestaurantCuisine(restaurant: Restaurant, locale: Locale): string {
+    return restaurant.cuisine[locale]
+  }
+
+  // Static methods for backward compatibility
+  static getAllRestaurants(): Restaurant[] {
+    return RestaurantService.getInstance().getAllItems()
+  }
+
+  static getFeaturedRestaurants(): Restaurant[] {
+    return RestaurantService.getInstance().getFeaturedItems()
   }
 
   static searchRestaurants(
@@ -411,60 +407,40 @@ export class RestaurantService {
     dietary: string[] = [],
     amenities: string[] = []
   ): Restaurant[] {
-    return mockRestaurants.filter(restaurant => {
-      const matchesQuery = !query || 
-        restaurant.name.es.toLowerCase().includes(query.toLowerCase()) ||
-        restaurant.name.en.toLowerCase().includes(query.toLowerCase()) ||
-        restaurant.description.es.toLowerCase().includes(query.toLowerCase()) ||
-        restaurant.description.en.toLowerCase().includes(query.toLowerCase())
-
-      const matchesCuisine = cuisine === 'all' || 
-        restaurant.cuisine.es.toLowerCase().replace(/\s+/g, '-') === cuisine ||
-        restaurant.cuisine.en.toLowerCase().replace(/\s+/g, '-') === cuisine
-
-      const matchesAtmosphere = atmosphere === 'all' || restaurant.atmosphere === atmosphere
-
-      const matchesPriceRange = priceRange === 'all' || restaurant.priceRange === priceRange
-
-      const matchesDietary = dietary.length === 0 || 
-        dietary.every(diet => restaurant.dietary.includes(diet as 'vegetarian' | 'vegan' | 'gluten-free' | 'organic'))
-
-      const matchesAmenities = amenities.length === 0 ||
-        amenities.every(amenity => restaurant.amenities.includes(amenity))
-
-      return matchesQuery && matchesCuisine && matchesAtmosphere && matchesPriceRange && matchesDietary && matchesAmenities
-    })
+    return RestaurantService.getInstance().searchItems(
+      query, cuisine, atmosphere, priceRange, dietary, amenities
+    )
   }
 
   static getRestaurantById(id: string): Restaurant | undefined {
-    return mockRestaurants.find(restaurant => restaurant.id === id)
+    return RestaurantService.getInstance().getItemById(id)
   }
 
   static getRestaurantBySlug(slug: string): Restaurant | undefined {
-    return mockRestaurants.find(restaurant => restaurant.slug === slug)
+    return RestaurantService.getInstance().getItemBySlug(slug)
   }
 
   static getRestaurantName(restaurant: Restaurant, locale: Locale): string {
-    return restaurant.name[locale]
+    return RestaurantService.getInstance().getName(restaurant, locale)
   }
 
   static getRestaurantDescription(restaurant: Restaurant, locale: Locale): string {
-    return restaurant.description[locale]
+    return RestaurantService.getInstance().getDescription(restaurant, locale)
   }
 
   static getRestaurantCuisine(restaurant: Restaurant, locale: Locale): string {
-    return restaurant.cuisine[locale]
+    return RestaurantService.getInstance().getRestaurantCuisine(restaurant, locale)
   }
 
   static getRestaurantAddress(restaurant: Restaurant, locale: Locale): string {
-    return restaurant.address[locale]
+    return RestaurantService.getInstance().getAddress(restaurant, locale)
   }
 
   static getRestaurantHours(restaurant: Restaurant, locale: Locale): string {
-    return restaurant.hours[locale]
+    return RestaurantService.getInstance().getHours(restaurant, locale)
   }
 
   static getRestaurantSpecialties(restaurant: Restaurant, locale: Locale): string[] {
-    return restaurant.specialties[locale]
+    return RestaurantService.getInstance().getSpecialties(restaurant, locale)
   }
 }

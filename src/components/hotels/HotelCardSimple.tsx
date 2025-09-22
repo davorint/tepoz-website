@@ -1,6 +1,6 @@
 'use client'
 
-import { Hotel, HotelService } from '@/lib/hotels'
+import { Hotel, HotelServiceStatic } from '@/lib/hotels'
 import { Locale } from '@/lib/i18n'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -52,8 +52,8 @@ const categoryGradients: Record<string, string> = {
 }
 
 export default function HotelCard({ hotel, locale, viewMode = 'grid' }: HotelCardProps) {
-  const name = HotelService.getHotelName(hotel, locale)
-  const description = HotelService.getHotelDescription(hotel, locale)
+  const name = HotelServiceStatic.getHotelName(hotel, locale)
+  const description = HotelServiceStatic.getHotelDescription(hotel, locale)
 
   if (viewMode === 'list') {
     return (
@@ -105,7 +105,7 @@ export default function HotelCard({ hotel, locale, viewMode = 'grid' }: HotelCar
                 </Badge>
                 <div className="flex items-center gap-1 text-white/60">
                   <MapPin className="w-3 h-3" />
-                  <span className="text-sm">{hotel.location.neighborhood}</span>
+                  <span className="text-sm">{HotelServiceStatic.getHotelAddress(hotel, locale)}</span>
                 </div>
                 {hotel.sustainability && (
                   <Badge className="bg-green-400/20 text-green-400 border-green-400/30">
@@ -128,7 +128,7 @@ export default function HotelCard({ hotel, locale, viewMode = 'grid' }: HotelCar
                   )}
                 </div>
                 <div className="ml-auto flex gap-2">
-                  <Link href={`/${locale}/stay/hotels/${HotelService.generateSlug(hotel, locale)}`}>
+                  <Link href={`/${locale}/stay/hotels/${HotelServiceStatic.generateSlug(hotel, locale)}`}>
                     <Button size="sm" className="bg-gradient-to-r from-amber-400 to-yellow-400 text-white">
                       {locale === 'es' ? 'Ver Detalles' : 'View Details'}
                     </Button>
@@ -196,7 +196,7 @@ export default function HotelCard({ hotel, locale, viewMode = 'grid' }: HotelCar
         {/* Location */}
         <div className="flex items-center gap-2 text-white/60">
           <MapPin className="w-4 h-4" />
-          <span className="text-sm">{hotel.location.neighborhood}</span>
+          <span className="text-sm">{HotelServiceStatic.getHotelAddress(hotel, locale)}</span>
         </div>
 
         {/* Amenities */}
@@ -260,7 +260,7 @@ export default function HotelCard({ hotel, locale, viewMode = 'grid' }: HotelCar
               </Button>
             </div>
           </div>
-          <Link href={`/${locale}/stay/hotels/${HotelService.generateSlug(hotel, locale)}`}>
+          <Link href={`/${locale}/stay/hotels/${HotelServiceStatic.generateSlug(hotel, locale)}`}>
             <Button className="w-full bg-gradient-to-r from-amber-400 to-yellow-400 hover:from-amber-500 hover:to-yellow-500 text-white">
               {locale === 'es' ? 'Ver Disponibilidad' : 'Check Availability'}
               <ChevronRight className="w-4 h-4 ml-2" />

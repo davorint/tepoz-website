@@ -440,6 +440,20 @@ export function BusinessMap({
     }
   }
 
+  // Helper function to get readable error messages
+  const getGeolocationErrorMessage = (error: GeolocationPositionError): string => {
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        return "User denied the request for geolocation"
+      case error.POSITION_UNAVAILABLE:
+        return "Location information is unavailable"
+      case error.TIMEOUT:
+        return "The request to get user location timed out"
+      default:
+        return "An unknown error occurred while retrieving location"
+    }
+  }
+
   // Get user location
   const getUserLocation = async () => {
     if (!navigator.geolocation) {
@@ -482,7 +496,12 @@ export function BusinessMap({
 
       console.log('📍 User location updated:', coords)
     } catch (error) {
-      console.error('❌ Error getting user location:', error)
+      const errorMessage = error instanceof GeolocationPositionError
+        ? getGeolocationErrorMessage(error)
+        : error instanceof Error
+          ? error.message
+          : 'Unknown error'
+      console.error('❌ Error getting user location:', errorMessage, error)
     }
   }
 

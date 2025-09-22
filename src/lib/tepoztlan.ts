@@ -2,6 +2,7 @@ import { Locale } from './i18n'
 
 export interface TepoztlanAttraction {
   id: string
+  slug: string
   name: {
     es: string
     en: string
@@ -67,6 +68,7 @@ export const tepoztlanCategories = [
 const tepoztlanAttractions: TepoztlanAttraction[] = [
   {
     id: 'piramide-tepozteco',
+    slug: 'piramide-tepozteco',
     name: {
       es: 'Pirámide del Tepozteco',
       en: 'Tepozteco Pyramid'
@@ -137,6 +139,7 @@ const tepoztlanAttractions: TepoztlanAttraction[] = [
   },
   {
     id: 'mercado-artesanias',
+    slug: 'mercado-artesanias',
     name: {
       es: 'Mercado de Artesanías',
       en: 'Handicrafts Market'
@@ -192,6 +195,7 @@ const tepoztlanAttractions: TepoztlanAttraction[] = [
   },
   {
     id: 'ex-convento-natividad',
+    slug: 'ex-convento-natividad',
     name: {
       es: 'Ex Convento de la Natividad',
       en: 'Former Convent of the Nativity'
@@ -248,6 +252,7 @@ const tepoztlanAttractions: TepoztlanAttraction[] = [
   },
   {
     id: 'plaza-principal',
+    slug: 'plaza-principal',
     name: {
       es: 'Plaza Principal',
       en: 'Main Plaza'
@@ -303,6 +308,7 @@ const tepoztlanAttractions: TepoztlanAttraction[] = [
   },
   {
     id: 'museo-carlos-pellicer',
+    slug: 'museo-carlos-pellicer',
     name: {
       es: 'Museo Carlos Pellicer',
       en: 'Carlos Pellicer Museum'
@@ -358,6 +364,7 @@ const tepoztlanAttractions: TepoztlanAttraction[] = [
   },
   {
     id: 'mirador-valle',
+    slug: 'mirador-valle',
     name: {
       es: 'Mirador del Valle',
       en: 'Valley Viewpoint'
@@ -367,8 +374,8 @@ const tepoztlanAttractions: TepoztlanAttraction[] = [
       en: 'Panoramic viewpoint with spectacular views of the Morelos valley'
     },
     longDescription: {
-      es: 'Ubicado en las faldas del cerro del Tepozteco, este mirador ofrece vistas panorámicas del valle de Morelos y los pueblos circundantes. Es un lugar perfecto para el atardecer, la fotografía y para apreciar la geografía sagrada de la región desde una perspectiva única.',
-      en: 'Located on the slopes of Tepozteco hill, this viewpoint offers panoramic views of the Morelos valley and surrounding villages. It\'s a perfect spot for sunset, photography and appreciating the sacred geography of the region from a unique perspective.'
+      es: 'Ubicado en las faldas del cerro del Tepozteco, este mirador ofrece vistas panorámicas del valle de Morelos y los pueblos circundantes. Es un lugar perfecto para el atardecer, la fotografía y para apreciar la geografía mística de la región desde una perspectiva única.',
+      en: 'Located on the slopes of Tepozteco hill, this viewpoint offers panoramic views of the Morelos valley and surrounding villages. It\'s a perfect spot for sunset, photography and appreciating the mystical geography of the region from a unique perspective.'
     },
     category: 'natural',
     type: 'viewpoint',
@@ -394,13 +401,13 @@ const tepoztlanAttractions: TepoztlanAttraction[] = [
         'Vista panorámica',
         'Fotografía de paisaje',
         'Atardeceres espectaculares',
-        'Geografía sagrada'
+        'Geografía mística'
       ],
       en: [
         'Panoramic view',
         'Landscape photography',
         'Spectacular sunsets',
-        'Sacred geography'
+        'Mystical geography'
       ]
     },
     bestTime: {

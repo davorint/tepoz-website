@@ -1,6 +1,11 @@
 import { Locale } from './i18n'
+import { Cafe as BaseCafe } from './types/business'
+import { BusinessService } from './services/BusinessService'
 
-export interface Cafe {
+// Export the Cafe type from the base types
+export type Cafe = BaseCafe
+
+export interface OldCafe {
   id: string
   name: {
     es: string
@@ -86,6 +91,7 @@ export const priceRanges = [
 const cafes: Cafe[] = [
   {
     id: 'cafe-tepoznieves',
+    slug: 'cafe-tepoznieves',
     name: {
       es: 'Café Tepoznieves',
       en: 'Café Tepoznieves'
@@ -137,6 +143,7 @@ const cafes: Cafe[] = [
   },
   {
     id: 'luna-cafe',
+    slug: 'luna-cafe',
     name: {
       es: 'Luna Café',
       en: 'Luna Café'
@@ -188,6 +195,7 @@ const cafes: Cafe[] = [
   },
   {
     id: 'cafe-del-arbol',
+    slug: 'cafe-del-arbol',
     name: {
       es: 'Café del Árbol',
       en: 'Tree Café'
@@ -240,6 +248,7 @@ const cafes: Cafe[] = [
   },
   {
     id: 'tepoznieves-original',
+    slug: 'tepoznieves-original',
     name: {
       es: 'Tepoznieves Original',
       en: 'Tepoznieves Original'
@@ -291,6 +300,7 @@ const cafes: Cafe[] = [
   },
   {
     id: 'cafe-amate',
+    slug: 'cafe-amate',
     name: {
       es: 'Café Amate',
       en: 'Café Amate'
@@ -344,6 +354,7 @@ const cafes: Cafe[] = [
   },
   {
     id: 'cafe-quetzal',
+    slug: 'cafe-quetzal',
     name: {
       es: 'Café Quetzal',
       en: 'Café Quetzal'
@@ -395,6 +406,7 @@ const cafes: Cafe[] = [
   },
   {
     id: 'panaderia-el-sol',
+    slug: 'panaderia-el-sol',
     name: {
       es: 'Panadería El Sol',
       en: 'El Sol Bakery'
@@ -446,6 +458,7 @@ const cafes: Cafe[] = [
   },
   {
     id: 'panaderia-cafe-maya',
+    slug: 'panaderia-cafe-maya',
     name: {
       es: 'Panadería Café Maya',
       en: 'Maya Bakery Café'
@@ -498,6 +511,7 @@ const cafes: Cafe[] = [
   },
   {
     id: 'panaderia-la-espiga',
+    slug: 'panaderia-la-espiga',
     name: {
       es: 'Panadería La Espiga',
       en: 'La Espiga Bakery'
@@ -549,6 +563,7 @@ const cafes: Cafe[] = [
   },
   {
     id: 'cafe-panaderia-azul',
+    slug: 'cafe-panaderia-azul',
     name: {
       es: 'Café Panadería Azul',
       en: 'Blue Bakery Café'
@@ -600,17 +615,98 @@ const cafes: Cafe[] = [
   }
 ]
 
-export class CafeService {
-  static getAllCafes(): Cafe[] {
+export class CafeService extends BusinessService<Cafe> {
+  private static instance: CafeService
+
+  static getInstance(): CafeService {
+    if (!CafeService.instance) {
+      CafeService.instance = new CafeService()
+    }
+    return CafeService.instance
+  }
+
+  // Implementation of abstract methods
+  getAllItems(): Cafe[] {
     return cafes
   }
 
+  getFeaturedItems(): Cafe[] {
+    return cafes.filter(cafe => cafe.featured)
+  }
+
+  protected getEntityName(cafe: Cafe, locale: Locale): string {
+    return cafe.name[locale]
+  }
+
+  protected getEntityDescription(cafe: Cafe, locale: Locale): string {
+    return cafe.description[locale]
+  }
+
+  protected matchesCategory(cafe: Cafe, cafeType: string): boolean {
+    const cafeTypeId = cafeTypes.find(ct =>
+      ct.es.toLowerCase().includes(cafe.cafeType.es.toLowerCase()) ||
+      ct.en.toLowerCase().includes(cafe.cafeType.en.toLowerCase())
+    )?.id
+    return cafeTypeId === cafeType
+  }
+
+  protected matchesAtmosphere(cafe: Cafe, atmosphere: string): boolean {
+    return cafe.atmosphere === atmosphere
+  }
+
+  // Static methods for backward compatibility
+  static getAllCafes(): Cafe[] {
+    return CafeService.getInstance().getAllItems()
+  }
+
   static getCafeById(id: string): Cafe | undefined {
-    return cafes.find(cafe => cafe.id === id)
+    return CafeService.getInstance().getItemById(id)
+  }
+
+  static getCafeBySlug(slug: string): Cafe | undefined {
+    return CafeService.getInstance().getItemBySlug(slug)
   }
 
   static getFeaturedCafes(): Cafe[] {
-    return cafes.filter(cafe => cafe.featured)
+    return CafeService.getInstance().getFeaturedItems()
+  }
+
+  static searchCafes(
+    query: string = '',
+    cafeType: string = 'all',
+    atmosphere: string = 'all',
+    priceRange: string = 'all',
+    dietary: string[] = []
+  ): Cafe[] {
+    return CafeService.getInstance().searchItems(query, cafeType, atmosphere, priceRange, dietary, [])
+  }
+
+  static sortCafes(cafes: Cafe[], sortBy: 'featured' | 'rating' | 'price' | 'name'): Cafe[] {
+    return CafeService.getInstance().sortItems(cafes, sortBy, 'es')
+  }
+
+  static getCafeName(cafe: Cafe, locale: Locale): string {
+    return CafeService.getInstance().getName(cafe, locale)
+  }
+
+  static getCafeDescription(cafe: Cafe, locale: Locale): string {
+    return CafeService.getInstance().getDescription(cafe, locale)
+  }
+
+  static getCafeAddress(cafe: Cafe, locale: Locale): string {
+    return CafeService.getInstance().getAddress(cafe, locale)
+  }
+
+  static getCafeHours(cafe: Cafe, locale: Locale): string {
+    return CafeService.getInstance().getHours(cafe, locale)
+  }
+
+  static getCafeSpecialties(cafe: Cafe, locale: Locale): string[] {
+    return CafeService.getInstance().getSpecialties(cafe, locale)
+  }
+
+  static getCafeType(cafe: Cafe, locale: Locale): string {
+    return cafe.cafeType[locale]
   }
 
   static getCafesByType(type: string): Cafe[] {
@@ -624,102 +720,5 @@ export class CafeService {
     })
   }
 
-  static searchCafes(
-    query: string = '',
-    cafeType: string = 'all',
-    atmosphere: string = 'all',
-    priceRange: string = 'all',
-    dietary: string[] = []
-  ): Cafe[] {
-    let filtered = cafes
 
-    // Text search
-    if (query.trim()) {
-      const searchTerm = query.toLowerCase()
-      filtered = filtered.filter(cafe => 
-        cafe.name.es.toLowerCase().includes(searchTerm) ||
-        cafe.name.en.toLowerCase().includes(searchTerm) ||
-        cafe.description.es.toLowerCase().includes(searchTerm) ||
-        cafe.description.en.toLowerCase().includes(searchTerm) ||
-        cafe.cafeType.es.toLowerCase().includes(searchTerm) ||
-        cafe.cafeType.en.toLowerCase().includes(searchTerm)
-      )
-    }
-
-    // Cafe type filter
-    if (cafeType && cafeType !== 'all') {
-      filtered = filtered.filter(cafe => {
-        const cafeTypeId = cafeTypes.find(ct => 
-          ct.es.toLowerCase().includes(cafe.cafeType.es.toLowerCase()) ||
-          ct.en.toLowerCase().includes(cafe.cafeType.en.toLowerCase())
-        )?.id
-        return cafeTypeId === cafeType
-      })
-    }
-
-    // Atmosphere filter
-    if (atmosphere && atmosphere !== 'all') {
-      filtered = filtered.filter(cafe => cafe.atmosphere === atmosphere)
-    }
-
-    // Price range filter
-    if (priceRange && priceRange !== 'all') {
-      filtered = filtered.filter(cafe => cafe.priceRange === priceRange)
-    }
-
-    // Dietary filter
-    if (dietary.length > 0) {
-      filtered = filtered.filter(cafe => 
-        dietary.some(diet => cafe.dietary.includes(diet as 'vegetarian' | 'vegan' | 'gluten-free' | 'organic'))
-      )
-    }
-
-    return filtered
-  }
-
-  static sortCafes(cafes: Cafe[], sortBy: string): Cafe[] {
-    const sorted = [...cafes]
-    
-    switch (sortBy) {
-      case 'featured':
-        return sorted.sort((a, b) => {
-          if (a.featured && !b.featured) return -1
-          if (!a.featured && b.featured) return 1
-          return b.rating - a.rating
-        })
-      case 'rating':
-        return sorted.sort((a, b) => b.rating - a.rating)
-      case 'price':
-        const priceOrder = { '$': 1, '$$': 2, '$$$': 3 }
-        return sorted.sort((a, b) => priceOrder[a.priceRange] - priceOrder[b.priceRange])
-      case 'name':
-        return sorted.sort((a, b) => a.name.es.localeCompare(b.name.es))
-      default:
-        return sorted
-    }
-  }
-
-  static getCafeName(cafe: Cafe, locale: Locale): string {
-    return cafe.name[locale]
-  }
-
-  static getCafeDescription(cafe: Cafe, locale: Locale): string {
-    return cafe.description[locale]
-  }
-
-  static getCafeType(cafe: Cafe, locale: Locale): string {
-    return cafe.cafeType[locale]
-  }
-
-  static getCafeAddress(cafe: Cafe, locale: Locale): string {
-    return cafe.address[locale]
-  }
-
-  static getCafeHours(cafe: Cafe, locale: Locale): string {
-    return cafe.hours[locale]
-  }
-
-  static getCafeSpecialties(cafe: Cafe, locale: Locale): string[] {
-    return cafe.specialties[locale]
-  }
 }

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Locale } from '@/lib/i18n'
-import { Hotel, HotelService, hotelCategories, amenityTypes, priceRanges } from '@/lib/hotels'
+import { Hotel, HotelServiceStatic, hotelCategories, amenityTypes, priceRanges } from '@/lib/hotels'
 import HotelCard from './HotelCardSimple'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -12,12 +12,22 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent } from '@/components/ui/card'
-import { 
-  Search, 
-  Filter, 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
+import {
+  Search,
+  Filter,
   X,
   Star,
-  Database
+  Database,
+  Home,
+  Bed
 } from 'lucide-react'
 
 interface HotelsPageClientProps {
@@ -40,14 +50,14 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
 
   // Initialize hotels
   useEffect(() => {
-    const allHotels = HotelService.getAllHotels()
+    const allHotels = HotelServiceStatic.getAllHotels()
     setHotels(allHotels)
     setFilteredHotels(allHotels)
   }, [])
 
   // Filter and sort hotels
   useEffect(() => {
-    let filtered = HotelService.searchHotels(
+    let filtered = HotelServiceStatic.searchHotels(
       searchQuery,
       selectedCategory,
       selectedPriceRange,
@@ -72,8 +82,8 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
           const priceOrder = { '$': 1, '$$': 2, '$$$': 3, '$$$$': 4 }
           return priceOrder[a.priceRange] - priceOrder[b.priceRange]
         case 'name':
-          return HotelService.getHotelName(a, locale).localeCompare(
-            HotelService.getHotelName(b, locale)
+          return HotelServiceStatic.getHotelName(a, locale).localeCompare(
+            HotelServiceStatic.getHotelName(b, locale)
           )
         default:
           return 0
@@ -102,16 +112,16 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-amber-900 to-orange-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-amber-50 via-orange-50 to-red-50 dark:bg-gradient-to-br dark:from-slate-900 dark:via-amber-900 dark:to-orange-900 relative overflow-hidden">
       {/* Ultra Premium Background */}
       <div className="absolute inset-0">
         {/* Animated gradient orbs */}
-        <div className="absolute top-20 left-20 w-[35rem] h-[35rem] bg-amber-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-20 w-[40rem] h-[40rem] bg-orange-500/20 rounded-full blur-3xl animate-pulse animation-delay-2s" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[45rem] h-[45rem] bg-red-500/10 rounded-full blur-3xl animate-pulse animation-delay-4s" />
+        <div className="absolute top-20 left-20 w-[35rem] h-[35rem] bg-amber-200/40 dark:bg-amber-500/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-20 w-[40rem] h-[40rem] bg-orange-200/40 dark:bg-orange-500/20 rounded-full blur-3xl animate-pulse animation-delay-2s" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[45rem] h-[45rem] bg-red-200/30 dark:bg-red-500/10 rounded-full blur-3xl animate-pulse animation-delay-4s" />
         
         {/* Premium mesh gradient */}
-        <div className="absolute inset-0 bg-[radial-gradient(at_top_left,_transparent,_rgba(245,158,11,0.2)),radial-gradient(at_bottom_right,_transparent,_rgba(249,115,22,0.2))]" />
+        <div className="absolute inset-0 bg-[radial-gradient(at_top_left,_transparent,_rgba(245,158,11,0.1)),radial-gradient(at_bottom_right,_transparent,_rgba(249,115,22,0.1))] dark:bg-[radial-gradient(at_top_left,_transparent,_rgba(245,158,11,0.2)),radial-gradient(at_bottom_right,_transparent,_rgba(249,115,22,0.2))]" />
         
         {/* Grid pattern overlay */}
         <div className="absolute inset-0 opacity-5" style={{
@@ -121,13 +131,44 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-12">
+        {/* Breadcrumb */}
+        <div className="mb-8">
+          <Breadcrumb className="text-slate-600 dark:text-white/70">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href={`/${locale}`} className="flex items-center gap-1.5 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
+                    <Home className="w-4 h-4" />
+                    {locale === 'es' ? 'Inicio' : 'Home'}
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href={`/${locale}/stay`} className="flex items-center gap-1.5 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
+                    <Bed className="w-4 h-4" />
+                    {locale === 'es' ? 'Hospedaje' : 'Stay'}
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage className="flex items-center gap-1.5 font-medium text-amber-600 dark:text-amber-400">
+                  🏨 {locale === 'es' ? 'Hoteles' : 'Hotels'}
+                </BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+
         {/* Premium Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 mb-8">
             <div className="h-px w-20 bg-gradient-to-r from-transparent to-amber-400" />
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-400 blur-lg" />
-              <Badge className="relative bg-gradient-to-r from-amber-400 to-orange-400 text-white px-8 py-3 text-sm font-semibold tracking-wider uppercase border-0 shadow-2xl">
+              <Badge className="relative bg-gradient-to-r from-amber-400 to-orange-400 text-slate-900 dark:text-white px-8 py-3 text-sm font-semibold tracking-wider uppercase border-0 shadow-2xl">
                 🏨 {locale === 'es' ? 'Hoteles Premium' : 'Premium Hotels'} 🏨
               </Badge>
             </div>
@@ -135,16 +176,16 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
           </div>
           
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 font-sans">
-            <span className="text-white drop-shadow-2xl">
+            <span className="text-slate-900 dark:text-white drop-shadow-2xl">
               {locale === 'es' ? 'Hospedaje en ' : 'Stay in '}
             </span>
             <br />
-            <span className="bg-gradient-to-r from-amber-300 via-orange-300 to-red-300 bg-clip-text text-transparent drop-shadow-2xl">
+            <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 dark:from-amber-300 dark:via-orange-300 dark:to-red-300 bg-clip-text text-transparent drop-shadow-2xl">
               Tepoztlán
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-white/80 font-light max-w-4xl mx-auto leading-relaxed mb-8">
+          <p className="text-xl md:text-2xl text-slate-700 dark:text-white/80 font-light max-w-4xl mx-auto leading-relaxed mb-8">
             {locale === 'es' 
               ? 'Descubre alojamientos únicos en Tepoztlán. Desde hoteles boutique hasta eco-lodges sustentables.'
               : 'Discover unique accommodations in Tepoztlán. From boutique hotels to sustainable eco-lodges.'
@@ -153,39 +194,39 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
 
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
-            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
-              <div className="text-3xl font-bold text-amber-400 mb-2">{hotels.length}</div>
-              <div className="text-white/70 text-sm">{locale === 'es' ? 'Hoteles' : 'Hotels'}</div>
+            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-2xl border border-amber-200/30 dark:border-white/10 p-6 shadow-2xl">
+              <div className="text-3xl font-bold text-amber-600 dark:text-amber-400 mb-2">{hotels.length}</div>
+              <div className="text-slate-600 dark:text-white/70 text-sm">{locale === 'es' ? 'Hoteles' : 'Hotels'}</div>
             </div>
-            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
-              <div className="text-3xl font-bold text-orange-400 mb-2">4.7</div>
-              <div className="text-white/70 text-sm">{locale === 'es' ? 'Calificación Promedio' : 'Average Rating'}</div>
+            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-2xl border border-amber-200/30 dark:border-white/10 p-6 shadow-2xl">
+              <div className="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2">4.7</div>
+              <div className="text-slate-600 dark:text-white/70 text-sm">{locale === 'es' ? 'Calificación Promedio' : 'Average Rating'}</div>
             </div>
-            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
-              <div className="text-3xl font-bold text-red-400 mb-2">1.8K+</div>
-              <div className="text-white/70 text-sm">{locale === 'es' ? 'Reseñas' : 'Reviews'}</div>
+            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-2xl border border-amber-200/30 dark:border-white/10 p-6 shadow-2xl">
+              <div className="text-3xl font-bold text-red-600 dark:text-red-400 mb-2">1.8K+</div>
+              <div className="text-slate-600 dark:text-white/70 text-sm">{locale === 'es' ? 'Reseñas' : 'Reviews'}</div>
             </div>
           </div>
         </div>
 
         {/* Search and Filters */}
         <div className="mb-12">
-          <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-8 shadow-2xl">
+          <div className="bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-3xl border border-amber-200/30 dark:border-white/10 p-8 shadow-2xl">
             {/* Search Bar */}
             <div className="flex flex-col md:flex-row gap-4 mb-6">
               <div className="relative flex-1">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50 w-5 h-5" />
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-500 dark:text-white/50 w-5 h-5" />
                 <Input
                   type="text"
                   placeholder={locale === 'es' ? 'Buscar hoteles, ubicación, amenidades...' : 'Search hotels, location, amenities...'}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-12 h-12 bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder-white/50"
+                  className="pl-12 h-12 bg-white/60 dark:bg-white/10 backdrop-blur-sm border-amber-200/50 dark:border-white/20 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-white/50"
                 />
               </div>
               <Button
                 onClick={() => setShowFilters(!showFilters)}
-                className="h-12 px-6 bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white border-0 shadow-xl"
+                className="h-12 px-6 bg-gradient-to-r from-amber-500 to-orange-500 dark:from-amber-400 dark:to-orange-400 hover:from-amber-600 hover:to-orange-600 dark:hover:from-amber-500 dark:hover:to-orange-500 text-slate-900 dark:text-white border-0 shadow-xl"
               >
                 <Filter className="w-4 h-4 mr-2" />
                 {locale === 'es' ? 'Filtros' : 'Filters'}
@@ -196,18 +237,18 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="flex items-center gap-4">
                 <Select value={sortBy} onValueChange={(value: string) => setSortBy(value as 'featured' | 'rating' | 'price' | 'name')}>
-                  <SelectTrigger className="w-48 bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                  <SelectTrigger className="w-48 bg-white/60 dark:bg-white/10 backdrop-blur-sm border-amber-200/50 dark:border-white/20 text-slate-900 dark:text-white">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent className="bg-slate-800 border-slate-600">
-                    <SelectItem value="featured" className="text-white">{locale === 'es' ? 'Destacados' : 'Featured'}</SelectItem>
-                    <SelectItem value="rating" className="text-white">{locale === 'es' ? 'Mejor Calificados' : 'Highest Rated'}</SelectItem>
-                    <SelectItem value="price" className="text-white">{locale === 'es' ? 'Precio' : 'Price'}</SelectItem>
-                    <SelectItem value="name" className="text-white">{locale === 'es' ? 'Nombre' : 'Name'}</SelectItem>
+                    <SelectItem value="featured" className="text-slate-900 dark:text-white">{locale === 'es' ? 'Destacados' : 'Featured'}</SelectItem>
+                    <SelectItem value="rating" className="text-slate-900 dark:text-white">{locale === 'es' ? 'Mejor Calificados' : 'Highest Rated'}</SelectItem>
+                    <SelectItem value="price" className="text-slate-900 dark:text-white">{locale === 'es' ? 'Precio' : 'Price'}</SelectItem>
+                    <SelectItem value="name" className="text-slate-900 dark:text-white">{locale === 'es' ? 'Nombre' : 'Name'}</SelectItem>
                   </SelectContent>
                 </Select>
 
-                <div className="text-white/70 text-sm">
+                <div className="text-slate-600 dark:text-white/70 text-sm">
                   {filteredHotels.length} {locale === 'es' ? 'resultados' : 'results'}
                 </div>
               </div>
@@ -217,9 +258,9 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
                   onClick={() => setViewMode('grid')}
                   variant={viewMode === 'grid' ? 'default' : 'ghost'}
                   size="sm"
-                  className={viewMode === 'grid' 
-                    ? 'bg-gradient-to-r from-amber-400 to-orange-400 text-white' 
-                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                  className={viewMode === 'grid'
+                    ? 'bg-gradient-to-r from-amber-500 to-orange-500 dark:from-amber-400 dark:to-orange-400 text-slate-900 dark:text-white'
+                    : 'text-slate-600 dark:text-white/70 hover:text-slate-900 dark:hover:text-white hover:bg-white/30 dark:hover:bg-white/10'
                   }
                 >
                   Grid
@@ -228,9 +269,9 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
                   onClick={() => setViewMode('list')}
                   variant={viewMode === 'list' ? 'default' : 'ghost'}
                   size="sm"
-                  className={viewMode === 'list' 
-                    ? 'bg-gradient-to-r from-amber-400 to-orange-400 text-white' 
-                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                  className={viewMode === 'list'
+                    ? 'bg-gradient-to-r from-amber-500 to-orange-500 dark:from-amber-400 dark:to-orange-400 text-slate-900 dark:text-white'
+                    : 'text-slate-600 dark:text-white/70 hover:text-slate-900 dark:hover:text-white hover:bg-white/30 dark:hover:bg-white/10'
                   }
                 >
                   List
@@ -240,18 +281,18 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
 
             {/* Advanced Filters */}
             {showFilters && (
-              <div className="mt-8 pt-8 border-t border-white/10">
+              <div className="mt-8 pt-8 border-t border-amber-200/30 dark:border-white/10">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                   {/* Category Filter */}
                   <div>
-                    <Label className="text-white font-semibold mb-3 block">{locale === 'es' ? 'Categoría' : 'Category'}</Label>
+                    <Label className="text-slate-900 dark:text-white font-semibold mb-3 block">{locale === 'es' ? 'Categoría' : 'Category'}</Label>
                     <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                      <SelectTrigger className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                      <SelectTrigger className="bg-white/60 dark:bg-white/10 backdrop-blur-sm border-amber-200/50 dark:border-white/20 text-slate-900 dark:text-white">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent className="bg-slate-800 border-slate-600">
                         {hotelCategories.map((category) => (
-                          <SelectItem key={category.id} value={category.id} className="text-white">
+                          <SelectItem key={category.id} value={category.id} className="text-slate-900 dark:text-white">
                             {category.emoji} {locale === 'es' ? category.es : category.en}
                           </SelectItem>
                         ))}
@@ -261,14 +302,14 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
 
                   {/* Price Range Filter */}
                   <div>
-                    <Label className="text-white font-semibold mb-3 block">{locale === 'es' ? 'Precio' : 'Price'}</Label>
+                    <Label className="text-slate-900 dark:text-white font-semibold mb-3 block">{locale === 'es' ? 'Precio' : 'Price'}</Label>
                     <Select value={selectedPriceRange} onValueChange={setSelectedPriceRange}>
-                      <SelectTrigger className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                      <SelectTrigger className="bg-white/60 dark:bg-white/10 backdrop-blur-sm border-amber-200/50 dark:border-white/20 text-slate-900 dark:text-white">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent className="bg-slate-800 border-slate-600">
                         {priceRanges.map((price) => (
-                          <SelectItem key={price.id} value={price.id} className="text-white">
+                          <SelectItem key={price.id} value={price.id} className="text-slate-900 dark:text-white">
                             {price.symbol} {locale === 'es' ? price.es : price.en}
                           </SelectItem>
                         ))}
@@ -278,7 +319,7 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
 
                   {/* Amenities Filter */}
                   <div>
-                    <Label className="text-white font-semibold mb-3 block">{locale === 'es' ? 'Amenidades' : 'Amenities'}</Label>
+                    <Label className="text-slate-900 dark:text-white font-semibold mb-3 block">{locale === 'es' ? 'Amenidades' : 'Amenities'}</Label>
                     <div className="space-y-2 max-h-32 overflow-y-auto">
                       {amenityTypes.slice(1).map((amenity) => (
                         <div key={amenity.id} className="flex items-center space-x-2">
@@ -288,7 +329,7 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
                             onCheckedChange={(checked) => handleAmenityChange(amenity.id, checked as boolean)}
                             className="border-white/30 data-[state=checked]:bg-amber-400 data-[state=checked]:border-amber-400"
                           />
-                          <Label htmlFor={amenity.id} className="text-white/90 text-sm cursor-pointer">
+                          <Label htmlFor={amenity.id} className="text-slate-800 dark:text-white/90 text-sm cursor-pointer">
                             {locale === 'es' ? amenity.es : amenity.en}
                           </Label>
                         </div>
@@ -298,7 +339,7 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
 
                   {/* Special Features */}
                   <div>
-                    <Label className="text-white font-semibold mb-3 block">{locale === 'es' ? 'Características' : 'Features'}</Label>
+                    <Label className="text-slate-900 dark:text-white font-semibold mb-3 block">{locale === 'es' ? 'Características' : 'Features'}</Label>
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2">
                         <Checkbox
@@ -307,7 +348,7 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
                           onCheckedChange={(checked) => setSustainabilityFilter(checked ? true : undefined)}
                           className="border-white/30 data-[state=checked]:bg-green-400 data-[state=checked]:border-green-400"
                         />
-                        <Label htmlFor="sustainability" className="text-white/90 text-sm cursor-pointer">
+                        <Label htmlFor="sustainability" className="text-slate-800 dark:text-white/90 text-sm cursor-pointer">
                           🌱 {locale === 'es' ? 'Sustentable' : 'Sustainable'}
                         </Label>
                       </div>
@@ -318,7 +359,7 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
                           onCheckedChange={(checked) => setPetFriendlyFilter(checked ? true : undefined)}
                           className="border-white/30 data-[state=checked]:bg-amber-400 data-[state=checked]:border-amber-400"
                         />
-                        <Label htmlFor="petFriendly" className="text-white/90 text-sm cursor-pointer">
+                        <Label htmlFor="petFriendly" className="text-slate-800 dark:text-white/90 text-sm cursor-pointer">
                           🐕 {locale === 'es' ? 'Mascotas OK' : 'Pet Friendly'}
                         </Label>
                       </div>
@@ -329,7 +370,7 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
                           onCheckedChange={(checked) => setAdultsOnlyFilter(checked ? true : undefined)}
                           className="border-white/30 data-[state=checked]:bg-red-400 data-[state=checked]:border-red-400"
                         />
-                        <Label htmlFor="adultsOnly" className="text-white/90 text-sm cursor-pointer">
+                        <Label htmlFor="adultsOnly" className="text-slate-800 dark:text-white/90 text-sm cursor-pointer">
                           🔞 {locale === 'es' ? 'Solo Adultos' : 'Adults Only'}
                         </Label>
                       </div>
@@ -341,7 +382,7 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
                 <div className="mt-6 text-center">
                   <Button
                     onClick={clearFilters}
-                    className="bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20"
+                    className="bg-white/60 dark:bg-white/10 backdrop-blur-sm border border-amber-200/50 dark:border-white/20 text-slate-900 dark:text-white hover:bg-white/80 dark:hover:bg-white/20"
                   >
                     <X className="w-4 h-4 mr-2" />
                     {locale === 'es' ? 'Limpiar Filtros' : 'Clear Filters'}
@@ -371,12 +412,12 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
         {/* Empty State */}
         {filteredHotels.length === 0 && (
           <div className="text-center py-20">
-            <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-16 shadow-2xl max-w-2xl mx-auto">
+            <div className="bg-white/90 dark:bg-white/5 backdrop-blur-xl rounded-3xl border border-amber-300/50 dark:border-white/10 p-16 shadow-2xl max-w-2xl mx-auto">
               <div className="text-8xl mb-8 opacity-50">🏨</div>
-              <h3 className="text-3xl font-bold text-white mb-4 font-sans">
+              <h3 className="text-3xl font-bold text-slate-900 dark:text-white mb-4 font-sans">
                 {locale === 'es' ? 'No se encontraron hoteles' : 'No hotels found'}
               </h3>
-              <p className="text-white/70 text-lg mb-8">
+              <p className="text-slate-700 dark:text-white/70 text-lg mb-8">
                 {locale === 'es' 
                   ? 'Intenta ajustar los filtros o modificar tu búsqueda'
                   : 'Try adjusting your filters or modify your search'
@@ -384,7 +425,7 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
               </p>
               <Button
                 onClick={clearFilters}
-                className="bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white border-0 shadow-xl"
+                className="bg-gradient-to-r from-amber-600 to-orange-600 dark:from-amber-400 dark:to-orange-400 hover:from-amber-700 hover:to-orange-700 dark:hover:from-amber-500 dark:hover:to-orange-500 text-slate-900 dark:text-white border-0 shadow-xl"
               >
                 {locale === 'es' ? 'Limpiar Filtros' : 'Clear Filters'}
               </Button>
@@ -394,20 +435,20 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
 
         {/* Directory Button */}
         <div className="text-center py-12">
-          <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-8 shadow-2xl max-w-2xl mx-auto">
+          <div className="bg-white/90 dark:bg-white/5 backdrop-blur-xl rounded-3xl border border-amber-300/50 dark:border-white/10 p-8 shadow-2xl max-w-2xl mx-auto">
             <div className="flex flex-col items-center space-y-6">
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-400 blur-xl opacity-50" />
-                <div className="relative bg-gradient-to-r from-amber-400 to-orange-400 p-4 rounded-2xl shadow-2xl">
-                  <Database className="h-12 w-12 text-white" />
+                <div className="absolute inset-0 bg-gradient-to-r from-amber-600 to-orange-600 dark:from-amber-400 dark:to-orange-400 blur-xl opacity-50" />
+                <div className="relative bg-gradient-to-r from-amber-600 to-orange-600 dark:from-amber-400 dark:to-orange-400 p-4 rounded-2xl shadow-2xl">
+                  <Database className="h-12 w-12 text-slate-900 dark:text-white" />
                 </div>
               </div>
               
               <div className="text-center">
-                <h3 className="text-2xl font-bold text-white mb-3">
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">
                   {locale === 'es' ? 'Explora Todos los Hoteles' : 'Explore All Hotels'}
                 </h3>
-                <p className="text-white/70 mb-6 max-w-lg">
+                <p className="text-slate-700 dark:text-white/70 mb-6 max-w-lg">
                   {locale === 'es'
                     ? 'Accede a nuestro directorio completo con herramientas avanzadas de búsqueda, filtros y análisis detallado'
                     : 'Access our complete directory with advanced search tools, filters and detailed analysis'
@@ -416,7 +457,7 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
               </div>
               
               <Link href={`/${locale}/stay/hotels/all-hotels`}>
-                <Button className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white px-8 py-4 text-lg font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300">
+                <Button className="bg-gradient-to-r from-amber-700 to-orange-700 dark:from-amber-500 dark:to-orange-500 hover:from-amber-800 hover:to-orange-800 dark:hover:from-amber-600 dark:hover:to-orange-600 text-slate-900 dark:text-white px-8 py-4 text-lg font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300">
                   <Database className="w-5 h-5 mr-3" />
                   {locale === 'es' ? 'Ver Directorio Completo' : 'View Complete Directory'}
                 </Button>
@@ -427,28 +468,28 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
 
         {/* Business Owner CTA */}
         <div className="text-center py-12">
-          <Card className="bg-gradient-to-r from-amber-400/10 to-orange-400/10 backdrop-blur-xl border-white/20 p-12 max-w-4xl mx-auto">
+          <Card className="bg-gradient-to-r from-amber-100/90 to-orange-100/90 dark:from-amber-400/10 dark:to-orange-400/10 backdrop-blur-xl border border-amber-300/60 dark:border-white/20 p-12 max-w-4xl mx-auto">
             <CardContent className="space-y-6">
-              <h2 className="text-3xl font-bold text-white">
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
                 {locale === 'es' 
                   ? '¿Tienes un hotel en Tepoztlán?' 
                   : 'Do you own a hotel in Tepoztlán?'
                 }
               </h2>
-              <p className="text-white/80 text-lg max-w-2xl mx-auto">
+              <p className="text-slate-700 dark:text-white/80 text-lg max-w-2xl mx-auto">
                 {locale === 'es' 
                   ? 'Únete a nuestra plataforma y conecta con miles de viajeros que buscan experiencias auténticas de hospedaje en el corazón de este Pueblo Mágico.'
                   : 'Join our platform and connect with thousands of travelers looking for authentic accommodation experiences in the heart of this Magical Town.'
                 }
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button className="bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white px-8 py-6 text-lg">
+                <Button className="bg-gradient-to-r from-amber-600 to-orange-600 dark:from-amber-400 dark:to-orange-400 hover:from-amber-700 hover:to-orange-700 dark:hover:from-amber-500 dark:hover:to-orange-500 text-slate-900 dark:text-white px-8 py-6 text-lg">
                   <Star className="w-5 h-5 mr-2" />
                   {locale === 'es' ? 'Agregar mi Hotel' : 'Add my Hotel'}
                 </Button>
                 <Button 
                   variant="outline" 
-                  className="border-white/30 bg-white/10 text-white hover:bg-white/20 px-8 py-6 text-lg"
+                  className="border-amber-400/60 dark:border-white/30 bg-white/70 dark:bg-white/10 text-slate-900 dark:text-white hover:bg-white/90 dark:hover:bg-white/20 px-8 py-6 text-lg"
                 >
                   {locale === 'es' ? 'Más Información' : 'Learn More'}
                 </Button>

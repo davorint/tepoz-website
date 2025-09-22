@@ -1,54 +1,10 @@
 import { Locale } from './i18n'
+import { Bar as BaseBar } from './types/business'
+import { BusinessService } from './services/BusinessService'
 
-export interface Bar {
-  id: string
-  name: {
-    es: string
-    en: string
-  }
-  description: {
-    es: string
-    en: string
-  }
-  type: 'bar' | 'pulqueria' | 'cantina' | 'mezcaleria' | 'cocktail-bar' | 'sports-bar'
-  priceRange: '$' | '$$' | '$$$' | '$$$$'
-  rating: number
-  reviewCount: number
-  images: string[]
-  address: {
-    es: string
-    en: string
-  }
-  coordinates: [number, number] // [longitude, latitude]
-  phone?: string
-  website?: string
-  email?: string
-  hours: {
-    es: string
-    en: string
-  }
-  amenities: string[]
-  specialties: {
-    es: string[]
-    en: string[]
-  }
-  atmosphere: 'casual' | 'upscale' | 'traditional' | 'modern' | 'rustic' | 'party'
-  drinks: ('beer' | 'wine' | 'cocktails' | 'pulque' | 'mezcal' | 'tequila' | 'craft-beer' | 'champagne')[]
-  verified: boolean
-  featured: boolean
-  liveMusic: boolean
-  danceFloor: boolean
-  outdoorSeating: boolean
-  parking: boolean
-  wifi: boolean
-  acceptsCards: boolean
-  ageRestriction: boolean
-  smokingArea: boolean
-  happyHour?: {
-    es: string
-    en: string
-  }
-}
+// Export the Bar type from the base types
+export type Bar = BaseBar
+
 
 export const barTypes = [
   { id: 'all', es: 'Todos', en: 'All' },
@@ -91,6 +47,7 @@ export const priceRanges = [
 export const mockBars: Bar[] = [
   {
     id: '1',
+    slug: 'pulqueria-los-amantes',
     name: {
       es: 'La Pulquería Los Amantes',
       en: 'Los Amantes Pulqueria'
@@ -126,6 +83,8 @@ export const mockBars: Bar[] = [
     drinks: ['pulque'],
     verified: true,
     featured: true,
+    dietary: [],
+    delivery: false,
     liveMusic: true,
     danceFloor: false,
     outdoorSeating: true,
@@ -141,6 +100,7 @@ export const mockBars: Bar[] = [
   },
   {
     id: '2',
+    slug: 'mezcaleria-el-coyote',
     name: {
       es: 'Mezcalería El Coyote',
       en: 'El Coyote Mezcal Bar'
@@ -178,6 +138,8 @@ export const mockBars: Bar[] = [
     drinks: ['mezcal', 'cocktails', 'wine'],
     verified: true,
     featured: true,
+    dietary: [],
+    delivery: false,
     liveMusic: false,
     danceFloor: false,
     outdoorSeating: true,
@@ -189,6 +151,7 @@ export const mockBars: Bar[] = [
   },
   {
     id: '3',
+    slug: 'bar-la-cueva',
     name: {
       es: 'Bar La Cueva',
       en: 'La Cueva Bar'
@@ -225,6 +188,8 @@ export const mockBars: Bar[] = [
     drinks: ['beer', 'craft-beer', 'cocktails', 'mezcal', 'tequila'],
     verified: true,
     featured: false,
+    dietary: [],
+    delivery: false,
     liveMusic: true,
     danceFloor: true,
     outdoorSeating: false,
@@ -240,6 +205,7 @@ export const mockBars: Bar[] = [
   },
   {
     id: '4',
+    slug: 'cantina-el-tepozteco',
     name: {
       es: 'Cantina El Tepozteco',
       en: 'El Tepozteco Cantina'
@@ -274,6 +240,8 @@ export const mockBars: Bar[] = [
     drinks: ['beer', 'tequila', 'mezcal'],
     verified: true,
     featured: false,
+    dietary: [],
+    delivery: false,
     liveMusic: false,
     danceFloor: false,
     outdoorSeating: false,
@@ -285,6 +253,7 @@ export const mockBars: Bar[] = [
   },
   {
     id: '5',
+    slug: 'sky-bar-tepoztlan',
     name: {
       es: 'Sky Bar Tepoztlán',
       en: 'Sky Bar Tepoztlan'
@@ -322,6 +291,8 @@ export const mockBars: Bar[] = [
     drinks: ['cocktails', 'wine', 'champagne'],
     verified: true,
     featured: true,
+    dietary: [],
+    delivery: false,
     liveMusic: false,
     danceFloor: false,
     outdoorSeating: true,
@@ -337,17 +308,64 @@ export const mockBars: Bar[] = [
   }
 ]
 
-export class BarService {
-  static getAllBars(): Bar[] {
+export class BarService extends BusinessService<Bar> {
+  private static instance: BarService
+
+  static getInstance(): BarService {
+    if (!BarService.instance) {
+      BarService.instance = new BarService()
+    }
+    return BarService.instance
+  }
+
+  // Implementation of abstract methods
+  getAllItems(): Bar[] {
     return [...mockBars]
   }
 
+  getFeaturedItems(): Bar[] {
+    return mockBars.filter(bar => bar.featured)
+  }
+
+  protected getEntityName(bar: Bar, locale: Locale): string {
+    return bar.name[locale]
+  }
+
+  protected getEntityDescription(bar: Bar, locale: Locale): string {
+    return bar.description[locale]
+  }
+
+  protected matchesCategory(bar: Bar, type: string): boolean {
+    return bar.type === type
+  }
+
+  protected matchesAtmosphere(bar: Bar, atmosphere: string): boolean {
+    return bar.atmosphere === atmosphere
+  }
+
+  // Bar-specific methods
+  searchBarsByDrinks(bars: Bar[], drinks: string[]): Bar[] {
+    if (drinks.length === 0) return bars
+    return bars.filter(bar =>
+      drinks.some(drink => bar.drinks.includes(drink as Bar['drinks'][number]))
+    )
+  }
+
+  // Static methods for backward compatibility
+  static getAllBars(): Bar[] {
+    return BarService.getInstance().getAllItems()
+  }
+
   static getBarById(id: string): Bar | undefined {
-    return mockBars.find(bar => bar.id === id)
+    return BarService.getInstance().getItemById(id)
+  }
+
+  static getBarBySlug(slug: string): Bar | undefined {
+    return BarService.getInstance().getItemBySlug(slug)
   }
 
   static getFeaturedBars(): Bar[] {
-    return mockBars.filter(bar => bar.featured)
+    return BarService.getInstance().getFeaturedItems()
   }
 
   static searchBars(
@@ -357,76 +375,21 @@ export class BarService {
     priceRange: string = 'all',
     drinks: string[] = []
   ): Bar[] {
-    let filtered = [...mockBars]
-
-    // Filter by search query
-    if (query) {
-      const searchTerm = query.toLowerCase()
-      filtered = filtered.filter(bar => 
-        bar.name.es.toLowerCase().includes(searchTerm) ||
-        bar.name.en.toLowerCase().includes(searchTerm) ||
-        bar.description.es.toLowerCase().includes(searchTerm) ||
-        bar.description.en.toLowerCase().includes(searchTerm) ||
-        bar.specialties.es.some(s => s.toLowerCase().includes(searchTerm)) ||
-        bar.specialties.en.some(s => s.toLowerCase().includes(searchTerm))
-      )
-    }
-
-    // Filter by type
-    if (type && type !== 'all') {
-      filtered = filtered.filter(bar => bar.type === type)
-    }
-
-    // Filter by atmosphere
-    if (atmosphere && atmosphere !== 'all') {
-      filtered = filtered.filter(bar => bar.atmosphere === atmosphere)
-    }
-
-    // Filter by price range
-    if (priceRange && priceRange !== 'all') {
-      filtered = filtered.filter(bar => bar.priceRange === priceRange)
-    }
-
-    // Filter by drinks
-    if (drinks.length > 0) {
-      filtered = filtered.filter(bar => 
-        drinks.some(drink => bar.drinks.includes(drink as Bar['drinks'][number]))
-      )
-    }
-
-    return filtered
+    const service = BarService.getInstance()
+    const filtered = service.searchItems(query, type, atmosphere, priceRange, [], [])
+    return service.searchBarsByDrinks(filtered, drinks)
   }
 
   static sortBars(bars: Bar[], sortBy: 'featured' | 'rating' | 'price' | 'name', locale: Locale = 'es'): Bar[] {
-    const sorted = [...bars]
-
-    switch (sortBy) {
-      case 'featured':
-        return sorted.sort((a, b) => {
-          if (a.featured && !b.featured) return -1
-          if (!a.featured && b.featured) return 1
-          return b.rating - a.rating
-        })
-      case 'rating':
-        return sorted.sort((a, b) => b.rating - a.rating)
-      case 'price':
-        const priceOrder = { '$': 1, '$$': 2, '$$$': 3, '$$$$': 4 }
-        return sorted.sort((a, b) => priceOrder[a.priceRange] - priceOrder[b.priceRange])
-      case 'name':
-        return sorted.sort((a, b) => 
-          a.name[locale].localeCompare(b.name[locale])
-        )
-      default:
-        return sorted
-    }
+    return BarService.getInstance().sortItems(bars, sortBy, locale)
   }
 
   static getBarName(bar: Bar, locale: Locale): string {
-    return bar.name[locale]
+    return BarService.getInstance().getName(bar, locale)
   }
 
   static getBarDescription(bar: Bar, locale: Locale): string {
-    return bar.description[locale]
+    return BarService.getInstance().getDescription(bar, locale)
   }
 
   static getBarType(bar: Bar, locale: Locale): string {
@@ -442,6 +405,14 @@ export class BarService {
   }
 
   static getBarAddress(bar: Bar, locale: Locale): string {
-    return bar.address[locale]
+    return BarService.getInstance().getAddress(bar, locale)
+  }
+
+  static getBarHours(bar: Bar, locale: Locale): string {
+    return BarService.getInstance().getHours(bar, locale)
+  }
+
+  static getBarSpecialties(bar: Bar, locale: Locale): string[] {
+    return BarService.getInstance().getSpecialties(bar, locale)
   }
 }

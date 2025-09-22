@@ -19,7 +19,7 @@ import {
   Recycle
 } from 'lucide-react'
 import { Locale } from '@/lib/i18n'
-import { EcoLodge, EcoLodgeService, ecoLodgeCategories } from '@/lib/eco-lodges'
+import { EcoLodge, EcoLodgeServiceStatic, ecoLodgeCategories } from '@/lib/eco-lodges'
 
 interface EcoLodgeMapProps {
   locale: Locale
@@ -45,7 +45,7 @@ export default function EcoLodgeMap({ locale, selectedEcoLodges, onEcoLodgeSelec
   const [selectedEcoLodge, setSelectedEcoLodge] = useState<EcoLodge | null>(null)
   
   // Get all eco-lodges for display
-  const allEcoLodges = EcoLodgeService.getAllEcoLodges()
+  const allEcoLodges = EcoLodgeServiceStatic.getAllEcoLodges()
   const ecoLodgesToShow = selectedEcoLodges.length > 0 ? selectedEcoLodges : allEcoLodges
 
   // Initialize map
@@ -85,6 +85,8 @@ export default function EcoLodgeMap({ locale, selectedEcoLodges, onEcoLodgeSelec
 
         // Add eco-lodge markers
         ecoLodgesToShow.forEach((ecoLodge) => {
+          if (!ecoLodge.location?.coordinates) return
+
           const feature = new Feature({
             geometry: new Point(fromLonLat([ecoLodge.location.coordinates[1], ecoLodge.location.coordinates[0]])), // Convert [lat, lng] to [lng, lat]
             ecoLodge: ecoLodge
@@ -267,14 +269,14 @@ export default function EcoLodgeMap({ locale, selectedEcoLodges, onEcoLodgeSelec
                   <div className="flex items-start justify-between mb-2">
                     <div>
                       <h3 className="font-bold text-white text-lg">
-                        {EcoLodgeService.getEcoLodgeName(selectedEcoLodge, locale)}
+                        {EcoLodgeServiceStatic.getEcoLodgeName(selectedEcoLodge, locale)}
                       </h3>
                       <p className="text-white/70 text-sm mt-1">
-                        {EcoLodgeService.getEcoLodgeDescription(selectedEcoLodge, locale)}
+                        {EcoLodgeServiceStatic.getEcoLodgeDescription(selectedEcoLodge, locale)}
                       </p>
                       <p className="text-white/60 text-sm mt-1 flex items-center gap-1">
                         <MapPin className="w-3 h-3" />
-                        {selectedEcoLodge.location.address}
+                        {selectedEcoLodge.location?.address || selectedEcoLodge.address[locale]}
                       </p>
                     </div>
                     <div className="flex gap-2">
@@ -296,7 +298,7 @@ export default function EcoLodgeMap({ locale, selectedEcoLodges, onEcoLodgeSelec
                     <div className="flex items-center gap-1">
                       <Star className="w-4 h-4 text-yellow-400 fill-current" />
                       <span className="text-white font-medium">{selectedEcoLodge.rating}</span>
-                      <span className="text-white/50 text-sm">({selectedEcoLodge.reviews})</span>
+                      <span className="text-white/50 text-sm">({selectedEcoLodge.reviews?.length || 0})</span>
                     </div>
                     <Badge className="bg-white/10 text-white/70">
                       {selectedEcoLodge.priceRange}
@@ -335,12 +337,12 @@ export default function EcoLodgeMap({ locale, selectedEcoLodges, onEcoLodgeSelec
                       <Navigation className="w-3 h-3 mr-1" />
                       {locale === 'es' ? 'Direcciones' : 'Directions'}
                     </Button>
-                    {selectedEcoLodge.contact.phone && (
+                    {selectedEcoLodge.contact?.phone && (
                       <Button size="sm" variant="ghost" className="text-white/60 hover:text-white">
                         <Phone className="w-3 h-3" />
                       </Button>
                     )}
-                    {selectedEcoLodge.contact.website && (
+                    {selectedEcoLodge.contact?.website && (
                       <Button size="sm" variant="ghost" className="text-white/60 hover:text-white">
                         <Globe className="w-3 h-3" />
                       </Button>

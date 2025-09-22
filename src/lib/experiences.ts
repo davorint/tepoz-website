@@ -112,12 +112,12 @@ export const mockExperiences: Experience[] = [
   {
     id: '1',
     name: {
-      es: 'Ascenso al Tepozteco - Aventura Sagrada',
-      en: 'Tepozteco Pyramid Hike - Sacred Adventure'
+      es: 'Ascenso al Tepozteco - Aventura Ancestral',
+      en: 'Tepozteco Pyramid Hike - Ancient Adventure'
     },
     description: {
-      es: 'Vive una experiencia transformadora subiendo a la pirámide del Tepozteco, uno de los sitios arqueológicos más místicos de México. Este sendero sagrado te llevará a través de bosques de encinos hasta la cima donde se encuentra el templo dedicado al dios Tepoztecatl.',
-      en: 'Experience a transformative journey climbing the Tepozteco pyramid, one of Mexico\'s most mystical archaeological sites. This sacred trail will take you through oak forests to the summit where the temple dedicated to god Tepoztecatl stands.'
+      es: 'Vive una experiencia transformadora subiendo a la pirámide del Tepozteco, uno de los sitios arqueológicos más místicos de México. Este sendero ancestral te llevará a través de bosques de encinos hasta la cima donde se encuentra el templo dedicado al dios Tepoztecatl.',
+      en: 'Experience a transformative journey climbing the Tepozteco pyramid, one of Mexico\'s most mystical archaeological sites. This ancient trail will take you through oak forests to the summit where the temple dedicated to god Tepoztecatl stands.'
     },
     shortDescription: {
       es: 'Senderismo místico hasta la pirámide prehispánica con vista panorámica.',
@@ -208,8 +208,8 @@ export const mockExperiences: Experience[] = [
   {
     id: '2',
     name: {
-      es: 'Temazcal Sagrado - Ceremonia de Purificación',
-      en: 'Sacred Temazcal - Purification Ceremony'
+      es: 'Temazcal Ancestral - Ceremonia de Purificación',
+      en: 'Traditional Temazcal - Purification Ceremony'
     },
     description: {
       es: 'Participa en una ceremonia ancestral de temazcal dirigida por un curandero tradicional. Esta experiencia de purificación física, mental y espiritual te conectará con las tradiciones prehispánicas en un ambiente de respeto y sanación profunda.',
@@ -298,7 +298,7 @@ export const mockExperiences: Experience[] = [
     longitude: -99.0991,
     verified: true,
     sustainable: true,
-    indigenous: true
+    indigenous: false
   },
   {
     id: '3',
@@ -307,8 +307,8 @@ export const mockExperiences: Experience[] = [
       en: 'Sunrise Yoga and Meditation Retreat'
     },
     description: {
-      es: 'Comienza tu día con una práctica transformadora de yoga y meditación al amanecer, con vista a las montañas sagradas de Tepoztlán. Esta experiencia combina asanas tradicionales, pranayama y meditación silenciosa para conectarte con la energía del lugar.',
-      en: 'Start your day with a transformative yoga and meditation practice at sunrise, overlooking the sacred mountains of Tepoztlán. This experience combines traditional asanas, pranayama and silent meditation to connect you with the energy of the place.'
+      es: 'Comienza tu día con una práctica transformadora de yoga y meditación al amanecer, con vista a las montañas místicas de Tepoztlán. Esta experiencia combina asanas tradicionales, pranayama y meditación silenciosa para conectarte con la energía del lugar.',
+      en: 'Start your day with a transformative yoga and meditation practice at sunrise, overlooking the mystical mountains of Tepoztlán. This experience combines traditional asanas, pranayama and silent meditation to connect you with the energy of the place.'
     },
     shortDescription: {
       es: 'Yoga matutino y meditación con vista panorámica de montañas.',

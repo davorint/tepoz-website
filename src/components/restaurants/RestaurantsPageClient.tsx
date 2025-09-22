@@ -11,12 +11,26 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent } from '@/components/ui/card'
-import { 
-  Search, 
-  Filter, 
+import GlassmorphismCard from '@/components/ui/GlassmorphismCard'
+import TepoztlanHillshade from '@/components/experiences/TepoztlanHillshade'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
+import {
+  Search,
+  Filter,
   X,
-  Star
+  Star,
+  Home,
+  UtensilsCrossed,
+  Mountain
 } from 'lucide-react'
+import Link from 'next/link'
 
 interface RestaurantsPageClientProps {
   locale: Locale
@@ -34,6 +48,90 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
   const [showFilters, setShowFilters] = useState(false)
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [sortBy, setSortBy] = useState<'featured' | 'rating' | 'price' | 'name'>('featured')
+  const [, setMapFlyToRestaurant] = useState<((restaurant: Restaurant) => void) | null>(null)
+
+  // Convert restaurants to experience-like format for the map
+  const convertRestaurantsToExperiences = (restaurants: Restaurant[]) => {
+    return restaurants
+      .filter(restaurant => restaurant.coordinates && restaurant.coordinates.length === 2)
+      .map(restaurant => ({
+        id: restaurant.id,
+        slug: restaurant.slug,
+        name: restaurant.name,
+        description: restaurant.description,
+        shortDescription: restaurant.description,
+        location: restaurant.address,
+        address: restaurant.address,
+        category: 'food' as const,
+        type: 'individual' as const,
+        price: {
+          es: restaurant.priceRange,
+          en: restaurant.priceRange
+        },
+        priceAmount: restaurant.priceRange.length * 100, // Rough conversion for sorting
+        currency: 'MXN' as const,
+        images: restaurant.images || [],
+        featured: restaurant.featured || false,
+        tags: {
+          es: [typeof restaurant.atmosphere === 'string' ? restaurant.atmosphere : 'restaurante'],
+          en: [typeof restaurant.atmosphere === 'string' ? restaurant.atmosphere : 'restaurant']
+        },
+        provider: {
+          name: restaurant.name[locale],
+          contact: restaurant.phone
+        },
+        duration: {
+          es: restaurant.hours?.es || 'Consultar horarios',
+          en: restaurant.hours?.en || 'Check hours'
+        },
+        requirements: {
+          es: [],
+          en: []
+        },
+        includes: {
+          es: [],
+          en: []
+        },
+        excludes: {
+          es: [],
+          en: []
+        },
+        rating: restaurant.rating,
+        reviewCount: restaurant.reviewCount,
+        phone: restaurant.phone || '',
+        website: restaurant.website,
+        email: restaurant.email,
+        atmosphere: 'relaxing' as const,
+        environment: 'indoor' as const,
+        intensity: 'low' as const,
+        highlights: {
+          es: [typeof restaurant.atmosphere === 'string' ? restaurant.atmosphere : 'restaurante'],
+          en: [typeof restaurant.atmosphere === 'string' ? restaurant.atmosphere : 'restaurant']
+        },
+        cancellationPolicy: {
+          es: 'Consultar política de cancelación',
+          en: 'Check cancellation policy'
+        },
+        seasons: ['spring', 'summer', 'fall', 'winter'],
+        bestTime: {
+          es: 'Todo el año',
+          en: 'Year round'
+        },
+        equipment: {
+          es: [],
+          en: []
+        },
+        preparation: {
+          es: [],
+          en: []
+        },
+        verified: restaurant.verified || false,
+        sustainable: false,
+        indigenous: false,
+        latitude: restaurant.coordinates[1],
+        longitude: restaurant.coordinates[0]
+      }))
+  }
 
   // Initialize restaurants
   useEffect(() => {
@@ -119,6 +217,37 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-12">
+        {/* Breadcrumb */}
+        <div className="mb-8">
+          <Breadcrumb className="text-slate-700 dark:text-white/80">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href={`/${locale}`} className="flex items-center gap-1.5 hover:text-orange-500 dark:hover:text-orange-400 transition-colors">
+                    <Home className="w-4 h-4" />
+                    {locale === 'es' ? 'Inicio' : 'Home'}
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href={`/${locale}/food-drink`} className="flex items-center gap-1.5 hover:text-orange-500 dark:hover:text-orange-400 transition-colors">
+                    <UtensilsCrossed className="w-4 h-4" />
+                    {locale === 'es' ? 'Comida y Bebida' : 'Food & Drink'}
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage className="flex items-center gap-1.5 font-medium text-orange-600 dark:text-orange-400">
+                  🍽️ {locale === 'es' ? 'Restaurantes' : 'Restaurants'}
+                </BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+
         {/* Premium Header */}
         <div className="text-center mb-16 relative">
           <div className="inline-flex items-center gap-3 mb-8">
@@ -328,9 +457,9 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
         </div>
 
         {/* Results */}
-        <div className={`grid gap-8 ${
-          viewMode === 'grid' 
-            ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
+        <div className={`grid gap-8 mb-16 ${
+          viewMode === 'grid'
+            ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
             : 'grid-cols-1'
         }`}>
           {filteredRestaurants.map((restaurant, index) => (
@@ -343,6 +472,71 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
             />
           ))}
         </div>
+
+        {/* Interactive Restaurant Map Section */}
+        {filteredRestaurants.length > 0 && (
+          <div className="mb-16 restaurant-map-section">
+            <GlassmorphismCard level="medium" shadow="2xl" className="overflow-hidden">
+              <div className="p-6 pb-0">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="bg-gradient-to-r from-orange-500 to-red-500 rounded-full p-2">
+                    <Mountain className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                      {locale === 'es' ? 'Explora Restaurantes en el Mapa' : 'Explore Restaurants on Map'}
+                    </h2>
+                    <p className="text-sm text-slate-600 dark:text-white/70">
+                      {locale === 'es'
+                        ? 'Descubre la ubicación de los mejores restaurantes de Tepoztlán'
+                        : 'Discover the location of the best restaurants in Tepoztlán'
+                      }
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <TepoztlanHillshade
+                className="w-full"
+                height="575px"
+                locale={locale}
+                experiences={convertRestaurantsToExperiences(filteredRestaurants)}
+                showGeocoding={true}
+                showSidebar={false}
+                onLocationSearch={(query) => {
+                  setSearchQuery(query)
+                  // Scroll to results section
+                  setTimeout(() => {
+                    const resultsSection = document.querySelector('.restaurant-results')
+                    if (resultsSection) {
+                      resultsSection.scrollIntoView({ behavior: 'smooth' })
+                    }
+                  }, 100)
+                }}
+                onExperienceSelect={(experience) => {
+                  // Scroll to the selected restaurant card
+                  setTimeout(() => {
+                    const restaurantCard = document.querySelector(`[data-restaurant-id="${experience.id}"]`)
+                    if (restaurantCard) {
+                      restaurantCard.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                      // Add a temporary highlight effect
+                      restaurantCard.classList.add('ring-4', 'ring-orange-400/50')
+                      setTimeout(() => {
+                        restaurantCard.classList.remove('ring-4', 'ring-orange-400/50')
+                      }, 3000)
+                    }
+                  }, 100)
+                }}
+                onUserLocationSet={(location) => {
+                  // Could add distance-based sorting here if needed
+                  console.log('User location set:', location)
+                }}
+                onMapReady={(flyToFn) => {
+                  setMapFlyToRestaurant(() => flyToFn)
+                }}
+              />
+            </GlassmorphismCard>
+          </div>
+        )}
 
         {/* Empty State */}
         {filteredRestaurants.length === 0 && (
@@ -398,7 +592,7 @@ export default function RestaurantsPageClient({ locale }: RestaurantsPageClientP
 
         {/* Business Owner CTA */}
         <div className="text-center py-12">
-          <Card className="bg-white/70 dark:from-orange-400/10 dark:to-red-400/10 backdrop-blur-md dark:backdrop-blur-xl border border-slate-300/20 dark:border-white/20 p-12 max-w-4xl mx-auto shadow-xl shadow-slate-300/20 dark:shadow-orange-400/20 hover:bg-white/80 hover:shadow-xl dark:hover:shadow-orange-400/30 transition-all duration-300 dark:duration-500">
+          <Card className="bg-white/70 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-xl border border-slate-300/20 dark:border-white/10 p-12 max-w-4xl mx-auto shadow-xl shadow-slate-300/20 dark:shadow-white/15 hover:bg-white/80 dark:hover:bg-white/8 hover:shadow-xl transition-all duration-300 dark:duration-500">
             <CardContent className="space-y-6">
               <h2 className="text-3xl font-bold text-slate-800 dark:text-white">
                 {locale === 'es' 

@@ -7,6 +7,7 @@ import { Experience } from '@/lib/experiences'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { MapPin, Search, Navigation } from 'lucide-react'
+import { motion } from 'motion/react'
 
 interface TepoztlanHillshadeProps {
   className?: string
@@ -23,7 +24,7 @@ interface TepoztlanHillshadeProps {
 
 export default function TepoztlanHillshade({ 
   className = '', 
-  height = '600px',
+  height = '690px',
   onLocationSearch,
   locale = 'es',
   experiences = [],
@@ -38,6 +39,11 @@ export default function TepoztlanHillshade({
   const markersRef = useRef<mapboxgl.Marker[]>([])
   const [searchQuery, setSearchQuery] = useState('')
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null)
+  const [is3DMode, setIs3DMode] = useState(true) // Start in 3D mode since this is a terrain map
+  const [mapStyle, setMapStyle] = useState<'streets' | 'satellite'>('satellite')
+  const [isStyleLoading, setIsStyleLoading] = useState(false)
+  const [isZoomingToFit, setIsZoomingToFit] = useState(false)
+  const [lastZoomAction, setLastZoomAction] = useState<'success' | 'error' | null>(null)
   // Suppress unused variable warning
   void userLocation
 
@@ -463,6 +469,186 @@ export default function TepoztlanHillshade({
     .addTo(map.current!)
   }
 
+  // Toggle 3D mode
+  const toggle3DMode = async () => {
+    if (!map.current) return
+
+    try {
+      const newMode = !is3DMode
+      const newPitch = newMode ? 60 : 0
+      const newBearing = newMode ? 45 : 0
+
+      await new Promise<void>((resolve) => {
+        map.current!.easeTo({
+          pitch: newPitch,
+          bearing: newBearing,
+          duration: 2000
+        })
+
+        const onMoveEnd = () => {
+          map.current!.off('moveend', onMoveEnd)
+          resolve()
+        }
+        map.current!.on('moveend', onMoveEnd)
+      })
+
+      setIs3DMode(newMode)
+      console.log(`🎮 3D mode ${newMode ? 'enabled' : 'disabled'}`)
+    } catch (error) {
+      console.error('❌ Error toggling 3D mode:', error)
+    }
+  }
+
+  // Toggle map style
+  const toggleMapStyle = async () => {
+    if (!map.current || isStyleLoading) return
+
+    setIsStyleLoading(true)
+
+    try {
+      const newStyle = mapStyle === 'streets' ? 'satellite' : 'streets'
+      const styleUrl = newStyle === 'satellite'
+        ? 'mapbox://styles/mapbox/satellite-streets-v12'
+        : 'mapbox://styles/mapbox/streets-v12'
+
+      const onStyleLoad = () => {
+        setMapStyle(newStyle)
+        setIsStyleLoading(false)
+        map.current?.off('style.load', onStyleLoad)
+        console.log(`🛰️ Map style changed to: ${newStyle}`)
+
+        // Ensure attribution control stays disabled after style change
+        if (map.current) {
+          const attributionControl = map.current._controls.find(control => control instanceof mapboxgl.AttributionControl)
+          if (attributionControl) {
+            map.current.removeControl(attributionControl)
+          }
+        }
+
+        // Re-add terrain and markers after style change
+        if (map.current && newStyle === 'satellite') {
+          // Re-add the DEM source and terrain
+          map.current.addSource('dem', {
+            type: 'raster-dem',
+            url: 'mapbox://mapbox.mapbox-terrain-dem-v1'
+          })
+
+          // Re-add the hillshade layer
+          map.current.addLayer({
+            id: 'hillshading',
+            source: 'dem',
+            type: 'hillshade',
+            slot: 'bottom',
+            paint: {
+              'hillshade-exaggeration': .2,
+              'hillshade-shadow-color': '#5a3a1a',
+              'hillshade-highlight-color': '#ffd4a3',
+              'hillshade-accent-color': '#8b6230',
+              'hillshade-illumination-direction': 335,
+              'hillshade-illumination-anchor': 'viewport'
+            }
+          })
+
+          // Re-add 3D terrain
+          map.current.setTerrain({
+            source: 'dem',
+            exaggeration: 1
+          })
+
+          // Re-add fog
+          map.current.setFog({
+            color: 'rgb(186, 210, 235)',
+            'high-color': 'rgb(36, 92, 223)',
+            'horizon-blend': 0.02,
+            'space-color': 'rgb(11, 11, 25)',
+            'star-intensity': 0.6
+          })
+        }
+
+        // Re-add markers
+        if (experiences.length > 0) {
+          addExperienceMarkers()
+        }
+      }
+
+      const onStyleError = (error: mapboxgl.ErrorEvent) => {
+        console.error('❌ Failed to load map style:', error)
+        setIsStyleLoading(false)
+        map.current?.off('error', onStyleError)
+      }
+
+      map.current.on('style.load', onStyleLoad)
+      map.current.on('error', onStyleError)
+      map.current.setStyle(styleUrl)
+
+    } catch (error) {
+      console.error('❌ Error changing map style:', error)
+      setIsStyleLoading(false)
+    }
+  }
+
+  // Zoom to fit all experiences
+  const zoomToFitExperiences = async () => {
+    if (isZoomingToFit || !map.current || experiences.length === 0) {
+      if (experiences.length === 0) {
+        console.warn('⚠️ No experiences to zoom to')
+      }
+      return
+    }
+
+    setIsZoomingToFit(true)
+
+    try {
+      const bounds = new mapboxgl.LngLatBounds()
+      const validExperiences = experiences.filter(experience => {
+        return experience.longitude && experience.latitude &&
+               experience.longitude >= -180 && experience.longitude <= 180 &&
+               experience.latitude >= -90 && experience.latitude <= 90
+      })
+
+      if (validExperiences.length === 0) {
+        throw new Error('No valid experience coordinates found')
+      }
+
+      validExperiences.forEach(experience => {
+        bounds.extend([experience.longitude!, experience.latitude!])
+      })
+
+      const options: mapboxgl.FitBoundsOptions = {
+        padding: { top: 50, bottom: 50, left: 50, right: 50 },
+        maxZoom: 16,
+        duration: 2000
+      }
+
+      await new Promise<void>((resolve, reject) => {
+        const onMoveEnd = () => {
+          map.current!.off('moveend', onMoveEnd)
+          map.current!.off('error', onError)
+          resolve()
+        }
+
+        const onError = (error: mapboxgl.ErrorEvent) => {
+          map.current!.off('moveend', onMoveEnd)
+          map.current!.off('error', onError)
+          reject(error)
+        }
+
+        map.current!.on('moveend', onMoveEnd)
+        map.current!.on('error', onError)
+        map.current!.fitBounds(bounds, options)
+      })
+
+      setLastZoomAction('success')
+      console.log(`🎯 Successfully zoomed to fit ${validExperiences.length} experiences`)
+
+    } catch (error) {
+      setLastZoomAction('error')
+      console.error('❌ Zoom to fit error:', error)
+    } finally {
+      setIsZoomingToFit(false)
+      setTimeout(() => setLastZoomAction(null), 2000)
+    }
+  }
 
   useEffect(() => {
     if (!mapContainer.current) return
@@ -478,17 +664,28 @@ export default function TepoztlanHillshade({
       zoom: 13.5,
       pitch: 60, // Higher pitch for better 3D mountain effect
       bearing: 45, // Angle to best view the mountain range
-      antialias: true
+      antialias: true,
+      attributionControl: false // Hide the attribution control
     })
 
     // Add navigation controls
     map.current.addControl(new mapboxgl.NavigationControl(), 'top-right')
+
+    // Add fullscreen control
+    map.current.addControl(new mapboxgl.FullscreenControl(), 'top-right')
 
     // Add scale control
     map.current.addControl(new mapboxgl.ScaleControl({
       maxWidth: 80,
       unit: 'metric'
     }), 'bottom-left')
+
+    // Force map to resize to container
+    setTimeout(() => {
+      if (map.current) {
+        map.current.resize()
+      }
+    }, 100)
 
     // When the map loads, add the hillshade layer
     map.current.on('load', () => {
@@ -877,6 +1074,123 @@ export default function TepoztlanHillshade({
         </div>
       )}
 
+      {/* Map Control Buttons */}
+      <>
+        {/* 3D Mode Toggle */}
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.5 }}
+          className="absolute top-4 left-4 z-10"
+        >
+          <Button
+            size="icon"
+            className={`w-12 h-12 rounded-full backdrop-blur-xl border transition-all duration-300 shadow-lg ${
+              is3DMode
+                ? 'bg-emerald-500/30 border-emerald-400/50 text-emerald-400'
+                : 'bg-white/10 border-white/20 hover:bg-white/20 hover:border-cyan-400/50 hover:shadow-cyan-400/25 text-slate-900 dark:text-white'
+            }`}
+            onClick={toggle3DMode}
+          >
+            <span className="text-sm">⛰️</span>
+          </Button>
+        </motion.div>
+
+        {/* Map Style Toggle */}
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.6 }}
+          className="absolute top-20 left-4 z-10"
+        >
+          <Button
+            size="icon"
+            disabled={isStyleLoading}
+            className={`w-12 h-12 rounded-full backdrop-blur-xl border transition-all duration-300 shadow-lg ${
+              isStyleLoading
+                ? 'bg-blue-500/20 border-blue-400/30 cursor-not-allowed opacity-70'
+                : mapStyle === 'satellite'
+                  ? 'bg-blue-500/30 border-blue-400/50 text-blue-400'
+                  : 'bg-white/10 border-white/20 hover:bg-white/20 hover:border-emerald-400/50 shadow-emerald-400/25 text-slate-900 dark:text-white'
+            }`}
+            onClick={toggleMapStyle}
+          >
+            {isStyleLoading ? (
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                className="text-sm"
+              >
+                🔄
+              </motion.div>
+            ) : (
+              <span className="text-sm">
+                {mapStyle === 'satellite' ? '🗺️' : '🛰️'}
+              </span>
+            )}
+          </Button>
+        </motion.div>
+
+        {/* Zoom to Fit Button */}
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.7 }}
+          className="absolute top-36 left-4 z-10"
+        >
+          <Button
+            size="icon"
+            disabled={isZoomingToFit || experiences.length === 0}
+            className={`w-12 h-12 rounded-full backdrop-blur-xl border transition-all duration-300 shadow-lg ${
+              isZoomingToFit
+                ? 'bg-blue-500/30 border-blue-400/50 cursor-not-allowed opacity-70'
+                : experiences.length === 0
+                  ? 'bg-gray-500/20 border-gray-400/30 cursor-not-allowed opacity-50'
+                  : lastZoomAction === 'success'
+                    ? 'bg-emerald-500/30 border-emerald-400/50 text-emerald-400'
+                    : lastZoomAction === 'error'
+                      ? 'bg-red-500/30 border-red-400/50 text-red-400'
+                      : 'bg-white/10 border-white/20 hover:bg-white/20 hover:border-emerald-400/50 text-slate-900 dark:text-white'
+            }`}
+            onClick={zoomToFitExperiences}
+          >
+            {isZoomingToFit ? (
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                className="text-sm"
+              >
+                🔄
+              </motion.div>
+            ) : experiences.length === 0 ? (
+              <span className="text-sm opacity-50">📍</span>
+            ) : lastZoomAction === 'success' ? (
+              <span className="text-sm">✅</span>
+            ) : lastZoomAction === 'error' ? (
+              <span className="text-sm">❌</span>
+            ) : (
+              <span className="text-sm">🎯</span>
+            )}
+          </Button>
+        </motion.div>
+
+        {/* Enhanced User Location Button */}
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.8 }}
+          className="absolute top-52 left-4 z-10"
+        >
+          <Button
+            size="icon"
+            className="w-12 h-12 rounded-full backdrop-blur-xl border transition-all duration-300 shadow-lg bg-white/10 border-white/20 hover:bg-white/20 hover:border-cyan-400/50 text-slate-900 dark:text-white"
+            onClick={getCurrentLocation}
+          >
+            <span className="text-sm">📍</span>
+          </Button>
+        </motion.div>
+      </>
+
       {/* Experience Count Badge */}
       {experiences.length > 0 && (
         <div className="absolute bottom-4 left-4 bg-teal-500/90 backdrop-blur-sm rounded-full px-3 py-1 shadow-lg">
@@ -887,12 +1201,9 @@ export default function TepoztlanHillshade({
         </div>
       )}
 
-      {/* Category Legend */}
+      {/* Category Legend - moved to middle */}
       {experiences.length > 0 && (
-        <div className="absolute bottom-4 right-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm rounded-lg p-3 shadow-lg">
-          <p className="text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">
-            {locale === 'es' ? 'Categorías' : 'Categories'}
-          </p>
+        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm rounded-t-lg p-1 shadow-lg z-50">
           <div className="flex flex-wrap gap-2">
             {Array.from(new Set(experiences.map(exp => exp.category))).map((category) => {
               const categoryColors = {
@@ -906,7 +1217,7 @@ export default function TepoztlanHillshade({
                 photography: '#6366f1',
                 healing: '#14b8a6'
               }
-              
+
               const categoryLabels = {
                 adventure: { es: 'Aventura', en: 'Adventure' },
                 spiritual: { es: 'Espiritual', en: 'Spiritual' },
@@ -921,8 +1232,8 @@ export default function TepoztlanHillshade({
 
               return (
                 <div key={category} className="flex items-center gap-1">
-                  <div 
-                    className="w-3 h-3 rounded-full border border-white" 
+                  <div
+                    className="w-3 h-3 rounded-full border border-white"
                     style={{ backgroundColor: categoryColors[category as keyof typeof categoryColors] || '#6b7280' }}
                   />
                   <span className="text-xs text-slate-600 dark:text-slate-400">
@@ -934,6 +1245,15 @@ export default function TepoztlanHillshade({
           </div>
         </div>
       )}
+
+      {/* Website Credit Bar */}
+      <div className="absolute bottom-0 right-0 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm rounded-tl-lg p-1 shadow-lg z-50">
+        <div className="flex items-center h-4">
+          <span className="text-xs text-slate-600 dark:text-slate-400">
+            © 2025 todotepoz.com - {locale === 'es' ? 'Todos los derechos reservados' : 'All rights reserved'}
+          </span>
+        </div>
+      </div>
         </div> {/* Close map-container */}
       </div> {/* Close main container */}
     </>

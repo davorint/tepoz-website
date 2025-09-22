@@ -2,6 +2,7 @@ import { Locale } from './i18n'
 
 export interface SanJuanAttraction {
   id: string
+  slug: string
   name: {
     es: string
     en: string
@@ -66,6 +67,7 @@ export const sanJuanCategories = [
 const sanJuanAttractions: SanJuanAttraction[] = [
   {
     id: 'templo-tepozteco',
+    slug: 'templo-tepozteco',
     name: {
       es: 'Templo del Tepozteco',
       en: 'Tepozteco Temple'
@@ -129,6 +131,7 @@ const sanJuanAttractions: SanJuanAttraction[] = [
   },
   {
     id: 'cueva-del-diablo',
+    slug: 'cueva-del-diablo',
     name: {
       es: 'Cueva del Diablo',
       en: 'Devil\'s Cave'
@@ -192,6 +195,7 @@ const sanJuanAttractions: SanJuanAttraction[] = [
   },
   {
     id: 'cueva-del-ferrocarril',
+    slug: 'cueva-del-ferrocarril',
     name: {
       es: 'Cueva del Ferrocarril',
       en: 'Railroad Cave'
@@ -255,6 +259,7 @@ const sanJuanAttractions: SanJuanAttraction[] = [
   },
   {
     id: 'museo-arqueologico',
+    slug: 'museo-arqueologico-local',
     name: {
       es: 'Museo Arqueológico Local',
       en: 'Local Archaeological Museum'
@@ -318,6 +323,7 @@ const sanJuanAttractions: SanJuanAttraction[] = [
   },
   {
     id: 'capilla-san-juan-bautista',
+    slug: 'capilla-san-juan-bautista',
     name: {
       es: 'Capilla de San Juan Bautista',
       en: 'Chapel of San Juan Bautista'
@@ -381,6 +387,7 @@ const sanJuanAttractions: SanJuanAttraction[] = [
   },
   {
     id: 'taller-medicina-tradicional',
+    slug: 'taller-medicina-tradicional',
     name: {
       es: 'Taller de Medicina Tradicional',
       en: 'Traditional Medicine Workshop'

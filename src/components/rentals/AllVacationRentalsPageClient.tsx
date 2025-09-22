@@ -24,7 +24,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Filter, Columns, Home, MapPin, Activity, Star, Bed, Phone, Globe, Users } from 'lucide-react'
 import { motion } from 'motion/react'
 import { Locale } from '@/lib/i18n'
-import { Rental, RentalService } from '@/lib/rentals'
+import { Rental, RentalServiceStatic } from '@/lib/rentals'
 import VacationRentalMap from './VacationRentalMap'
 
 // TypeScript interfaces for AG-Grid components
@@ -65,10 +65,10 @@ const transformRentalData = (rentals: Rental[], locale: Locale): RentalData[] =>
   return rentals.map((rental) => ({
     ...rental,
     formattedPriceRange: rental.priceRange,
-    formattedRating: `${rental.rating} (${rental.reviews})`,
-    formattedReviews: rental.reviews.toLocaleString(locale === 'es' ? 'es-MX' : 'en-US'),
-    shortDescription: RentalService.getRentalDescription(rental, locale).substring(0, 100) + '...',
-    primaryCategory: RentalService.getRentalCategory(rental, locale)
+    formattedRating: `${rental.rating} (${rental.reviews || 0})`,
+    formattedReviews: (rental.reviews || 0).toLocaleString(locale === 'es' ? 'es-MX' : 'en-US'),
+    shortDescription: RentalServiceStatic.getRentalDescription(rental, locale).substring(0, 100) + '...',
+    primaryCategory: RentalServiceStatic.getRentalCategory(rental, locale)
   }))
 }
 
@@ -176,7 +176,7 @@ const AmenitiesRenderer = (props: AmenitiesRendererProps) => {
   const amenities = []
   
   if (rental.hasWifi) amenities.push('📶')
-  if (rental.hasParking) amenities.push('🚗')
+  if (rental.parking || rental.hasParking) amenities.push('🚗')
   if (rental.hasKitchen) amenities.push('👨‍🍳')
   if (rental.instantBook) amenities.push('⚡')
   
@@ -255,7 +255,7 @@ export default function AllVacationRentalsPageClient({ locale }: AllVacationRent
   
   // Load rental data
   useEffect(() => {
-    const rentals = RentalService.getAllRentals()
+    const rentals = RentalServiceStatic.getAllRentals()
     const transformedData = transformRentalData(rentals, locale)
     setRentalData(transformedData)
   }, [locale])
@@ -319,7 +319,7 @@ export default function AllVacationRentalsPageClient({ locale }: AllVacationRent
       field: 'name',
       flex: 2,
       minWidth: 200,
-      valueGetter: (params) => RentalService.getRentalName(params.data!, locale),
+      valueGetter: (params) => RentalServiceStatic.getRentalName(params.data!, locale),
       cellClass: 'font-semibold text-gray-900 dark:text-gray-100',
       pinned: 'left'
     },
@@ -358,10 +358,10 @@ export default function AllVacationRentalsPageClient({ locale }: AllVacationRent
     },
     {
       headerName: locale === 'es' ? 'Ubicación' : 'Location',
-      field: 'location.neighborhood',
+      field: 'address',
       flex: 1.2,
       minWidth: 130,
-      valueGetter: (params) => params.data?.location.neighborhood,
+      valueGetter: (params) => RentalServiceStatic.getRentalAddress(params.data!, locale),
       cellClass: 'text-emerald-600 dark:text-emerald-400 font-medium'
     },
     {
@@ -535,7 +535,7 @@ export default function AllVacationRentalsPageClient({ locale }: AllVacationRent
                           </p>
                           {selectedRows.length > 0 ? (
                             <p className="text-lg font-bold text-white leading-tight mt-1">
-                              {RentalService.getRentalName(selectedRows[0], locale)}
+                              {RentalServiceStatic.getRentalName(selectedRows[0], locale)}
                             </p>
                           ) : (
                             <p className="text-3xl font-bold text-white mt-1">
@@ -727,7 +727,7 @@ export default function AllVacationRentalsPageClient({ locale }: AllVacationRent
               workFriendly: row.workFriendly,
               hasKitchen: row.hasKitchen,
               hasWifi: row.hasWifi,
-              hasParking: row.hasParking
+              hasParking: row.parking || row.hasParking
             }))}
             onRentalSelect={(rental) => {
               // Find the rental in the grid and select it

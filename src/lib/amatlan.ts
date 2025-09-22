@@ -2,6 +2,7 @@ import { Locale } from './i18n'
 
 export interface AmatlanAttraction {
   id: string
+  slug: string
   name: {
     es: string
     en: string
@@ -14,7 +15,7 @@ export interface AmatlanAttraction {
     es: string
     en: string
   }
-  category: 'sacred-site' | 'natural' | 'cultural' | 'spiritual' | 'adventure' | 'historical'
+  category: 'ancient-site' | 'natural' | 'cultural' | 'spiritual' | 'adventure' | 'historical'
   type: 'pool' | 'temple' | 'mountain' | 'trail' | 'workshop' | 'ceremony' | 'formation'
   difficulty?: 'easy' | 'moderate' | 'hard' | 'extreme'
   duration?: {
@@ -54,7 +55,7 @@ export interface AmatlanAttraction {
 // Category definitions
 export const amatlanCategories = [
   { id: 'all', es: 'Todos', en: 'All', emoji: '✨', color: 'from-purple-400 to-pink-400' },
-  { id: 'sacred-site', es: 'Sitios Sagrados', en: 'Sacred Sites', emoji: '🏛️', color: 'from-indigo-400 to-purple-400' },
+  { id: 'ancient-site', es: 'Sitios Ancestrales', en: 'Ancient Sites', emoji: '🏛️', color: 'from-indigo-400 to-purple-400' },
   { id: 'natural', es: 'Naturaleza', en: 'Nature', emoji: '🌊', color: 'from-cyan-400 to-blue-400' },
   { id: 'cultural', es: 'Cultural', en: 'Cultural', emoji: '🎨', color: 'from-orange-400 to-red-400' },
   { id: 'spiritual', es: 'Espiritual', en: 'Spiritual', emoji: '🧘', color: 'from-purple-400 to-violet-400' },
@@ -66,19 +67,20 @@ export const amatlanCategories = [
 const amatlanAttractions: AmatlanAttraction[] = [
   {
     id: 'pozas-quetzalcoatl',
+    slug: 'pozas-quetzalcoatl',
     name: {
       es: 'Pozas de Quetzalcóatl',
       en: 'Pools of Quetzalcoatl'
     },
     description: {
-      es: 'Pozas sagradas de agua turquesa donde según la leyenda se bañó Quetzalcóatl',
-      en: 'Sacred turquoise pools where legend says Quetzalcoatl bathed'
+      es: 'Pozas ancestrales de agua turquesa donde según la leyenda se bañó Quetzalcóatl',
+      en: 'Ancient turquoise pools where legend says Quetzalcoatl bathed'
     },
     longDescription: {
-      es: 'Un sendero mágico a través de exuberante vegetación verde te lleva a estas impresionantes pozas de agua turquesa cristalina. Consideradas sagradas por los habitantes locales, estas pozas naturales están alimentadas por cascadas y ofrecen un lugar perfecto para nadar y conectar con la naturaleza.',
-      en: 'A magical trail through lush green vegetation leads you to these stunning pools of crystal-clear turquoise water. Considered sacred by locals, these natural pools are fed by waterfalls and offer a perfect spot for swimming and connecting with nature.'
+      es: 'Un sendero mágico a través de exuberante vegetación verde te lleva a estas impresionantes pozas de agua turquesa cristalina. Consideradas ancestrales por los habitantes locales, estas pozas naturales están alimentadas por cascadas y ofrecen un lugar perfecto para nadar y conectar con la naturaleza.',
+      en: 'A magical trail through lush green vegetation leads you to these stunning pools of crystal-clear turquoise water. Considered ancestral by locals, these natural pools are fed by waterfalls and offer a perfect spot for swimming and connecting with nature.'
     },
-    category: 'sacred-site',
+    category: 'ancient-site',
     type: 'pool',
     difficulty: 'moderate',
     duration: {
@@ -111,7 +113,7 @@ const amatlanAttractions: AmatlanAttraction[] = [
       en: [
         'Crystal clear turquoise water',
         'Natural waterfalls',
-        'Sacred site',
+        'Ancient site',
         'Swimming allowed'
       ]
     },
@@ -129,6 +131,7 @@ const amatlanAttractions: AmatlanAttraction[] = [
   },
   {
     id: 'cerro-ventana',
+    slug: 'cerro-ventana',
     name: {
       es: 'Cerro de la Ventana',
       en: 'Window Mountain'
@@ -192,6 +195,7 @@ const amatlanAttractions: AmatlanAttraction[] = [
   },
   {
     id: 'casa-quetzalcoatl',
+    slug: 'casa-natal-quetzalcoatl',
     name: {
       es: 'Casa Natal de Quetzalcóatl',
       en: 'Birthplace of Quetzalcoatl'
@@ -255,6 +259,7 @@ const amatlanAttractions: AmatlanAttraction[] = [
   },
   {
     id: 'temazcal-ceremonial',
+    slug: 'temazcal-ceremonial',
     name: {
       es: 'Temazcal Ceremonial',
       en: 'Ceremonial Temazcal'
@@ -318,6 +323,7 @@ const amatlanAttractions: AmatlanAttraction[] = [
   },
   {
     id: 'sendero-nahualatl',
+    slug: 'sendero-nahualatl',
     name: {
       es: 'Sendero Nahualatl',
       en: 'Nahualatl Trail'
@@ -381,6 +387,7 @@ const amatlanAttractions: AmatlanAttraction[] = [
   },
   {
     id: 'taller-alfareria',
+    slug: 'taller-alfareria-tradicional',
     name: {
       es: 'Taller de Alfarería Tradicional',
       en: 'Traditional Pottery Workshop'

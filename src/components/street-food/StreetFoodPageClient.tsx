@@ -100,19 +100,19 @@ export default function StreetFoodPageClient({ locale }: StreetFoodPageClientPro
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-sky-200 via-sky-300/70 via-blue-400/50 to-indigo-400/40 dark:bg-gradient-to-b dark:from-slate-950 dark:via-emerald-800 dark:to-slate-900 relative overflow-hidden">
       {/* Ultra Premium Background - Street Food Theme */}
       <div className="absolute inset-0">
         {/* Animated gradient orbs */}
-        <div className="absolute top-20 left-20 w-[35rem] h-[35rem] bg-green-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-20 w-[40rem] h-[40rem] bg-yellow-500/20 rounded-full blur-3xl animate-pulse animation-delay-2s" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[45rem] h-[45rem] bg-lime-500/10 rounded-full blur-3xl animate-pulse animation-delay-4s" />
+        <div className="absolute top-20 left-20 w-[35rem] h-[35rem] bg-white/40 dark:bg-green-500/15 rounded-full blur-3xl dark:blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-20 w-[40rem] h-[40rem] bg-white/30 dark:bg-yellow-500/10 rounded-full blur-3xl dark:blur-3xl animate-pulse animation-delay-2s" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[45rem] h-[45rem] bg-white/25 dark:bg-lime-500/8 rounded-full blur-3xl dark:blur-3xl animate-pulse animation-delay-4s" />
         
         {/* Premium mesh gradient */}
-        <div className="absolute inset-0 bg-[radial-gradient(at_top_left,_transparent,_rgba(34,197,94,0.2)),radial-gradient(at_bottom_right,_transparent,_rgba(234,179,8,0.2))]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(224,242,254,0.4),_transparent_50%),radial-gradient(ellipse_at_bottom,_rgba(147,197,253,0.3),_transparent_50%)] dark:bg-[radial-gradient(ellipse_at_top,_rgba(34,197,94,0.1),_transparent_50%),radial-gradient(ellipse_at_bottom,_rgba(234,179,8,0.1),_transparent_50%)]" />
         
         {/* Grid pattern overlay */}
-        <div className="absolute inset-0 opacity-5" style={{
+        <div className="absolute inset-0 opacity-3 dark:opacity-5" style={{
           backgroundImage: `linear-gradient(rgba(34, 197, 94, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 197, 94, 0.1) 1px, transparent 1px)`,
           backgroundSize: '50px 50px'
         }} />
@@ -133,7 +133,7 @@ export default function StreetFoodPageClient({ locale }: StreetFoodPageClientPro
           </div>
           
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 font-sans">
-            <span className="text-white drop-shadow-2xl">
+            <span className="text-slate-800 dark:text-white drop-shadow-lg dark:drop-shadow-2xl">
               {locale === 'es' ? 'Sabores de la ' : 'Flavors of the '}
             </span>
             <br />
@@ -142,7 +142,7 @@ export default function StreetFoodPageClient({ locale }: StreetFoodPageClientPro
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-white/80 font-light max-w-4xl mx-auto leading-relaxed mb-8">
+          <p className="text-xl md:text-2xl text-slate-700 dark:text-white/80 font-light max-w-4xl mx-auto leading-relaxed mb-8">
             {locale === 'es' 
               ? 'Descubre los auténticos sabores callejeros de Tepoztlán. Desde antojitos tradicionales hasta delicias del mercado local.'
               : 'Discover the authentic street flavors of Tepoztlán. From traditional antojitos to local market delights.'
@@ -151,17 +151,17 @@ export default function StreetFoodPageClient({ locale }: StreetFoodPageClientPro
 
           {/* Stats - Use static data to prevent hydration issues */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
-            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
+            <div className="bg-white/70 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-xl rounded-2xl border border-slate-300/20 dark:border-white/10 p-6 shadow-lg shadow-slate-300/15 dark:shadow-white/12 hover:bg-white/80 dark:hover:bg-white/8 hover:scale-105 dark:hover:scale-110 transition-all duration-300 dark:duration-500 cursor-pointer group">
               <div className="text-3xl font-bold text-green-400 mb-2">6</div>
-              <div className="text-white/70 text-sm">{locale === 'es' ? 'Puestos' : 'Street Vendors'}</div>
+              <div className="text-slate-600 dark:text-white/70 text-sm group-hover:text-slate-800 dark:group-hover:text-white transition-colors duration-200 dark:duration-300">{locale === 'es' ? 'Puestos' : 'Street Vendors'}</div>
             </div>
-            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
+            <div className="bg-white/70 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-xl rounded-2xl border border-slate-300/20 dark:border-white/10 p-6 shadow-lg shadow-slate-300/15 dark:shadow-white/12 hover:bg-white/80 dark:hover:bg-white/8 hover:scale-105 dark:hover:scale-110 transition-all duration-300 dark:duration-500 cursor-pointer group">
               <div className="text-3xl font-bold text-yellow-400 mb-2">4.8</div>
-              <div className="text-white/70 text-sm">{locale === 'es' ? 'Calificación Promedio' : 'Average Rating'}</div>
+              <div className="text-slate-600 dark:text-white/70 text-sm group-hover:text-slate-800 dark:group-hover:text-white transition-colors duration-200 dark:duration-300">{locale === 'es' ? 'Calificación Promedio' : 'Average Rating'}</div>
             </div>
-            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
+            <div className="bg-white/70 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-xl rounded-2xl border border-slate-300/20 dark:border-white/10 p-6 shadow-lg shadow-slate-300/15 dark:shadow-white/12 hover:bg-white/80 dark:hover:bg-white/8 hover:scale-105 dark:hover:scale-110 transition-all duration-300 dark:duration-500 cursor-pointer group">
               <div className="text-3xl font-bold text-lime-400 mb-2">1.5K+</div>
-              <div className="text-white/70 text-sm">{locale === 'es' ? 'Reseñas' : 'Reviews'}</div>
+              <div className="text-slate-600 dark:text-white/70 text-sm group-hover:text-slate-800 dark:group-hover:text-white transition-colors duration-200 dark:duration-300">{locale === 'es' ? 'Reseñas' : 'Reviews'}</div>
             </div>
           </div>
         </div>
@@ -205,7 +205,7 @@ export default function StreetFoodPageClient({ locale }: StreetFoodPageClientPro
                   </SelectContent>
                 </Select>
 
-                <div className="text-white/70 text-sm">
+                <div className="text-slate-600 dark:text-white/70 text-sm group-hover:text-slate-800 dark:group-hover:text-white transition-colors duration-200 dark:duration-300">
                   {filteredStreetFoods.length} {locale === 'es' ? 'resultados' : 'results'}
                 </div>
               </div>

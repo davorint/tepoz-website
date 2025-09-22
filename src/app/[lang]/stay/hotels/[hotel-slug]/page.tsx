@@ -1,7 +1,7 @@
 'use client'
 
 import { Locale } from '@/lib/i18n'
-import { HotelService } from '@/lib/hotels'
+import { HotelServiceStatic } from '@/lib/hotels'
 import { notFound } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { Hotel } from '@/lib/hotels'
@@ -51,7 +51,7 @@ export default function HotelPage({ params }: HotelPageProps) {
         const { lang, 'hotel-slug': hotelSlug } = await params
         setLocale(lang)
         
-        const foundHotel = HotelService.getHotelBySlug(hotelSlug, lang)
+        const foundHotel = HotelServiceStatic.getHotelBySlug(hotelSlug)
         setHotel(foundHotel || null)
         
         // Add structured data
@@ -109,27 +109,27 @@ export default function HotelPage({ params }: HotelPageProps) {
           <div className="relative h-96 md:h-[500px]">
             <Image
               src={hotel.images[0]}
-              alt={HotelService.getHotelName(hotel, locale)}
+              alt={HotelServiceStatic.getHotelName(hotel, locale)}
               fill
               className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
               <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                {HotelService.getHotelName(hotel, locale)}
+                {HotelServiceStatic.getHotelName(hotel, locale)}
               </h1>
               <div className="flex flex-wrap gap-4 items-center mb-4">
                 <div className="flex items-center bg-white/20 backdrop-blur-sm rounded-full px-4 py-2">
                   <Star className="w-5 h-5 text-yellow-400 fill-current mr-2" />
                   <span className="text-white font-bold">{hotel.rating}</span>
-                  <span className="text-white/70 ml-1">({hotel.reviews})</span>
+                  <span className="text-white/70 ml-1">({hotel.reviews?.length || hotel.reviewCount})</span>
                 </div>
                 <Badge className="bg-amber-400/20 text-amber-300 border border-amber-400/30">
                   {hotel.category}
                 </Badge>
                 <div className="flex items-center bg-white/20 backdrop-blur-sm rounded-full px-4 py-2">
                   <MapPin className="w-5 h-5 text-white mr-2" />
-                  <span className="text-white font-bold">{hotel.location.neighborhood}</span>
+                  <span className="text-white font-bold">{hotel.location?.neighborhood?.[locale] || 'Location'}</span>
                 </div>
               </div>
               <div className="text-white font-bold text-xl">
@@ -149,7 +149,7 @@ export default function HotelPage({ params }: HotelPageProps) {
                   {locale === 'es' ? 'Descripción' : 'Description'}
                 </h2>
                 <p className="text-white/80 leading-relaxed">
-                  {HotelService.getHotelDescription(hotel, locale)}
+                  {HotelServiceStatic.getHotelDescription(hotel, locale)}
                 </p>
               </CardContent>
             </Card>
@@ -215,13 +215,13 @@ export default function HotelPage({ params }: HotelPageProps) {
                   <div className="flex items-center text-white/80">
                     <MapPin className="w-5 h-5 text-amber-400 mr-3" />
                     <div>
-                      <div className="font-medium">{hotel.location.address}</div>
-                      <div className="text-sm text-white/60">{hotel.location.neighborhood}</div>
+                      <div className="font-medium">{hotel.location?.address?.[locale] || hotel.address?.[locale] || 'Address not available'}</div>
+                      <div className="text-sm text-white/60">{hotel.location?.neighborhood?.[locale] || 'Neighborhood'}</div>
                     </div>
                   </div>
                   <div className="flex items-center text-white/80">
                     <Star className="w-5 h-5 text-amber-400 mr-3" />
-                    <span>{hotel.rating} ({hotel.reviews} {locale === 'es' ? 'reseñas' : 'reviews'})</span>
+                    <span>{hotel.rating} ({hotel.reviews?.length || hotel.reviewCount} {locale === 'es' ? 'reseñas' : 'reviews'})</span>
                   </div>
                   <div className="flex items-center text-white/80">
                     <Users className="w-5 h-5 text-amber-400 mr-3" />
@@ -239,19 +239,19 @@ export default function HotelPage({ params }: HotelPageProps) {
                     {locale === 'es' ? 'Ver Disponibilidad' : 'Check Availability'}
                   </Button>
                   <div className="grid grid-cols-2 gap-2">
-                    {hotel.contact.phone && (
+                    {hotel.contact?.phone && (
                       <Button 
                         className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30"
-                        onClick={() => window.open(`tel:${hotel.contact.phone}`, '_self')}
+                        onClick={() => window.open(`tel:${hotel.contact?.phone}`, '_self')}
                       >
                         <Phone className="w-4 h-4 mr-1" />
                         {locale === 'es' ? 'Llamar' : 'Call'}
                       </Button>
                     )}
-                    {hotel.contact.website && (
+                    {hotel.contact?.website && (
                       <Button 
                         className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30"
-                        onClick={() => window.open(hotel.contact.website, '_blank', 'noopener,noreferrer')}
+                        onClick={() => window.open(hotel.contact?.website, '_blank', 'noopener,noreferrer')}
                       >
                         <Globe className="w-4 h-4 mr-1" />
                         {locale === 'es' ? 'Web' : 'Website'}
@@ -260,7 +260,7 @@ export default function HotelPage({ params }: HotelPageProps) {
                     <Button 
                       className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30"
                       onClick={() => {
-                        if (hotel.location.coordinates) {
+                        if (hotel.location?.coordinates) {
                           window.open(`https://www.google.com/maps?q=${hotel.location.coordinates[0]},${hotel.location.coordinates[1]}`, '_blank', 'noopener,noreferrer')
                         }
                       }}
@@ -320,8 +320,8 @@ export default function HotelPage({ params }: HotelPageProps) {
                   onClick={() => {
                     if (navigator.share) {
                       navigator.share({
-                        title: HotelService.getHotelName(hotel, locale),
-                        text: HotelService.getHotelDescription(hotel, locale),
+                        title: HotelServiceStatic.getHotelName(hotel, locale),
+                        text: HotelServiceStatic.getHotelDescription(hotel, locale),
                         url: window.location.href,
                       })
                     } else {

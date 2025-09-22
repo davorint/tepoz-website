@@ -18,13 +18,13 @@ export const routeMapping = {
   'hospedaje/retiros': 'stay/retreats',
   'hospedaje/camping': 'stay/camping',
   
-  // Comer/Eat
-  'comer': 'eat',
-  'comer/restaurantes': 'eat/restaurants',
-  'comer/cafeterias': 'eat/cafes',
-  'comer/comida-callejera': 'eat/street-food',
-  'comer/bares': 'eat/bars',
-  'comer/experiencias-gastronomicas': 'eat/food-experiences',
+  // Comer/Food & Drink
+  'comer': 'food-drink',
+  'comer/restaurantes': 'food-drink/restaurants',
+  'comer/cafeterias': 'food-drink/cafes',
+  'comer/comida-callejera': 'food-drink/street-food',
+  'comer/bares': 'food-drink/bars',
+  'comer/experiencias-gastronomicas': 'food-drink/food-experiences',
   
   // Experiencias/Experience
   'experiencias': 'experience',

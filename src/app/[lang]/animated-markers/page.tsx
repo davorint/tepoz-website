@@ -2467,7 +2467,7 @@ export default function AnimatedMarkersPage({ params }: AnimatedMarkersPageProps
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 p-8">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 p-8">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-4xl font-bold text-white mb-4 text-center">
           {lang === 'es' ? 'Implementación Completa de Marcadores - Mapbox GL JS' : 'Complete Markers Implementation - Mapbox GL JS'}

@@ -26,12 +26,12 @@ export const generateHotelStructuredData = (
     image: hotel.images.map(img => `${baseUrl}${img}`),
     address: {
       '@type': 'PostalAddress',
-      streetAddress: hotel.location.address,
+      streetAddress: hotel.location?.address?.[locale] || hotel.address?.[locale] || 'Address not available',
       addressLocality: 'Tepoztlán',
       addressRegion: 'Morelos',
       addressCountry: 'Mexico'
     },
-    geo: hotel.location.coordinates ? {
+    geo: hotel.location?.coordinates ? {
       '@type': 'GeoCoordinates',
       latitude: hotel.location.coordinates[0],
       longitude: hotel.location.coordinates[1]
@@ -39,7 +39,7 @@ export const generateHotelStructuredData = (
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: hotel.rating,
-      reviewCount: hotel.reviews
+      reviewCount: hotel.reviews?.length || hotel.reviewCount
     },
     starRating: {
       '@type': 'Rating',
@@ -57,8 +57,8 @@ export const generateHotelStructuredData = (
       priceCurrency: 'USD',
       availability: 'https://schema.org/InStock'
     })),
-    telephone: hotel.contact.phone || undefined,
-    sameAs: hotel.contact.website ? [hotel.contact.website] : undefined,
+    telephone: hotel.contact?.phone || undefined,
+    sameAs: hotel.contact?.website ? [hotel.contact.website] : undefined,
     priceRange: hotel.priceRange,
     checkInTime: '15:00',
     checkOutTime: '11:00',

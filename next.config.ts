@@ -1,6 +1,17 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  // Allow additional origins to request the development server
+  allowedDevOrigins: [
+    'localhost',
+    '127.0.0.1',
+    '*.localhost',
+    'local.dev',
+    '*.local.dev',
+    '192.168.1.73',
+    '*.192.168.1.73'
+  ],
+
   // Transpile motion package for proper bundling
   transpilePackages: ['motion'],
   

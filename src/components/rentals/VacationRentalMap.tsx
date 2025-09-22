@@ -22,7 +22,7 @@ import {
   Car
 } from 'lucide-react'
 import { Locale } from '@/lib/i18n'
-import { Rental, RentalService, rentalCategories } from '@/lib/rentals'
+import { Rental, RentalServiceStatic, rentalCategories } from '@/lib/rentals'
 
 interface VacationRentalMapProps {
   locale: Locale
@@ -48,7 +48,7 @@ export default function VacationRentalMap({ locale, selectedRentals, onRentalSel
   const [selectedRental, setSelectedRental] = useState<Rental | null>(null)
   
   // Get all vacation rentals for display
-  const allRentals = RentalService.getAllRentals()
+  const allRentals = RentalServiceStatic.getAllRentals()
   const rentalsToShow = selectedRentals.length > 0 ? selectedRentals : allRentals
 
   // Initialize map
@@ -88,6 +88,11 @@ export default function VacationRentalMap({ locale, selectedRentals, onRentalSel
 
         // Add rental markers
         rentalsToShow.forEach((rental) => {
+          // Skip rentals without valid coordinates
+          if (!rental.location?.coordinates || rental.location.coordinates.length < 2) {
+            return
+          }
+
           const feature = new Feature({
             geometry: new Point(fromLonLat([rental.location.coordinates[1], rental.location.coordinates[0]])), // Convert [lat, lng] to [lng, lat]
             rental: rental
@@ -270,10 +275,10 @@ export default function VacationRentalMap({ locale, selectedRentals, onRentalSel
                   <div className="flex items-start justify-between mb-2">
                     <div>
                       <h3 className="font-bold text-white text-lg">
-                        {RentalService.getRentalName(selectedRental, locale)}
+                        {RentalServiceStatic.getRentalName(selectedRental, locale)}
                       </h3>
                       <p className="text-white/70 text-sm mt-1">
-                        {RentalService.getRentalDescription(selectedRental, locale)}
+                        {RentalServiceStatic.getRentalDescription(selectedRental, locale)}
                       </p>
                       <p className="text-white/60 text-sm mt-1 flex items-center gap-1">
                         <MapPin className="w-3 h-3" />
@@ -331,7 +336,7 @@ export default function VacationRentalMap({ locale, selectedRentals, onRentalSel
                         WiFi
                       </Badge>
                     )}
-                    {selectedRental.hasParking && (
+                    {(selectedRental.parking || selectedRental.hasParking) && (
                       <Badge className="bg-gray-400/20 text-gray-300 border-gray-400/30 text-xs">
                         <Car className="w-3 h-3 mr-1" />
                         {locale === 'es' ? 'Parking' : 'Parking'}

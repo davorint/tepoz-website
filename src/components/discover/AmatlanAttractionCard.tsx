@@ -25,7 +25,7 @@ interface AmatlanAttractionCardProps {
 }
 
 const categoryIcons: Record<string, React.ReactNode> = {
-  'sacred-site': <Sparkles className="w-4 h-4" />,
+  'ancient-site': <Sparkles className="w-4 h-4" />,
   'natural': <Mountain className="w-4 h-4" />,
   'cultural': <Users className="w-4 h-4" />,
   'spiritual': <Sparkles className="w-4 h-4" />,
@@ -34,7 +34,7 @@ const categoryIcons: Record<string, React.ReactNode> = {
 }
 
 const categoryGradients: Record<string, string> = {
-  'sacred-site': 'from-indigo-400 to-purple-400',
+  'ancient-site': 'from-indigo-400 to-purple-400',
   'natural': 'from-cyan-400 to-blue-400',
   'cultural': 'from-orange-400 to-red-400',
   'spiritual': 'from-purple-400 to-violet-400',

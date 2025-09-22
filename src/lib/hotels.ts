@@ -1,6 +1,59 @@
 import { Locale } from './i18n'
+import { BusinessService } from './services/BusinessService'
+import { Hotel } from './types/business'
 
-export interface Hotel {
+// Transform legacy hotel data to BusinessEntity format
+function transformHotelData(legacyHotel: LegacyHotel): Hotel {
+  return {
+    id: legacyHotel.id,
+    slug: generateSlug(legacyHotel.name.en),
+    name: legacyHotel.name,
+    description: legacyHotel.description,
+    priceRange: legacyHotel.priceRange,
+    rating: legacyHotel.rating,
+    reviewCount: legacyHotel.reviews,
+    images: legacyHotel.images,
+    address: { es: legacyHotel.location.address, en: legacyHotel.location.address },
+    coordinates: legacyHotel.location.coordinates,
+    phone: legacyHotel.contact.phone,
+    website: legacyHotel.contact.website,
+    email: legacyHotel.contact.email,
+    hours: { es: '24 horas', en: '24 hours' },
+    amenities: legacyHotel.amenities,
+    specialties: { es: legacyHotel.features, en: legacyHotel.features },
+    dietary: [],
+    verified: true,
+    featured: legacyHotel.featured,
+    delivery: false,
+    parking: legacyHotel.amenities.includes('parking'),
+    wifi: legacyHotel.amenities.includes('wifi'),
+    acceptsCards: true,
+    category: legacyHotel.category,
+    roomTypes: legacyHotel.roomTypes,
+    features: legacyHotel.features,
+    sustainability: legacyHotel.sustainability,
+    petFriendly: legacyHotel.petFriendly,
+    adultsOnly: legacyHotel.adultsOnly
+  }
+}
+
+function generateSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[áàäâã]/g, 'a')
+    .replace(/[éèëê]/g, 'e')
+    .replace(/[íìïî]/g, 'i')
+    .replace(/[óòöôõ]/g, 'o')
+    .replace(/[úùüû]/g, 'u')
+    .replace(/[ñ]/g, 'n')
+    .replace(/[ç]/g, 'c')
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim()
+}
+
+interface LegacyHotel {
   id: string
   name: {
     es: string
@@ -75,8 +128,8 @@ export const priceRanges = [
   { id: '$$$$', symbol: '$$$$', es: 'Lujo', en: 'Luxury' }
 ]
 
-// Premium hotel data
-const hotels: Hotel[] = [
+// Legacy hotel data to be transformed
+const legacyHotels: LegacyHotel[] = [
   {
     id: 'amomoxtli',
     name: {
@@ -661,21 +714,118 @@ const hotels: Hotel[] = [
   }
 ]
 
-export class HotelService {
-  static getAllHotels(): Hotel[] {
+// Transform legacy hotels to new format
+const hotels: Hotel[] = legacyHotels.map(transformHotelData)
+
+// Hotel service extending BusinessService
+class HotelServiceClass extends BusinessService<Hotel> {
+  getAllItems(): Hotel[] {
     return hotels
   }
 
+  getFeaturedItems(): Hotel[] {
+    return hotels.filter(hotel => hotel.featured)
+  }
+
+  protected getEntityName(entity: Hotel, locale: Locale): string {
+    return entity.name[locale]
+  }
+
+  protected getEntityDescription(entity: Hotel, locale: Locale): string {
+    return entity.description[locale]
+  }
+
+  protected matchesCategory(entity: Hotel, category: string): boolean {
+    return entity.category === category
+  }
+
+  protected matchesAtmosphere(entity: Hotel, atmosphere: string): boolean {
+    // Hotels don't have atmosphere, but we can map category to atmosphere-like concepts
+    const categoryToAtmosphere: Record<string, string[]> = {
+      luxury: ['upscale', 'elegant'],
+      boutique: ['intimate', 'unique'],
+      eco: ['natural', 'sustainable'],
+      wellness: ['relaxing', 'healthy'],
+      romantic: ['romantic', 'intimate'],
+      business: ['professional', 'modern']
+    }
+    return categoryToAtmosphere[entity.category]?.includes(atmosphere) || false
+  }
+
+  // Hotel-specific methods
+  getHotelsByCategory(category: string): Hotel[] {
+    if (category === 'all') return this.getAllItems()
+    return this.getAllItems().filter(hotel => hotel.category === category)
+  }
+
+  getCategoryLabel(category: string, locale: Locale): string {
+    const labels = hotelCategories.find(cat => cat.id === category)
+    return labels ? labels[locale] : category
+  }
+
+  searchHotels(
+    query: string = '',
+    category: string = 'all',
+    priceRange: string = 'all',
+    amenities: string[] = [],
+    features: {
+      sustainability?: boolean
+      petFriendly?: boolean
+      adultsOnly?: boolean
+    } = {}
+  ): Hotel[] {
+    let filtered = this.searchItems(query, category, 'all', priceRange, [], amenities)
+
+    // Apply hotel-specific filters
+    if (features.sustainability !== undefined) {
+      filtered = filtered.filter(h => h.sustainability === features.sustainability)
+    }
+    if (features.petFriendly !== undefined) {
+      filtered = filtered.filter(h => h.petFriendly === features.petFriendly)
+    }
+    if (features.adultsOnly !== undefined) {
+      filtered = filtered.filter(h => h.adultsOnly === features.adultsOnly)
+    }
+
+    return filtered
+  }
+}
+
+// Export singleton instance
+export const HotelService = new HotelServiceClass()
+
+// Static methods for backward compatibility
+export class HotelServiceStatic {
+  static getAllHotels(): Hotel[] {
+    return HotelService.getAllItems()
+  }
+
   static getHotelById(id: string): Hotel | undefined {
-    return hotels.find(h => h.id === id)
+    return HotelService.getItemById(id)
   }
 
   static getHotelName(hotel: Hotel, locale: Locale): string {
-    return hotel.name[locale]
+    return HotelService.getName(hotel, locale)
   }
 
   static getHotelDescription(hotel: Hotel, locale: Locale): string {
-    return hotel.description[locale]
+    return HotelService.getDescription(hotel, locale)
+  }
+
+  static getHotelAddress(hotel: Hotel, locale: Locale): string {
+    return HotelService.getAddress(hotel, locale)
+  }
+
+  static getHotelHours(hotel: Hotel, locale: Locale): string {
+    return HotelService.getHours(hotel, locale)
+  }
+
+  static getHotelSpecialties(hotel: Hotel, locale: Locale): string[] {
+    return HotelService.getSpecialties(hotel, locale)
+  }
+
+  static getFeaturedHotels(): Hotel[] {
+    return HotelService.getFeaturedItems()
   }
 
   static searchHotels(
@@ -689,111 +839,25 @@ export class HotelService {
       adultsOnly?: boolean
     } = {}
   ): Hotel[] {
-    let filtered = hotels
-
-    // Search by query
-    if (query) {
-      const lowerQuery = query.toLowerCase()
-      filtered = filtered.filter(hotel =>
-        hotel.name.es.toLowerCase().includes(lowerQuery) ||
-        hotel.name.en.toLowerCase().includes(lowerQuery) ||
-        hotel.description.es.toLowerCase().includes(lowerQuery) ||
-        hotel.description.en.toLowerCase().includes(lowerQuery) ||
-        hotel.location.neighborhood.toLowerCase().includes(lowerQuery)
-      )
-    }
-
-    // Filter by category
-    if (category && category !== 'all') {
-      filtered = filtered.filter(h => h.category === category)
-    }
-
-    // Filter by price range
-    if (priceRange && priceRange !== 'all') {
-      filtered = filtered.filter(h => h.priceRange === priceRange)
-    }
-
-    // Filter by amenities
-    if (amenities.length > 0) {
-      filtered = filtered.filter(hotel =>
-        amenities.every(amenity => hotel.amenities.includes(amenity))
-      )
-    }
-
-    // Filter by features
-    if (features.sustainability !== undefined) {
-      filtered = filtered.filter(h => h.sustainability === features.sustainability)
-    }
-    if (features.petFriendly !== undefined) {
-      filtered = filtered.filter(h => h.petFriendly === features.petFriendly)
-    }
-    if (features.adultsOnly !== undefined) {
-      filtered = filtered.filter(h => h.adultsOnly === features.adultsOnly)
-    }
-
-    return filtered
-  }
-
-  static getFeaturedHotels(): Hotel[] {
-    return hotels.filter(h => h.featured)
+    return HotelService.searchHotels(query, category, priceRange, amenities, features)
   }
 
   static getHotelsByCategory(category: string): Hotel[] {
-    return hotels.filter(h => h.category === category)
-  }
-
-  static getHotelsByPriceRange(priceRange: string): Hotel[] {
-    return hotels.filter(h => h.priceRange === priceRange)
-  }
-
-  static generateSlug(hotel: Hotel, locale: Locale): string {
-    const name = hotel.name[locale]
-    return name
-      .toLowerCase()
-      .replace(/[áàäâã]/g, 'a')
-      .replace(/[éèëê]/g, 'e')
-      .replace(/[íìïî]/g, 'i')
-      .replace(/[óòöôõ]/g, 'o')
-      .replace(/[úùüû]/g, 'u')
-      .replace(/[ñ]/g, 'n')
-      .replace(/[ç]/g, 'c')
-      .replace(/[^\w\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .trim()
-  }
-
-  static getHotelBySlug(slug: string, locale: Locale): Hotel | undefined {
-    return hotels.find(hotel => 
-      this.generateSlug(hotel, locale) === slug
-    )
-  }
-
-  static sortHotels(hotels: Hotel[], sortBy: string): Hotel[] {
-    return [...hotels].sort((a, b) => {
-      switch (sortBy) {
-        case 'rating':
-          return b.rating - a.rating
-        case 'name':
-          return a.name.en.localeCompare(b.name.en)
-        case 'priceAsc':
-          const priceOrderA = a.priceRange === '$' ? 1 : a.priceRange === '$$' ? 2 : a.priceRange === '$$$' ? 3 : 4
-          const priceOrderB = b.priceRange === '$' ? 1 : b.priceRange === '$$' ? 2 : b.priceRange === '$$$' ? 3 : 4
-          return priceOrderA - priceOrderB
-        case 'priceDesc':
-          const priceOrderDescA = a.priceRange === '$' ? 1 : a.priceRange === '$$' ? 2 : a.priceRange === '$$$' ? 3 : 4
-          const priceOrderDescB = b.priceRange === '$' ? 1 : b.priceRange === '$$' ? 2 : b.priceRange === '$$$' ? 3 : 4
-          return priceOrderDescB - priceOrderDescA
-        case 'reviews':
-          return b.reviews - a.reviews
-        default:
-          return 0
-      }
-    })
+    return HotelService.getHotelsByCategory(category)
   }
 
   static getCategoryLabel(category: string, locale: Locale): string {
-    const labels = hotelCategories.find(cat => cat.id === category)
-    return labels ? labels[locale] : category
+    return HotelService.getCategoryLabel(category, locale)
+  }
+
+  static generateSlug(hotel: Hotel, locale: Locale): string {
+    return generateSlug(hotel.name[locale] || hotel.name.en)
+  }
+
+  static getHotelBySlug(slug: string): Hotel | undefined {
+    return HotelService.getItemBySlug(slug)
   }
 }
+
+// HotelServiceStatic is already exported above
+export type { Hotel } from './types/business'

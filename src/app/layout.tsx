@@ -155,7 +155,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="Tepoztlán Guide" />
       </head>
-      <body className={`${inter.className} ${bebasNeue.variable} ${playfairDisplay.variable} ${montserrat.variable} antialiased bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800`}>
+      <body className={`${inter.className} ${bebasNeue.variable} ${playfairDisplay.variable} ${montserrat.variable} antialiased bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 dark:from-slate-900 dark:via-blue-900 dark:to-slate-800`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

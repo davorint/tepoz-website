@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Locale } from '@/lib/i18n'
-import { Rental, RentalService, rentalCategories, amenityTypes, priceRanges } from '@/lib/rentals'
+import { Rental, RentalServiceStatic, rentalCategories, amenityTypes, priceRanges } from '@/lib/rentals'
 import RentalCard from './RentalCard'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -41,14 +41,14 @@ export default function RentalsPageClient({ locale }: RentalsPageClientProps) {
 
   // Initialize rentals
   useEffect(() => {
-    const allRentals = RentalService.getAllRentals()
+    const allRentals = RentalServiceStatic.getAllRentals()
     setRentals(allRentals)
     setFilteredRentals(allRentals)
   }, [])
 
   // Filter and sort rentals
   useEffect(() => {
-    let filtered = RentalService.searchRentals(
+    let filtered = RentalServiceStatic.searchRentals(
       searchQuery,
       selectedCategory,
       selectedPriceRange,
@@ -74,8 +74,8 @@ export default function RentalsPageClient({ locale }: RentalsPageClientProps) {
           const priceOrder = { '$': 1, '$$': 2, '$$$': 3, '$$$$': 4 }
           return priceOrder[a.priceRange] - priceOrder[b.priceRange]
         case 'name':
-          return RentalService.getRentalName(a, locale).localeCompare(
-            RentalService.getRentalName(b, locale)
+          return RentalServiceStatic.getRentalName(a, locale).localeCompare(
+            RentalServiceStatic.getRentalName(b, locale)
           )
         default:
           return 0
@@ -105,20 +105,20 @@ export default function RentalsPageClient({ locale }: RentalsPageClientProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-cyan-50 via-blue-50 to-indigo-50 dark:bg-gradient-to-br dark:from-slate-900 dark:via-blue-900 dark:to-slate-900 relative overflow-hidden">
       {/* Ultra Premium Background */}
       <div className="absolute inset-0">
         {/* Animated gradient orbs */}
-        <div className="absolute top-20 left-20 w-[35rem] h-[35rem] bg-green-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-20 w-[40rem] h-[40rem] bg-emerald-500/20 rounded-full blur-3xl animate-pulse animation-delay-2s" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[45rem] h-[45rem] bg-teal-500/10 rounded-full blur-3xl animate-pulse animation-delay-4s" />
+        <div className="absolute top-20 left-20 w-[35rem] h-[35rem] bg-cyan-200/40 dark:bg-green-500/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-20 w-[40rem] h-[40rem] bg-blue-200/40 dark:bg-emerald-500/20 rounded-full blur-3xl animate-pulse animation-delay-2s" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[45rem] h-[45rem] bg-indigo-200/30 dark:bg-teal-500/10 rounded-full blur-3xl animate-pulse animation-delay-4s" />
         
         {/* Premium mesh gradient */}
-        <div className="absolute inset-0 bg-[radial-gradient(at_top_left,_transparent,_rgba(34,197,94,0.2)),radial-gradient(at_bottom_right,_transparent,_rgba(16,185,129,0.2))]" />
+        <div className="absolute inset-0 bg-[radial-gradient(at_top_left,_transparent,_rgba(6,182,212,0.1)),radial-gradient(at_bottom_right,_transparent,_rgba(59,130,246,0.1))] dark:bg-[radial-gradient(at_top_left,_transparent,_rgba(34,197,94,0.2)),radial-gradient(at_bottom_right,_transparent,_rgba(16,185,129,0.2))]" />
         
         {/* Grid pattern overlay */}
-        <div className="absolute inset-0 opacity-5" style={{
-          backgroundImage: `linear-gradient(rgba(34, 197, 94, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 197, 94, 0.1) 1px, transparent 1px)`,
+        <div className="absolute inset-0 opacity-5 dark:opacity-5" style={{
+          backgroundImage: `linear-gradient(rgba(6, 182, 212, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.1) 1px, transparent 1px)`,
           backgroundSize: '50px 50px'
         }} />
       </div>
@@ -127,27 +127,27 @@ export default function RentalsPageClient({ locale }: RentalsPageClientProps) {
         {/* Premium Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 mb-8">
-            <div className="h-px w-20 bg-gradient-to-r from-transparent to-green-400" />
+            <div className="h-px w-20 bg-gradient-to-r from-transparent to-cyan-600 dark:to-green-400" />
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-emerald-400 blur-lg" />
-              <Badge className="relative bg-gradient-to-r from-green-400 to-emerald-400 text-white px-8 py-3 text-sm font-semibold tracking-wider uppercase border-0 shadow-2xl">
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-green-400 dark:to-emerald-400 blur-lg" />
+              <Badge className="relative bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-green-400 dark:to-emerald-400 text-white px-8 py-3 text-sm font-semibold tracking-wider uppercase border-0 shadow-2xl">
                 🏠 {locale === 'es' ? 'Rentas Vacacionales' : 'Vacation Rentals'} 🏠
               </Badge>
             </div>
-            <div className="h-px w-20 bg-gradient-to-l from-transparent to-emerald-400" />
+            <div className="h-px w-20 bg-gradient-to-l from-transparent to-blue-600 dark:to-emerald-400" />
           </div>
           
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 font-sans">
-            <span className="text-white drop-shadow-2xl">
+            <span className="text-slate-900 dark:text-white drop-shadow-2xl">
               {locale === 'es' ? 'Rentas en ' : 'Rentals in '}
             </span>
             <br />
-            <span className="bg-gradient-to-r from-green-300 via-emerald-300 to-teal-300 bg-clip-text text-transparent drop-shadow-2xl">
+            <span className="bg-gradient-to-r from-cyan-700 via-blue-700 to-indigo-700 dark:from-green-300 dark:via-emerald-300 dark:to-teal-300 bg-clip-text text-transparent drop-shadow-2xl">
               Tepoztlán
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-white/80 font-light max-w-4xl mx-auto leading-relaxed mb-8">
+          <p className="text-xl md:text-2xl text-slate-700 dark:text-white/80 font-light max-w-4xl mx-auto leading-relaxed mb-8">
             {locale === 'es' 
               ? 'Encuentra tu hogar temporal perfecto. Desde apartamentos modernos hasta villas de lujo con todas las comodidades.'
               : 'Find your perfect temporary home. From modern apartments to luxury villas with all the amenities.'
@@ -156,39 +156,39 @@ export default function RentalsPageClient({ locale }: RentalsPageClientProps) {
 
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
-            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
-              <div className="text-3xl font-bold text-green-400 mb-2">{rentals.length}</div>
-              <div className="text-white/70 text-sm">{locale === 'es' ? 'Propiedades' : 'Properties'}</div>
+            <div className="bg-white/90 dark:bg-white/5 backdrop-blur-xl rounded-2xl border border-cyan-300/50 dark:border-white/10 p-6 shadow-2xl">
+              <div className="text-3xl font-bold text-cyan-700 dark:text-green-400 mb-2">{rentals.length}</div>
+              <div className="text-slate-600 dark:text-white/70 text-sm">{locale === 'es' ? 'Propiedades' : 'Properties'}</div>
             </div>
-            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
-              <div className="text-3xl font-bold text-emerald-400 mb-2">4.6</div>
-              <div className="text-white/70 text-sm">{locale === 'es' ? 'Calificación Promedio' : 'Average Rating'}</div>
+            <div className="bg-white/90 dark:bg-white/5 backdrop-blur-xl rounded-2xl border border-cyan-300/50 dark:border-white/10 p-6 shadow-2xl">
+              <div className="text-3xl font-bold text-blue-700 dark:text-emerald-400 mb-2">4.6</div>
+              <div className="text-slate-600 dark:text-white/70 text-sm">{locale === 'es' ? 'Calificación Promedio' : 'Average Rating'}</div>
             </div>
-            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
-              <div className="text-3xl font-bold text-teal-400 mb-2">940+</div>
-              <div className="text-white/70 text-sm">{locale === 'es' ? 'Reseñas' : 'Reviews'}</div>
+            <div className="bg-white/90 dark:bg-white/5 backdrop-blur-xl rounded-2xl border border-cyan-300/50 dark:border-white/10 p-6 shadow-2xl">
+              <div className="text-3xl font-bold text-indigo-700 dark:text-teal-400 mb-2">940+</div>
+              <div className="text-slate-600 dark:text-white/70 text-sm">{locale === 'es' ? 'Reseñas' : 'Reviews'}</div>
             </div>
           </div>
         </div>
 
         {/* Search and Filters */}
         <div className="mb-12">
-          <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-8 shadow-2xl">
+          <div className="bg-white/90 dark:bg-white/5 backdrop-blur-xl rounded-3xl border border-cyan-300/50 dark:border-white/10 p-8 shadow-2xl">
             {/* Search Bar */}
             <div className="flex flex-col md:flex-row gap-4 mb-6">
               <div className="relative flex-1">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50 w-5 h-5" />
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-500 dark:text-white/50 w-5 h-5" />
                 <Input
                   type="text"
                   placeholder={locale === 'es' ? 'Buscar propiedades, ubicación, amenidades...' : 'Search properties, location, amenities...'}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-12 h-12 bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder-white/50"
+                  className="pl-12 h-12 bg-white/70 dark:bg-white/10 backdrop-blur-sm border-cyan-300/50 dark:border-white/20 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-white/50"
                 />
               </div>
               <Button
                 onClick={() => setShowFilters(!showFilters)}
-                className="h-12 px-6 bg-gradient-to-r from-green-400 to-emerald-400 hover:from-green-500 hover:to-emerald-500 text-white border-0 shadow-xl"
+                className="h-12 px-6 bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-green-400 dark:to-emerald-400 hover:from-cyan-700 hover:to-blue-700 dark:hover:from-green-500 dark:hover:to-emerald-500 text-white border-0 shadow-xl"
               >
                 <Filter className="w-4 h-4 mr-2" />
                 {locale === 'es' ? 'Filtros' : 'Filters'}
@@ -199,7 +199,7 @@ export default function RentalsPageClient({ locale }: RentalsPageClientProps) {
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="flex items-center gap-4">
                 <Select value={sortBy} onValueChange={(value: string) => setSortBy(value as 'featured' | 'rating' | 'price' | 'name')}>
-                  <SelectTrigger className="w-48 bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                  <SelectTrigger className="w-48 bg-white/70 dark:bg-white/10 backdrop-blur-sm border-cyan-300/50 dark:border-white/20 text-slate-900 dark:text-white">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent className="bg-slate-800 border-slate-600">
@@ -210,7 +210,7 @@ export default function RentalsPageClient({ locale }: RentalsPageClientProps) {
                   </SelectContent>
                 </Select>
 
-                <div className="text-white/70 text-sm">
+                <div className="text-slate-600 dark:text-white/70 text-sm">
                   {filteredRentals.length} {locale === 'es' ? 'resultados' : 'results'}
                 </div>
               </div>
@@ -220,9 +220,9 @@ export default function RentalsPageClient({ locale }: RentalsPageClientProps) {
                   onClick={() => setViewMode('grid')}
                   variant={viewMode === 'grid' ? 'default' : 'ghost'}
                   size="sm"
-                  className={viewMode === 'grid' 
-                    ? 'bg-gradient-to-r from-green-400 to-emerald-400 text-white' 
-                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                  className={viewMode === 'grid'
+                    ? 'bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-green-400 dark:to-emerald-400 text-white'
+                    : 'text-slate-600 dark:text-white/70 hover:text-slate-900 dark:hover:text-white hover:bg-white/40 dark:hover:bg-white/10'
                   }
                 >
                   Grid
@@ -231,9 +231,9 @@ export default function RentalsPageClient({ locale }: RentalsPageClientProps) {
                   onClick={() => setViewMode('list')}
                   variant={viewMode === 'list' ? 'default' : 'ghost'}
                   size="sm"
-                  className={viewMode === 'list' 
-                    ? 'bg-gradient-to-r from-green-400 to-emerald-400 text-white' 
-                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                  className={viewMode === 'list'
+                    ? 'bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-green-400 dark:to-emerald-400 text-white'
+                    : 'text-slate-600 dark:text-white/70 hover:text-slate-900 dark:hover:text-white hover:bg-white/40 dark:hover:bg-white/10'
                   }
                 >
                   List

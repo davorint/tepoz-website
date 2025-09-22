@@ -1,6 +1,11 @@
 import { Locale } from './i18n'
+import { StreetFood as BaseStreetFood } from './types/business'
+import { BusinessService } from './services/BusinessService'
 
-export interface StreetFood {
+// Export the StreetFood type from the base types
+export type StreetFood = BaseStreetFood
+
+export interface OldStreetFood {
   id: string
   name: {
     es: string
@@ -44,6 +49,7 @@ export interface StreetFood {
 export const mockStreetFoods: StreetFood[] = [
   {
     id: '1',
+    slug: 'tacos-dona-carmen',
     name: {
       es: 'Tacos de Doña Carmen',
       en: 'Doña Carmen\'s Tacos'
@@ -68,25 +74,35 @@ export const mockStreetFoods: StreetFood[] = [
       es: 'Esquina de Av. 5 de Mayo y Revolución',
       en: 'Corner of 5 de Mayo Ave and Revolución'
     },
+    address: {
+      es: 'Esquina de Av. 5 de Mayo y Revolución',
+      en: 'Corner of 5 de Mayo Ave and Revolución'
+    },
     coordinates: [-99.0955, 18.9851],
     phone: '+52 777 123 4567',
     hours: {
       es: 'Mar-Dom: 18:00-01:00',
       en: 'Tue-Sun: 6:00 PM-1:00 AM'
     },
+    amenities: ['cash-only', 'outdoor-seating'],
     specialties: {
       es: ['Tacos al Pastor', 'Tacos de Suadero', 'Quesadillas', 'Salsas Artesanales'],
       en: ['Tacos al Pastor', 'Suadero Tacos', 'Quesadillas', 'Artisan Salsas']
     },
-    dietary: ['spicy'],
+    dietary: [],
     verified: true,
     featured: true,
+    delivery: false,
+    parking: false,
+    wifi: false,
+    acceptsCards: false,
     cashOnly: true,
     spicyLevel: 4,
     localFavorite: true
   },
   {
     id: '2',
+    slug: 'elotes-esquites-la-michoacana',
     name: {
       es: 'Elotes y Esquites La Michoacana',
       en: 'La Michoacana Corn Stand'
@@ -111,11 +127,16 @@ export const mockStreetFoods: StreetFood[] = [
       es: 'Plaza Principal, junto al kiosco',
       en: 'Main Plaza, next to the kiosk'
     },
+    address: {
+      es: 'Plaza Principal, junto al kiosco',
+      en: 'Main Plaza, next to the kiosk'
+    },
     coordinates: [-99.0940, 18.9847],
     hours: {
       es: 'Vie-Dom: 16:00-22:00',
       en: 'Fri-Sun: 4:00 PM-10:00 PM'
     },
+    amenities: ['cash-only', 'outdoor-seating'],
     specialties: {
       es: ['Elote con Mayo', 'Esquites con Queso', 'Elote Asado', 'Combinaciones Especiales'],
       en: ['Corn with Mayo', 'Corn Cup with Cheese', 'Grilled Corn', 'Special Combinations']
@@ -123,12 +144,17 @@ export const mockStreetFoods: StreetFood[] = [
     dietary: ['vegetarian', 'gluten-free'],
     verified: true,
     featured: false,
+    delivery: false,
+    parking: false,
+    wifi: false,
+    acceptsCards: false,
     cashOnly: true,
     spicyLevel: 2,
     localFavorite: true
   },
   {
     id: '3',
+    slug: 'quesadillas-flor-los-compadres',
     name: {
       es: 'Quesadillas de Flor Los Compadres',
       en: 'Los Compadres Flower Quesadillas'
@@ -153,11 +179,16 @@ export const mockStreetFoods: StreetFood[] = [
       es: 'Mercado Municipal, Puesto 15',
       en: 'Municipal Market, Stall 15'
     },
+    address: {
+      es: 'Mercado Municipal, Puesto 15',
+      en: 'Municipal Market, Stall 15'
+    },
     coordinates: [-99.0948, 18.9835],
     hours: {
       es: 'Mar-Dom: 9:00-17:00',
       en: 'Tue-Sun: 9:00 AM-5:00 PM'
     },
+    amenities: ['cash-only', 'market-stall'],
     specialties: {
       es: ['Quesadilla de Flor de Calabaza', 'Quesadilla de Huitlacoche', 'Quesadilla de Quelites', 'Salsas Verdes'],
       en: ['Squash Blossom Quesadilla', 'Huitlacoche Quesadilla', 'Quelites Quesadilla', 'Green Salsas']
@@ -165,12 +196,17 @@ export const mockStreetFoods: StreetFood[] = [
     dietary: ['vegetarian'],
     verified: true,
     featured: true,
+    delivery: false,
+    parking: false,
+    wifi: false,
+    acceptsCards: false,
     cashOnly: true,
     spicyLevel: 3,
     localFavorite: true
   },
   {
     id: '4',
+    slug: 'churros-don-pepe',
     name: {
       es: 'Churros Don Pepe',
       en: 'Don Pepe\'s Churros'
@@ -195,11 +231,16 @@ export const mockStreetFoods: StreetFood[] = [
       es: 'Parque Nacional El Tepozteco, entrada',
       en: 'Tepozteco National Park, entrance'
     },
+    address: {
+      es: 'Parque Nacional El Tepozteco, entrada',
+      en: 'Tepozteco National Park, entrance'
+    },
     coordinates: [-99.1001, 18.9889],
     hours: {
       es: 'Sáb-Dom: 10:00-18:00',
       en: 'Sat-Sun: 10:00 AM-6:00 PM'
     },
+    amenities: ['cash-only', 'outdoor-seating'],
     specialties: {
       es: ['Churros con Cajeta', 'Churros con Chocolate', 'Churros Rellenos', 'Chocolate Caliente'],
       en: ['Churros with Cajeta', 'Churros with Chocolate', 'Filled Churros', 'Hot Chocolate']
@@ -207,12 +248,17 @@ export const mockStreetFoods: StreetFood[] = [
     dietary: ['vegetarian'],
     verified: true,
     featured: false,
+    delivery: false,
+    parking: false,
+    wifi: false,
+    acceptsCards: false,
     cashOnly: true,
     spicyLevel: 1,
     localFavorite: false
   },
   {
     id: '5',
+    slug: 'tamales-abuela-rosa',
     name: {
       es: 'Tamales La Abuela Rosa',
       en: 'Grandma Rosa\'s Tamales'
@@ -237,12 +283,17 @@ export const mockStreetFoods: StreetFood[] = [
       es: 'Tianguis del Miércoles, Calle Matamoros',
       en: 'Wednesday Market, Matamoros Street'
     },
+    address: {
+      es: 'Tianguis del Miércoles, Calle Matamoros',
+      en: 'Wednesday Market, Matamoros Street'
+    },
     coordinates: [-99.0962, 18.9841],
     phone: '+52 777 987 6543',
     hours: {
       es: 'Mié: 6:00-14:00',
       en: 'Wed: 6:00 AM-2:00 PM'
     },
+    amenities: ['cash-only', 'market-stall'],
     specialties: {
       es: ['Tamales de Pollo', 'Tamales de Rajas con Queso', 'Tamales Dulces', 'Atole de Masa'],
       en: ['Chicken Tamales', 'Cheese & Pepper Tamales', 'Sweet Tamales', 'Masa Atole']
@@ -250,12 +301,17 @@ export const mockStreetFoods: StreetFood[] = [
     dietary: ['gluten-free'],
     verified: true,
     featured: true,
+    delivery: false,
+    parking: false,
+    wifi: false,
+    acceptsCards: false,
     cashOnly: true,
     spicyLevel: 2,
     localFavorite: true
   },
   {
     id: '6',
+    slug: 'agua-fresca-el-oasis',
     name: {
       es: 'Agua Fresca El Oasis',
       en: 'El Oasis Fresh Waters'
@@ -280,11 +336,16 @@ export const mockStreetFoods: StreetFood[] = [
       es: 'Centro Histórico, varias ubicaciones',
       en: 'Historic Center, various locations'
     },
+    address: {
+      es: 'Centro Histórico, varias ubicaciones',
+      en: 'Historic Center, various locations'
+    },
     coordinates: [-99.0940, 18.9847],
     hours: {
       es: 'Lun-Dom: 10:00-20:00',
       en: 'Mon-Sun: 10:00 AM-8:00 PM'
     },
+    amenities: ['cash-only', 'outdoor-seating'],
     specialties: {
       es: ['Agua de Jamaica', 'Agua de Horchata', 'Agua de Tamarindo', 'Agua de Limón con Chía'],
       en: ['Hibiscus Water', 'Horchata Water', 'Tamarind Water', 'Lime Chia Water']
@@ -292,6 +353,10 @@ export const mockStreetFoods: StreetFood[] = [
     dietary: ['vegan', 'gluten-free'],
     verified: true,
     featured: false,
+    delivery: false,
+    parking: false,
+    wifi: false,
+    acceptsCards: false,
     cashOnly: true,
     spicyLevel: 1,
     localFavorite: false
@@ -328,13 +393,90 @@ export const priceRanges = [
 ]
 
 // Service class
-export class StreetFoodService {
-  static getAllStreetFoods(): StreetFood[] {
+export class StreetFoodService extends BusinessService<StreetFood> {
+  private static instance: StreetFoodService
+
+  static getInstance(): StreetFoodService {
+    if (!StreetFoodService.instance) {
+      StreetFoodService.instance = new StreetFoodService()
+    }
+    return StreetFoodService.instance
+  }
+
+  // Implementation of abstract methods
+  getAllItems(): StreetFood[] {
+    // Transform the old data structure to match BusinessEntity
+    return mockStreetFoods.map(item => ({
+      ...item,
+      address: item.location // Map location to address for BusinessEntity compatibility
+    }))
+  }
+
+  getFeaturedItems(): StreetFood[] {
     return mockStreetFoods
+      .filter(item => item.featured)
+      .map(item => ({
+        ...item,
+        address: item.location // Map location to address for BusinessEntity compatibility
+      }))
+  }
+
+  protected getEntityName(item: StreetFood, locale: Locale): string {
+    return item.name[locale]
+  }
+
+  protected getEntityDescription(item: StreetFood, locale: Locale): string {
+    return item.description[locale]
+  }
+
+  protected matchesCategory(item: StreetFood, type: string): boolean {
+    return item.type.es.toLowerCase().includes(type.toLowerCase()) ||
+           item.type.en.toLowerCase().includes(type.toLowerCase())
+  }
+
+  protected matchesAtmosphere(item: StreetFood, venueType: string): boolean {
+    return item.venueType === venueType
+  }
+
+  // Static methods for backward compatibility
+  static getAllStreetFoods(): StreetFood[] {
+    return StreetFoodService.getInstance().getAllItems()
   }
 
   static getStreetFoodById(id: string): StreetFood | undefined {
-    return mockStreetFoods.find(streetFood => streetFood.id === id)
+    return StreetFoodService.getInstance().getItemById(id)
+  }
+
+  static getStreetFoodBySlug(slug: string): StreetFood | undefined {
+    return StreetFoodService.getInstance().getItemBySlug(slug)
+  }
+
+  static getStreetFoodName(item: StreetFood, locale: Locale): string {
+    return StreetFoodService.getInstance().getName(item, locale)
+  }
+
+  static getStreetFoodDescription(item: StreetFood, locale: Locale): string {
+    return StreetFoodService.getInstance().getDescription(item, locale)
+  }
+
+  static getStreetFoodAddress(item: StreetFood, locale: Locale): string {
+    return StreetFoodService.getInstance().getAddress(item, locale)
+  }
+
+  static getStreetFoodHours(item: StreetFood, locale: Locale): string {
+    return StreetFoodService.getInstance().getHours(item, locale)
+  }
+
+  static getStreetFoodSpecialties(item: StreetFood, locale: Locale): string[] {
+    return StreetFoodService.getInstance().getSpecialties(item, locale)
+  }
+
+  static getFeaturedStreetFoods(): StreetFood[] {
+    return StreetFoodService.getInstance().getFeaturedItems()
+  }
+
+  static getLocalFavorites(): StreetFood[] {
+    return StreetFoodService.getInstance().getAllItems().filter(item => item.localFavorite)
   }
 
   static searchStreetFoods(
@@ -344,74 +486,7 @@ export class StreetFoodService {
     priceRange: string = 'all',
     dietary: string[] = []
   ): StreetFood[] {
-    let filtered = mockStreetFoods
-
-    // Text search
-    if (query) {
-      const searchLower = query.toLowerCase()
-      filtered = filtered.filter(streetFood => 
-        streetFood.name.es.toLowerCase().includes(searchLower) ||
-        streetFood.name.en.toLowerCase().includes(searchLower) ||
-        streetFood.description.es.toLowerCase().includes(searchLower) ||
-        streetFood.description.en.toLowerCase().includes(searchLower) ||
-        streetFood.type.es.toLowerCase().includes(searchLower) ||
-        streetFood.type.en.toLowerCase().includes(searchLower) ||
-        streetFood.specialties.es.some(specialty => specialty.toLowerCase().includes(searchLower)) ||
-        streetFood.specialties.en.some(specialty => specialty.toLowerCase().includes(searchLower))
-      )
-    }
-
-    // Type filter
-    if (type !== 'all') {
-      filtered = filtered.filter(streetFood => {
-        const typeEn = streetFood.type.en.toLowerCase()
-        switch (type) {
-          case 'tacos':
-            return typeEn.includes('taco')
-          case 'quesadillas':
-            return typeEn.includes('quesadilla')
-          case 'antojitos':
-            return typeEn.includes('snack') || typeEn.includes('antojito')
-          case 'desserts':
-            return typeEn.includes('dessert') || typeEn.includes('churro')
-          case 'beverages':
-            return typeEn.includes('beverage') || typeEn.includes('drink') || typeEn.includes('water')
-          case 'tamales':
-            return typeEn.includes('tamal')
-          case 'corn':
-            return typeEn.includes('corn')
-          default:
-            return true
-        }
-      })
-    }
-
-    // Venue filter
-    if (venue !== 'all') {
-      filtered = filtered.filter(streetFood => streetFood.venueType === venue)
-    }
-
-    // Price range filter
-    if (priceRange !== 'all') {
-      filtered = filtered.filter(streetFood => streetFood.priceRange === priceRange)
-    }
-
-    // Dietary filter
-    if (dietary.length > 0) {
-      filtered = filtered.filter(streetFood => 
-        dietary.some(diet => streetFood.dietary.includes(diet as 'vegetarian' | 'vegan' | 'gluten-free' | 'spicy'))
-      )
-    }
-
-    return filtered
-  }
-
-  static getStreetFoodName(streetFood: StreetFood, locale: Locale): string {
-    return streetFood.name[locale]
-  }
-
-  static getStreetFoodDescription(streetFood: StreetFood, locale: Locale): string {
-    return streetFood.description[locale]
+    return StreetFoodService.getInstance().searchItems(query, type, venue, priceRange, dietary, [])
   }
 
   static getStreetFoodType(streetFood: StreetFood, locale: Locale): string {
@@ -420,21 +495,5 @@ export class StreetFoodService {
 
   static getStreetFoodLocation(streetFood: StreetFood, locale: Locale): string {
     return streetFood.location[locale]
-  }
-
-  static getStreetFoodHours(streetFood: StreetFood, locale: Locale): string {
-    return streetFood.hours[locale]
-  }
-
-  static getStreetFoodSpecialties(streetFood: StreetFood, locale: Locale): string[] {
-    return streetFood.specialties[locale]
-  }
-
-  static getFeaturedStreetFoods(): StreetFood[] {
-    return mockStreetFoods.filter(streetFood => streetFood.featured)
-  }
-
-  static getLocalFavorites(): StreetFood[] {
-    return mockStreetFoods.filter(streetFood => streetFood.localFavorite)
   }
 }

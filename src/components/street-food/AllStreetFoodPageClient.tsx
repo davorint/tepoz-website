@@ -471,7 +471,7 @@ export default function AllStreetFoodPageClient({ locale }: AllStreetFoodPageCli
   }, [gridApi])
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-sky-200 via-sky-300/70 via-blue-400/50 to-indigo-400/40 dark:bg-gradient-to-b dark:from-slate-950 dark:via-emerald-800 dark:to-slate-900 relative overflow-hidden">
       {/* Ultra Premium Background - Matching main street food page */}
       <div className="absolute inset-0">
         {/* Animated gradient orbs */}

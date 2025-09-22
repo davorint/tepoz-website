@@ -1,6 +1,63 @@
 import { Locale } from './i18n'
+import { BusinessService } from './services/BusinessService'
+import { EcoLodge } from './types/business'
 
-export interface EcoLodge {
+// Transform legacy eco-lodge data to BusinessEntity format
+function transformEcoLodgeData(legacyLodge: LegacyEcoLodge): EcoLodge {
+  return {
+    id: legacyLodge.id,
+    slug: generateSlug(legacyLodge.name.en),
+    name: legacyLodge.name,
+    description: legacyLodge.description,
+    priceRange: legacyLodge.priceRange,
+    rating: legacyLodge.rating,
+    reviewCount: legacyLodge.reviews,
+    images: legacyLodge.images,
+    address: { es: legacyLodge.location.address, en: legacyLodge.location.address },
+    coordinates: legacyLodge.location.coordinates,
+    phone: legacyLodge.contact.phone,
+    website: legacyLodge.contact.website,
+    email: legacyLodge.contact.email,
+    hours: { es: '24 horas', en: '24 hours' },
+    amenities: legacyLodge.amenities,
+    specialties: { es: legacyLodge.features, en: legacyLodge.features },
+    dietary: legacyLodge.organicFood ? ['organic'] : [],
+    verified: true,
+    featured: legacyLodge.featured,
+    delivery: false,
+    parking: legacyLodge.amenities.includes('parking'),
+    wifi: legacyLodge.amenities.includes('wifi'),
+    acceptsCards: true,
+    category: legacyLodge.category,
+    roomTypes: legacyLodge.roomTypes,
+    features: legacyLodge.features,
+    sustainability: legacyLodge.sustainability,
+    petFriendly: legacyLodge.petFriendly,
+    adultsOnly: legacyLodge.adultsOnly,
+    organicFood: legacyLodge.organicFood,
+    solarPower: legacyLodge.solarPower,
+    waterConservation: legacyLodge.waterConservation,
+    localMaterials: legacyLodge.localMaterials
+  }
+}
+
+function generateSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[áàäâã]/g, 'a')
+    .replace(/[éèëê]/g, 'e')
+    .replace(/[íìïî]/g, 'i')
+    .replace(/[óòöôõ]/g, 'o')
+    .replace(/[úùüû]/g, 'u')
+    .replace(/[ñ]/g, 'n')
+    .replace(/[ç]/g, 'c')
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim()
+}
+
+interface LegacyEcoLodge {
   id: string
   name: {
     es: string
@@ -75,8 +132,8 @@ export const ecoLodgePriceRanges = [
   { id: '$$$$', symbol: '$$$$', es: 'Lujo ($5000+/noche)', en: 'Luxury ($5000+/night)' }
 ]
 
-// Sample eco-lodge data
-const sampleEcoLodges: EcoLodge[] = [
+// Legacy eco-lodge data to be transformed
+const legacyEcoLodges: LegacyEcoLodge[] = [
   {
     id: 'tubohotel-tepoztlan',
     name: {
@@ -165,10 +222,10 @@ const sampleEcoLodges: EcoLodge[] = [
     localMaterials: true
   },
   {
-    id: 'glamping-valle-sagrado',
+    id: 'glamping-valle-mistico',
     name: {
-      es: 'Glamping Valle Sagrado',
-      en: 'Sacred Valley Glamping'
+      es: 'Glamping Valle Místico',
+      en: 'Mystical Valley Glamping'
     },
     description: {
       es: 'Glamping de lujo en el corazón del valle. Tiendas elegantes con todas las comodidades.',
@@ -259,8 +316,8 @@ const sampleEcoLodges: EcoLodge[] = [
       en: 'Villas Amatlan Eco Village'
     },
     description: {
-      es: 'Ecoaldea con domos geodésicos de geometría sagrada. 1,800m² de áreas verdes en las montañas místicas de Amatlán.',
-      en: 'Eco village with sacred geometry geodesic domes. 1,800m² of green areas in the mystical mountains of Amatlan.'
+      es: 'Ecoaldea con domos geodésicos de geometría especial. 1,800m² de áreas verdes en las montañas místicas de Amatlán.',
+      en: 'Eco village with special geometry geodesic domes. 1,800m² of green areas in the mystical mountains of Amatlan.'
     },
     category: 'glamping',
     priceRange: '$$$',
@@ -285,7 +342,7 @@ const sampleEcoLodges: EcoLodge[] = [
       email: 'info@villasamatlan.com',
       website: 'villasamatlan-ecovillage.com'
     },
-    features: ['sacred-geometry', 'mystical-location', 'mountain-views'],
+    features: ['special-geometry', 'mystical-location', 'mountain-views'],
     featured: true,
     sustainability: true,
     petFriendly: true,
@@ -560,21 +617,121 @@ const sampleEcoLodges: EcoLodge[] = [
   }
 ]
 
-export class EcoLodgeService {
+// Transform legacy eco-lodges to new format
+const ecoLodges: EcoLodge[] = legacyEcoLodges.map(transformEcoLodgeData)
+
+// EcoLodge service extending BusinessService
+class EcoLodgeServiceClass extends BusinessService<EcoLodge> {
+  getAllItems(): EcoLodge[] {
+    return ecoLodges
+  }
+
+  getFeaturedItems(): EcoLodge[] {
+    return ecoLodges.filter(lodge => lodge.featured)
+  }
+
+  protected getEntityName(entity: EcoLodge, locale: Locale): string {
+    return entity.name[locale]
+  }
+
+  protected getEntityDescription(entity: EcoLodge, locale: Locale): string {
+    return entity.description[locale]
+  }
+
+  protected matchesCategory(entity: EcoLodge, category: string): boolean {
+    return entity.category === category
+  }
+
+  protected matchesAtmosphere(entity: EcoLodge, atmosphere: string): boolean {
+    // Map eco-lodge categories to atmosphere concepts
+    const categoryToAtmosphere: Record<string, string[]> = {
+      'eco-resort': ['natural', 'sustainable', 'relaxing'],
+      'treehouse': ['adventurous', 'unique', 'natural'],
+      'glamping': ['luxurious', 'outdoor', 'comfortable'],
+      'sustainable-hotel': ['eco-friendly', 'modern', 'responsible'],
+      'nature-retreat': ['peaceful', 'spiritual', 'natural'],
+      'organic-farm': ['rustic', 'authentic', 'educational']
+    }
+    return categoryToAtmosphere[entity.category]?.includes(atmosphere) || false
+  }
+
+  // EcoLodge-specific methods
+  getEcoLodgesByCategory(category: string): EcoLodge[] {
+    if (category === 'all') return this.getAllItems()
+    return this.getAllItems().filter(lodge => lodge.category === category)
+  }
+
+  searchEcoLodges(
+    query: string = '',
+    category: string = 'all',
+    priceRange: string = 'all',
+    amenities: string[] = [],
+    features: {
+      sustainability?: boolean,
+      organicFood?: boolean,
+      solarPower?: boolean,
+      petFriendly?: boolean,
+      adultsOnly?: boolean
+    } = {}
+  ): EcoLodge[] {
+    let filtered = this.searchItems(query, category, 'all', priceRange, [], amenities)
+
+    // Apply eco-lodge-specific filters
+    if (features.sustainability !== undefined) {
+      filtered = filtered.filter(l => l.sustainability === features.sustainability)
+    }
+    if (features.organicFood !== undefined) {
+      filtered = filtered.filter(l => l.organicFood === features.organicFood)
+    }
+    if (features.solarPower !== undefined) {
+      filtered = filtered.filter(l => l.solarPower === features.solarPower)
+    }
+    if (features.petFriendly !== undefined) {
+      filtered = filtered.filter(l => l.petFriendly === features.petFriendly)
+    }
+    if (features.adultsOnly !== undefined) {
+      filtered = filtered.filter(l => l.adultsOnly === features.adultsOnly)
+    }
+
+    return filtered
+  }
+}
+
+// Export singleton instance
+export const EcoLodgeService = new EcoLodgeServiceClass()
+
+// Static methods for backward compatibility
+export class EcoLodgeServiceStatic {
   static getAllEcoLodges(): EcoLodge[] {
-    return sampleEcoLodges
+    return EcoLodgeService.getAllItems()
   }
 
   static getEcoLodgeById(id: string): EcoLodge | undefined {
-    return sampleEcoLodges.find(lodge => lodge.id === id)
+    return EcoLodgeService.getItemById(id)
   }
 
   static getEcoLodgeName(lodge: EcoLodge, locale: Locale): string {
-    return lodge.name[locale]
+    return EcoLodgeService.getName(lodge, locale)
   }
 
   static getEcoLodgeDescription(lodge: EcoLodge, locale: Locale): string {
-    return lodge.description[locale]
+    return EcoLodgeService.getDescription(lodge, locale)
+  }
+
+  static getEcoLodgeAddress(lodge: EcoLodge, locale: Locale): string {
+    return EcoLodgeService.getAddress(lodge, locale)
+  }
+
+  static getEcoLodgeHours(lodge: EcoLodge, locale: Locale): string {
+    return EcoLodgeService.getHours(lodge, locale)
+  }
+
+  static getEcoLodgeSpecialties(lodge: EcoLodge, locale: Locale): string[] {
+    return EcoLodgeService.getSpecialties(lodge, locale)
+  }
+
+  static getFeaturedEcoLodges(): EcoLodge[] {
+    return EcoLodgeService.getFeaturedItems()
   }
 
   static searchEcoLodges(
@@ -590,63 +747,13 @@ export class EcoLodgeService {
       adultsOnly?: boolean
     } = {}
   ): EcoLodge[] {
-    let filtered = sampleEcoLodges
-
-    // Text search
-    if (query.trim()) {
-      const searchTerm = query.toLowerCase()
-      filtered = filtered.filter(lodge => 
-        lodge.name.es.toLowerCase().includes(searchTerm) ||
-        lodge.name.en.toLowerCase().includes(searchTerm) ||
-        lodge.description.es.toLowerCase().includes(searchTerm) ||
-        lodge.description.en.toLowerCase().includes(searchTerm) ||
-        lodge.location.neighborhood.toLowerCase().includes(searchTerm)
-      )
-    }
-
-    // Category filter
-    if (category && category !== 'all') {
-      filtered = filtered.filter(lodge => lodge.category === category)
-    }
-
-    // Price range filter
-    if (priceRange && priceRange !== 'all') {
-      filtered = filtered.filter(lodge => lodge.priceRange === priceRange)
-    }
-
-    // Amenities filter
-    if (amenities.length > 0) {
-      filtered = filtered.filter(lodge =>
-        amenities.every(amenity => lodge.amenities.includes(amenity))
-      )
-    }
-
-    // Features filter
-    if (features.sustainability !== undefined) {
-      filtered = filtered.filter(lodge => lodge.sustainability === features.sustainability)
-    }
-    if (features.organicFood !== undefined) {
-      filtered = filtered.filter(lodge => lodge.organicFood === features.organicFood)
-    }
-    if (features.solarPower !== undefined) {
-      filtered = filtered.filter(lodge => lodge.solarPower === features.solarPower)
-    }
-    if (features.petFriendly !== undefined) {
-      filtered = filtered.filter(lodge => lodge.petFriendly === features.petFriendly)
-    }
-    if (features.adultsOnly !== undefined) {
-      filtered = filtered.filter(lodge => lodge.adultsOnly === features.adultsOnly)
-    }
-
-    return filtered
-  }
-
-  static getFeaturedEcoLodges(): EcoLodge[] {
-    return sampleEcoLodges.filter(lodge => lodge.featured)
+    return EcoLodgeService.searchEcoLodges(query, category, priceRange, amenities, features)
   }
 
   static getEcoLodgesByCategory(category: string): EcoLodge[] {
-    if (category === 'all') return sampleEcoLodges
-    return sampleEcoLodges.filter(lodge => lodge.category === category)
+    return EcoLodgeService.getEcoLodgesByCategory(category)
   }
 }
+
+// EcoLodgeServiceStatic is already exported above
+export type { EcoLodge } from './types/business'

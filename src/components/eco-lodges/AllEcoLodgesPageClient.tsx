@@ -24,7 +24,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Filter, Columns, Leaf, MapPin, Activity, Star, Phone, Globe, Recycle } from 'lucide-react'
 import { motion } from 'motion/react'
 import { Locale } from '@/lib/i18n'
-import { EcoLodge, EcoLodgeService, ecoLodgeCategories } from '@/lib/eco-lodges'
+import { EcoLodge, EcoLodgeServiceStatic, ecoLodgeCategories } from '@/lib/eco-lodges'
 import EcoLodgeMap from './EcoLodgeMap'
 
 // TypeScript interfaces for AG-Grid components
@@ -77,9 +77,9 @@ const transformEcoLodgeData = (lodges: EcoLodge[], locale: Locale): EcoLodgeData
     return {
       ...lodge,
       formattedPriceRange: lodge.priceRange,
-      formattedRating: `${lodge.rating} (${lodge.reviews})`,
-      formattedReviews: lodge.reviews.toLocaleString(locale === 'es' ? 'es-MX' : 'en-US'),
-      shortDescription: EcoLodgeService.getEcoLodgeDescription(lodge, locale).substring(0, 100) + '...',
+      formattedRating: `${lodge.rating} (${lodge.reviews?.length || 0})`,
+      formattedReviews: (lodge.reviews?.length || 0).toLocaleString(locale === 'es' ? 'es-MX' : 'en-US'),
+      shortDescription: EcoLodgeServiceStatic.getEcoLodgeDescription(lodge, locale).substring(0, 100) + '...',
       averagePrice: avgPrice,
       sustainabilityScore
     }
@@ -140,7 +140,7 @@ const RatingRenderer = (props: RatingRendererProps) => {
     <div className="flex items-center gap-2">
       <div className="flex gap-0.5">{stars}</div>
       <span className="text-sm text-gray-600 dark:text-gray-400">
-        ({props.data?.reviews})
+        ({props.data?.reviews?.length || 0})
       </span>
     </div>
   )
@@ -257,12 +257,12 @@ const ActionsRenderer = (props: ActionsRendererProps) => {
 
   return (
     <div className="flex gap-1">
-      {lodge.contact.phone && (
+      {lodge.contact?.phone && (
         <Button size="sm" variant="ghost" className="h-8 w-8 p-0">
           <Phone className="h-4 w-4" />
         </Button>
       )}
-      {lodge.contact.website && (
+      {lodge.contact?.website && (
         <Button size="sm" variant="ghost" className="h-8 w-8 p-0">
           <Globe className="h-4 w-4" />
         </Button>
@@ -317,7 +317,7 @@ export default function AllEcoLodgesPageClient({ locale }: AllEcoLodgesPageClien
   
   // Load eco-lodge data
   useEffect(() => {
-    const lodges = EcoLodgeService.getAllEcoLodges()
+    const lodges = EcoLodgeServiceStatic.getAllEcoLodges()
     const transformedData = transformEcoLodgeData(lodges, locale)
     setEcoLodgeData(transformedData)
   }, [locale])
@@ -683,7 +683,7 @@ export default function AllEcoLodgesPageClient({ locale }: AllEcoLodgesPageClien
                         <div>
                           <p className="text-sm text-teal-300 font-medium">{locale === 'es' ? 'Total Reseñas' : 'Total Reviews'}</p>
                           <p className="text-3xl font-bold text-white mt-1">
-                            {ecoLodgeData.reduce((sum, l) => sum + l.reviews, 0).toLocaleString()}
+                            {ecoLodgeData.reduce((sum, l) => sum + (l.reviews?.length || 0), 0).toLocaleString()}
                           </p>
                         </div>
                         <div className="relative">
@@ -709,7 +709,7 @@ export default function AllEcoLodgesPageClient({ locale }: AllEcoLodgesPageClien
                           </p>
                           {selectedRows.length > 0 ? (
                             <p className="text-lg font-bold text-white leading-tight mt-1">
-                              {EcoLodgeService.getEcoLodgeName(selectedRows[0], locale)}
+                              {EcoLodgeServiceStatic.getEcoLodgeName(selectedRows[0], locale)}
                             </p>
                           ) : (
                             <div className="flex items-baseline gap-1 mt-1">
@@ -855,29 +855,7 @@ export default function AllEcoLodgesPageClient({ locale }: AllEcoLodgesPageClien
         >
           <EcoLodgeMap
             locale={locale}
-            selectedEcoLodges={selectedRows.map(row => ({
-              id: row.id,
-              name: row.name,
-              description: row.description,
-              category: row.category,
-              priceRange: row.priceRange,
-              rating: row.rating,
-              reviews: row.reviews,
-              images: row.images,
-              amenities: row.amenities,
-              roomTypes: row.roomTypes,
-              location: row.location,
-              contact: row.contact,
-              features: row.features,
-              featured: row.featured,
-              sustainability: row.sustainability,
-              petFriendly: row.petFriendly,
-              adultsOnly: row.adultsOnly,
-              organicFood: row.organicFood,
-              solarPower: row.solarPower,
-              waterConservation: row.waterConservation,
-              localMaterials: row.localMaterials
-            }))}
+            selectedEcoLodges={selectedRows}
             onEcoLodgeSelect={(ecoLodge) => {
               // Find the eco-lodge in the grid and select it
               if (gridApi) {

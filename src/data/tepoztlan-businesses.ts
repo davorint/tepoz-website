@@ -231,13 +231,13 @@ export const tepoztlanBusinesses: Business[] = [
     coordinates: [-99.1015, 18.9848] as [number, number],
     rating: 4.5,
     priceLevel: 1,
-    description: 'Monumento histórico del siglo XVI declarado Patrimonio de la Humanidad por la UNESCO. Museo con arte sacro y historia de la evangelización.',
-    descriptionEn: 'Historic monument from the 16th century declared World Heritage Site by UNESCO. Museum with sacred art and evangelization history.',
+    description: 'Monumento histórico del siglo XVI declarado Patrimonio de la Humanidad por la UNESCO. Museo con arte religioso y historia de la evangelización.',
+    descriptionEn: 'Historic monument from the 16th century declared World Heritage Site by UNESCO. Museum with religious art and evangelization history.',
     address: 'Plaza Central, Centro, Tepoztlán, Morelos',
     phone: '+52 739 395 0717',
     hours: '10:00 AM - 6:00 PM',
     featured: true,
-    tags: ['historia', 'unesco', 'museo', 'arte sacro', 'arquitectura'],
+    tags: ['historia', 'unesco', 'museo', 'arte religioso', 'arquitectura'],
     amenities: {
       es: ['Guías', 'Biblioteca', 'Tienda de regalos', 'Acceso para discapacitados'],
       en: ['Guides', 'Library', 'Gift shop', 'Disabled access']

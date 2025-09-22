@@ -24,7 +24,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Filter, Columns, Hotel, MapPin, Activity, Star, Building, Phone, Globe } from 'lucide-react'
 import { motion } from 'motion/react'
 import { Locale } from '@/lib/i18n'
-import { Hotel as HotelType, HotelService } from '@/lib/hotels'
+import { Hotel as HotelType, HotelServiceStatic } from '@/lib/hotels'
 import HotelMap from './HotelMap'
 
 // TypeScript interfaces for AG-Grid components
@@ -66,7 +66,7 @@ const transformHotelData = (hotels: HotelType[], locale: Locale): HotelData[] =>
     formattedPriceRange: hotel.priceRange,
     formattedRating: `${hotel.rating} (${hotel.reviews})`,
     formattedReviews: hotel.reviews.toLocaleString(locale === 'es' ? 'es-MX' : 'en-US'),
-    shortDescription: HotelService.getHotelDescription(hotel, locale).substring(0, 100) + '...',
+    shortDescription: HotelServiceStatic.getHotelDescription(hotel, locale).substring(0, 100) + '...',
     primaryCategory: hotel.category
   }))
 }
@@ -238,7 +238,7 @@ export default function AllHotelsPageClient({ locale }: AllHotelsPageClientProps
   
   // Load hotel data
   useEffect(() => {
-    const hotels = HotelService.getAllHotels()
+    const hotels = HotelServiceStatic.getAllHotels()
     const transformedData = transformHotelData(hotels, locale)
     setHotelData(transformedData)
   }, [locale])
@@ -598,7 +598,7 @@ export default function AllHotelsPageClient({ locale }: AllHotelsPageClientProps
                           </p>
                           {selectedRows.length > 0 ? (
                             <p className="text-lg font-bold text-white leading-tight mt-1">
-                              {HotelService.getHotelName(selectedRows[0], locale)}
+                              {HotelServiceStatic.getHotelName(selectedRows[0], locale)}
                             </p>
                           ) : (
                             <p className="text-3xl font-bold text-white mt-1">

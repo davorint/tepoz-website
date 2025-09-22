@@ -1,6 +1,63 @@
 import { Locale } from './i18n'
+import { BusinessService } from './services/BusinessService'
+import { Rental } from './types/business'
 
-export interface Rental {
+// Transform legacy rental data to BusinessEntity format
+function transformRentalData(legacyRental: LegacyRental): Rental {
+  return {
+    id: legacyRental.id,
+    slug: generateSlug(legacyRental.name.en),
+    name: legacyRental.name,
+    description: legacyRental.description,
+    priceRange: legacyRental.priceRange,
+    rating: legacyRental.rating,
+    reviewCount: legacyRental.reviews,
+    images: legacyRental.images,
+    address: { es: legacyRental.location.address, en: legacyRental.location.address },
+    coordinates: legacyRental.location.coordinates,
+    phone: legacyRental.contact.phone,
+    website: legacyRental.contact.website,
+    email: legacyRental.contact.email,
+    hours: { es: 'Check-in flexible', en: 'Flexible check-in' },
+    amenities: legacyRental.amenities,
+    specialties: { es: legacyRental.features, en: legacyRental.features },
+    dietary: [],
+    verified: true,
+    featured: legacyRental.featured,
+    delivery: false,
+    parking: legacyRental.hasParking,
+    wifi: legacyRental.hasWifi,
+    acceptsCards: true,
+    category: legacyRental.category,
+    roomInfo: legacyRental.roomInfo,
+    features: legacyRental.features,
+    instantBook: legacyRental.instantBook,
+    petFriendly: legacyRental.petFriendly,
+    familyFriendly: legacyRental.familyFriendly,
+    workFriendly: legacyRental.workFriendly,
+    hasKitchen: legacyRental.hasKitchen,
+    hasWifi: legacyRental.hasWifi,
+    hasParking: legacyRental.hasParking
+  }
+}
+
+function generateSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[áàäâã]/g, 'a')
+    .replace(/[éèëê]/g, 'e')
+    .replace(/[íìïî]/g, 'i')
+    .replace(/[óòöôõ]/g, 'o')
+    .replace(/[úùüû]/g, 'u')
+    .replace(/[ñ]/g, 'n')
+    .replace(/[ç]/g, 'c')
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim()
+}
+
+interface LegacyRental {
   id: string
   name: {
     es: string
@@ -79,8 +136,8 @@ export const priceRanges = [
   { id: '$$$$', symbol: '$$$$', es: 'Lujo ($4000+/noche)', en: 'Luxury ($4000+/night)' }
 ]
 
-// Sample rental data
-const sampleRentals: Rental[] = [
+// Legacy rental data to be transformed
+const legacyRentals: LegacyRental[] = [
   {
     id: 'casa-colonial-centro',
     name: {
@@ -623,21 +680,129 @@ const sampleRentals: Rental[] = [
   }
 ]
 
-export class RentalService {
+// Transform legacy rentals to new format
+const rentals: Rental[] = legacyRentals.map(transformRentalData)
+
+// Rental service extending BusinessService
+class RentalServiceClass extends BusinessService<Rental> {
+  getAllItems(): Rental[] {
+    return rentals
+  }
+
+  getFeaturedItems(): Rental[] {
+    return rentals.filter(rental => rental.featured)
+  }
+
+  protected getEntityName(entity: Rental, locale: Locale): string {
+    return entity.name[locale]
+  }
+
+  protected getEntityDescription(entity: Rental, locale: Locale): string {
+    return entity.description[locale]
+  }
+
+  protected matchesCategory(entity: Rental, category: string): boolean {
+    return entity.category === category
+  }
+
+  protected matchesAtmosphere(entity: Rental, atmosphere: string): boolean {
+    // Map rental categories to atmosphere concepts
+    const categoryToAtmosphere: Record<string, string[]> = {
+      'apartment': ['modern', 'urban', 'convenient'],
+      'house': ['family', 'spacious', 'traditional'],
+      'villa': ['luxury', 'exclusive', 'elegant'],
+      'studio': ['compact', 'artistic', 'minimalist'],
+      'cabin': ['rustic', 'cozy', 'natural'],
+      'loft': ['industrial', 'modern', 'urban']
+    }
+    return categoryToAtmosphere[entity.category]?.includes(atmosphere) || false
+  }
+
+  // Rental-specific methods
+  getRentalsByCategory(category: string): Rental[] {
+    if (category === 'all') return this.getAllItems()
+    return this.getAllItems().filter(rental => rental.category === category)
+  }
+
+  getRentalCategory(rental: Rental, locale: Locale): string {
+    const categoryTranslations: Record<string, { es: string; en: string }> = {
+      'apartment': { es: 'Departamento', en: 'Apartment' },
+      'house': { es: 'Casa', en: 'House' },
+      'villa': { es: 'Villa', en: 'Villa' },
+      'studio': { es: 'Studio', en: 'Studio' },
+      'cabin': { es: 'Cabaña', en: 'Cabin' },
+      'loft': { es: 'Loft', en: 'Loft' }
+    }
+    return categoryTranslations[rental.category]?.[locale] || rental.category
+  }
+
+  searchRentals(
+    query: string = '',
+    category: string = 'all',
+    priceRange: string = 'all',
+    amenities: string[] = [],
+    features: {
+      instantBook?: boolean,
+      petFriendly?: boolean,
+      familyFriendly?: boolean,
+      workFriendly?: boolean
+    } = {}
+  ): Rental[] {
+    let filtered = this.searchItems(query, category, 'all', priceRange, [], amenities)
+
+    // Apply rental-specific filters
+    if (features.instantBook !== undefined) {
+      filtered = filtered.filter(r => r.instantBook === features.instantBook)
+    }
+    if (features.petFriendly !== undefined) {
+      filtered = filtered.filter(r => r.petFriendly === features.petFriendly)
+    }
+    if (features.familyFriendly !== undefined) {
+      filtered = filtered.filter(r => r.familyFriendly === features.familyFriendly)
+    }
+    if (features.workFriendly !== undefined) {
+      filtered = filtered.filter(r => r.workFriendly === features.workFriendly)
+    }
+
+    return filtered
+  }
+}
+
+// Export singleton instance
+export const RentalService = new RentalServiceClass()
+
+// Static methods for backward compatibility
+export class RentalServiceStatic {
   static getAllRentals(): Rental[] {
-    return sampleRentals
+    return RentalService.getAllItems()
   }
 
   static getRentalById(id: string): Rental | undefined {
-    return sampleRentals.find(rental => rental.id === id)
+    return RentalService.getItemById(id)
   }
 
   static getRentalName(rental: Rental, locale: Locale): string {
-    return rental.name[locale]
+    return RentalService.getName(rental, locale)
   }
 
   static getRentalDescription(rental: Rental, locale: Locale): string {
-    return rental.description[locale]
+    return RentalService.getDescription(rental, locale)
+  }
+
+  static getRentalAddress(rental: Rental, locale: Locale): string {
+    return RentalService.getAddress(rental, locale)
+  }
+
+  static getRentalHours(rental: Rental, locale: Locale): string {
+    return RentalService.getHours(rental, locale)
+  }
+
+  static getRentalSpecialties(rental: Rental, locale: Locale): string[] {
+    return RentalService.getSpecialties(rental, locale)
+  }
+
+  static getFeaturedRentals(): Rental[] {
+    return RentalService.getFeaturedItems()
   }
 
   static searchRentals(
@@ -652,71 +817,17 @@ export class RentalService {
       workFriendly?: boolean
     } = {}
   ): Rental[] {
-    let filtered = sampleRentals
-
-    // Text search
-    if (query.trim()) {
-      const searchTerm = query.toLowerCase()
-      filtered = filtered.filter(rental => 
-        rental.name.es.toLowerCase().includes(searchTerm) ||
-        rental.name.en.toLowerCase().includes(searchTerm) ||
-        rental.description.es.toLowerCase().includes(searchTerm) ||
-        rental.description.en.toLowerCase().includes(searchTerm) ||
-        rental.location.neighborhood.toLowerCase().includes(searchTerm)
-      )
-    }
-
-    // Category filter
-    if (category && category !== 'all') {
-      filtered = filtered.filter(rental => rental.category === category)
-    }
-
-    // Price range filter
-    if (priceRange && priceRange !== 'all') {
-      filtered = filtered.filter(rental => rental.priceRange === priceRange)
-    }
-
-    // Amenities filter
-    if (amenities.length > 0) {
-      filtered = filtered.filter(rental =>
-        amenities.every(amenity => rental.amenities.includes(amenity))
-      )
-    }
-
-    // Features filter
-    if (features.instantBook !== undefined) {
-      filtered = filtered.filter(rental => rental.instantBook === features.instantBook)
-    }
-    if (features.petFriendly !== undefined) {
-      filtered = filtered.filter(rental => rental.petFriendly === features.petFriendly)
-    }
-    if (features.familyFriendly !== undefined) {
-      filtered = filtered.filter(rental => rental.familyFriendly === features.familyFriendly)
-    }
-    if (features.workFriendly !== undefined) {
-      filtered = filtered.filter(rental => rental.workFriendly === features.workFriendly)
-    }
-
-    return filtered
-  }
-
-  static getFeaturedRentals(): Rental[] {
-    return sampleRentals.filter(rental => rental.featured)
+    return RentalService.searchRentals(query, category, priceRange, amenities, features)
   }
 
   static getRentalsByCategory(category: string): Rental[] {
-    if (category === 'all') return sampleRentals
-    return sampleRentals.filter(rental => rental.category === category)
+    return RentalService.getRentalsByCategory(category)
   }
+
   static getRentalCategory(rental: Rental, locale: Locale): string {
-    const categoryTranslations: Record<string, { es: string; en: string }> = {
-      'apartment': { es: 'Departamento', en: 'Apartment' },
-      'house': { es: 'Casa', en: 'House' },
-      'villa': { es: 'Villa', en: 'Villa' },
-      'studio': { es: 'Studio', en: 'Studio' },
-      'cabin': { es: 'Cabaña', en: 'Cabin' },
-      'loft': { es: 'Loft', en: 'Loft' }
-    }
-    return categoryTranslations[rental.category]?.[locale] || rental.category
+    return RentalService.getRentalCategory(rental, locale)
   }
 }
+
+// RentalServiceStatic is already exported above
+export type { Rental } from './types/business'

@@ -18,7 +18,7 @@ import {
   Share2
 } from 'lucide-react'
 import { Locale } from '@/lib/i18n'
-import { Hotel, HotelService, hotelCategories } from '@/lib/hotels'
+import { Hotel, HotelServiceStatic, hotelCategories } from '@/lib/hotels'
 
 interface HotelMapProps {
   locale: Locale
@@ -48,7 +48,7 @@ export default function HotelMap({ locale, selectedHotels, onHotelSelect, classN
   const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(null)
   
   // Get all hotels for display
-  const allHotels = HotelService.getAllHotels()
+  const allHotels = HotelServiceStatic.getAllHotels()
   const hotelsToShow = selectedHotels.length > 0 ? selectedHotels : allHotels
 
   // Initialize map
@@ -270,10 +270,10 @@ export default function HotelMap({ locale, selectedHotels, onHotelSelect, classN
                   <div className="flex items-start justify-between mb-2">
                     <div>
                       <h3 className="font-bold text-white text-lg">
-                        {HotelService.getHotelName(selectedHotel, locale)}
+                        {HotelServiceStatic.getHotelName(selectedHotel, locale)}
                       </h3>
                       <p className="text-white/70 text-sm mt-1">
-                        {HotelService.getHotelDescription(selectedHotel, locale)}
+                        {HotelServiceStatic.getHotelDescription(selectedHotel, locale)}
                       </p>
                       <p className="text-white/60 text-sm mt-1 flex items-center gap-1">
                         <MapPin className="w-3 h-3" />

@@ -37,14 +37,14 @@ export default function StaticNavigation({ lang, translations }: StaticNavigatio
           <div className="h-8 w-8 bg-gradient-to-br from-orange-500 to-red-500 rounded-md flex items-center justify-center transition-all duration-300 group-hover:rotate-12 group-hover:shadow-lg group-hover:shadow-orange-500/25">
             <span className="text-white font-bold text-sm transition-transform duration-300 group-hover:scale-110">T</span>
           </div>
-          <span className="font-bold text-lg transition-colors duration-300 text-white dark:text-white">
+          <span className="font-bold text-lg transition-colors duration-300 text-slate-900 dark:text-white">
             <span className="group-hover:text-orange-500">TODO</span>
             <span className="text-orange-500 group-hover:text-orange-600">TEPOZ</span>
           </span>
         </Link>
 
         {/* Navigation Menu with Submenus */}
-        <NavigationMenu className="hidden md:flex text-white dark:text-white">
+        <NavigationMenu className="hidden md:flex text-slate-900 dark:text-white">
           <NavigationMenuList>
             <NavigationMenuItem className="animate-in fade-in slide-in-from-bottom-2 duration-500 fill-mode-both [animation-delay:100ms]">
               <NavigationMenuTrigger className="transition-all duration-300 hover:scale-105">{translations.nav.discover}</NavigationMenuTrigger>
@@ -91,14 +91,6 @@ export default function StaticNavigation({ lang, translations }: StaticNavigatio
                     </Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <Link href={buildLocalizedUrl('stay/eco-lodges', lang)} className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] hover:shadow-md focus:bg-accent focus:text-accent-foreground">
-                      <div className="text-sm font-medium leading-none">{translations.stay.categories.ecoLodges}</div>
-                      <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                        {lang === 'es' ? 'Conecta con la naturaleza' : 'Connect with nature'}
-                      </p>
-                    </Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild>
                     <Link href={buildLocalizedUrl('stay/vacation-rentals', lang)} className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] hover:shadow-md focus:bg-accent focus:text-accent-foreground">
                       <div className="text-sm font-medium leading-none">{translations.stay.categories.vacationRentals}</div>
                       <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
@@ -115,7 +107,7 @@ export default function StaticNavigation({ lang, translations }: StaticNavigatio
               <NavigationMenuContent className="animate-in fade-in slide-in-from-top-2 duration-300">
                 <div className="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
                   <NavigationMenuLink asChild>
-                    <Link href={buildLocalizedUrl('eat/restaurants', lang)} className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] hover:shadow-md focus:bg-accent focus:text-accent-foreground">
+                    <Link href={buildLocalizedUrl('food-drink/restaurants', lang)} className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] hover:shadow-md focus:bg-accent focus:text-accent-foreground">
                       <div className="text-sm font-medium leading-none">{translations.eat.categories.restaurants}</div>
                       <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                         {lang === 'es' ? 'Restaurantes y terrazas con vista' : 'Restaurants and rooftop dining'}
@@ -123,7 +115,7 @@ export default function StaticNavigation({ lang, translations }: StaticNavigatio
                     </Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <Link href={buildLocalizedUrl('eat/cafes-bakeries', lang)} className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] hover:shadow-md focus:bg-accent focus:text-accent-foreground">
+                    <Link href={buildLocalizedUrl('food-drink/cafes-bakeries', lang)} className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] hover:shadow-md focus:bg-accent focus:text-accent-foreground">
                       <div className="text-sm font-medium leading-none">{translations.eat.categories.cafes}</div>
                       <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                         {lang === 'es' ? 'Café y panaderías artesanales' : 'Coffee and artisan bakeries'}
@@ -131,7 +123,7 @@ export default function StaticNavigation({ lang, translations }: StaticNavigatio
                     </Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <Link href={buildLocalizedUrl('eat/street-food', lang)} className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] hover:shadow-md focus:bg-accent focus:text-accent-foreground">
+                    <Link href={buildLocalizedUrl('food-drink/street-food', lang)} className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] hover:shadow-md focus:bg-accent focus:text-accent-foreground">
                       <div className="text-sm font-medium leading-none">{translations.eat.categories.streetFood}</div>
                       <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                         {lang === 'es' ? 'Antojitos y mercados locales' : 'Local snacks and markets'}
@@ -139,7 +131,7 @@ export default function StaticNavigation({ lang, translations }: StaticNavigatio
                     </Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <Link href={buildLocalizedUrl('eat/bars-pulquerias', lang)} className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] hover:shadow-md focus:bg-accent focus:text-accent-foreground">
+                    <Link href={buildLocalizedUrl('food-drink/bars-pulquerias', lang)} className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] hover:shadow-md focus:bg-accent focus:text-accent-foreground">
                       <div className="text-sm font-medium leading-none">{lang === 'es' ? 'Bares y Pulquerías' : 'Bars & Pulquerias'}</div>
                       <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                         {lang === 'es' ? 'Vida nocturna y pulque tradicional' : 'Nightlife and traditional pulque'}
@@ -209,7 +201,7 @@ export default function StaticNavigation({ lang, translations }: StaticNavigatio
         </NavigationMenu>
 
         {/* Right Side Actions */}
-        <div className="flex items-center space-x-2 animate-in fade-in slide-in-from-right-4 duration-700 [animation-delay:300ms] text-white dark:text-white">
+        <div className="flex items-center space-x-2 animate-in fade-in slide-in-from-right-4 duration-700 [animation-delay:300ms] text-slate-900 dark:text-white">
           {/* Language Toggle */}
           {/* Simple Server-Side Language Toggle */}
           <Button variant="ghost" size="sm" asChild className="group gap-1 transition-all duration-300 hover:scale-105 hover:shadow-md">

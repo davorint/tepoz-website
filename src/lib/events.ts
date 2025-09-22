@@ -1,3 +1,5 @@
+import { Locale } from '@/lib/i18n'
+
 export interface Event {
   id: string
   name: {
@@ -216,8 +218,8 @@ export const sampleEvents: Event[] = [
       en: 'Spring Equinox at Tepozteco'
     },
     description: {
-      es: 'Ceremonia ancestral maya-azteca para recibir la energía renovadora del equinoccio de primavera en la pirámide sagrada del Tepozteco. Los participantes se visten de blanco y realizan meditaciones colectivas al amanecer, aprovechando la alineación energética especial de este día para purificar el espíritu y renovar intenciones.',
-      en: 'Ancestral Maya-Aztec ceremony to receive the renewing energy of the spring equinox at the sacred pyramid of Tepozteco. Participants dress in white and perform collective meditations at sunrise, taking advantage of the special energetic alignment of this day to purify the spirit and renew intentions.'
+      es: 'Ceremonia ancestral maya-azteca para recibir la energía renovadora del equinoccio de primavera en la pirámide ancestral del Tepozteco. Los participantes se visten de blanco y realizan meditaciones colectivas al amanecer, aprovechando la alineación energética especial de este día para purificar el espíritu y renovar intenciones.',
+      en: 'Ancestral Maya-Aztec ceremony to receive the renewing energy of the spring equinox at the ancient pyramid of Tepozteco. Participants dress in white and perform collective meditations at sunrise, taking advantage of the special energetic alignment of this day to purify the spirit and renew intentions.'
     },
     shortDescription: {
       es: 'Ceremonia espiritual ancestral al amanecer en la pirámide del Tepozteco',
@@ -793,7 +795,7 @@ export class EventService {
     return labels[atmosphere][locale]
   }
 
-  static generateSlug(event: Event, locale: 'es' | 'en'): string {
+  static generateSlug(event: Event, locale: Locale): string {
     const name = event.name[locale]
     return name
       .toLowerCase()
@@ -810,7 +812,7 @@ export class EventService {
       .trim()
   }
 
-  static getEventBySlug(slug: string, locale: 'es' | 'en'): Event | undefined {
+  static getEventBySlug(slug: string, locale: Locale): Event | undefined {
     return sampleEvents.find(event => 
       this.generateSlug(event, locale) === slug
     )

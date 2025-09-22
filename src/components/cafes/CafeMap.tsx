@@ -39,7 +39,9 @@ const atmosphereStyles = {
   'traditional': { color: 'rgba(101, 163, 13, 0.8)', emoji: '🏛️' },
   'artistic': { color: 'rgba(168, 85, 247, 0.8)', emoji: '🎨' },
   'minimalist': { color: 'rgba(107, 114, 128, 0.8)', emoji: '⚪' },
-  'rustic': { color: 'rgba(120, 53, 15, 0.8)', emoji: '🌿' }
+  'rustic': { color: 'rgba(120, 53, 15, 0.8)', emoji: '🌿' },
+  'casual': { color: 'rgba(34, 197, 94, 0.8)', emoji: '😊' },
+  'family': { color: 'rgba(236, 72, 153, 0.8)', emoji: '👨‍👩‍👧‍👦' }
 }
 
 export default function CafeMap({ locale, selectedCafes, onCafeSelect, className }: CafeMapProps) {

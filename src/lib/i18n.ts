@@ -7,7 +7,7 @@ export const translations = {
     nav: {
       discover: 'Descubre',
       stay: 'Hospedaje',
-      eat: 'Comer',
+      eat: 'Comida y Bebida',
       experience: 'Experiencias',
       events: 'Eventos',
       shop: 'Compras',
@@ -148,7 +148,7 @@ export const translations = {
     nav: {
       discover: 'Discover',
       stay: 'Stay',
-      eat: 'Eat',
+      eat: 'Food & Drink',
       experience: 'Experience',
       events: 'Events',
       shop: 'Shop',

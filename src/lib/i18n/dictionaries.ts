@@ -7,7 +7,7 @@ const dictionaries = {
     nav: {
       descubre: 'Descubre',
       hospedaje: 'Hospedaje',
-      comer: 'Comer',
+      comer: 'Comida y Bebida',
       experiencias: 'Experiencias',
       eventos: 'Eventos',
       compras: 'Compras',
@@ -35,7 +35,7 @@ const dictionaries = {
     nav: {
       discover: 'Discover',
       stay: 'Stay',
-      eat: 'Eat',
+      eat: 'Food & Drink',
       experience: 'Experience',
       events: 'Events',
       shop: 'Shop',

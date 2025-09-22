@@ -37,13 +37,13 @@ export default function TepoztlanPageClient({ lang }: TepoztlanPageClientProps) 
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'archaeological': return 'bg-gradient-to-r from-orange-400 to-amber-400 text-white border-orange-400/50 shadow-lg'
-      case 'natural': return 'bg-gradient-to-r from-emerald-400 to-teal-400 text-white border-emerald-400/50 shadow-lg'
-      case 'cultural': return 'bg-gradient-to-r from-blue-400 to-indigo-400 text-white border-blue-400/50 shadow-lg'
-      case 'spiritual': return 'bg-gradient-to-r from-purple-400 to-pink-400 text-white border-purple-400/50 shadow-lg'
-      case 'recreational': return 'bg-gradient-to-r from-green-400 to-lime-400 text-white border-green-400/50 shadow-lg'
-      case 'gastronomic': return 'bg-gradient-to-r from-red-400 to-rose-400 text-white border-red-400/50 shadow-lg'
-      default: return 'bg-gradient-to-r from-gray-400 to-slate-400 text-white border-gray-400/50 shadow-lg'
+      case 'archaeological': return 'bg-gradient-to-r from-orange-400 to-amber-400 text-slate-900 dark:text-white border-orange-400/50 shadow-lg'
+      case 'natural': return 'bg-gradient-to-r from-emerald-400 to-teal-400 text-slate-900 dark:text-white border-emerald-400/50 shadow-lg'
+      case 'cultural': return 'bg-gradient-to-r from-blue-400 to-indigo-400 text-slate-900 dark:text-white border-blue-400/50 shadow-lg'
+      case 'spiritual': return 'bg-gradient-to-r from-purple-400 to-pink-400 text-slate-900 dark:text-white border-purple-400/50 shadow-lg'
+      case 'recreational': return 'bg-gradient-to-r from-green-400 to-lime-400 text-slate-900 dark:text-white border-green-400/50 shadow-lg'
+      case 'gastronomic': return 'bg-gradient-to-r from-red-400 to-rose-400 text-slate-900 dark:text-white border-red-400/50 shadow-lg'
+      default: return 'bg-gradient-to-r from-gray-400 to-slate-400 text-slate-900 dark:text-white border-gray-400/50 shadow-lg'
     }
   }
 
@@ -176,7 +176,7 @@ export default function TepoztlanPageClient({ lang }: TepoztlanPageClientProps) 
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-orange-900 to-slate-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-orange-50 via-amber-50 to-red-50 dark:bg-gradient-to-br dark:from-slate-900 dark:via-orange-900 dark:to-slate-900 relative overflow-hidden">
       {/* Ultra Premium Background */}
       <div className="absolute inset-0">
         {/* Animated gradient orbs */}
@@ -202,7 +202,7 @@ export default function TepoztlanPageClient({ lang }: TepoztlanPageClientProps) 
               <div className="h-px w-20 bg-gradient-to-r from-transparent to-orange-400" />
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-amber-400 blur-lg" />
-                <Badge className="relative bg-gradient-to-r from-orange-400 to-amber-400 text-white px-8 py-3 text-sm font-semibold tracking-wider uppercase border-0 shadow-2xl">
+                <Badge className="relative bg-gradient-to-r from-orange-400 to-amber-400 text-slate-900 dark:text-white px-8 py-3 text-sm font-semibold tracking-wider uppercase border-0 shadow-2xl">
                   ✨ Pueblo Mágico ✨
                 </Badge>
               </div>
@@ -210,7 +210,7 @@ export default function TepoztlanPageClient({ lang }: TepoztlanPageClientProps) 
             </div>
             
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 font-sans">
-              <span className="text-white drop-shadow-2xl">
+              <span className="text-slate-900 dark:text-white drop-shadow-2xl">
                 {t.title.split(' ')[0]} {/* Descubre/Discover */}
               </span>
               <br />
@@ -219,7 +219,7 @@ export default function TepoztlanPageClient({ lang }: TepoztlanPageClientProps) 
               </span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-white/80 font-light max-w-4xl mx-auto leading-relaxed mb-8">
+            <p className="text-xl md:text-2xl text-slate-900 dark:text-slate-700 dark:text-white/80 font-light max-w-4xl mx-auto leading-relaxed mb-8">
               {t.description}
             </p>
 
@@ -227,15 +227,15 @@ export default function TepoztlanPageClient({ lang }: TepoztlanPageClientProps) 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
               <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
                 <div className="text-3xl font-bold text-orange-400 mb-2">{attractions.length}</div>
-                <div className="text-white/70 text-sm">{lang === 'es' ? 'Atracciones' : 'Attractions'}</div>
+                <div className="text-slate-900 dark:text-slate-700 dark:text-white/70 text-sm">{lang === 'es' ? 'Atracciones' : 'Attractions'}</div>
               </div>
               <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
                 <div className="text-3xl font-bold text-amber-400 mb-2">2000+</div>
-                <div className="text-white/70 text-sm">{lang === 'es' ? 'Años de Historia' : 'Years of History'}</div>
+                <div className="text-slate-900 dark:text-slate-700 dark:text-white/70 text-sm">{lang === 'es' ? 'Años de Historia' : 'Years of History'}</div>
               </div>
               <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
                 <div className="text-3xl font-bold text-yellow-400 mb-2">10K+</div>
-                <div className="text-white/70 text-sm">{lang === 'es' ? 'Visitantes Anuales' : 'Annual Visitors'}</div>
+                <div className="text-slate-900 dark:text-slate-700 dark:text-white/70 text-sm">{lang === 'es' ? 'Visitantes Anuales' : 'Annual Visitors'}</div>
               </div>
             </div>
           </div>
@@ -246,18 +246,18 @@ export default function TepoztlanPageClient({ lang }: TepoztlanPageClientProps) 
               {/* Search Bar */}
               <div className="flex flex-col md:flex-row gap-4 mb-6">
                 <div className="relative flex-1">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50 w-5 h-5" />
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-900 dark:text-white/50 w-5 h-5" />
                   <Input
                     type="text"
                     placeholder={t.searchPlaceholder}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-12 h-12 bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder-white/50"
+                    className="pl-12 h-12 bg-white/80 dark:bg-white/10 backdrop-blur-sm border-orange-300/50 dark:border-white/20 text-slate-900 dark:text-white placeholder-white/50"
                   />
                 </div>
                 <Button
                   onClick={() => setShowFilters(!showFilters)}
-                  className="h-12 px-6 bg-gradient-to-r from-orange-400 to-amber-400 hover:from-orange-500 hover:to-amber-500 text-white border-0 shadow-xl"
+                  className="h-12 px-6 bg-gradient-to-r from-orange-400 to-amber-400 hover:from-orange-500 hover:to-amber-500 text-slate-900 dark:text-white border-0 shadow-xl"
                 >
                   <Filter className="w-4 h-4 mr-2" />
                   {lang === 'es' ? 'Filtros' : 'Filters'}
@@ -268,18 +268,18 @@ export default function TepoztlanPageClient({ lang }: TepoztlanPageClientProps) 
               <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                 <div className="flex items-center gap-4">
                   <Select value={sortBy} onValueChange={(value: string) => setSortBy(value as 'featured' | 'rating' | 'category' | 'name')}>
-                    <SelectTrigger className="w-48 bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                    <SelectTrigger className="w-48 bg-white/80 dark:bg-white/10 backdrop-blur-sm border-orange-300/50 dark:border-white/20 text-slate-900 dark:text-white">
                       <SelectValue placeholder={t.sortLabel} />
                     </SelectTrigger>
                     <SelectContent className="bg-slate-800 border-slate-600">
-                      <SelectItem value="featured" className="text-white">{t.sortOptions.featured}</SelectItem>
-                      <SelectItem value="rating" className="text-white">{t.sortOptions.rating}</SelectItem>
-                      <SelectItem value="category" className="text-white">{t.sortOptions.category}</SelectItem>
-                      <SelectItem value="name" className="text-white">{t.sortOptions.name}</SelectItem>
+                      <SelectItem value="featured" className="text-slate-900 dark:text-white">{t.sortOptions.featured}</SelectItem>
+                      <SelectItem value="rating" className="text-slate-900 dark:text-white">{t.sortOptions.rating}</SelectItem>
+                      <SelectItem value="category" className="text-slate-900 dark:text-white">{t.sortOptions.category}</SelectItem>
+                      <SelectItem value="name" className="text-slate-900 dark:text-white">{t.sortOptions.name}</SelectItem>
                     </SelectContent>
                   </Select>
                   
-                  <div className="text-white/70 text-sm">
+                  <div className="text-slate-900 dark:text-slate-700 dark:text-white/70 text-sm">
                     {filteredAttractions.length} {lang === 'es' ? 'resultados' : 'results'}
                   </div>
                 </div>
@@ -290,8 +290,8 @@ export default function TepoztlanPageClient({ lang }: TepoztlanPageClientProps) 
                     variant={viewMode === 'grid' ? 'default' : 'ghost'}
                     size="sm"
                     className={viewMode === 'grid' 
-                      ? 'bg-gradient-to-r from-orange-400 to-amber-400 text-white' 
-                      : 'text-white/70 hover:text-white hover:bg-white/10'
+                      ? 'bg-gradient-to-r from-orange-400 to-amber-400 text-slate-900 dark:text-white' 
+                      : 'text-slate-900 dark:text-slate-700 dark:text-white/70 hover:text-slate-900 dark:text-white hover:bg-white/80 dark:bg-white/10'
                     }
                   >
                     Grid
@@ -301,8 +301,8 @@ export default function TepoztlanPageClient({ lang }: TepoztlanPageClientProps) 
                     variant={viewMode === 'list' ? 'default' : 'ghost'}
                     size="sm"
                     className={viewMode === 'list' 
-                      ? 'bg-gradient-to-r from-orange-400 to-amber-400 text-white' 
-                      : 'text-white/70 hover:text-white hover:bg-white/10'
+                      ? 'bg-gradient-to-r from-orange-400 to-amber-400 text-slate-900 dark:text-white' 
+                      : 'text-slate-900 dark:text-slate-700 dark:text-white/70 hover:text-slate-900 dark:text-white hover:bg-white/80 dark:bg-white/10'
                     }
                   >
                     List
@@ -315,19 +315,19 @@ export default function TepoztlanPageClient({ lang }: TepoztlanPageClientProps) 
                 <div className="mt-8 pt-8 border-t border-white/10">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div>
-                      <label className="text-white font-semibold mb-3 block">{t.categoryLabel}</label>
+                      <label className="text-slate-900 dark:text-white font-semibold mb-3 block">{t.categoryLabel}</label>
                       <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                        <SelectTrigger className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                        <SelectTrigger className="bg-white/80 dark:bg-white/10 backdrop-blur-sm border-orange-300/50 dark:border-white/20 text-slate-900 dark:text-white">
                           <SelectValue placeholder={t.categoryLabel} />
                         </SelectTrigger>
                         <SelectContent className="bg-slate-800 border-slate-600">
-                          <SelectItem value="all" className="text-white">{t.allCategories}</SelectItem>
-                          <SelectItem value="archaeological" className="text-white">{t.categories.archaeological}</SelectItem>
-                          <SelectItem value="natural" className="text-white">{t.categories.natural}</SelectItem>
-                          <SelectItem value="cultural" className="text-white">{t.categories.cultural}</SelectItem>
-                          <SelectItem value="spiritual" className="text-white">{t.categories.spiritual}</SelectItem>
-                          <SelectItem value="recreational" className="text-white">{t.categories.recreational}</SelectItem>
-                          <SelectItem value="gastronomic" className="text-white">{t.categories.gastronomic}</SelectItem>
+                          <SelectItem value="all" className="text-slate-900 dark:text-white">{t.allCategories}</SelectItem>
+                          <SelectItem value="archaeological" className="text-slate-900 dark:text-white">{t.categories.archaeological}</SelectItem>
+                          <SelectItem value="natural" className="text-slate-900 dark:text-white">{t.categories.natural}</SelectItem>
+                          <SelectItem value="cultural" className="text-slate-900 dark:text-white">{t.categories.cultural}</SelectItem>
+                          <SelectItem value="spiritual" className="text-slate-900 dark:text-white">{t.categories.spiritual}</SelectItem>
+                          <SelectItem value="recreational" className="text-slate-900 dark:text-white">{t.categories.recreational}</SelectItem>
+                          <SelectItem value="gastronomic" className="text-slate-900 dark:text-white">{t.categories.gastronomic}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -341,7 +341,7 @@ export default function TepoztlanPageClient({ lang }: TepoztlanPageClientProps) 
                         setSelectedCategory('all')
                         setSortBy('featured')
                       }}
-                      className="bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20"
+                      className="bg-white/80 dark:bg-white/10 backdrop-blur-sm border border-orange-300/50 dark:border-white/20 text-slate-900 dark:text-white hover:bg-white/20"
                     >
                       <X className="w-4 h-4 mr-2" />
                       {lang === 'es' ? 'Limpiar Filtros' : 'Clear Filters'}
@@ -381,12 +381,12 @@ export default function TepoztlanPageClient({ lang }: TepoztlanPageClientProps) 
                     </div>
                     {attraction.featured && (
                       <div className="absolute top-4 right-4">
-                        <Badge className="bg-gradient-to-r from-yellow-400 to-orange-400 text-white border-yellow-400/50 shadow-lg font-semibold">
+                        <Badge className="bg-gradient-to-r from-yellow-400 to-orange-400 text-slate-900 dark:text-white border-yellow-400/50 shadow-lg font-semibold">
                           {lang === 'es' ? 'Destacado' : 'Featured'}
                         </Badge>
                       </div>
                     )}
-                    <div className="absolute bottom-4 left-4 text-white">
+                    <div className="absolute bottom-4 left-4 text-slate-900 dark:text-white">
                       <div className="flex items-center gap-1 mb-1">
                         {[...Array(5)].map((_, i) => (
                           <Star
@@ -404,26 +404,26 @@ export default function TepoztlanPageClient({ lang }: TepoztlanPageClientProps) 
                   </div>
                   
                   <CardContent className={`p-6 ${viewMode === 'list' ? 'flex-1' : ''}`}>
-                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-orange-400 transition-colors">
                       {attraction.name[lang]}
                     </h3>
-                    <p className="text-white/70 text-sm mb-4 line-clamp-2">
+                    <p className="text-slate-900 dark:text-slate-700 dark:text-white/70 text-sm mb-4 line-clamp-2">
                       {attraction.description[lang]}
                     </p>
                     
                     <div className="space-y-2 mb-4">
-                      <div className="flex items-center text-sm text-white/60">
+                      <div className="flex items-center text-sm text-slate-900 dark:text-white/60">
                         <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
                         <span className="truncate">{attraction.location[lang]}</span>
                       </div>
                       {attraction.duration && (
-                        <div className="flex items-center text-sm text-white/60">
+                        <div className="flex items-center text-sm text-slate-900 dark:text-white/60">
                           <Clock className="w-4 h-4 mr-2 flex-shrink-0" />
                           <span>{attraction.duration[lang]}</span>
                         </div>
                       )}
                       {attraction.difficulty && (
-                        <div className="flex items-center text-sm text-white/60">
+                        <div className="flex items-center text-sm text-slate-900 dark:text-white/60">
                           <Users className="w-4 h-4 mr-2 flex-shrink-0" />
                           <span>{attraction.difficulty[lang]}</span>
                         </div>
@@ -432,7 +432,7 @@ export default function TepoztlanPageClient({ lang }: TepoztlanPageClientProps) 
                   </CardContent>
                   
                   <CardFooter className="px-6 pb-6">
-                    <Button className="w-full bg-gradient-to-r from-orange-400 to-amber-400 hover:from-orange-500 hover:to-amber-500 text-white border-0 shadow-xl">
+                    <Button className="w-full bg-gradient-to-r from-orange-400 to-amber-400 hover:from-orange-500 hover:to-amber-500 text-slate-900 dark:text-white border-0 shadow-xl">
                       {t.learnMore}
                       <ChevronRight className="w-4 h-4 ml-2" />
                     </Button>
@@ -447,10 +447,10 @@ export default function TepoztlanPageClient({ lang }: TepoztlanPageClientProps) 
             <div className="text-center py-20 mb-12">
               <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-16 shadow-2xl max-w-2xl mx-auto">
                 <div className="text-8xl mb-8 opacity-50">🏛️</div>
-                <h3 className="text-3xl font-bold text-white mb-4 font-sans">
+                <h3 className="text-3xl font-bold text-slate-900 dark:text-white mb-4 font-sans">
                   {lang === 'es' ? 'No se encontraron atracciones' : 'No attractions found'}
                 </h3>
-                <p className="text-white/70 text-lg mb-8">
+                <p className="text-slate-900 dark:text-slate-700 dark:text-white/70 text-lg mb-8">
                   {lang === 'es' 
                     ? 'Intenta ajustar los filtros o modificar tu búsqueda'
                     : 'Try adjusting your filters or modify your search'
@@ -462,7 +462,7 @@ export default function TepoztlanPageClient({ lang }: TepoztlanPageClientProps) 
                     setSelectedCategory('all')
                     setSortBy('featured')
                   }}
-                  className="bg-gradient-to-r from-orange-400 to-amber-400 hover:from-orange-500 hover:to-amber-500 text-white border-0 shadow-xl"
+                  className="bg-gradient-to-r from-orange-400 to-amber-400 hover:from-orange-500 hover:to-amber-500 text-slate-900 dark:text-white border-0 shadow-xl"
                 >
                   {lang === 'es' ? 'Limpiar Filtros' : 'Clear Filters'}
                 </Button>
@@ -477,15 +477,15 @@ export default function TepoztlanPageClient({ lang }: TepoztlanPageClientProps) 
                 <div className="h-px w-20 bg-gradient-to-r from-transparent to-orange-400" />
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-amber-400 blur-lg" />
-                  <Badge className="relative bg-gradient-to-r from-orange-400 to-amber-400 text-white px-6 py-2 text-sm font-semibold tracking-wider uppercase border-0 shadow-2xl">
+                  <Badge className="relative bg-gradient-to-r from-orange-400 to-amber-400 text-slate-900 dark:text-white px-6 py-2 text-sm font-semibold tracking-wider uppercase border-0 shadow-2xl">
                     🌟 {lang === 'es' ? 'Explora más' : 'Explore more'} 🌟
                   </Badge>
                 </div>
                 <div className="h-px w-20 bg-gradient-to-l from-transparent to-amber-400" />
               </div>
               
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-2xl">{t.sections.title}</h2>
-              <p className="text-xl text-white/80 max-w-3xl mx-auto">{t.sections.subtitle}</p>
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 drop-shadow-2xl">{t.sections.title}</h2>
+              <p className="text-xl text-slate-900 dark:text-slate-700 dark:text-white/80 max-w-3xl mx-auto">{t.sections.subtitle}</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -502,12 +502,12 @@ export default function TepoztlanPageClient({ lang }: TepoztlanPageClientProps) 
                     <Card className="h-full bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl hover:shadow-[0_35px_60px_-15px_rgba(251,146,60,0.3)] transition-all duration-500 hover:-translate-y-2">
                       <CardContent className="p-6 text-center">
                         <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-amber-400 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-xl">
-                          <IconComponent className="w-8 h-8 text-white" />
+                          <IconComponent className="w-8 h-8 text-slate-900 dark:text-white" />
                         </div>
-                        <h3 className="text-lg font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-orange-400 transition-colors">
                           {sectionContent.title}
                         </h3>
-                        <p className="text-sm text-white/70 leading-relaxed">
+                        <p className="text-sm text-slate-900 dark:text-slate-700 dark:text-white/70 leading-relaxed">
                           {sectionContent.description}
                         </p>
                       </CardContent>

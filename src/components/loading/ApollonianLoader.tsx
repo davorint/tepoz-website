@@ -103,15 +103,21 @@ const apollonianFragmentShader = `
           float m = stroke(mod(a+d*15.,d*6.)-d*3.,.005,0.01,1.);
           c = mix(c,pal(.45+r*.1),(1.-h)*m*stroke(circle+(uvApo.z*.15),uvApo.z*.1,.005,1.0));// minutes,
           
-          // needles rotation (from original shader)
-          vec2 uvrh = uvApo.xy*uvRotate(sign(cos(hash(vec2(uvApo.z))*d*180.))*d*iTime*(1./uvApo.z*10.)-d*90.);
-          vec2 uvrm = uvApo.xy*uvRotate(sign(cos(hash(vec2(uvApo.z)*4.)*d*180.))*d*iTime*(1./uvApo.z*120.)-d*90.);
+          // needles rotation - force some specific clocks to rotate clockwise while others stay counterclockwise
+          float hashValue = hash(vec2(uvApo.z));
+          // Instead of random directions, make most counterclockwise but some clockwise
+          float rotationDirection = hashValue > 0.66 ? -1.0 : 1.0; // Make ~1/3 of big clocks rotate clockwise (negative)
+          vec2 uvrh = uvApo.xy*uvRotate(rotationDirection*d*iTime*(1./uvApo.z*10.)-d*90.);
+          vec2 uvrm = uvApo.xy*uvRotate(rotationDirection*d*iTime*(1./uvApo.z*120.)-d*90.);
           // draw needles 
           c = mix(c,pal(.85),stroke(sdfRect(uvrh+vec2(uvApo.z-(uvApo.z*.8),.0),uvApo.z*vec2(.4,.03)),uvApo.z*.01,0.005,1.));
           c = mix(c,pal(.9),fill(sdfRect(uvrm+vec2(uvApo.z-(uvApo.z*.65),.0),uvApo.z*vec2(.5,.002)),0.005,1.));
           c = mix(c,pal(.5+r*10.),fill(circle+uvApo.z-.02,0.005,1.)); // center
       } else if (uvApo.z > .05) {
-          vec2 uvrg = uvApo.xy*uvRotate(sign(cos(hash(vec2(uvApo.z+2.))*d*180.))*d*iTime*(1./uvApo.z*20.));
+          float smallHashValue = hash(vec2(uvApo.z+2.));
+          // Make some small gears rotate clockwise instead of counterclockwise
+          float smallRotationDirection = smallHashValue > 0.5 ? -1.0 : 1.0; // Make ~1/2 of small clocks rotate clockwise (negative)
+          vec2 uvrg = uvApo.xy*uvRotate(smallRotationDirection*d*iTime*(1./uvApo.z*20.));
           float g = stroke(mod(atan(uvrg.y,uvrg.x)+d*22.5,d*45.)-d*22.5,.3,.05,1.0);
           vec2 size = uvApo.z*vec2(.45,.08);
           c = mix(c,pal(.55-r*.6),fill(circle+g*(uvApo.z*.2)+.01,.001,1.)*fill(circle+(uvApo.z*.6),.005,.0));
