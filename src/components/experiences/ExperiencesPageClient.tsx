@@ -192,7 +192,7 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
             }
           }}
           sortBy={filters.sortBy}
-          onSortChange={actions.setSortBy}
+          onSortChange={(sortBy: string) => actions.setSortBy(sortBy as ExperienceFiltersState['sortBy'])}
         />
 
         {/* Interactive Hillshade Map Section */}
