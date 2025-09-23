@@ -279,7 +279,7 @@ export default function HotelMap({ locale, selectedHotels, onHotelSelect, classN
                       </p>
                       <p className="text-white/60 text-sm mt-1 flex items-center gap-1">
                         <MapPin className="w-3 h-3" />
-                        {selectedHotel.location.address}
+                        {selectedHotel.location?.address?.[locale] || selectedHotel.address[locale]}
                       </p>
                     </div>
                     {selectedHotel.featured && (
