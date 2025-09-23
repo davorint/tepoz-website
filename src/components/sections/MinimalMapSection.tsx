@@ -460,7 +460,7 @@ export default function MinimalMapSection({ lang }: MinimalMapSectionProps) {
                               <div className="flex items-center gap-1">
                                 <Star className="w-4 h-4 text-yellow-400 fill-current" />
                                 <span className="text-white font-medium">{attraction.rating}</span>
-                                <span className="text-white/50 text-sm">({attraction.reviews})</span>
+                                <span className="text-white/50 text-sm">({attraction.reviews?.length || 0})</span>
                               </div>
                               <Badge className="bg-white/10 text-white/70">
                                 {attraction.priceRange}
