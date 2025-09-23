@@ -706,29 +706,7 @@ export default function AllVacationRentalsPageClient({ locale }: AllVacationRent
         >
           <VacationRentalMap
             locale={locale}
-            selectedRentals={selectedRows.map(row => ({
-              id: row.id,
-              name: row.name,
-              description: row.description,
-              category: row.category,
-              priceRange: row.priceRange,
-              rating: row.rating,
-              reviews: row.reviews,
-              images: row.images,
-              amenities: row.amenities,
-              roomInfo: row.roomInfo,
-              location: row.location,
-              contact: row.contact,
-              features: row.features,
-              featured: row.featured,
-              instantBook: row.instantBook,
-              petFriendly: row.petFriendly,
-              familyFriendly: row.familyFriendly,
-              workFriendly: row.workFriendly,
-              hasKitchen: row.hasKitchen,
-              hasWifi: row.hasWifi,
-              hasParking: row.parking || row.hasParking
-            }))}
+            selectedRentals={selectedRows}
             onRentalSelect={(rental) => {
               // Find the rental in the grid and select it
               if (gridApi) {
