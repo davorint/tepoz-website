@@ -64,8 +64,8 @@ const transformHotelData = (hotels: HotelType[], locale: Locale): HotelData[] =>
   return hotels.map((hotel) => ({
     ...hotel,
     formattedPriceRange: hotel.priceRange,
-    formattedRating: `${hotel.rating} (${hotel.reviews})`,
-    formattedReviews: hotel.reviews.toLocaleString(locale === 'es' ? 'es-MX' : 'en-US'),
+    formattedRating: `${hotel.rating} (${hotel.reviews?.length || 0})`,
+    formattedReviews: (hotel.reviews?.length || 0).toLocaleString(locale === 'es' ? 'es-MX' : 'en-US'),
     shortDescription: HotelServiceStatic.getHotelDescription(hotel, locale).substring(0, 100) + '...',
     primaryCategory: hotel.category
   }))
