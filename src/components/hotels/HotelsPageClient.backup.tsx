@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Locale } from '@/lib/i18n'
-import { Hotel, HotelService, hotelCategories, amenityTypes, priceRanges } from '@/lib/hotels'
+import { Hotel, HotelServiceStatic, hotelCategories, amenityTypes, priceRanges } from '@/lib/hotels'
 import HotelCard from './HotelCard'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -36,14 +36,14 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
 
   // Initialize hotels
   useEffect(() => {
-    const allHotels = HotelService.getAllHotels()
+    const allHotels = HotelServiceStatic.getAllHotels()
     setHotels(allHotels)
     setFilteredHotels(allHotels)
   }, [])
 
   // Filter and sort hotels
   useEffect(() => {
-    let filtered = HotelService.searchHotels(
+    let filtered = HotelServiceStatic.searchHotels(
       searchQuery,
       selectedCategory,
       selectedPriceRange,
@@ -68,8 +68,8 @@ export default function HotelsPageClient({ locale }: HotelsPageClientProps) {
           const priceOrder = { '$': 1, '$$': 2, '$$$': 3, '$$$$': 4 }
           return priceOrder[a.priceRange] - priceOrder[b.priceRange]
         case 'name':
-          return HotelService.getHotelName(a, locale).localeCompare(
-            HotelService.getHotelName(b, locale)
+          return HotelServiceStatic.getHotelName(a, locale).localeCompare(
+            HotelServiceStatic.getHotelName(b, locale)
           )
         default:
           return 0
