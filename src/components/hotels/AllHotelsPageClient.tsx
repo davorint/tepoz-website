@@ -735,25 +735,7 @@ export default function AllHotelsPageClient({ locale }: AllHotelsPageClientProps
         >
           <HotelMap
             locale={locale}
-            selectedHotels={selectedRows.map(row => ({
-              id: row.id,
-              name: row.name,
-              description: row.description,
-              category: row.category,
-              priceRange: row.priceRange,
-              rating: row.rating,
-              reviews: row.reviews,
-              images: row.images,
-              amenities: row.amenities,
-              roomTypes: row.roomTypes,
-              location: row.location,
-              contact: row.contact,
-              features: row.features,
-              featured: row.featured,
-              sustainability: row.sustainability,
-              petFriendly: row.petFriendly,
-              adultsOnly: row.adultsOnly
-            }))}
+            selectedHotels={selectedRows}
             onHotelSelect={(hotel) => {
               // Find the hotel in the grid and select it
               if (gridApi) {
