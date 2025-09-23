@@ -88,6 +88,8 @@ export default function HotelMap({ locale, selectedHotels, onHotelSelect, classN
 
         // Add hotel markers
         hotelsToShow.forEach((hotel) => {
+          if (!hotel.location?.coordinates) return
+
           const feature = new Feature({
             geometry: new Point(fromLonLat([hotel.location.coordinates[1], hotel.location.coordinates[0]])), // Convert [lat, lng] to [lng, lat]
             hotel: hotel
