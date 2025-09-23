@@ -177,12 +177,12 @@ const ActionsRenderer = (props: ActionsRendererProps) => {
 
   return (
     <div className="flex gap-1">
-      {hotel.contact.phone && (
+      {hotel.contact?.phone && (
         <Button size="sm" variant="ghost" className="h-8 w-8 p-0">
           <Phone className="h-4 w-4" />
         </Button>
       )}
-      {hotel.contact.website && (
+      {hotel.contact?.website && (
         <Button size="sm" variant="ghost" className="h-8 w-8 p-0">
           <Globe className="h-4 w-4" />
         </Button>
