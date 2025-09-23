@@ -106,7 +106,7 @@ const CategoryRenderer = (props: CategoryRendererProps) => {
 
 const RatingRenderer = (props: RatingRendererProps) => {
   const rating = props.data?.rating || 0
-  const reviews = props.data?.reviews || 0
+  const reviews = props.data?.reviews?.length || 0
   const stars = []
   for (let i = 0; i < 5; i++) {
     if (i < Math.floor(rating)) {
