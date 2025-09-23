@@ -153,7 +153,7 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
                     actions.setSortBy(value as ExperienceFiltersState['sortBy'])
                     break
                   case 'userLocation':
-                    actions.setUserLocation(value as readonly [number, number] | null)
+                    actions.setUserLocation(value as [number, number] | null)
                     break
                 }
               })
