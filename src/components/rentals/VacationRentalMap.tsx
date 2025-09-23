@@ -282,7 +282,7 @@ export default function VacationRentalMap({ locale, selectedRentals, onRentalSel
                       </p>
                       <p className="text-white/60 text-sm mt-1 flex items-center gap-1">
                         <MapPin className="w-3 h-3" />
-                        {selectedRental.location.address}
+                        {selectedRental.location?.address || selectedRental.address[locale]}
                       </p>
                     </div>
                     <div className="flex gap-2">
