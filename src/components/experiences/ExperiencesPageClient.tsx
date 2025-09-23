@@ -4,6 +4,7 @@ import { useState, useEffect, lazy } from 'react'
 import { Locale } from '@/lib/i18n'
 import { Experience } from '@/lib/experiences'
 import { useExperienceFilters } from '@/hooks/useExperienceFilters'
+import type { ExperienceFiltersState } from '@/hooks/useExperienceFilters'
 
 // Critical components - load immediately
 import ExperienceBackground from '@/components/ui/ExperienceBackground'
@@ -126,9 +127,34 @@ export default function ExperiencesPageClient({ locale }: ExperiencesPageClientP
             filters={filters}
             onFiltersChange={(newFilters) => {
               Object.entries(newFilters).forEach(([key, value]) => {
-                const action = actions[`set${key.charAt(0).toUpperCase() + key.slice(1)}` as keyof typeof actions]
-                if (typeof action === 'function') {
-                  action(value as string | boolean | [number, number] | null)
+                switch (key) {
+                  case 'searchQuery':
+                    actions.setSearchQuery(value as string)
+                    break
+                  case 'selectedCategory':
+                    actions.setSelectedCategory(value as string)
+                    break
+                  case 'selectedAtmosphere':
+                    actions.setSelectedAtmosphere(value as string)
+                    break
+                  case 'selectedType':
+                    actions.setSelectedType(value as string)
+                    break
+                  case 'selectedPriceRange':
+                    actions.setSelectedPriceRange(value as string)
+                    break
+                  case 'selectedDuration':
+                    actions.setSelectedDuration(value as string)
+                    break
+                  case 'featuredOnly':
+                    actions.setFeaturedOnly(value as boolean)
+                    break
+                  case 'sortBy':
+                    actions.setSortBy(value as ExperienceFiltersState['sortBy'])
+                    break
+                  case 'userLocation':
+                    actions.setUserLocation(value as readonly [number, number] | null)
+                    break
                 }
               })
             }}
