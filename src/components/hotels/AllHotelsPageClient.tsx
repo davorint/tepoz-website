@@ -123,7 +123,7 @@ const RatingRenderer = (props: RatingRendererProps) => {
     <div className="flex items-center gap-2">
       <div className="flex gap-0.5">{stars}</div>
       <span className="text-sm text-gray-600 dark:text-gray-400">
-        ({props.data?.reviews})
+        ({props.data?.reviews?.length || 0})
       </span>
     </div>
   )
