@@ -364,12 +364,12 @@ export default function VacationRentalMap({ locale, selectedRentals, onRentalSel
                       <Navigation className="w-3 h-3 mr-1" />
                       {locale === 'es' ? 'Direcciones' : 'Directions'}
                     </Button>
-                    {selectedRental.contact.phone && (
+                    {selectedRental.contact?.phone && (
                       <Button size="sm" variant="ghost" className="text-white/60 hover:text-white">
                         <Phone className="w-3 h-3" />
                       </Button>
                     )}
-                    {selectedRental.contact.website && (
+                    {selectedRental.contact?.website && (
                       <Button size="sm" variant="ghost" className="text-white/60 hover:text-white">
                         <Globe className="w-3 h-3" />
                       </Button>
