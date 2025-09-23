@@ -572,7 +572,7 @@ export default function AllHotelsPageClient({ locale }: AllHotelsPageClientProps
                         <div>
                           <p className="text-sm text-purple-300 font-medium">{locale === 'es' ? 'Total Reseñas' : 'Total Reviews'}</p>
                           <p className="text-3xl font-bold text-white mt-1">
-                            {hotelData.reduce((sum, h) => sum + h.reviews, 0).toLocaleString()}
+                            {hotelData.reduce((sum, h) => sum + (h.reviews?.length || 0), 0).toLocaleString()}
                           </p>
                         </div>
                         <div className="relative">
