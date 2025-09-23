@@ -308,12 +308,12 @@ export default function HotelMap({ locale, selectedHotels, onHotelSelect, classN
                       <Navigation className="w-3 h-3 mr-1" />
                       {locale === 'es' ? 'Direcciones' : 'Directions'}
                     </Button>
-                    {selectedHotel.contact.phone && (
+                    {selectedHotel.contact?.phone && (
                       <Button size="sm" variant="ghost" className="text-white/60 hover:text-white">
                         <Phone className="w-3 h-3" />
                       </Button>
                     )}
-                    {selectedHotel.contact.website && (
+                    {selectedHotel.contact?.website && (
                       <Button size="sm" variant="ghost" className="text-white/60 hover:text-white">
                         <Globe className="w-3 h-3" />
                       </Button>
