@@ -438,7 +438,7 @@ export default function AllVacationRentalsPageClient({ locale }: AllVacationRent
   const stats = useMemo(() => {
     const totalRentals = rentalData.length
     const averageRating = rentalData.reduce((sum, rental) => sum + rental.rating, 0) / totalRentals || 0
-    const totalReviews = rentalData.reduce((sum, rental) => sum + rental.reviews, 0)
+    const totalReviews = rentalData.reduce((sum, rental) => sum + (rental.reviews?.length || 0), 0)
     const featuredCount = rentalData.filter(rental => rental.featured).length
 
     return {
