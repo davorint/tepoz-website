@@ -298,10 +298,10 @@ export function LoadingWithMessage({
       </div>
 
       <div className="text-center">
-        <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+        <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2 flex items-center justify-center gap-2">
           {message || defaultMessages[locale]}
+          <LoadingDots color={theme} size="md" />
         </h3>
-        <LoadingDots color={theme} size="md" className="justify-center" />
       </div>
     </div>
   )
