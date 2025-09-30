@@ -3,7 +3,7 @@
 import { Locale } from '@/lib/i18n'
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import { motion } from 'motion/react'
+import { motion, Variants } from 'motion/react'
 
 interface PremiumHeroProps {
   lang: Locale
@@ -21,7 +21,11 @@ export default function PremiumHero({ lang }: PremiumHeroProps) {
       delay: 0.3
     })
 
-    letterRefs.current.forEach((letter, index) => {
+    const currentLetters = letterRefs.current.slice()
+    const mouseEnterHandlers: Array<() => void> = []
+    const mouseLeaveHandlers: Array<() => void> = []
+
+    currentLetters.forEach((letter, index) => {
       if (!letter) return
 
       gsap.set(letter, {
@@ -51,49 +55,55 @@ export default function PremiumHero({ lang }: PremiumHeroProps) {
         delay: index * 0.1,
       }, '>')
 
-      letter.addEventListener('mouseenter', () => {
+      const handleMouseEnter = () => {
         gsap.to(letter, {
           scale: 1.2,
           rotateZ: Math.random() * 10 - 5,
           duration: 0.3,
           ease: 'power2.out',
         })
-      })
+      }
 
-      letter.addEventListener('mouseleave', () => {
+      const handleMouseLeave = () => {
         gsap.to(letter, {
           scale: 1,
           rotateZ: 0,
           duration: 0.3,
           ease: 'power2.inOut',
         })
-      })
+      }
+
+      mouseEnterHandlers[index] = handleMouseEnter
+      mouseLeaveHandlers[index] = handleMouseLeave
+
+      letter.addEventListener('mouseenter', handleMouseEnter)
+      letter.addEventListener('mouseleave', handleMouseLeave)
     })
 
     return () => {
       tl.kill()
-      letterRefs.current.forEach(letter => {
+      currentLetters.forEach((letter, index) => {
         if (letter) {
-          letter.removeEventListener('mouseenter', () => {})
-          letter.removeEventListener('mouseleave', () => {})
+          letter.removeEventListener('mouseenter', mouseEnterHandlers[index])
+          letter.removeEventListener('mouseleave', mouseLeaveHandlers[index])
         }
       })
     }
   }, [])
 
-  const textVariants = {
+  const textVariants: Variants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
         duration: 0.8,
-        ease: [0.6, 0.01, 0.05, 0.95]
+        ease: 'easeOut'
       }
     }
   }
 
-  const buttonVariants = {
+  const buttonVariants: Variants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: {
       opacity: 1,
@@ -101,7 +111,7 @@ export default function PremiumHero({ lang }: PremiumHeroProps) {
       transition: {
         duration: 0.6,
         delay: 1.5,
-        ease: [0.6, 0.01, 0.05, 0.95]
+        ease: 'easeOut'
       }
     },
     hover: {
@@ -175,7 +185,7 @@ export default function PremiumHero({ lang }: PremiumHeroProps) {
         <div className="max-w-5xl text-center">
           <h1 ref={titleRef} className="mb-6 text-7xl md:text-9xl lg:text-[10rem] font-bebas tracking-wider text-slate-800 dark:text-white">
             <span
-              ref={el => letterRefs.current[0] = el}
+              ref={el => { letterRefs.current[0] = el }}
               className="inline-block text-blue-600 dark:text-blue-400 drop-shadow-2xl cursor-pointer transition-transform"
               style={{
                 textShadow: '0 0 30px rgba(59, 130, 246, 0.8), 0 0 60px rgba(59, 130, 246, 0.4)',
@@ -183,7 +193,7 @@ export default function PremiumHero({ lang }: PremiumHeroProps) {
               }}
             >T</span>
             <span
-              ref={el => letterRefs.current[1] = el}
+              ref={el => { letterRefs.current[1] = el }}
               className="inline-block text-blue-600 dark:text-blue-400 drop-shadow-2xl cursor-pointer transition-transform"
               style={{
                 textShadow: '0 0 30px rgba(59, 130, 246, 0.8), 0 0 60px rgba(59, 130, 246, 0.4)',
@@ -191,7 +201,7 @@ export default function PremiumHero({ lang }: PremiumHeroProps) {
               }}
             >O</span>
             <span
-              ref={el => letterRefs.current[2] = el}
+              ref={el => { letterRefs.current[2] = el }}
               className="inline-block text-sky-600 dark:text-sky-400 drop-shadow-2xl cursor-pointer transition-transform ml-4"
               style={{
                 textShadow: '0 0 30px rgba(14, 165, 233, 0.8), 0 0 60px rgba(14, 165, 233, 0.4)',
@@ -199,7 +209,7 @@ export default function PremiumHero({ lang }: PremiumHeroProps) {
               }}
             >D</span>
             <span
-              ref={el => letterRefs.current[3] = el}
+              ref={el => { letterRefs.current[3] = el }}
               className="inline-block text-sky-600 dark:text-sky-400 drop-shadow-2xl cursor-pointer transition-transform"
               style={{
                 textShadow: '0 0 30px rgba(14, 165, 233, 0.8), 0 0 60px rgba(14, 165, 233, 0.4)',
@@ -208,7 +218,7 @@ export default function PremiumHero({ lang }: PremiumHeroProps) {
             >O</span>
             <span className="inline-block ml-8"></span>
             <span
-              ref={el => letterRefs.current[4] = el}
+              ref={el => { letterRefs.current[4] = el }}
               className="inline-block text-orange-600 dark:text-orange-400 drop-shadow-2xl cursor-pointer transition-transform"
               style={{
                 textShadow: '0 0 30px rgba(251, 146, 60, 0.8), 0 0 60px rgba(251, 146, 60, 0.4)',
@@ -216,7 +226,7 @@ export default function PremiumHero({ lang }: PremiumHeroProps) {
               }}
             >T</span>
             <span
-              ref={el => letterRefs.current[5] = el}
+              ref={el => { letterRefs.current[5] = el }}
               className="inline-block text-orange-600 dark:text-orange-400 drop-shadow-2xl cursor-pointer transition-transform"
               style={{
                 textShadow: '0 0 30px rgba(251, 146, 60, 0.8), 0 0 60px rgba(251, 146, 60, 0.4)',
@@ -224,7 +234,7 @@ export default function PremiumHero({ lang }: PremiumHeroProps) {
               }}
             >E</span>
             <span
-              ref={el => letterRefs.current[6] = el}
+              ref={el => { letterRefs.current[6] = el }}
               className="inline-block text-orange-600 dark:text-orange-400 drop-shadow-2xl cursor-pointer transition-transform"
               style={{
                 textShadow: '0 0 30px rgba(251, 146, 60, 0.8), 0 0 60px rgba(251, 146, 60, 0.4)',
@@ -232,7 +242,7 @@ export default function PremiumHero({ lang }: PremiumHeroProps) {
               }}
             >P</span>
             <span
-              ref={el => letterRefs.current[7] = el}
+              ref={el => { letterRefs.current[7] = el }}
               className="inline-block text-orange-600 dark:text-orange-400 drop-shadow-2xl cursor-pointer transition-transform"
               style={{
                 textShadow: '0 0 30px rgba(251, 146, 60, 0.8), 0 0 60px rgba(251, 146, 60, 0.4)',
@@ -240,7 +250,7 @@ export default function PremiumHero({ lang }: PremiumHeroProps) {
               }}
             >O</span>
             <span
-              ref={el => letterRefs.current[8] = el}
+              ref={el => { letterRefs.current[8] = el }}
               className="inline-block text-orange-600 dark:text-orange-400 drop-shadow-2xl cursor-pointer transition-transform"
               style={{
                 textShadow: '0 0 30px rgba(251, 146, 60, 0.8), 0 0 60px rgba(251, 146, 60, 0.4)',
