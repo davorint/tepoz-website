@@ -87,7 +87,7 @@ const ExperienceBadge = forwardRef<HTMLSpanElement, ExperienceBadgeProps>(
     onClick,
     disabled = false,
     ...props
-  }) => {
+  }, ref) => {
     const badges = useExperienceBadges(locale)
 
     // Get badge configuration based on type
@@ -241,6 +241,7 @@ const ExperienceBadge = forwardRef<HTMLSpanElement, ExperienceBadgeProps>(
 
     return (
       <BadgeComponent
+        ref={ref}
         className={badgeClasses}
         onClick={onClick && !disabled ? onClick : undefined}
         {...props}
