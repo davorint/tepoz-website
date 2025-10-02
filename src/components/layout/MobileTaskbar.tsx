@@ -112,17 +112,19 @@ export default function MobileTaskbar({ lang, translations }: MobileTaskbarProps
                 )}
                 aria-current={isActive ? 'page' : undefined}
               >
-                <Icon 
+                <Icon
                   className={cn(
-                    "h-5 w-5 mb-1 transition-transform duration-200",
+                    "h-6 w-6 mb-1 transition-transform duration-200",
                     isActive && "scale-110",
                     "group-hover:scale-105 group-focus:scale-105"
-                  )} 
+                  )}
                   aria-hidden="true"
                 />
-                <span 
+                <span
                   className={cn(
-                    "text-[10px] font-medium leading-none text-center truncate w-full transition-all duration-200",
+                    // Changed from text-[10px] to text-xs (12px) for better mobile readability
+                    // Meets Material Design minimum (12sp) and improves accessibility
+                    "text-xs font-medium leading-none text-center truncate w-full transition-all duration-200",
                     isActive && "font-semibold"
                   )}
                 >

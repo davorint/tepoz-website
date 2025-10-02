@@ -13,7 +13,7 @@ export default async function HomePage({
   const sections = sectionRegistry.homepage
 
   return (
-    <main className="min-h-screen overflow-x-hidden">
+    <main id="main-content" className="min-h-screen overflow-x-hidden">
       <SectionOrchestrator
         sections={sections}
         commonProps={{ lang }}

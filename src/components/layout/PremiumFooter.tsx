@@ -79,8 +79,8 @@ export default function PremiumFooter({ lang }: PremiumFooterProps) {
 
       <div className="relative z-10">
         {/* Main Footer Content */}
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="max-w-7xl mx-auto px-4 py-8 md:py-12 lg:py-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {/* Brand Section */}
             <div className="lg:col-span-1">
               <Link href={`/${lang}`} className="flex items-center space-x-3 mb-4">

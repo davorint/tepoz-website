@@ -31,6 +31,14 @@ export default function StaticNavigation({ lang, translations }: StaticNavigatio
   
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 animate-in fade-in slide-in-from-top-4 duration-700">
+      {/* Skip to main content link for accessibility */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[60] focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+      >
+        {lang === 'es' ? 'Saltar al contenido principal' : 'Skip to main content'}
+      </a>
+
       <div className="container flex h-16 items-center justify-between px-4">
         {/* Logo */}
         <Link href={`/${lang}`} className="group flex items-center space-x-2 transition-all duration-300 hover:scale-105">
@@ -166,37 +174,40 @@ export default function StaticNavigation({ lang, translations }: StaticNavigatio
               </NavigationMenuLink>
             </NavigationMenuItem>
 
-            <NavigationMenuItem className="animate-in fade-in slide-in-from-bottom-2 duration-500 fill-mode-both [animation-delay:700ms]">
-              <NavigationMenuTrigger className="transition-all duration-300 hover:scale-105">TEST</NavigationMenuTrigger>
-              <NavigationMenuContent className="animate-in fade-in slide-in-from-top-2 duration-300">
-                <div className="grid gap-3 p-6 md:w-[300px]">
-                  <NavigationMenuLink asChild>
-                    <Link href={`/${lang}/business-finder`} className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] hover:shadow-md focus:bg-accent focus:text-accent-foreground">
-                      <div className="text-sm font-medium leading-none">Business Finder</div>
-                      <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                        {lang === 'es' ? 'Buscador de negocios con mapa' : 'Business search with map integration'}
-                      </p>
-                    </Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild>
-                    <Link href={`/${lang}/landing-2`} className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] hover:shadow-md focus:bg-accent focus:text-accent-foreground">
-                      <div className="text-sm font-medium leading-none">Landing 2</div>
-                      <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                        {lang === 'es' ? 'Página de prueba 2' : 'Test landing page 2'}
-                      </p>
-                    </Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild>
-                    <Link href={`/${lang}/landing-3`} className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] hover:shadow-md focus:bg-accent focus:text-accent-foreground">
-                      <div className="text-sm font-medium leading-none">Landing 3</div>
-                      <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                        {lang === 'es' ? 'Página de prueba 3' : 'Test landing page 3'}
-                      </p>
-                    </Link>
-                  </NavigationMenuLink>
-                </div>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
+            {/* Test menu - only visible in development */}
+            {process.env.NODE_ENV === 'development' && (
+              <NavigationMenuItem className="animate-in fade-in slide-in-from-bottom-2 duration-500 fill-mode-both [animation-delay:700ms]">
+                <NavigationMenuTrigger className="transition-all duration-300 hover:scale-105">TEST</NavigationMenuTrigger>
+                <NavigationMenuContent className="animate-in fade-in slide-in-from-top-2 duration-300">
+                  <div className="grid gap-3 p-6 md:w-[300px]">
+                    <NavigationMenuLink asChild>
+                      <Link href={`/${lang}/business-finder`} className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] hover:shadow-md focus:bg-accent focus:text-accent-foreground">
+                        <div className="text-sm font-medium leading-none">Business Finder</div>
+                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                          {lang === 'es' ? 'Buscador de negocios con mapa' : 'Business search with map integration'}
+                        </p>
+                      </Link>
+                    </NavigationMenuLink>
+                    <NavigationMenuLink asChild>
+                      <Link href={`/${lang}/landing-2`} className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] hover:shadow-md focus:bg-accent focus:text-accent-foreground">
+                        <div className="text-sm font-medium leading-none">Landing 2</div>
+                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                          {lang === 'es' ? 'Página de prueba 2' : 'Test landing page 2'}
+                        </p>
+                      </Link>
+                    </NavigationMenuLink>
+                    <NavigationMenuLink asChild>
+                      <Link href={`/${lang}/landing-3`} className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] hover:shadow-md focus:bg-accent focus:text-accent-foreground">
+                        <div className="text-sm font-medium leading-none">Landing 3</div>
+                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                          {lang === 'es' ? 'Página de prueba 3' : 'Test landing page 3'}
+                        </p>
+                      </Link>
+                    </NavigationMenuLink>
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            )}
           </NavigationMenuList>
         </NavigationMenu>
 
@@ -204,13 +215,21 @@ export default function StaticNavigation({ lang, translations }: StaticNavigatio
         <div className="flex items-center space-x-2 animate-in fade-in slide-in-from-right-4 duration-700 [animation-delay:300ms] text-slate-900 dark:text-white">
           {/* Language Toggle */}
           {/* Simple Server-Side Language Toggle */}
-          <Button variant="ghost" size="sm" asChild className="group gap-1 transition-all duration-300 hover:scale-105 hover:shadow-md">
-            <Link href={`/${otherLang}`}>
-              <Globe className="h-4 w-4 transition-transform duration-300 group-hover:rotate-12" />
+          <Button
+            variant="ghost"
+            size="sm"
+            asChild
+            className="group gap-1 transition-all duration-300 hover:scale-105 hover:shadow-md"
+          >
+            <Link
+              href={`/${otherLang}`}
+              aria-label={lang === 'es' ? `Cambiar a ${languages[otherLang].label}` : `Switch to ${languages[otherLang].label}`}
+            >
+              <Globe className="h-6 w-6 transition-transform duration-300 group-hover:rotate-12" aria-hidden="true" />
               <span className="hidden sm:inline font-medium">
                 {languages[otherLang].flag} {languages[otherLang].label}
               </span>
-              <span className="sm:hidden">
+              <span className="sm:hidden" aria-hidden="true">
                 {languages[otherLang].flag}
               </span>
             </Link>
@@ -220,9 +239,23 @@ export default function StaticNavigation({ lang, translations }: StaticNavigatio
           <ModeToggle />
           
           {/* Search Button */}
-          <Button variant="ghost" size="sm" asChild className="hidden sm:flex group transition-all duration-300 hover:scale-105 hover:shadow-md">
-            <Link href={buildLocalizedUrl('search', lang)}>
-              <svg className="h-4 w-4 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <Button
+            variant="ghost"
+            size="sm"
+            asChild
+            className="hidden sm:flex group transition-all duration-300 hover:scale-105 hover:shadow-md"
+          >
+            <Link
+              href={buildLocalizedUrl('search', lang)}
+              aria-label={translations.nav.search}
+            >
+              <svg
+                className="h-6 w-6 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607z" />
               </svg>
               <span className="ml-2 hidden md:inline transition-colors duration-300 group-hover:text-primary">{translations.nav.search}</span>

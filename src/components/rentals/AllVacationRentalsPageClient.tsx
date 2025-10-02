@@ -618,7 +618,7 @@ export default function AllVacationRentalsPageClient({ locale }: AllVacationRent
         <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-6 mb-6">
           <div className="flex flex-wrap gap-4">
             {/* Quick Filter */}
-            <div className="flex-1 min-w-[300px]">
+            <div className="flex-1 min-w-[280px] sm:min-w-[300px]">
               <div className="relative">
                 <Filter className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50 w-5 h-5" />
                 <Input

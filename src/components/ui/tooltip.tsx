@@ -5,6 +5,21 @@ import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * MOBILE ACCESSIBILITY WARNING:
+ * Tooltips rely on hover states and do not work well on touch devices.
+ * Radix UI tooltips are NOT designed for mobile/touch interactions.
+ *
+ * Recommended alternatives for mobile:
+ * 1. Use Popover component instead (works with click/tap)
+ * 2. Implement a hybrid Tooltip/Popover that adapts to device type
+ * 3. Avoid tooltips entirely in mobile-first designs
+ *
+ * References:
+ * - https://github.com/radix-ui/primitives/discussions/2866
+ * - https://www.radix-ui.com/primitives/docs/components/popover
+ */
+
 const TooltipProvider = TooltipPrimitive.Provider
 
 const Tooltip = TooltipPrimitive.Root

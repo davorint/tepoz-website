@@ -1405,6 +1405,36 @@
     }
   }
   
+  /* Safe Area Insets for Notched Devices (iPhone X+) */
+  @supports(padding: max(0px)) {
+    /* Ensure mobile taskbar respects notches and home indicators */
+    .mobile-taskbar,
+    [data-mobile-taskbar] {
+      padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+    }
+
+    /* Header safe area for status bar and Dynamic Island */
+    header,
+    [role="banner"] {
+      padding-top: max(0rem, env(safe-area-inset-top));
+    }
+
+    /* Body safe areas for landscape mode (notch on sides) */
+    body {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+
+    /* Fixed/sticky elements should also respect safe areas */
+    .fixed,
+    .sticky,
+    [data-fixed],
+    [data-sticky] {
+      padding-left: max(0px, env(safe-area-inset-left));
+      padding-right: max(0px, env(safe-area-inset-right));
+    }
+  }
+
   /* Accessibility & Reduced Motion */
   @media (prefers-reduced-motion: reduce) {
     /* Disable all custom animations for users who prefer reduced motion */
@@ -1425,7 +1455,7 @@
       animation-iteration-count: 1 !important;
       transform: none !important;
     }
-    
+
     /* Reduce transition durations */
     *,
     *::before,
@@ -1435,7 +1465,7 @@
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
-    
+
     /* Keep essential animations but make them instant */
     .animate-fade-in-up,
     .animate-fade-in,
@@ -1443,6 +1473,28 @@
     .animate-slide-in-down {
       animation-duration: 0.01ms !important;
       animation-fill-mode: both !important;
+    }
+  }
+
+  /* Performance optimization for low-end mobile devices */
+  @media (hover: none) and (pointer: coarse) {
+    /* Reduce complex animations on touch-only devices (mobile) */
+    @container (max-width: 639px) {
+      .animate-blob,
+      .animate-morph,
+      .animate-aurora-1,
+      .animate-aurora-2,
+      .animate-float-slow,
+      .animate-float-reverse {
+        animation: none;
+      }
+
+      /* Simplify glass effects on very small devices */
+      .glass,
+      .glass-dark {
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      }
     }
   }
   
@@ -1494,5 +1546,68 @@
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
     --tw-ring-color: hsl(var(--ring));
     --tw-ring-offset-color: hsl(var(--background));
+  }
+
+  /* Orientation-specific optimizations for mobile devices */
+
+  /* Landscape mobile: Optimize vertical space when height is limited */
+  @media (orientation: landscape) and (max-height: 600px) {
+    /* Reduce hero section height in landscape */
+    .hero-section,
+    [data-hero] {
+      min-height: 100vh;
+      padding-block: 2rem;
+    }
+
+    /* Compact headers in landscape mobile */
+    header,
+    [role="banner"] {
+      padding-block: 0.75rem;
+    }
+
+    /* Reduce large text in landscape to fit more content */
+    h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+    }
+  }
+
+  /* Landscape mobile taskbar: Make more compact */
+  @media (orientation: landscape) and (max-width: 896px) and (max-height: 414px) {
+    .mobile-taskbar,
+    [data-mobile-taskbar] {
+      padding-block: 0.375rem;
+    }
+
+    /* Slightly smaller icons in landscape to save space */
+    .mobile-taskbar svg,
+    [data-mobile-taskbar] svg {
+      height: 1.25rem;
+      width: 1.25rem;
+    }
+  }
+
+  /* Portrait tablet: Optimize for narrow but tall screens */
+  @media (orientation: portrait) and (min-width: 600px) and (max-width: 900px) {
+    /* Give more breathing room for content */
+    .container,
+    [data-container] {
+      padding-inline: 2rem;
+    }
+
+    /* Larger touch targets on tablets */
+    button,
+    a[role="button"],
+    [role="tab"] {
+      min-height: 44px;
+    }
+  }
+
+  /* Landscape tablet/desktop: Utilize horizontal space */
+  @media (orientation: landscape) and (min-width: 1024px) {
+    /* Side-by-side layouts work better in landscape */
+    .feature-grid,
+    [data-feature-grid] {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
   }
 }

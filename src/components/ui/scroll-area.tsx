@@ -32,10 +32,12 @@ const ScrollBar = React.forwardRef<
     orientation={orientation}
     className={cn(
       "flex touch-none select-none transition-colors",
+      // Increased from w-2.5/h-2.5 (10px) to w-4/h-4 (16px) for better touch usability
+      // Adrian Roselli recommends minimum 16px for comfortable touch dragging
       orientation === "vertical" &&
-        "h-full w-2.5 border-l border-l-transparent p-[1px]",
+        "h-full w-4 border-l border-l-transparent p-[1px]",
       orientation === "horizontal" &&
-        "h-2.5 flex-col border-t border-t-transparent p-[1px]",
+        "h-4 flex-col border-t border-t-transparent p-[1px]",
       className
     )}
     {...props}

@@ -22,7 +22,7 @@ export function BusinessList({
 }: BusinessListProps) {
   if (isLoading) {
     return (
-      <div className="flex gap-4 overflow-x-auto pb-4">
+      <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4">
         {[...Array(3)].map((_, index) => (
           <motion.div
             key={index}

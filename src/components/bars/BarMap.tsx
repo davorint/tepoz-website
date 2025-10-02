@@ -58,6 +58,11 @@ export default function BarMap({ locale, selectedBars, onBarSelect, className }:
 
     const initializeMap = async () => {
       try {
+        // TODO: Migrate to Mapbox GL - OpenLayers has been removed
+        console.warn('BarMap: OpenLayers has been removed. Please use Mapbox GL implementation.')
+        return
+
+        /* OpenLayers code commented out - migrate to Mapbox
         // Dynamic imports for OpenLayers
         const [
           { Map, View },
@@ -81,6 +86,7 @@ export default function BarMap({ locale, selectedBars, onBarSelect, className }:
           import('ol/proj')
         ])
 
+
         // Import OpenLayers CSS
         await import('ol/ol.css' as string)
 
@@ -95,7 +101,7 @@ export default function BarMap({ locale, selectedBars, onBarSelect, className }:
           })
 
           const typeStyle = barTypeStyles[bar.type] || barTypeStyles['bar']
-          
+
           feature.setStyle(new Style({
             image: new Circle({
               radius: bar.featured ? 18 : 14,
@@ -156,6 +162,7 @@ export default function BarMap({ locale, selectedBars, onBarSelect, className }:
 
         setMapInstance(map)
         setMapLoaded(true)
+        End of OpenLayers code */
       } catch (error) {
         console.error('Error initializing bar map:', error)
         setMapLoaded(false)

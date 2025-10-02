@@ -57,6 +57,11 @@ export default function RestaurantMap({ locale, selectedRestaurants, onRestauran
 
     const initializeMap = async () => {
       try {
+        // TODO: Migrate to Mapbox GL - OpenLayers has been removed
+        console.warn('[RestaurantMap]: OpenLayers has been removed. Please use Mapbox GL implementation.')
+        return
+
+        /* OpenLayers code commented out - migrate to Mapbox
         // Dynamic imports for OpenLayers
         const [
           { Map, View },
@@ -94,7 +99,7 @@ export default function RestaurantMap({ locale, selectedRestaurants, onRestauran
           })
 
           const atmosphereStyle = atmosphereStyles[restaurant.atmosphere] || atmosphereStyles['casual']
-          
+
           feature.setStyle(new Style({
             image: new Circle({
               radius: restaurant.featured ? 18 : 14,
@@ -155,6 +160,7 @@ export default function RestaurantMap({ locale, selectedRestaurants, onRestauran
 
         setMapInstance(map)
         setMapLoaded(true)
+        End of OpenLayers code */
       } catch (error) {
         console.error('Error initializing restaurant map:', error)
         setMapLoaded(false)

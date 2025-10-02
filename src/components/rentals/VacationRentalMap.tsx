@@ -57,6 +57,11 @@ export default function VacationRentalMap({ locale, selectedRentals, onRentalSel
 
     const initializeMap = async () => {
       try {
+        // TODO: Migrate to Mapbox GL - OpenLayers has been removed
+        console.warn('[VacationRentalMap]: OpenLayers has been removed. Please use Mapbox GL implementation.')
+        return
+
+        /* OpenLayers code commented out - migrate to Mapbox
         // Dynamic imports for OpenLayers
         const [
           { Map, View },
@@ -99,7 +104,7 @@ export default function VacationRentalMap({ locale, selectedRentals, onRentalSel
           })
 
           const categoryStyle = categoryStyles[rental.category] || categoryStyles['apartment']
-          
+
           feature.setStyle(new Style({
             image: new Circle({
               radius: rental.featured ? 18 : 14,
@@ -160,6 +165,7 @@ export default function VacationRentalMap({ locale, selectedRentals, onRentalSel
 
         setMapInstance(map)
         setMapLoaded(true)
+        End of OpenLayers code */
       } catch (error) {
         console.error('Error initializing vacation rental map:', error)
         setMapLoaded(false)

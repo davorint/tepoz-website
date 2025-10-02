@@ -60,6 +60,11 @@ export default function CafeMap({ locale, selectedCafes, onCafeSelect, className
 
     const initializeMap = async () => {
       try {
+        // TODO: Migrate to Mapbox GL - OpenLayers has been removed
+        console.warn('[CafeMap]: OpenLayers has been removed. Please use Mapbox GL implementation.')
+        return
+
+        /* OpenLayers code commented out - migrate to Mapbox
         // Dynamic imports for OpenLayers
         const [
           { Map, View },
@@ -97,7 +102,7 @@ export default function CafeMap({ locale, selectedCafes, onCafeSelect, className
           })
 
           const atmosphereStyle = atmosphereStyles[cafe.atmosphere] || atmosphereStyles['cozy']
-          
+
           feature.setStyle(new Style({
             image: new Circle({
               radius: cafe.featured ? 18 : 14,
@@ -158,6 +163,7 @@ export default function CafeMap({ locale, selectedCafes, onCafeSelect, className
 
         setMapInstance(map)
         setMapLoaded(true)
+        End of OpenLayers code */
       } catch (error) {
         console.error('Error initializing cafe map:', error)
         setMapLoaded(false)

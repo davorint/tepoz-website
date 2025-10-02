@@ -21,7 +21,7 @@ export default function HeroSection({ lang, translations }: HeroSectionProps) {
   }, [])
 
   return (
-    <section className="relative h-screen overflow-hidden" suppressHydrationWarning>
+    <section className="relative h-screen h-[100dvh] overflow-hidden" suppressHydrationWarning>
       {/* Video Background */}
       <div className="absolute inset-0" suppressHydrationWarning>
         {isClient && isVideoPlaying ? (
@@ -31,12 +31,15 @@ export default function HeroSection({ lang, translations }: HeroSectionProps) {
             muted
             loop
             playsInline
+            aria-label={lang === 'es' ? 'Video de fondo de Tepoztlán' : 'Tepoztlán background video'}
           >
             <source src="/videos/tepoztlan-hero.mp4" type="video/mp4" />
           </video>
         ) : (
-          <div 
+          <div
             className="w-full h-full bg-cover bg-center bg-no-repeat"
+            role="img"
+            aria-label={lang === 'es' ? 'Vista panorámica de Tepoztlán, Pueblo Mágico de México' : 'Panoramic view of Tepoztlán, Magical Town of Mexico'}
             style={{
               backgroundImage: `url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')`
             }}

@@ -41,6 +41,50 @@ function getLocale(request: NextRequest): string {
   return defaultLocale
 }
 
+/**
+ * Security Headers - CSP, HSTS, Permissions-Policy
+ */
+function setSecurityHeaders(response: NextResponse): void {
+  // Generate a unique nonce for this request
+  const nonce = Buffer.from(crypto.randomUUID()).toString('base64')
+
+  // Content Security Policy
+  const cspHeader = `
+    default-src 'self';
+    script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://www.googletagmanager.com https://www.google-analytics.com ${
+      process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : ''
+    };
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.maptiler.com;
+    font-src 'self' data: https://fonts.gstatic.com;
+    img-src 'self' data: https: blob:;
+    connect-src 'self' https://api.maptiler.com https://events.mapbox.com https://api.mapbox.com https://www.google-analytics.com https://region1.google-analytics.com;
+    worker-src 'self' blob:;
+    frame-ancestors 'none';
+    base-uri 'self';
+    form-action 'self';
+    ${process.env.NODE_ENV === 'production' ? 'upgrade-insecure-requests;' : ''}
+  `
+    .replace(/\s{2,}/g, ' ')
+    .trim()
+
+  response.headers.set('Content-Security-Policy', cspHeader)
+  response.headers.set('X-Nonce', nonce)
+
+  // Strict-Transport-Security (HSTS) - Only in production
+  if (process.env.NODE_ENV === 'production') {
+    response.headers.set(
+      'Strict-Transport-Security',
+      'max-age=31536000; includeSubDomains; preload'
+    )
+  }
+
+  // Permissions-Policy
+  response.headers.set(
+    'Permissions-Policy',
+    'geolocation=(self), camera=(), microphone=(), payment=(), usb=()'
+  )
+}
+
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
@@ -52,37 +96,43 @@ export function middleware(request: NextRequest) {
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request)
-    
+
     // Handle root path
     if (pathname === '/') {
       const response = NextResponse.redirect(
         new URL(`/${locale}`, request.url)
       )
-      response.cookies.set('locale', locale, { 
+      response.cookies.set('locale', locale, {
         maxAge: 60 * 60 * 24 * 30, // 30 days
         sameSite: 'lax'
       })
+      setSecurityHeaders(response)
       return response
     }
 
     // Redirect to the localized path
-    return NextResponse.redirect(
+    const response = NextResponse.redirect(
       new URL(`/${locale}${pathname}`, request.url)
     )
+    setSecurityHeaders(response)
+    return response
   }
 
   // Set locale cookie if visiting a specific locale
   const currentLocale = pathname.split('/')[1]
   if (locales.includes(currentLocale as Locale)) {
     const response = NextResponse.next()
-    response.cookies.set('locale', currentLocale, { 
+    response.cookies.set('locale', currentLocale, {
       maxAge: 60 * 60 * 24 * 30, // 30 days
       sameSite: 'lax'
     })
+    setSecurityHeaders(response)
     return response
   }
 
-  return NextResponse.next()
+  const response = NextResponse.next()
+  setSecurityHeaders(response)
+  return response
 }
 
 export const config = {

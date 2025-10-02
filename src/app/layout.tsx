@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Inter, Bebas_Neue, Playfair_Display, Montserrat } from "next/font/google";
 import "./globals.css";
-import "maplibre-gl/dist/maplibre-gl.css";
+import "mapbox-gl/dist/mapbox-gl.css";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { GlobalLoadingProvider } from "@/components/providers/GlobalLoadingProvider";
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 const inter = Inter({ subsets: ["latin"] });
 const bebasNeue = Bebas_Neue({ 
@@ -80,13 +81,14 @@ export const metadata: Metadata = {
     creator: '@TepoztlanGuide',
     images: ['/images/twitter-tepoztlan-hero.jpg']
   },
-  verification: {
-    google: 'your-google-verification-code',
-    yandex: 'your-yandex-verification-code',
-    other: {
-      'msvalidate.01': 'your-bing-verification-code'
-    }
-  },
+  // Search Engine Verification - Add your codes when you set up Search Console
+  // verification: {
+  //   google: 'your-google-verification-code',
+  //   yandex: 'your-yandex-verification-code',
+  //   other: {
+  //     'msvalidate.01': 'your-bing-verification-code'
+  //   }
+  // },
   category: 'travel',
   classification: 'tourism guide',
   alternates: {
@@ -140,6 +142,8 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <head>
+        {/* Critical viewport meta tag for mobile responsiveness and safe area support */}
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, shrink-to-fit=no, viewport-fit=cover" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -166,6 +170,10 @@ export default function RootLayout({
             {children}
           </GlobalLoadingProvider>
         </ThemeProvider>
+        {/* Google Analytics 4 - Only loads if GA_MEASUREMENT_ID is set */}
+        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+        )}
       </body>
     </html>
   );

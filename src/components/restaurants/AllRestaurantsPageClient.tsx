@@ -677,7 +677,7 @@ export default function AllRestaurantsPageClient({ locale }: AllRestaurantsPageC
               <div className="bg-white/70 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-sm rounded-2xl border border-slate-300/20 dark:border-white/10 p-6 mb-6 shadow-lg shadow-slate-300/15 dark:shadow-white/12 hover:bg-white/80 dark:hover:bg-white/8 transition-all duration-300 dark:duration-500">
                 <div className="flex flex-wrap gap-4">
                   {/* Quick Filter */}
-                  <div className="flex-1 min-w-[300px]">
+                  <div className="flex-1 min-w-[280px] sm:min-w-[300px]">
                     <div className="relative">
                       <Filter className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-500 dark:text-white/50 w-5 h-5" />
                       <Input

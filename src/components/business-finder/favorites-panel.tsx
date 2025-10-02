@@ -199,7 +199,7 @@ export function FavoritesPanel({
             {/* Category Filter */}
             {favoritesCount > 0 && (
               <div className="p-4 border-b bg-gray-50 flex-shrink-0">
-                <div className="flex gap-2 overflow-x-auto">
+                <div className="flex gap-2 overflow-x-auto snap-x snap-mandatory scroll-smooth">
                   <Button
                     size="sm"
                     variant={selectedCategory === 'all' ? 'default' : 'outline'}

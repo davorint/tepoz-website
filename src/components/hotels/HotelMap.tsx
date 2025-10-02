@@ -57,6 +57,11 @@ export default function HotelMap({ locale, selectedHotels, onHotelSelect, classN
 
     const initializeMap = async () => {
       try {
+        // TODO: Migrate to Mapbox GL - OpenLayers has been removed
+        console.warn('[HotelMap]: OpenLayers has been removed. Please use Mapbox GL implementation.')
+        return
+
+        /* OpenLayers code commented out - migrate to Mapbox
         // Dynamic imports for OpenLayers
         const [
           { Map, View },
@@ -96,7 +101,7 @@ export default function HotelMap({ locale, selectedHotels, onHotelSelect, classN
           })
 
           const categoryStyle = categoryStyles[hotel.category] || categoryStyles.boutique
-          
+
           feature.setStyle(new Style({
             image: new Circle({
               radius: hotel.featured ? 18 : 14,
@@ -157,6 +162,7 @@ export default function HotelMap({ locale, selectedHotels, onHotelSelect, classN
 
         setMapInstance(map)
         setMapLoaded(true)
+        End of OpenLayers code */
       } catch (error) {
         console.error('Error initializing hotel map:', error)
         setMapLoaded(false)

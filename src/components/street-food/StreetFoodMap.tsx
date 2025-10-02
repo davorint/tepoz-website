@@ -53,6 +53,11 @@ export default function StreetFoodMap({ locale, selectedStreetFoods, onStreetFoo
 
     const initializeMap = async () => {
       try {
+        // TODO: Migrate to Mapbox GL - OpenLayers has been removed
+        console.warn('[StreetFoodMap]: OpenLayers has been removed. Please use Mapbox GL implementation.')
+        return
+
+        /* OpenLayers code commented out - migrate to Mapbox
         // Dynamic imports for OpenLayers
         const [
           { Map, View },
@@ -90,7 +95,7 @@ export default function StreetFoodMap({ locale, selectedStreetFoods, onStreetFoo
           })
 
           const venueStyle = venueTypeStyles[streetFood.venueType] || venueTypeStyles['street-cart']
-          
+
           feature.setStyle(new Style({
             image: new Circle({
               radius: streetFood.featured ? 18 : 14,
@@ -151,6 +156,7 @@ export default function StreetFoodMap({ locale, selectedStreetFoods, onStreetFoo
 
         setMapInstance(map)
         setMapLoaded(true)
+        End of OpenLayers code */
       } catch (error) {
         console.error('Error initializing street food map:', error)
         setMapLoaded(false)

@@ -114,8 +114,9 @@ function BusinessCard<T extends BusinessEntity>({
         }`}>
           <Image
             src={business.images[0]}
-            alt={getName(business, locale)}
+            alt={`${getName(business, locale)} - ${getAddress(business, locale)}`}
             fill
+            priority={business.featured || animationDelay < 300}
             className="object-cover group-hover:scale-110 transition-transform duration-700"
           />
 

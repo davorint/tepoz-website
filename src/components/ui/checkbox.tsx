@@ -12,7 +12,9 @@ const Checkbox = React.forwardRef<
   <CheckboxPrimitive.Root
     ref={ref}
     className={cn(
-      "peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
+      // WCAG 2.5.8 compliance: 24×24px minimum touch target (min-w-6 min-h-6)
+      // Visual checkbox is 16×16px (h-4 w-4), padding creates 24×24px hit area
+      "peer h-4 w-4 min-w-6 min-h-6 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground inline-flex items-center justify-center",
       className
     )}
     {...props}

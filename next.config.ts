@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
   
   // Image optimization
   images: {
-    unoptimized: true, // Temporarily disable image optimization to fix local image issues
+    unoptimized: false, // ✅ Re-enabled for production performance
     remotePatterns: [
       {
         protocol: 'https',

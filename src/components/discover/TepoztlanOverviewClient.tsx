@@ -650,7 +650,7 @@ export default function TepoztlanOverviewClient({ lang }: TepoztlanOverviewClien
       {/* Navigation */}
       <nav className="sticky top-1 z-40 bg-black/20 backdrop-blur-xl border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex overflow-x-auto py-4 gap-4 no-scrollbar">
+          <div className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth py-4 gap-4 no-scrollbar">
             {Object.keys(t.sections).map((key) => (
               <Button
                 key={key}

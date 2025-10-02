@@ -54,6 +54,11 @@ export default function EcoLodgeMap({ locale, selectedEcoLodges, onEcoLodgeSelec
 
     const initializeMap = async () => {
       try {
+        // TODO: Migrate to Mapbox GL - OpenLayers has been removed
+        console.warn('[EcoLodgeMap]: OpenLayers has been removed. Please use Mapbox GL implementation.')
+        return
+
+        /* OpenLayers code commented out - migrate to Mapbox
         // Dynamic imports for OpenLayers
         const [
           { Map, View },
@@ -93,7 +98,7 @@ export default function EcoLodgeMap({ locale, selectedEcoLodges, onEcoLodgeSelec
           })
 
           const categoryStyle = categoryStyles[ecoLodge.category] || categoryStyles['eco-resort']
-          
+
           feature.setStyle(new Style({
             image: new Circle({
               radius: ecoLodge.featured ? 18 : 14,
@@ -154,6 +159,7 @@ export default function EcoLodgeMap({ locale, selectedEcoLodges, onEcoLodgeSelec
 
         setMapInstance(map)
         setMapLoaded(true)
+        End of OpenLayers code */
       } catch (error) {
         console.error('Error initializing eco-lodge map:', error)
         setMapLoaded(false)
