@@ -51,7 +51,7 @@ export function useAnalytics() {
     try {
       // Google Analytics 4
       if (typeof window !== 'undefined' && 'gtag' in window) {
-        const gtag = (window as { gtag: (command: string, targetId: string, config?: object) => void }).gtag;
+        const gtag = (window as unknown as { gtag: (command: string, targetId: string, config?: object) => void }).gtag;
         gtag('config', process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || '', {
           page_title: page,
           page_location: window.location.href,
@@ -71,7 +71,7 @@ export function useAnalytics() {
     try {
       // Google Analytics 4
       if (typeof window !== 'undefined' && 'gtag' in window) {
-        const gtag = (window as { gtag: (command: string, targetId: string, config?: object) => void }).gtag;
+        const gtag = (window as unknown as { gtag: (command: string, targetId: string, config?: object) => void }).gtag;
         gtag('event', event, {
           event_category: 'Business Finder',
           event_label: properties.label || '',

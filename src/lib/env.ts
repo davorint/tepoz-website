@@ -66,7 +66,7 @@ function validateEnv(): Env {
       console.error('❌ Environment variable validation failed:')
       console.error('')
 
-      error.errors.forEach((err) => {
+      error.issues.forEach((err) => {
         const path = err.path.join('.')
         console.error(`  • ${path}: ${err.message}`)
       })

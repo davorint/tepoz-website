@@ -3,9 +3,9 @@
 import { Locale } from '@/lib/i18n'
 import dynamic from 'next/dynamic'
 
-const EnhancedMapSection = dynamic(
-  () => import('@/components/sections/EnhancedMapSection'),
-  { 
+const InteractiveMapSection = dynamic(
+  () => import('@/components/sections/InteractiveMapSection'),
+  {
     ssr: false
   }
 )
@@ -15,5 +15,5 @@ interface MapPageClientProps {
 }
 
 export default function MapPageClient({ lang }: MapPageClientProps) {
-  return <EnhancedMapSection lang={lang} />
+  return <InteractiveMapSection lang={lang} />
 }

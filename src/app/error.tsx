@@ -49,7 +49,7 @@ export default function Error({
             Lo sentimos, ha ocurrido un error inesperado. Por favor, intenta nuevamente.
           </p>
           <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
-            We're sorry, an unexpected error occurred. Please try again.
+            We&apos;re sorry, an unexpected error occurred. Please try again.
           </p>
 
           {/* Error Details (development only) */}

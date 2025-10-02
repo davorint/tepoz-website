@@ -35,7 +35,7 @@ export default function NotFound() {
             Lo sentimos, la página que buscas no existe o ha sido movida.
           </p>
           <p className="text-sm text-slate-500 dark:text-slate-400 mb-8 max-w-md mx-auto">
-            Sorry, the page you're looking for doesn't exist or has been moved.
+            Sorry, the page you&apos;re looking for doesn&apos;t exist or has been moved.
           </p>
 
           {/* Helpful Links */}
