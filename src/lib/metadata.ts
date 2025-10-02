@@ -82,9 +82,6 @@ export function getLocalizedMetadata(
   const translations = metadataTranslations[locale]
   const { title, description, path = '', images, noIndex = false } = options
 
-  // Alternate locale
-  const alternateLocale = locale === 'es' ? 'en' : 'es'
-
   // Full title with template
   const fullTitle = title
     ? `${title} | ${translations.siteName}`

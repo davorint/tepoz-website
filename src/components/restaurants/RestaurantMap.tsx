@@ -45,7 +45,7 @@ export default function RestaurantMap({ locale, selectedRestaurants, onRestauran
   const mapRef = useRef<HTMLDivElement>(null)
   const [mapLoaded, setMapLoaded] = useState(false)
   const [mapInstance, ] = useState<unknown>(null)
-  const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null)
+  const [selectedRestaurant] = useState<Restaurant | null>(null)
   
   // Get all restaurants for display
   const allRestaurants = RestaurantService.getAllRestaurants()
