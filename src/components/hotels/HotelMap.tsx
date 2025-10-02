@@ -57,7 +57,6 @@ export default function HotelMap({ locale, selectedHotels, onHotelSelect, classN
 
     const initializeMap = async () => {
       try {
-        // TODO: Migrate to Mapbox GL - OpenLayers has been removed
         console.warn('[HotelMap]: OpenLayers has been removed. Please use Mapbox GL implementation.')
         return
 

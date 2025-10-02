@@ -2,6 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
+# Note: Update sitemap URL after deployment to match your production domain
 Sitemap: https://tepoztlan.com/sitemap.xml
 
 # Block any potential admin or internal paths

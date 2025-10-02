@@ -54,7 +54,6 @@ export default function EcoLodgeMap({ locale, selectedEcoLodges, onEcoLodgeSelec
 
     const initializeMap = async () => {
       try {
-        // TODO: Migrate to Mapbox GL - OpenLayers has been removed
         console.warn('[EcoLodgeMap]: OpenLayers has been removed. Please use Mapbox GL implementation.')
         return
 

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState, useCallback } from 'react'
+import { notFound } from 'next/navigation'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import * as turf from '@turf/turf'
@@ -151,8 +152,13 @@ const categories = [
 ]
 
 export default function StoreLocatorPage({ params }: { params: Promise<{ lang: Locale }> }) {
+  // Disable in production
+  if (process.env.NODE_ENV === 'production') {
+    notFound()
+  }
+
   const [lang, setLang] = useState<Locale>('es')
-  
+
   useEffect(() => {
     params.then(({ lang }) => setLang(lang))
   }, [params])

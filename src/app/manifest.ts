@@ -36,21 +36,8 @@ export default function manifest(): MetadataRoute.Manifest {
     dir: 'ltr',
     prefer_related_applications: false,
     related_applications: [],
-    screenshots: [
-      {
-        src: '/images/screenshot-mobile-es.jpg',
-        sizes: '390x844',
-        type: 'image/jpeg',
-        form_factor: 'narrow',
-        label: 'Tepoztlán Guide - Discover page'
-      },
-      {
-        src: '/images/screenshot-tablet-es.jpg',
-        sizes: '768x1024',
-        type: 'image/jpeg',
-        form_factor: 'wide',
-        label: 'Tepoztlán Guide - Map view'
-      }
-    ]
+    // Screenshots removed - optional PWA feature
+    // Add screenshots later for enhanced PWA installation experience
+    screenshots: []
   }
 }

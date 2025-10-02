@@ -57,7 +57,6 @@ export default function RestaurantMap({ locale, selectedRestaurants, onRestauran
 
     const initializeMap = async () => {
       try {
-        // TODO: Migrate to Mapbox GL - OpenLayers has been removed
         console.warn('[RestaurantMap]: OpenLayers has been removed. Please use Mapbox GL implementation.')
         return
 

@@ -53,7 +53,6 @@ export default function StreetFoodMap({ locale, selectedStreetFoods, onStreetFoo
 
     const initializeMap = async () => {
       try {
-        // TODO: Migrate to Mapbox GL - OpenLayers has been removed
         console.warn('[StreetFoodMap]: OpenLayers has been removed. Please use Mapbox GL implementation.')
         return
 

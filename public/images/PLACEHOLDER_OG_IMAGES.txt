@@ -1,0 +1,13 @@
+PLACEHOLDER FILES FOR OPENGRAPH IMAGES
+
+These are temporary placeholders. Replace with actual designed images.
+
+Required Images:
+1. og-tepoztlan-hero.jpg (1200x630) - Main OpenGraph image
+2. twitter-tepoztlan-hero.jpg (1200x675) - Twitter Card image
+3. og-tepoztlan-es.jpg (1200x630) - Spanish version
+4. og-tepoztlan-en.jpg (1200x630) - English version
+5. twitter-tepoztlan-es.jpg (1200x675) - Spanish Twitter
+6. twitter-tepoztlan-en.jpg (1200x675) - English Twitter
+
+For now, we'll use a fallback approach in the code.

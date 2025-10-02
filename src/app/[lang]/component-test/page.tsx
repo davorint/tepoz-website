@@ -1,9 +1,15 @@
 'use client'
 
 import { useState } from 'react'
+import { notFound } from 'next/navigation'
 import { BusinessList } from '@/components/business-finder/business-list'
 import { BusinessDetails } from '@/components/business-finder/business-details'
 import { BusinessFilters } from '@/components/business-finder/business-filters'
+
+// Disable in production
+if (process.env.NODE_ENV === 'production') {
+  notFound()
+}
 
 // Sample data for testing
 const sampleBusinesses = [

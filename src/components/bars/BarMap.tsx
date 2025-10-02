@@ -58,7 +58,6 @@ export default function BarMap({ locale, selectedBars, onBarSelect, className }:
 
     const initializeMap = async () => {
       try {
-        // TODO: Migrate to Mapbox GL - OpenLayers has been removed
         console.warn('BarMap: OpenLayers has been removed. Please use Mapbox GL implementation.')
         return
 

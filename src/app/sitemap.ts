@@ -1,14 +1,14 @@
 import { MetadataRoute } from 'next'
 import { locales } from '@/lib/i18n'
 import { routeMapping } from '@/lib/url-mapping'
-import { 
-  PRIORITY_ROUTES, 
-  SECONDARY_ROUTES, 
-  getMetadataPriority, 
-  generateBusinessStaticParams 
+import {
+  PRIORITY_ROUTES,
+  SECONDARY_ROUTES,
+  getMetadataPriority,
+  generateBusinessStaticParams
 } from '@/lib/static-paths'
 
-const baseUrl = 'https://tepoztlan.com'
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tepoztlan.com'
 
 function getLocalizedRoute(route: string, lang: 'es' | 'en'): string {
   if (lang === 'en') {

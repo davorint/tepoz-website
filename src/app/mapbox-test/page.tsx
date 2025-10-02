@@ -1,9 +1,14 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { notFound } from 'next/navigation'
 import mapboxgl from 'mapbox-gl'
 
 export default function MapboxTestPage() {
+  // Disable in production
+  if (process.env.NODE_ENV === 'production') {
+    notFound()
+  }
   const mapContainer = useRef<HTMLDivElement>(null)
   const map = useRef<mapboxgl.Map | null>(null)
 

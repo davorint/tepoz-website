@@ -60,7 +60,6 @@ export default function CafeMap({ locale, selectedCafes, onCafeSelect, className
 
     const initializeMap = async () => {
       try {
-        // TODO: Migrate to Mapbox GL - OpenLayers has been removed
         console.warn('[CafeMap]: OpenLayers has been removed. Please use Mapbox GL implementation.')
         return
 

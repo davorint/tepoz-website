@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, use, useState } from 'react'
+import { notFound } from 'next/navigation'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { Locale } from '@/lib/i18n'
@@ -12,6 +13,11 @@ interface MarkerTestPageProps {
 }
 
 export default function MarkerTestPage({ params }: MarkerTestPageProps) {
+  // Disable in production
+  if (process.env.NODE_ENV === 'production') {
+    notFound()
+  }
+
   const { lang } = use(params)
   const mapContainer = useRef<HTMLDivElement>(null)
   const map = useRef<mapboxgl.Map | null>(null)

@@ -23,7 +23,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://tepoztlan.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://tepoztlan.com'),
   title: {
     default: "Tepoztlán Tourism Guide - Discover the Magic Town | Hotels, Restaurants & Attractions",
     template: "%s | Tepoztlán Tourism Guide"
