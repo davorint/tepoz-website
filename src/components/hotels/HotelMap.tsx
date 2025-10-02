@@ -44,8 +44,8 @@ const categoryStyles = {
 export default function HotelMap({ locale, selectedHotels, onHotelSelect, className }: HotelMapProps) {
   const mapRef = useRef<HTMLDivElement>(null)
   const [mapLoaded, setMapLoaded] = useState(false)
-  const [mapInstance, setMapInstance] = useState<unknown>(null)
-  const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(null)
+  const [mapInstance, ] = useState<unknown>(null)
+  const [selectedHotel, ] = useState<Hotel | null>(null)
   
   // Get all hotels for display
   const allHotels = HotelServiceStatic.getAllHotels()

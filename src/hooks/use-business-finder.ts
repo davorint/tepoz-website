@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
+import { logger } from '@/lib/logger'
 import * as turf from '@turf/turf'
 import { Business } from '@/types/business-finder'
 
@@ -82,7 +83,7 @@ export function useBusinessFinder({ businesses, lang }: UseBusinessFinderProps):
   // Get user location
   const getUserLocation = useCallback(async () => {
     if (!navigator.geolocation) {
-      console.warn('⚠️ Geolocation not supported')
+      logger.warn('⚠️ Geolocation not supported')
       return
     }
 
@@ -98,9 +99,9 @@ export function useBusinessFinder({ businesses, lang }: UseBusinessFinderProps):
 
       const coords: [number, number] = [position.coords.longitude, position.coords.latitude]
       setUserLocation(coords)
-      console.log('📍 User location updated:', coords)
+      logger.debug('📍 User location updated:', coords)
     } catch (error) {
-      console.error('❌ Error getting user location:', error)
+      logger.error('❌ Error getting user location:', error)
     } finally {
       setIsLoading(false)
     }

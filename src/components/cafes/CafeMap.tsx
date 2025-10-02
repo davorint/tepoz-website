@@ -47,8 +47,8 @@ const atmosphereStyles = {
 export default function CafeMap({ locale, selectedCafes, onCafeSelect, className }: CafeMapProps) {
   const mapRef = useRef<HTMLDivElement>(null)
   const [mapLoaded, setMapLoaded] = useState(false)
-  const [mapInstance, setMapInstance] = useState<unknown>(null)
-  const [selectedCafe, setSelectedCafe] = useState<Cafe | null>(null)
+  const [mapInstance, ] = useState<unknown>(null)
+  const [selectedCafe, ] = useState<Cafe | null>(null)
   
   // Get all cafes for display
   const allCafes = CafeService.getAllCafes()

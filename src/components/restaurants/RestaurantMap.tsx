@@ -44,7 +44,7 @@ const atmosphereStyles = {
 export default function RestaurantMap({ locale, selectedRestaurants, onRestaurantSelect, className }: RestaurantMapProps) {
   const mapRef = useRef<HTMLDivElement>(null)
   const [mapLoaded, setMapLoaded] = useState(false)
-  const [mapInstance, setMapInstance] = useState<unknown>(null)
+  const [mapInstance, ] = useState<unknown>(null)
   const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null)
   
   // Get all restaurants for display

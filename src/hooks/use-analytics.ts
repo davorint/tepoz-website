@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useCallback } from 'react'
+import { logger } from '@/lib/logger'
 
 // Analytics event types
 type AnalyticsEvent = 
@@ -60,9 +61,9 @@ export function useAnalytics() {
       }
 
       // Custom analytics or third-party services can be added here
-      console.log('📊 Page View:', { page, properties })
+      logger.debug('📊 Page View:', { page, properties })
     } catch (error) {
-      console.warn('Analytics tracking error:', error)
+      logger.warn('Analytics tracking error:', error)
     }
   }, [])
 
@@ -99,9 +100,9 @@ export function useAnalytics() {
       
       localStorage.setItem('tepoztlan-analytics', JSON.stringify(storedEvents))
 
-      console.log('📊 Event:', event, properties)
+      logger.debug('📊 Event:', event, properties)
     } catch (error) {
-      console.warn('Analytics tracking error:', error)
+      logger.warn('Analytics tracking error:', error)
     }
   }, [])
 
@@ -217,7 +218,7 @@ export function useAnalytics() {
         page_url: window.location.pathname
       })
     } catch (error) {
-      console.warn('Performance tracking error:', error)
+      logger.warn('Performance tracking error:', error)
     }
   }, [trackEvent])
 
@@ -276,7 +277,7 @@ export function useAnalytics() {
       
       return exportData
     } catch (error) {
-      console.error('Error exporting analytics:', error)
+      logger.error('Error exporting analytics:', error)
       return null
     }
   }, [])
@@ -286,9 +287,9 @@ export function useAnalytics() {
     try {
       localStorage.removeItem('tepoztlan-analytics')
       sessionStorage.removeItem('tepoztlan-session-id')
-      console.log('Analytics data cleared')
+      logger.debug('Analytics data cleared')
     } catch (error) {
-      console.warn('Error clearing analytics:', error)
+      logger.warn('Error clearing analytics:', error)
     }
   }, [])
 
@@ -375,7 +376,7 @@ if (typeof window !== 'undefined') {
   window.addEventListener('error', (event) => {
     // Only track errors from our domain to avoid noise
     if (event.filename && event.filename.includes(window.location.origin)) {
-      console.error('Unhandled error:', event.error)
+      logger.error('Unhandled error:', event.error)
     }
   })
 }

@@ -41,8 +41,8 @@ const categoryStyles = {
 export default function EcoLodgeMap({ locale, selectedEcoLodges, onEcoLodgeSelect, className }: EcoLodgeMapProps) {
   const mapRef = useRef<HTMLDivElement>(null)
   const [mapLoaded, setMapLoaded] = useState(false)
-  const [mapInstance, setMapInstance] = useState<unknown>(null)
-  const [selectedEcoLodge, setSelectedEcoLodge] = useState<EcoLodge | null>(null)
+  const [mapInstance, ] = useState<unknown>(null)
+  const [selectedEcoLodge, ] = useState<EcoLodge | null>(null)
   
   // Get all eco-lodges for display
   const allEcoLodges = EcoLodgeServiceStatic.getAllEcoLodges()

@@ -45,8 +45,8 @@ const barTypeStyles = {
 export default function BarMap({ locale, selectedBars, onBarSelect, className }: BarMapProps) {
   const mapRef = useRef<HTMLDivElement>(null)
   const [mapLoaded, setMapLoaded] = useState(false)
-  const [mapInstance, setMapInstance] = useState<unknown>(null)
-  const [selectedBar, setSelectedBar] = useState<Bar | null>(null)
+  const [mapInstance] = useState<unknown>(null)
+  const [selectedBar] = useState<Bar | null>(null)
   
   // Get all bars for display
   const allBars = BarService.getAllBars()

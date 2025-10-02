@@ -44,8 +44,8 @@ const categoryStyles = {
 export default function VacationRentalMap({ locale, selectedRentals, onRentalSelect, className }: VacationRentalMapProps) {
   const mapRef = useRef<HTMLDivElement>(null)
   const [mapLoaded, setMapLoaded] = useState(false)
-  const [mapInstance, setMapInstance] = useState<unknown>(null)
-  const [selectedRental, setSelectedRental] = useState<Rental | null>(null)
+  const [mapInstance, ] = useState<unknown>(null)
+  const [selectedRental, ] = useState<Rental | null>(null)
   
   // Get all vacation rentals for display
   const allRentals = RentalServiceStatic.getAllRentals()

@@ -93,9 +93,6 @@ export function getLocalizedMetadata(
   // Full URL for this page
   const url = `${siteUrl}/${locale}${path}`
 
-  // Alternate language URL
-  const alternateUrl = `${siteUrl}/${alternateLocale}${path}`
-
   return {
     title: fullTitle,
     description: description || translations.defaultDescription,

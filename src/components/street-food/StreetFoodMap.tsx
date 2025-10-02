@@ -40,8 +40,8 @@ const venueTypeStyles = {
 export default function StreetFoodMap({ locale, selectedStreetFoods, onStreetFoodSelect, className }: StreetFoodMapProps) {
   const mapRef = useRef<HTMLDivElement>(null)
   const [mapLoaded, setMapLoaded] = useState(false)
-  const [mapInstance, setMapInstance] = useState<unknown>(null)
-  const [selectedStreetFood, setSelectedStreetFood] = useState<StreetFood | null>(null)
+  const [mapInstance, ] = useState<unknown>(null)
+  const [selectedStreetFood, ] = useState<StreetFood | null>(null)
   
   // Get all street foods for display
   const allStreetFoods = StreetFoodService.getAllStreetFoods()

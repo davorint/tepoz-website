@@ -1,4 +1,5 @@
 'use client'
+import { logger } from '@/lib/logger'
 
 import { useRef, useEffect, useState, useCallback, useMemo } from 'react'
 import { motion } from 'motion/react'
@@ -45,7 +46,7 @@ export function BusinessMap({
     mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ''
 
     if (!mapboxgl.accessToken) {
-      console.error('Mapbox access token not found')
+      logger.error('Mapbox access token not found')
       return
     }
 
@@ -69,7 +70,7 @@ export function BusinessMap({
     mapInstance.addControl(new mapboxgl.FullscreenControl(), 'top-left')
 
     mapInstance.on('load', () => {
-      console.log('🗺️ Map loaded, setting up markers...')
+      logger.debug('🗺️ Map loaded, setting up markers...')
       setMapLoaded(true)
 
       // Create marker images
@@ -81,7 +82,7 @@ export function BusinessMap({
         const context = canvas.getContext('2d')
 
         if (context) {
-          console.log(`🎨 Creating marker for ${config.name}`)
+          logger.debug(`🎨 Creating marker for ${config.name}`)
           
           context.clearRect(0, 0, size, size)
           
@@ -121,10 +122,10 @@ export function BusinessMap({
           try {
             if (!mapInstance.hasImage(`marker-${config.name}`)) {
               mapInstance.addImage(`marker-${config.name}`, marker)
-              console.log(`✅ Added marker for ${config.name}`)
+              logger.debug(`✅ Added marker for ${config.name}`)
             }
           } catch (error) {
-            console.error(`❌ Error adding marker for ${config.name}:`, error)
+            logger.error(`❌ Error adding marker for ${config.name}:`, error)
           }
         }
       })
@@ -138,7 +139,7 @@ export function BusinessMap({
           const businessId = e.features[0].properties?.id
           if (businessId && onBusinessSelect) {
             onBusinessSelect(businessId)
-            console.log('🏢 Business selected:', businessId)
+            logger.debug('🏢 Business selected:', businessId)
           }
         }
       })
@@ -231,13 +232,13 @@ export function BusinessMap({
         try {
           if (selectedCategory === 'all') {
             map.current.setFilter('business-markers', null)
-            console.log('✅ Showing all businesses')
+            logger.debug('✅ Showing all businesses')
           } else {
             map.current.setFilter('business-markers', ['==', ['get', 'category'], selectedCategory])
-            console.log(`✅ Filtered to: ${selectedCategory}`)
+            logger.debug(`✅ Filtered to: ${selectedCategory}`)
           }
         } catch (error) {
-          console.error('❌ Error applying filter:', error)
+          logger.error('❌ Error applying filter:', error)
         }
       }
     }
@@ -330,9 +331,9 @@ export function BusinessMap({
       })
       
       setIs3DMode(newMode)
-      console.log(`🎮 3D mode ${newMode ? 'enabled' : 'disabled'}`)
+      logger.debug(`🎮 3D mode ${newMode ? 'enabled' : 'disabled'}`)
     } catch (error) {
-      console.error('❌ Error toggling 3D mode:', error)
+      logger.error('❌ Error toggling 3D mode:', error)
     }
   }
 
@@ -352,7 +353,7 @@ export function BusinessMap({
         setMapStyle(newStyle)
         setIsStyleLoading(false)
         map.current?.off('style.load', onStyleLoad)
-        console.log(`🛰️ Map style changed to: ${newStyle}`)
+        logger.debug(`🛰️ Map style changed to: ${newStyle}`)
         
         // Re-add markers after style change
         if (map.current && mapLoaded) {
@@ -361,7 +362,7 @@ export function BusinessMap({
       }
       
       const onStyleError = (error: mapboxgl.ErrorEvent) => {
-        console.error('❌ Failed to load map style:', error)
+        logger.error('❌ Failed to load map style:', error)
         setIsStyleLoading(false)
         map.current?.off('error', onStyleError)
       }
@@ -371,7 +372,7 @@ export function BusinessMap({
       map.current.setStyle(styleUrl)
       
     } catch (error) {
-      console.error('❌ Error changing map style:', error)
+      logger.error('❌ Error changing map style:', error)
       setIsStyleLoading(false)
     }
   }
@@ -380,7 +381,7 @@ export function BusinessMap({
   const zoomToFitBusinesses = async () => {
     if (isZoomingToFit || !map.current || businesses.length === 0) {
       if (businesses.length === 0) {
-        console.warn('⚠️ No businesses to zoom to')
+        logger.warn('⚠️ No businesses to zoom to')
       }
       return
     }
@@ -429,11 +430,11 @@ export function BusinessMap({
       })
 
       setLastZoomAction('success')
-      console.log(`🎯 Successfully zoomed to fit ${validBusinesses.length} businesses`)
+      logger.debug(`🎯 Successfully zoomed to fit ${validBusinesses.length} businesses`)
 
     } catch (error) {
       setLastZoomAction('error')
-      console.error('❌ Zoom to fit error:', error)
+      logger.error('❌ Zoom to fit error:', error)
     } finally {
       setIsZoomingToFit(false)
       setTimeout(() => setLastZoomAction(null), 2000)
@@ -457,7 +458,7 @@ export function BusinessMap({
   // Get user location
   const getUserLocation = async () => {
     if (!navigator.geolocation) {
-      console.warn('⚠️ Geolocation not supported')
+      logger.warn('⚠️ Geolocation not supported')
       return
     }
 
@@ -494,14 +495,14 @@ export function BusinessMap({
         })
       }
 
-      console.log('📍 User location updated:', coords)
+      logger.debug('📍 User location updated:', coords)
     } catch (error) {
       const errorMessage = error instanceof GeolocationPositionError
         ? getGeolocationErrorMessage(error)
         : error instanceof Error
           ? error.message
           : 'Unknown error'
-      console.error('❌ Error getting user location:', errorMessage, error)
+      logger.error('❌ Error getting user location:', errorMessage, error)
     }
   }
 
