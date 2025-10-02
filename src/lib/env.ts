@@ -17,12 +17,6 @@ const envSchema = z.object({
   // Node Environment
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
 
-  // MapTiler API Key (Required for maps)
-  NEXT_PUBLIC_MAPTILER_API_KEY: z
-    .string()
-    .min(1, 'MapTiler API key is required')
-    .describe('Get from https://cloud.maptiler.com/'),
-
   // Mapbox Access Token (Required for maps)
   NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN: z
     .string()
@@ -56,7 +50,6 @@ function validateEnv(): Env {
   try {
     return envSchema.parse({
       NODE_ENV: process.env.NODE_ENV,
-      NEXT_PUBLIC_MAPTILER_API_KEY: process.env.NEXT_PUBLIC_MAPTILER_API_KEY,
       NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN: process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN,
       NEXT_PUBLIC_GA_MEASUREMENT_ID: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
       NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
