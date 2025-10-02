@@ -173,41 +173,6 @@ export default function StaticNavigation({ lang, translations }: StaticNavigatio
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
-
-            {/* Test menu - only visible in development */}
-            {process.env.NODE_ENV === 'development' && (
-              <NavigationMenuItem className="animate-in fade-in slide-in-from-bottom-2 duration-500 fill-mode-both [animation-delay:700ms]">
-                <NavigationMenuTrigger className="transition-all duration-300 hover:scale-105">TEST</NavigationMenuTrigger>
-                <NavigationMenuContent className="animate-in fade-in slide-in-from-top-2 duration-300">
-                  <div className="grid gap-3 p-6 md:w-[300px]">
-                    <NavigationMenuLink asChild>
-                      <Link href={`/${lang}/business-finder`} className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] hover:shadow-md focus:bg-accent focus:text-accent-foreground">
-                        <div className="text-sm font-medium leading-none">Business Finder</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                          {lang === 'es' ? 'Buscador de negocios con mapa' : 'Business search with map integration'}
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                    <NavigationMenuLink asChild>
-                      <Link href={`/${lang}/landing-2`} className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] hover:shadow-md focus:bg-accent focus:text-accent-foreground">
-                        <div className="text-sm font-medium leading-none">Landing 2</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                          {lang === 'es' ? 'Página de prueba 2' : 'Test landing page 2'}
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                    <NavigationMenuLink asChild>
-                      <Link href={`/${lang}/landing-3`} className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] hover:shadow-md focus:bg-accent focus:text-accent-foreground">
-                        <div className="text-sm font-medium leading-none">Landing 3</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                          {lang === 'es' ? 'Página de prueba 3' : 'Test landing page 3'}
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-            )}
           </NavigationMenuList>
         </NavigationMenu>
 
