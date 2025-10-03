@@ -1,15 +1,16 @@
 import Link from 'next/link'
-import { 
-  MapPin, 
-  Mail, 
-  Clock, 
-  Facebook, 
-  Instagram, 
-  Twitter, 
+import {
+  MapPin,
+  Mail,
+  Clock,
+  Facebook,
+  Instagram,
+  Twitter,
   Youtube,
   Star
 } from 'lucide-react'
 import { Locale } from '@/lib/i18n'
+import NewsletterSignup from '@/components/newsletter/NewsletterSignup'
 
 interface PremiumFooterProps {
   lang: Locale
@@ -162,9 +163,17 @@ export default function PremiumFooter({ lang }: PremiumFooterProps) {
               </ul>
             </div>
 
-            {/* Social Media */}
+            {/* Newsletter */}
             <div>
-              <h3 className="font-bold text-sm mb-3 font-sans text-white">
+              <NewsletterSignup locale={lang} variant="footer" />
+            </div>
+
+          </div>
+
+          {/* Social Media - Moved to bottom */}
+          <div className="mt-8 pt-6 border-t border-white/10">
+            <div className="flex items-center justify-center gap-4">
+              <h3 className="font-bold text-sm font-sans text-white">
                 {lang === 'es' ? 'Síguenos' : 'Follow Us'}
               </h3>
               <div className="flex space-x-3">
@@ -184,7 +193,6 @@ export default function PremiumFooter({ lang }: PremiumFooterProps) {
                 })}
               </div>
             </div>
-
           </div>
 
         </div>
