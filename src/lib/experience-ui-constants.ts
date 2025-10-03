@@ -90,7 +90,7 @@ export const UI_TRANSLATIONS = {
 
   // Actions
   viewDetails: { es: 'Ver Detalles', en: 'View Details' },
-  bookNow: { es: 'Reservar Ahora', en: 'Book Now' },
+  bookNow: { es: 'Más Información', en: 'More Information' },
   call: { es: 'Llamar', en: 'Call' },
   website: { es: 'Sitio Web', en: 'Website' },
   viewOnMap: { es: 'Ver en mapa', en: 'View on map' },

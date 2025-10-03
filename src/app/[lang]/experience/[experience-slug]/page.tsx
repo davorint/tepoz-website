@@ -252,10 +252,12 @@ export default async function ExperiencePage({ params }: ExperiencePageProps) {
                 </div>
 
                 <div className="space-y-3">
-                  <Button className="w-full bg-gradient-to-r from-teal-400 to-cyan-400 hover:from-teal-500 hover:to-cyan-500 text-white font-bold py-3">
-                    {lang === 'es' ? 'Reservar Ahora' : 'Book Now'}
-                  </Button>
-                  <ExperienceActions 
+                  <a href={`mailto:${experience.email || 'info@tepoztlan.com'}?subject=${encodeURIComponent(lang === 'es' ? `Consulta sobre ${experience.name[lang]}` : `Inquiry about ${experience.name[lang]}`)}`}>
+                    <Button className="w-full bg-gradient-to-r from-teal-400 to-cyan-400 hover:from-teal-500 hover:to-cyan-500 text-white font-bold py-3">
+                      {lang === 'es' ? 'Más Información' : 'More Information'}
+                    </Button>
+                  </a>
+                  <ExperienceActions
                     phone={experience.phone}
                     website={experience.website}
                     locale={lang}

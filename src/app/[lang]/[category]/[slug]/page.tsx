@@ -279,13 +279,19 @@ export default async function BusinessPage({ params }: BusinessPageProps) {
 
           {/* Action Buttons */}
           <div className="space-y-3">
-            <Button className="w-full" size="lg">
-              {lang === 'es' ? 'Reservar Ahora' : 'Book Now'}
-            </Button>
-            <Button variant="outline" className="w-full">
-              {lang === 'es' ? 'Ver en Mapa' : 'View on Map'}
-            </Button>
-            <Button variant="outline" className="w-full">
+            <a href={`mailto:info@tepoztlan.com?subject=${encodeURIComponent(lang === 'es' ? `Consulta sobre ${business.name}` : `Inquiry about ${business.name}`)}`}>
+              <Button className="w-full" size="lg">
+                {lang === 'es' ? 'Más Información' : 'More Information'}
+              </Button>
+            </a>
+            {business.location?.coordinates && (
+              <a href={`https://www.google.com/maps/search/?api=1&query=${business.location.coordinates.lat},${business.location.coordinates.lng}`} target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" className="w-full">
+                  {lang === 'es' ? 'Ver en Mapa' : 'View on Map'}
+                </Button>
+              </a>
+            )}
+            <Button variant="outline" className="w-full" disabled title={lang === 'es' ? 'Próximamente' : 'Coming soon'}>
               {lang === 'es' ? 'Escribir Reseña' : 'Write Review'}
             </Button>
           </div>

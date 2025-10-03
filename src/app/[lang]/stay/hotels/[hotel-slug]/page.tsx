@@ -230,14 +230,20 @@ export default function HotelPage({ params }: HotelPageProps) {
                 </div>
 
                 <div className="space-y-3 mb-6">
-                  <Button className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold py-3">
-                    <Calendar className="w-5 h-5 mr-2" />
-                    {locale === 'es' ? 'Reservar Ahora' : 'Book Now'}
-                  </Button>
-                  <Button className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-3">
-                    <CreditCard className="w-5 h-5 mr-2" />
-                    {locale === 'es' ? 'Ver Disponibilidad' : 'Check Availability'}
-                  </Button>
+                  <a href={`mailto:${hotel.contact?.email || 'info@tepoztlan.com'}?subject=${encodeURIComponent(locale === 'es' ? `Consulta sobre ${HotelServiceStatic.getHotelName(hotel, locale)}` : `Inquiry about ${HotelServiceStatic.getHotelName(hotel, locale)}`)}`}>
+                    <Button className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold py-3">
+                      <Calendar className="w-5 h-5 mr-2" />
+                      {locale === 'es' ? 'Más Información' : 'More Information'}
+                    </Button>
+                  </a>
+                  {hotel.contact?.website && (
+                    <a href={hotel.contact.website} target="_blank" rel="noopener noreferrer">
+                      <Button className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-3">
+                        <Globe className="w-5 h-5 mr-2" />
+                        {locale === 'es' ? 'Visitar Sitio Web' : 'Visit Website'}
+                      </Button>
+                    </a>
+                  )}
                   <div className="grid grid-cols-2 gap-2">
                     {hotel.contact?.phone && (
                       <Button 

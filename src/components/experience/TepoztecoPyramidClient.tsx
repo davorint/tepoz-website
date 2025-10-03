@@ -621,14 +621,18 @@ export default function TepoztecoPyramidClient({ locale }: TepoztecoPyramidClien
               }
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Button className="bg-gradient-to-r from-orange-400 to-red-400 hover:from-orange-500 hover:to-red-500 text-slate-900 dark:text-white border-0 shadow-xl px-8 py-4 text-lg">
-                <Play className="w-5 h-5 mr-2" />
-                {locale === 'es' ? 'Reservar Guía' : 'Book Guide'}
-              </Button>
-              <Button className="bg-white/10 backdrop-blur-sm border border-white/20 text-slate-900 dark:text-white hover:bg-white/20 px-8 py-4 text-lg">
-                {locale === 'es' ? 'Ver Mapa' : 'View Map'}
-                <ChevronRight className="w-5 h-5 ml-2" />
-              </Button>
+              <a href={`mailto:info@tepoztlan.com?subject=${encodeURIComponent(locale === 'es' ? 'Consulta sobre Guía - Pirámide del Tepozteco' : 'Inquiry about Guide - Tepozteco Pyramid')}`}>
+                <Button className="bg-gradient-to-r from-orange-400 to-red-400 hover:from-orange-500 hover:to-red-500 text-slate-900 dark:text-white border-0 shadow-xl px-8 py-4 text-lg">
+                  <Play className="w-5 h-5 mr-2" />
+                  {locale === 'es' ? 'Más Información' : 'More Information'}
+                </Button>
+              </a>
+              <a href="https://www.google.com/maps/search/?api=1&query=Tepozteco+Pyramid+Tepoztlan" target="_blank" rel="noopener noreferrer">
+                <Button className="bg-white/10 backdrop-blur-sm border border-white/20 text-slate-900 dark:text-white hover:bg-white/20 px-8 py-4 text-lg">
+                  {locale === 'es' ? 'Ver Mapa' : 'View Map'}
+                  <ChevronRight className="w-5 h-5 ml-2" />
+                </Button>
+              </a>
             </div>
           </div>
         </div>

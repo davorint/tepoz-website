@@ -532,16 +532,20 @@ export default function BarDetailClient({ slug, locale }: BarDetailClientProps) 
                   </div>
                 </div>
 
-                {/* Make Reservation / Call for Table */}
+                {/* More Information / Call */}
                 <div className="mt-6 pt-6 border-t border-slate-300/20 dark:border-white/10">
-                  <Button className="w-full bg-gradient-to-r from-purple-400 to-violet-400 hover:from-purple-500 hover:to-violet-500 text-white mb-3">
-                    <Calendar className="w-5 h-5 mr-2" />
-                    {locale === 'es' ? 'Reservar Mesa' : 'Reserve Table'}
-                  </Button>
+                  {bar.phone && (
+                    <a href={`tel:${bar.phone}`}>
+                      <Button className="w-full bg-gradient-to-r from-purple-400 to-violet-400 hover:from-purple-500 hover:to-violet-500 text-white mb-3">
+                        <Phone className="w-5 h-5 mr-2" />
+                        {locale === 'es' ? 'Más Información' : 'More Information'}
+                      </Button>
+                    </a>
+                  )}
                   <p className="text-xs text-center text-slate-500 dark:text-white/60">
                     {locale === 'es'
-                      ? 'Recomendamos llamar con anticipación para fines de semana'
-                      : 'We recommend calling ahead for weekends'}
+                      ? 'Llámanos para más detalles sobre horarios y disponibilidad'
+                      : 'Call us for details about hours and availability'}
                   </p>
                 </div>
               </div>
