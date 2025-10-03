@@ -31,16 +31,32 @@ import {
   Utensils,
   MapPinned
 } from 'lucide-react'
+import ReviewForm from '@/components/reviews/ReviewForm'
+import ReviewList from '@/components/reviews/ReviewList'
+
+interface Review {
+  id: number
+  userId: string
+  businessId: number
+  rating: number
+  contentEs: string
+  contentEn: string | null
+  helpful: number | null
+  verified: boolean | null
+  createdAt: Date
+}
 
 interface RestaurantDetailClientProps {
   slug: string
   locale: Locale
+  reviews?: Review[]
 }
 
-export default function RestaurantDetailClient({ slug, locale }: RestaurantDetailClientProps) {
+export default function RestaurantDetailClient({ slug, locale, reviews = [] }: RestaurantDetailClientProps) {
   const [restaurant, setRestaurant] = useState<Restaurant | null>(null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isFavorite, setIsFavorite] = useState(false)
+  const [showReviewForm, setShowReviewForm] = useState(false)
 
   useEffect(() => {
     const foundRestaurant = RestaurantService.getRestaurantBySlug(slug)
@@ -380,62 +396,37 @@ export default function RestaurantDetailClient({ slug, locale }: RestaurantDetai
 
               {/* Reviews Section */}
               <div className="bg-white/30 dark:bg-white/5 backdrop-blur-2xl dark:backdrop-blur-xl rounded-3xl border border-white/50 dark:border-white/10 p-8 shadow-xl shadow-sky-200/30 dark:shadow-white/15">
-                <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-6 flex items-center">
-                  <MessageCircle className="w-6 h-6 mr-3 text-orange-500 dark:text-orange-400" />
-                  {locale === 'es' ? 'Reseñas Recientes' : 'Recent Reviews'}
-                </h2>
-
-                <div className="space-y-4">
-                  <div className="p-4 bg-white/20 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-none rounded-xl">
-                    <div className="flex items-start justify-between mb-2">
-                      <div>
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="font-semibold text-slate-800 dark:text-white">María G.</span>
-                          <div className="flex">
-                            {[...Array(5)].map((_, i) => (
-                              <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
-                            ))}
-                          </div>
-                        </div>
-                        <p className="text-sm text-slate-500 dark:text-white/60">
-                          {locale === 'es' ? 'Hace 2 días' : '2 days ago'}
-                        </p>
-                      </div>
-                    </div>
-                    <p className="text-slate-600 dark:text-white/80">
-                      {locale === 'es'
-                        ? 'Excelente comida y servicio. El mole es el mejor que he probado en Tepoztlán. Definitivamente regresaré.'
-                        : 'Excellent food and service. The mole is the best I\'ve had in Tepoztlán. Will definitely return.'}
-                    </p>
-                  </div>
-
-                  <div className="p-4 bg-white/20 dark:bg-white/5 backdrop-blur-md dark:backdrop-blur-none rounded-xl">
-                    <div className="flex items-start justify-between mb-2">
-                      <div>
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="font-semibold text-slate-800 dark:text-white">John D.</span>
-                          <div className="flex">
-                            {[...Array(4)].map((_, i) => (
-                              <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
-                            ))}
-                          </div>
-                        </div>
-                        <p className="text-sm text-slate-500 dark:text-white/60">
-                          {locale === 'es' ? 'Hace 1 semana' : '1 week ago'}
-                        </p>
-                      </div>
-                    </div>
-                    <p className="text-slate-600 dark:text-white/80">
-                      {locale === 'es'
-                        ? 'Vista increíble desde la terraza. La comida es auténtica y deliciosa. El único punto es que puede estar muy lleno los fines de semana.'
-                        : 'Amazing view from the terrace. The food is authentic and delicious. Only downside is it can get very crowded on weekends.'}
-                    </p>
-                  </div>
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-2xl font-bold text-slate-800 dark:text-white flex items-center">
+                    <MessageCircle className="w-6 h-6 mr-3 text-orange-500 dark:text-orange-400" />
+                    {locale === 'es' ? 'Reseñas' : 'Reviews'} ({reviews.length})
+                  </h2>
+                  <Button
+                    onClick={() => setShowReviewForm(!showReviewForm)}
+                    className="bg-gradient-to-r from-orange-400 to-red-400 hover:from-orange-500 hover:to-red-500 text-white"
+                  >
+                    {showReviewForm
+                      ? locale === 'es' ? 'Cancelar' : 'Cancel'
+                      : locale === 'es' ? 'Escribir Reseña' : 'Write Review'}
+                  </Button>
                 </div>
 
-                <Button className="w-full mt-6 bg-white/80 dark:bg-white/10 backdrop-blur-sm dark:backdrop-blur-md border border-slate-300/30 dark:border-white/20 text-slate-800 dark:text-white hover:bg-white/90 dark:hover:bg-white/20">
-                  {locale === 'es' ? 'Ver Todas las Reseñas' : 'View All Reviews'}
-                </Button>
+                {showReviewForm && restaurant && (
+                  <div className="mb-6">
+                    <ReviewForm
+                      businessId={restaurant.id}
+                      locale={locale}
+                      onSuccess={() => {
+                        setShowReviewForm(false)
+                        // Optionally refresh the page or refetch reviews
+                      }}
+                    />
+                  </div>
+                )}
+
+                <div className="bg-slate-800/50 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-6">
+                  <ReviewList reviews={reviews} locale={locale} />
+                </div>
               </div>
             </div>
 

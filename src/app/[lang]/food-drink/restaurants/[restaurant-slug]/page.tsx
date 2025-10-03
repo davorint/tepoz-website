@@ -3,6 +3,7 @@ import { Metadata } from 'next'
 import RestaurantDetailClient from '@/components/restaurants/RestaurantDetailClient'
 import { RestaurantService } from '@/lib/restaurants'
 import StructuredData from '@/components/seo/StructuredData'
+import { getBusinessReviews } from '@/lib/actions/reviews'
 
 interface RestaurantPageProps {
   params: Promise<{
@@ -50,6 +51,11 @@ export default async function RestaurantPage({ params }: RestaurantPageProps) {
 
   const restaurant = RestaurantService.getRestaurantBySlug(restaurantSlug)
 
+  // Fetch reviews for this restaurant (convert string ID to number for database)
+  const businessId = restaurant ? parseInt(restaurant.id, 10) : 0
+  const reviewsResult = await getBusinessReviews(businessId)
+  const reviews = reviewsResult.success ? reviewsResult.reviews : []
+
   return (
     <>
       {restaurant && (
@@ -72,7 +78,7 @@ export default async function RestaurantPage({ params }: RestaurantPageProps) {
           pathname={`/${lang}/eat/restaurants/${restaurantSlug}`}
         />
       )}
-      <RestaurantDetailClient slug={restaurantSlug} locale={lang} />
+      <RestaurantDetailClient slug={restaurantSlug} locale={lang} reviews={reviews} />
     </>
   )
 }

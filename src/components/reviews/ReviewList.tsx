@@ -14,8 +14,8 @@ interface Review {
   rating: number
   contentEs: string
   contentEn: string | null
-  helpful: number
-  verified: boolean
+  helpful: number | null
+  verified: boolean | null
   createdAt: Date
   user?: {
     name: string | null
@@ -139,7 +139,7 @@ export default function ReviewList({ reviews, locale = 'es' }: ReviewListProps) 
                     >
                       <ThumbsUp className="h-4 w-4 mr-1" />
                       <span className="text-sm">
-                        {t.helpful} {review.helpful > 0 && `(${review.helpful})`}
+                        {t.helpful} {(review.helpful || 0) > 0 && `(${review.helpful})`}
                       </span>
                     </Button>
                   </div>
