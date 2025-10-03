@@ -53,15 +53,16 @@ export default function TepoztlanNeighborhoodsClient({ lang }: TepoztlanNeighbor
           id: 'santo-domingo',
           name: 'Santo Domingo',
           patron: 'Santo Domingo de Guzmán',
-          festival: '12 de Diciembre',
-          description: 'El segundo barrio más extenso, conocido por su devoción a la Virgen de Guadalupe y sus tradiciones centenarias.',
+          festival: '4 de Agosto',
+          symbol: '🐸 Sapo',
+          description: 'Uno de los barrios más extensos de Tepoztlán, celebra su gran fiesta patronal el 4 de agosto en Santo Domingo Ocotitlán.',
           highlights: [
-            'Segunda mayor extensión territorial',
-            'Celebración guadalupana más grande',
+            'Símbolo del barrio: Sapo',
+            'Gran fiesta del 4 de agosto',
             'Arquitectura colonial preservada',
             'Comunidad de artesanos tradicionales'
           ],
-          traditions: 'Famoso por sus procesiones guadalupanas, danzas de chinelos y la elaboración de artesanías tradicionales.',
+          traditions: 'El barrio se distingue por sus tradiciones centenarias, procesiones religiosas y la elaboración de artesanías tradicionales.',
           icon: Church,
           color: 'from-purple-500 to-indigo-500',
           location: { lat: 18.985, lng: -99.093 }
@@ -71,14 +72,15 @@ export default function TepoztlanNeighborhoodsClient({ lang }: TepoztlanNeighbor
           name: 'San Miguel',
           patron: 'San Miguel Arcángel',
           festival: '8 de Mayo y 29 de Septiembre',
-          description: 'Tercer barrio en extensión, conocido por sus murales religiosos y el emblema del lagarto como símbolo protector.',
+          symbol: '🦎 Lagartija',
+          description: 'Barrio dedicado al Arcángel San Miguel, celebra dos festividades anuales con música y espectaculares castillos nocturnos de fuegos artificiales.',
           highlights: [
-            'Murales de arcángeles en la capilla',
-            'Símbolo del lagarto prehispánico',
-            'Doble celebración anual',
-            'Fuegos artificiales nocturnos'
+            'Símbolo del barrio: Lagartija',
+            'Doble celebración: 8 mayo y 29 septiembre',
+            'Música tradicional y banda',
+            'Castillo nocturno de fuegos artificiales'
           ],
-          traditions: 'Celebraciones con música tradicional, fuegos artificiales y el culto al lagarto como protector guerrero.',
+          traditions: 'Las festividades del 8 de mayo y 29 de septiembre incluyen música tradicional, procesiones y espectaculares fuegos artificiales que iluminan la noche.',
           icon: Mountain,
           color: 'from-blue-500 to-cyan-500',
           location: { lat: 18.984, lng: -99.095 }
@@ -86,16 +88,17 @@ export default function TepoztlanNeighborhoodsClient({ lang }: TepoztlanNeighbor
         {
           id: 'la-santisima',
           name: 'La Santísima Trinidad',
-          patron: 'Santísima Trinidad',
-          festival: 'Domingo de Trinidad',
-          description: 'El barrio más extenso de Tepoztlán, celebra el misterio de la Trinidad con gran devoción y tradición.',
+          patron: 'Señor de la Santísima Trinidad',
+          festival: 'Junio (fecha móvil)',
+          symbol: '🐜 Hormiga',
+          description: 'Barrio que celebra al Señor de la Santísima Trinidad en junio con mole tradicional y castillo nocturno de fuegos artificiales.',
           highlights: [
-            'Mayor extensión territorial',
-            'Celebración móvil según Pascua',
-            'Tradiciones sincréticas únicas',
-            'Vista panorámica del valle'
+            'Símbolo del barrio: Hormiga',
+            'Fiesta en junio con fecha móvil',
+            'Preparación de mole tradicional',
+            'Castillo nocturno de fuegos artificiales'
           ],
-          traditions: 'Festividades que combinan rituales católicos con elementos prehispánicos, danzas tradicionales y comida comunitaria.',
+          traditions: 'La festividad de junio se caracteriza por la preparación comunitaria de mole, procesiones religiosas y espectaculares fuegos artificiales nocturnos.',
           icon: Sparkles,
           color: 'from-amber-500 to-orange-500',
           location: { lat: 18.983, lng: -99.091 }
@@ -103,16 +106,17 @@ export default function TepoztlanNeighborhoodsClient({ lang }: TepoztlanNeighbor
         {
           id: 'santa-cruz',
           name: 'Santa Cruz',
-          patron: 'Santa Cruz',
-          festival: '3 de Mayo',
-          description: 'Barrio dedicado a la Santa Cruz, con tradiciones de bendición de cruces en los cerros sagrados.',
+          patron: 'Santa Cruz / San Salvador',
+          festival: '3 de Mayo y 6 de Agosto',
+          symbol: '🦝 Cacomixtle',
+          description: 'Barrio con doble festividad, celebra la Santa Cruz el 3 de mayo con arrieros trayendo ofrendas, y San Salvador el 6 de agosto.',
           highlights: [
-            'Bendición de cruces en cerros',
-            'Peregrinaciones a sitios sagrados',
-            'Tradición de flores y ofrendas',
-            'Música de viento tradicional'
+            'Símbolo del barrio: Cacomixtle',
+            'Doble fiesta: 3 mayo y 6 agosto',
+            'Arrieros con ofrendas florales',
+            'Fiesta de la Virgen del Rosario (7 octubre)'
           ],
-          traditions: 'Celebración del Día de la Santa Cruz con bendiciones, procesiones a los cerros y decoración floral de cruces.',
+          traditions: 'El 3 de mayo, arrieros traen ofrendas a la Santa Cruz. El 6 de agosto se celebra San Salvador. También festejan a la Virgen del Rosario el 7 de octubre.',
           icon: TreePine,
           color: 'from-green-500 to-emerald-500',
           location: { lat: 18.986, lng: -99.092 }
@@ -120,16 +124,17 @@ export default function TepoztlanNeighborhoodsClient({ lang }: TepoztlanNeighbor
         {
           id: 'san-sebastian',
           name: 'San Sebastián',
-          patron: 'San Sebastián Mártir',
-          festival: '21 de Enero',
-          description: 'Conocido por "los tiznados" y el inicio del carnaval, con danzas de chinelos y jaripeo tradicional.',
+          patron: 'San Sebastián Mártir / Asunción de María',
+          festival: '21 de Enero y 15 de Agosto',
+          symbol: '🦂 Alacrán',
+          description: 'Famoso por "los tiznados" el 21 de enero, que anuncian el carnaval con danzas de chinelos y jaripeo. También celebra la Asunción el 15 de agosto.',
           highlights: [
-            'Tradición de "los tiznados"',
-            'Inicio del carnaval tepozteco',
-            'Danzas de chinelos',
-            'Jaripeo y rodeo tradicional'
+            'Símbolo del barrio: Alacrán',
+            'Tradición única de "los tiznados"',
+            'Danzas de chinelos y jaripeo',
+            'Fiesta de la Asunción (15 agosto)'
           ],
-          traditions: 'Festival con personas pintadas de negro (tiznados), anunciando el carnaval con música, danza y celebraciones.',
+          traditions: 'El 21 de enero, personas pintadas de negro (tiznados) recorren el pueblo anunciando el carnaval con chinelos, jaripeo y música. El 15 de agosto celebran a la Virgen de la Asunción.',
           icon: Music,
           color: 'from-red-500 to-pink-500',
           location: { lat: 18.987, lng: -99.094 }
@@ -137,16 +142,17 @@ export default function TepoztlanNeighborhoodsClient({ lang }: TepoztlanNeighbor
         {
           id: 'san-pedro',
           name: 'San Pedro',
-          patron: 'San Pedro Apóstol',
-          festival: '29-30 de Junio',
-          description: 'Barrio con tradición de "dancitas" infantiles y celebraciones que involucran a toda la comunidad.',
+          patron: 'San Pedro y San Pablo',
+          festival: '29-30 de Abril y 29 de Junio',
+          symbol: '🦨 Tlacuache',
+          description: 'Barrio famoso por las "dancitas" infantiles tradicionales que se realizan del 29-30 de abril y la fiesta de San Pedro y San Pablo el 29 de junio.',
           highlights: [
-            'Danzas infantiles tradicionales',
-            'Participación comunitaria activa',
-            'Tradición de dos días de fiesta',
-            'Gastronomía típica compartida'
+            'Símbolo del barrio: Tlacuache',
+            'Dancitas infantiles tradicionales',
+            'Fiesta del 29-30 de abril',
+            'Celebración de San Pedro y Pablo (29 junio)'
           ],
-          traditions: 'Festividad con "dancitas" ejecutadas por niños locales, compartiendo comida tradicional y música.',
+          traditions: 'Las tradicionales "dancitas" del 29-30 de abril son ejecutadas por niños locales con participación comunitaria. El 29 de junio celebran a San Pedro y San Pablo con música y comida tradicional.',
           icon: Users,
           color: 'from-teal-500 to-cyan-500',
           location: { lat: 18.982, lng: -99.096 }
@@ -154,16 +160,17 @@ export default function TepoztlanNeighborhoodsClient({ lang }: TepoztlanNeighbor
         {
           id: 'los-reyes',
           name: 'Los Reyes',
-          patron: 'Los Santos Reyes',
-          festival: '8 de Septiembre',
-          description: 'Barrio que celebra a los Reyes Magos y la Natividad de María con gran devoción.',
+          patron: 'Los Santos Reyes / Virgen de la Natividad',
+          festival: '6 de Enero y 8 de Septiembre',
+          symbol: '🐛 Gusano de Mamey',
+          description: 'Barrio que celebra a los Santos Reyes el 6 de enero y a la Virgen de la Natividad el 8 de septiembre, patrona de todo Tepoztlán.',
           highlights: [
-            'Celebración de la Natividad',
-            'Tradiciones sincréticas',
-            'Música de banda de viento',
+            'Símbolo del barrio: Gusano de mamey',
+            'Fiesta de los Santos Reyes (6 enero)',
+            'Virgen de la Natividad (8 septiembre)',
             'Procesiones solemnes'
           ],
-          traditions: 'Combinación de ceremonias católicas con costumbres prehispánicas, procesiones y música tradicional.',
+          traditions: 'El 6 de enero celebran a los Santos Reyes. El 8 de septiembre es la fiesta más importante del barrio, honrando a la Virgen de la Natividad, patrona de todo Tepoztlán.',
           icon: Star,
           color: 'from-purple-500 to-pink-500',
           location: { lat: 18.988, lng: -99.090 }
@@ -172,15 +179,16 @@ export default function TepoztlanNeighborhoodsClient({ lang }: TepoztlanNeighbor
           id: 'san-jose',
           name: 'San José',
           patron: 'San José',
-          festival: '19 de Marzo',
-          description: 'También llamado "la hoja", sus habitantes son conocidos como "totomaxtleros" con tradición de mole.',
+          festival: '9 de Marzo',
+          symbol: '🌽 Maíz',
+          description: 'También conocido como "la hoja", celebra a San José el 9 de marzo con preparación tradicional de mole, música en la capilla de calle Allende y baile nocturno.',
           highlights: [
-            'Apodo: "La Hoja"',
-            'Habitantes: "Totomaxtleros"',
-            'Tradición del mole en casas',
-            'Baile nocturno en la capilla'
+            'Símbolo del barrio: Maíz/Hoja',
+            'Fiesta de San José (9 marzo)',
+            'Tradición del mole en hogares',
+            'Música y baile nocturno en capilla'
           ],
-          traditions: 'Celebración con mole tradicional en hogares, música en la capilla de la calle Allende y baile nocturno.',
+          traditions: 'El 9 de marzo las familias preparan mole tradicional en sus hogares. Por la noche, música y baile en la capilla de calle Allende celebran a San José.',
           icon: Home,
           color: 'from-indigo-500 to-blue-500',
           location: { lat: 18.981, lng: -99.093 }
@@ -237,15 +245,16 @@ export default function TepoztlanNeighborhoodsClient({ lang }: TepoztlanNeighbor
           id: 'santo-domingo',
           name: 'Santo Domingo',
           patron: 'Saint Dominic of Guzmán',
-          festival: 'December 12',
-          description: 'The second largest neighborhood, known for its devotion to the Virgin of Guadalupe and centuries-old traditions.',
+          festival: 'August 4',
+          symbol: '🐸 Toad',
+          description: 'One of the largest neighborhoods in Tepoztlán, celebrates its grand patron festival on August 4 in Santo Domingo Ocotitlán.',
           highlights: [
-            'Second largest territorial extension',
-            'Largest Guadalupe celebration',
+            'Symbol: Toad',
+            'Grand festival on August 4',
             'Preserved colonial architecture',
             'Traditional artisan community'
           ],
-          traditions: 'Famous for its Guadalupe processions, chinelo dances and traditional crafts production.',
+          traditions: 'The neighborhood is distinguished by its centuries-old traditions, religious processions and traditional crafts production.',
           icon: Church,
           color: 'from-purple-500 to-indigo-500',
           location: { lat: 18.985, lng: -99.093 }
@@ -255,14 +264,15 @@ export default function TepoztlanNeighborhoodsClient({ lang }: TepoztlanNeighbor
           name: 'San Miguel',
           patron: 'Saint Michael the Archangel',
           festival: 'May 8 & September 29',
-          description: 'Third neighborhood in extension, known for its religious murals and the lizard emblem as protective symbol.',
+          symbol: '🦎 Lizard',
+          description: 'Neighborhood dedicated to Archangel Michael, celebrates two annual festivities with music and spectacular nighttime fireworks castles.',
           highlights: [
-            'Archangel murals in chapel',
-            'Pre-Hispanic lizard symbol',
-            'Double annual celebration',
-            'Nighttime fireworks'
+            'Symbol: Lizard',
+            'Double celebration: May 8 & Sept 29',
+            'Traditional music and band',
+            'Nighttime fireworks castle'
           ],
-          traditions: 'Celebrations with traditional music, fireworks and the lizard cult as warrior protector.',
+          traditions: 'Festivities on May 8 and September 29 include traditional music, processions and spectacular fireworks that light up the night.',
           icon: Mountain,
           color: 'from-blue-500 to-cyan-500',
           location: { lat: 18.984, lng: -99.095 }
@@ -270,16 +280,17 @@ export default function TepoztlanNeighborhoodsClient({ lang }: TepoztlanNeighbor
         {
           id: 'la-santisima',
           name: 'La Santísima Trinidad',
-          patron: 'Holy Trinity',
-          festival: 'Trinity Sunday',
-          description: 'The largest neighborhood in Tepoztlán, celebrates the Trinity mystery with great devotion and tradition.',
+          patron: 'Lord of the Holy Trinity',
+          festival: 'June (movable date)',
+          symbol: '🐜 Ant',
+          description: 'Neighborhood that celebrates the Lord of the Holy Trinity in June with traditional mole and nighttime fireworks castle.',
           highlights: [
-            'Largest territorial extension',
-            'Mobile celebration based on Easter',
-            'Unique syncretic traditions',
-            'Panoramic valley view'
+            'Symbol: Ant',
+            'June festival with movable date',
+            'Traditional mole preparation',
+            'Nighttime fireworks castle'
           ],
-          traditions: 'Festivities combining Catholic rituals with pre-Hispanic elements, traditional dances and community meals.',
+          traditions: 'The June festivity is characterized by communal mole preparation, religious processions and spectacular nighttime fireworks.',
           icon: Sparkles,
           color: 'from-amber-500 to-orange-500',
           location: { lat: 18.983, lng: -99.091 }
@@ -287,16 +298,17 @@ export default function TepoztlanNeighborhoodsClient({ lang }: TepoztlanNeighbor
         {
           id: 'santa-cruz',
           name: 'Santa Cruz',
-          patron: 'Holy Cross',
-          festival: 'May 3',
-          description: 'Neighborhood dedicated to the Holy Cross, with traditions of blessing crosses on sacred hills.',
+          patron: 'Holy Cross / Holy Savior',
+          festival: 'May 3 & August 6',
+          symbol: '🦝 Ringtail',
+          description: 'Neighborhood with double festivity, celebrates Holy Cross on May 3 with muleteers bringing offerings, and Holy Savior on August 6.',
           highlights: [
-            'Cross blessing on hills',
-            'Pilgrimages to sacred sites',
-            'Flower and offering tradition',
-            'Traditional wind music'
+            'Symbol: Ringtail (Cacomixtle)',
+            'Double festival: May 3 & Aug 6',
+            'Muleteers with floral offerings',
+            'Virgin of the Rosary feast (Oct 7)'
           ],
-          traditions: 'Holy Cross Day celebration with blessings, hill processions and floral cross decoration.',
+          traditions: 'On May 3, muleteers bring offerings to the Holy Cross. On August 6 they celebrate Holy Savior. They also celebrate the Virgin of the Rosary on October 7.',
           icon: TreePine,
           color: 'from-green-500 to-emerald-500',
           location: { lat: 18.986, lng: -99.092 }
@@ -304,16 +316,17 @@ export default function TepoztlanNeighborhoodsClient({ lang }: TepoztlanNeighbor
         {
           id: 'san-sebastian',
           name: 'San Sebastián',
-          patron: 'Saint Sebastian Martyr',
-          festival: 'January 21',
-          description: 'Known for "the blackened ones" and carnival beginning, with chinelo dances and traditional rodeo.',
+          patron: 'Saint Sebastian Martyr / Assumption of Mary',
+          festival: 'January 21 & August 15',
+          symbol: '🦂 Scorpion',
+          description: 'Famous for "los tiznados" on January 21, announcing carnival with chinelo dances and jaripeo. Also celebrates the Assumption on August 15.',
           highlights: [
-            '"Los tiznados" tradition',
-            'Tepozteco carnival beginning',
-            'Chinelo dances',
-            'Traditional jaripeo rodeo'
+            'Symbol: Scorpion',
+            'Unique "los tiznados" tradition',
+            'Chinelo dances and jaripeo',
+            'Assumption feast (Aug 15)'
           ],
-          traditions: 'Festival with people painted black (tiznados), announcing carnival with music, dance and celebrations.',
+          traditions: 'On January 21, people painted black (tiznados) parade through town announcing carnival with chinelos, jaripeo and music. On August 15 they celebrate the Virgin of the Assumption.',
           icon: Music,
           color: 'from-red-500 to-pink-500',
           location: { lat: 18.987, lng: -99.094 }
@@ -321,16 +334,17 @@ export default function TepoztlanNeighborhoodsClient({ lang }: TepoztlanNeighbor
         {
           id: 'san-pedro',
           name: 'San Pedro',
-          patron: 'Saint Peter the Apostle',
-          festival: 'June 29-30',
-          description: 'Neighborhood with tradition of children\'s "dancitas" and celebrations involving the entire community.',
+          patron: 'Saint Peter and Saint Paul',
+          festival: 'April 29-30 & June 29',
+          symbol: '🦨 Opossum',
+          description: 'Neighborhood famous for traditional children\'s "dancitas" performed April 29-30 and the feast of Saint Peter and Paul on June 29.',
           highlights: [
-            'Traditional children dances',
-            'Active community participation',
-            'Two-day festival tradition',
-            'Shared typical gastronomy'
+            'Symbol: Opossum (Tlacuache)',
+            'Traditional children\'s dancitas',
+            'April 29-30 festival',
+            'Saint Peter and Paul celebration (June 29)'
           ],
-          traditions: 'Festival with "dancitas" performed by local children, sharing traditional food and music.',
+          traditions: 'Traditional "dancitas" on April 29-30 are performed by local children with community participation. On June 29 they celebrate Saint Peter and Paul with music and traditional food.',
           icon: Users,
           color: 'from-teal-500 to-cyan-500',
           location: { lat: 18.982, lng: -99.096 }
@@ -338,16 +352,17 @@ export default function TepoztlanNeighborhoodsClient({ lang }: TepoztlanNeighbor
         {
           id: 'los-reyes',
           name: 'Los Reyes',
-          patron: 'The Holy Kings',
-          festival: 'September 8',
-          description: 'Neighborhood celebrating the Three Kings and the Nativity of Mary with great devotion.',
+          patron: 'The Holy Kings / Virgin of the Nativity',
+          festival: 'January 6 & September 8',
+          symbol: '🐛 Mamey Worm',
+          description: 'Neighborhood that celebrates the Holy Kings on January 6 and the Virgin of the Nativity on September 8, patroness of all Tepoztlán.',
           highlights: [
-            'Nativity celebration',
-            'Syncretic traditions',
-            'Wind band music',
+            'Symbol: Mamey worm',
+            'Holy Kings feast (Jan 6)',
+            'Virgin of the Nativity (Sept 8)',
             'Solemn processions'
           ],
-          traditions: 'Combination of Catholic ceremonies with pre-Hispanic customs, processions and traditional music.',
+          traditions: 'On January 6 they celebrate the Holy Kings. September 8 is the most important feast of the neighborhood, honoring the Virgin of the Nativity, patroness of all Tepoztlán.',
           icon: Star,
           color: 'from-purple-500 to-pink-500',
           location: { lat: 18.988, lng: -99.090 }
@@ -356,15 +371,16 @@ export default function TepoztlanNeighborhoodsClient({ lang }: TepoztlanNeighbor
           id: 'san-jose',
           name: 'San José',
           patron: 'Saint Joseph',
-          festival: 'March 19',
-          description: 'Also called "la hoja", its inhabitants known as "totomaxtleros" with mole tradition.',
+          festival: 'March 9',
+          symbol: '🌽 Corn',
+          description: 'Also known as "la hoja", celebrates Saint Joseph on March 9 with traditional mole preparation, music at the Allende street chapel and nighttime dancing.',
           highlights: [
-            'Nickname: "La Hoja"',
-            'Inhabitants: "Totomaxtleros"',
+            'Symbol: Corn/Leaf',
+            'Saint Joseph feast (March 9)',
             'Mole tradition in homes',
-            'Night dancing at chapel'
+            'Music and night dancing at chapel'
           ],
-          traditions: 'Celebration with traditional mole in homes, music at Allende street chapel and night dancing.',
+          traditions: 'On March 9, families prepare traditional mole in their homes. At night, music and dancing at the Allende street chapel celebrate Saint Joseph.',
           icon: Home,
           color: 'from-indigo-500 to-blue-500',
           location: { lat: 18.981, lng: -99.093 }
