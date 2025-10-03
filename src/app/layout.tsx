@@ -105,7 +105,8 @@ export const metadata: Metadata = {
     ],
     shortcut: '/favicon.ico',
     apple: '/favicon.png'
-  }
+  },
+  manifest: '/manifest.webmanifest'
 };
 
 const structuredData = {

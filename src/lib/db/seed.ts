@@ -150,7 +150,7 @@ async function seed() {
     let barCount = 0
 
     for (const bar of barData) {
-      const [business] = await db.insert(businesses).values({
+      await db.insert(businesses).values({
         slug: bar.slug,
         category: 'bar',
         subcategory: bar.type === 'pulqueria' ? 'pulqueria' : 'bar',
