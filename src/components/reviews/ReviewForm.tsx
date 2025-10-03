@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
+import { submitReview } from '@/lib/actions/reviews'
 
 interface ReviewFormProps {
   businessId: string | number
@@ -15,7 +16,7 @@ interface ReviewFormProps {
   onSuccess?: () => void
 }
 
-export default function ReviewForm({ locale = 'es', onSuccess }: ReviewFormProps) {
+export default function ReviewForm({ businessId, locale = 'es', onSuccess }: ReviewFormProps) {
   const [rating, setRating] = useState(0)
   const [hoveredRating, setHoveredRating] = useState(0)
   const [comment, setComment] = useState('')
@@ -68,16 +69,33 @@ export default function ReviewForm({ locale = 'es', onSuccess }: ReviewFormProps
     }
 
     startTransition(async () => {
-      // TODO: Replace with actual server action when implemented
-      // const result = await submitReview({ businessId, rating, comment })
+      const numericId = typeof businessId === 'string' ? parseInt(businessId, 10) : businessId
 
-      // Simulated API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      const result = await submitReview({
+        businessId: numericId,
+        rating,
+        comment,
+        locale,
+      })
 
-      toast.success(t.success)
-      setRating(0)
-      setComment('')
-      onSuccess?.()
+      if (result.success) {
+        toast.success(t.success)
+        setRating(0)
+        setComment('')
+        onSuccess?.()
+      } else {
+        if (result.error === 'You must be logged in to submit a review') {
+          toast.error(t.loginRequired)
+        } else if (result.error === 'You have already reviewed this business') {
+          toast.error(
+            locale === 'es'
+              ? 'Ya has escrito una reseña para este negocio'
+              : 'You have already reviewed this business'
+          )
+        } else {
+          toast.error(t.error)
+        }
+      }
     })
   }
 

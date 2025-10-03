@@ -12,8 +12,10 @@ interface Review {
   userId: string
   businessId: number
   rating: number
-  comment: string
+  contentEs: string
+  contentEn: string | null
   helpful: number
+  verified: boolean
   createdAt: Date
   user?: {
     name: string | null
@@ -124,7 +126,9 @@ export default function ReviewList({ reviews, locale = 'es' }: ReviewListProps) 
                   </div>
 
                   {/* Comment */}
-                  <p className="text-white/90 mb-4 whitespace-pre-wrap">{review.comment}</p>
+                  <p className="text-white/90 mb-4 whitespace-pre-wrap">
+                    {locale === 'es' ? review.contentEs : (review.contentEn || review.contentEs)}
+                  </p>
 
                   {/* Actions */}
                   <div className="flex items-center gap-4">
