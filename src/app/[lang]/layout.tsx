@@ -9,13 +9,13 @@ import MobileTaskbar from '@/components/layout/MobileTaskbar'
 import PremiumFooter from '@/components/layout/PremiumFooter'
 import SocialProofNotifications from '@/components/widgets/SocialProofNotifications'
 
+// Force dynamic rendering to enable CSP nonces
+export const dynamic = 'force-dynamic'
+
 // Static generation optimization
 export async function generateStaticParams() {
   return locales.map((lang) => ({ lang }))
 }
-
-// Enable ISR with dynamic revalidation
-export const revalidate = 3600 // Default 1 hour revalidation
 
 export async function generateMetadata({
   params,
