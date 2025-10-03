@@ -15,17 +15,19 @@ import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
-import { 
-  Search, 
-  MapPin, 
-  Star, 
-  Filter, 
-  Wifi, 
-  Car, 
-  CreditCard, 
+import {
+  Search,
+  MapPin,
+  Star,
+  Filter,
+  Wifi,
+  Car,
+  CreditCard,
   Heart,
   X
 } from 'lucide-react'
+import { Spinner } from '@/components/ui/spinner'
+import { Empty, EmptyHeader, EmptyTitle, EmptyDescription, EmptyMedia } from '@/components/ui/empty'
 
 interface SearchPageClientProps {
   locale: Locale
@@ -318,7 +320,7 @@ export default function SearchPageClient({ locale }: SearchPageClientProps) {
         <div className="space-y-8">
           {isLoading && (
             <div className="text-center py-16">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-cyan-400/30 border-t-cyan-400"></div>
+              <Spinner className="h-12 w-12 text-cyan-400 mx-auto" />
               <p className="mt-6 text-white/80 text-xl">
                 {locale === 'es' ? 'Buscando negocios...' : 'Searching businesses...'}
               </p>
@@ -442,40 +444,46 @@ export default function SearchPageClient({ locale }: SearchPageClientProps) {
                 ))}
               </div>
 
-              {/* Premium No Results */}
+              {/* No Results with Empty Component */}
               {searchResult.businesses.length === 0 && (
-                <div className="text-center py-20">
+                <div className="py-20">
                   <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-12 shadow-2xl max-w-2xl mx-auto">
-                    <div className="text-8xl mb-8 opacity-50">🔍</div>
-                    <h3 className="text-3xl font-bold text-white mb-4 font-sans">
-                      {locale === 'es' ? 'No se encontraron negocios' : 'No businesses found'}
-                    </h3>
-                    <p className="text-white/70 text-lg mb-8">
-                      {locale === 'es' 
-                        ? 'Intenta con diferentes palabras clave o ajusta los filtros'
-                        : 'Try different keywords or adjust your filters'
-                      }
-                    </p>
-                    
-                    {/* Suggestions */}
-                    {searchResult.suggestions && searchResult.suggestions.length > 0 && (
-                      <div>
-                        <p className="text-white/80 text-lg mb-4">
-                          {locale === 'es' ? '¿Quisiste decir?' : 'Did you mean?'}
-                        </p>
-                        <div className="flex flex-wrap justify-center gap-3">
-                          {searchResult.suggestions.map((suggestion, index) => (
-                            <Badge 
-                              key={index}
-                              className="bg-white/10 backdrop-blur-sm border border-white/20 text-white/90 px-4 py-2 cursor-pointer hover:bg-white/20 hover:scale-105 transition-all duration-300"
-                              onClick={() => handleSearchChange(suggestion)}
-                            >
-                              {suggestion}
-                            </Badge>
-                          ))}
+                    <Empty>
+                      <EmptyHeader>
+                        <EmptyMedia>
+                          <div className="text-8xl opacity-50">🔍</div>
+                        </EmptyMedia>
+                        <EmptyTitle className="text-3xl font-bold text-white font-sans">
+                          {locale === 'es' ? 'No se encontraron negocios' : 'No businesses found'}
+                        </EmptyTitle>
+                        <EmptyDescription className="text-white/70 text-lg">
+                          {locale === 'es'
+                            ? 'Intenta con diferentes palabras clave o ajusta los filtros'
+                            : 'Try different keywords or adjust your filters'
+                          }
+                        </EmptyDescription>
+                      </EmptyHeader>
+
+                      {/* Suggestions */}
+                      {searchResult.suggestions && searchResult.suggestions.length > 0 && (
+                        <div className="mt-8">
+                          <p className="text-white/80 text-lg mb-4">
+                            {locale === 'es' ? '¿Quisiste decir?' : 'Did you mean?'}
+                          </p>
+                          <div className="flex flex-wrap justify-center gap-3">
+                            {searchResult.suggestions.map((suggestion, index) => (
+                              <Badge
+                                key={index}
+                                className="bg-white/10 backdrop-blur-sm border border-white/20 text-white/90 px-4 py-2 cursor-pointer hover:bg-white/20 hover:scale-105 transition-all duration-300"
+                                onClick={() => handleSearchChange(suggestion)}
+                              >
+                                {suggestion}
+                              </Badge>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
+                    </Empty>
                   </div>
                 </div>
               )}
