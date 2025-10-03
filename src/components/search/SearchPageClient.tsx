@@ -23,11 +23,11 @@ import {
   Wifi,
   Car,
   CreditCard,
-  Heart,
   X
 } from 'lucide-react'
 import { Spinner } from '@/components/ui/spinner'
 import { Empty, EmptyHeader, EmptyTitle, EmptyDescription, EmptyMedia } from '@/components/ui/empty'
+import FavoriteButton from '@/components/favorites/FavoriteButton'
 
 interface SearchPageClientProps {
   locale: Locale
@@ -378,12 +378,13 @@ export default function SearchPageClient({ locale }: SearchPageClientProps) {
 
                         {/* Premium Favorite Button */}
                         <div className="absolute top-4 right-4">
-                          <Button
-                            size="sm"
-                            className="h-10 w-10 p-0 bg-white/20 backdrop-blur-sm border border-white/30 hover:bg-white/30 rounded-full"
-                          >
-                            <Heart className="h-5 w-5 text-white" />
-                          </Button>
+                          <FavoriteButton
+                            businessId={business.id}
+                            variant="ghost"
+                            size="icon"
+                            locale={locale}
+                            className="h-10 w-10 bg-white/20 backdrop-blur-sm border border-white/30 hover:bg-white/30 rounded-full text-white"
+                          />
                         </div>
                       </div>
 
