@@ -29,8 +29,7 @@ import {
   Leaf,
   Dog,
   Share2,
-  Calendar,
-  CreditCard
+  Calendar
 } from 'lucide-react'
 
 interface HotelPageProps {

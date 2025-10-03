@@ -25,7 +25,6 @@ import {
   Wine,
   ChevronLeft,
   ChevronRight,
-  Calendar,
   MessageCircle,
   GlassWater,
   Users,

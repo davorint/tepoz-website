@@ -3,7 +3,6 @@
 import { use } from 'react'
 import { Locale } from '@/lib/i18n'
 import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 import {
   MapPin,
   DollarSign,
@@ -11,19 +10,12 @@ import {
   Phone,
   Wifi,
   Droplet,
-  Sun,
-  Cloud,
   Thermometer,
   AlertCircle,
   Heart,
   Users,
-  Briefcase,
   Plane,
-  Car,
   Bus,
-  Building,
-  Utensils,
-  CreditCard,
   Languages,
   Mountain
 } from 'lucide-react'

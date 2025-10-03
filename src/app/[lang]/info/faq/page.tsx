@@ -301,7 +301,7 @@ export default function FAQPage({ params }: FAQPageProps) {
                   {t.categories[category as keyof typeof t.categories]}
                 </h2>
                 <div className="space-y-3">
-                  {faqs.map((faq, index) => {
+                  {faqs.map((faq) => {
                     const globalIndex = t.faqs.indexOf(faq)
                     const isExpanded = expandedIndex === globalIndex
 
