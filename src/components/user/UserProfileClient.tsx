@@ -9,6 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { User, Heart, Settings, MapPin, Calendar, Mail, LogOut } from 'lucide-react'
 import { signOut } from 'next-auth/react'
+import Link from 'next/link'
 
 interface UserProfileClientProps {
   locale: Locale
@@ -19,9 +20,10 @@ interface UserProfileClientProps {
     role?: string | null
     createdAt?: Date | null
   }
+  favoriteBusinessIds?: number[]
 }
 
-export default function UserProfileClient({ locale, user }: UserProfileClientProps) {
+export default function UserProfileClient({ locale, user, favoriteBusinessIds = [] }: UserProfileClientProps) {
   const [activeTab, setActiveTab] = useState('overview')
 
   const content = {
@@ -180,19 +182,46 @@ export default function UserProfileClient({ locale, user }: UserProfileClientPro
               <CardHeader>
                 <CardTitle className="text-white">{t.favorites}</CardTitle>
                 <CardDescription className="text-white/70">
-                  {t.noFavoritesDesc}
+                  {favoriteBusinessIds.length > 0
+                    ? locale === 'es'
+                      ? `${favoriteBusinessIds.length} ${favoriteBusinessIds.length === 1 ? 'negocio guardado' : 'negocios guardados'}`
+                      : `${favoriteBusinessIds.length} ${favoriteBusinessIds.length === 1 ? 'saved business' : 'saved businesses'}`
+                    : t.noFavoritesDesc}
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                {/* This will be populated in the next step */}
-                <div className="text-center py-12">
-                  <Heart className="w-16 h-16 text-white/20 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-white mb-2">{t.noFavorites}</h3>
-                  <p className="text-white/70 mb-6">{t.noFavoritesDesc}</p>
-                  <Button className="bg-gradient-to-r from-cyan-400 to-blue-400 text-white">
-                    {t.explore}
-                  </Button>
-                </div>
+                {favoriteBusinessIds.length === 0 ? (
+                  <div className="text-center py-12">
+                    <Heart className="w-16 h-16 text-white/20 mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-white mb-2">{t.noFavorites}</h3>
+                    <p className="text-white/70 mb-6">{t.noFavoritesDesc}</p>
+                    <Link href={`/${locale}/search`}>
+                      <Button className="bg-gradient-to-r from-cyan-400 to-blue-400 text-white">
+                        {t.explore}
+                      </Button>
+                    </Link>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    <p className="text-white/90">
+                      {locale === 'es'
+                        ? `Tienes ${favoriteBusinessIds.length} ${favoriteBusinessIds.length === 1 ? 'negocio' : 'negocios'} en tus favoritos. Puedes ver todos tus favoritos en la página de búsqueda.`
+                        : `You have ${favoriteBusinessIds.length} ${favoriteBusinessIds.length === 1 ? 'business' : 'businesses'} in your favorites. You can view all your favorites on the search page.`}
+                    </p>
+                    <div className="flex gap-4">
+                      <Link href={`/${locale}/search`}>
+                        <Button className="bg-gradient-to-r from-cyan-400 to-blue-400 text-white">
+                          {locale === 'es' ? 'Ver Favoritos' : 'View Favorites'}
+                        </Button>
+                      </Link>
+                      <Link href={`/${locale}/food-drink/restaurants`}>
+                        <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                          {locale === 'es' ? 'Explorar Más' : 'Explore More'}
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                )}
               </CardContent>
             </Card>
           </TabsContent>

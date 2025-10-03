@@ -120,10 +120,22 @@ export async function toggleFavorite(businessId: number) {
   }
 }
 
-export async function getUserFavorites(userId: string) {
+export async function getUserFavorites(userId?: string) {
   try {
+    if (!userId) {
+      const session = await auth()
+      if (!session?.user?.id) {
+        return { success: false, error: 'Not authenticated', favorites: [] }
+      }
+      userId = session.user.id
+    }
+
     const userFavorites = await db
-      .select()
+      .select({
+        id: favorites.id,
+        businessId: favorites.businessId,
+        createdAt: favorites.createdAt,
+      })
       .from(favorites)
       .where(eq(favorites.userId, userId))
 
