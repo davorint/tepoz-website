@@ -1,13 +1,15 @@
 'use client'
 
-import { use, useState } from 'react'
+import { use, useState, useTransition } from 'react'
 import { Locale } from '@/lib/i18n'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
-import { Mail, Phone, MapPin, Clock, MessageCircle, Send, User, Building2 } from 'lucide-react'
+import { Mail, Phone, MapPin, Clock, MessageCircle, Send, User, Building2, CheckCircle } from 'lucide-react'
+import { submitContactForm } from '@/lib/actions/contact'
+import { toast } from 'sonner'
 
 interface ContactPageProps {
   params: Promise<{ lang: Locale }>
@@ -23,6 +25,8 @@ export default function ContactPage({ params }: ContactPageProps) {
     message: '',
     type: 'general' // general, business, partnership
   })
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isPending, startTransition] = useTransition()
 
   const content = {
     es: {
@@ -64,6 +68,14 @@ export default function ContactPage({ params }: ContactPageProps) {
         title: 'Tiempo de Respuesta',
         description: 'Generalmente respondemos en 24-48 horas durante días hábiles.',
       },
+      success: {
+        title: '¡Mensaje Enviado!',
+        description: 'Gracias por contactarnos. Responderemos a la brevedad.',
+      },
+      submitting: 'Enviando...',
+      errorRequired: 'Por favor completa todos los campos requeridos',
+      errorEmail: 'Por favor ingresa un email válido',
+      errorGeneric: 'Error al enviar el mensaje. Intenta de nuevo.',
     },
     en: {
       title: 'Contact Us',
@@ -104,25 +116,58 @@ export default function ContactPage({ params }: ContactPageProps) {
         title: 'Response Time',
         description: 'We typically respond within 24-48 hours on business days.',
       },
+      success: {
+        title: 'Message Sent!',
+        description: 'Thank you for contacting us. We\'ll respond shortly.',
+      },
+      submitting: 'Sending...',
+      errorRequired: 'Please complete all required fields',
+      errorEmail: 'Please enter a valid email',
+      errorGeneric: 'Error sending message. Please try again.',
     },
   }
 
   const t = content[lang]
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    // Create mailto link with form data
-    const subject = encodeURIComponent(`${formData.subject} - ${formData.type}`)
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\n` +
-      `Email: ${formData.email}\n` +
-      `Phone: ${formData.phone}\n` +
-      `Type: ${formData.type}\n\n` +
-      `Message:\n${formData.message}`
-    )
+    // Validation
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      toast.error(t.errorRequired)
+      return
+    }
 
-    window.location.href = `mailto:${t.contact.email}?subject=${subject}&body=${body}`
+    startTransition(async () => {
+      const result = await submitContactForm({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        subject: formData.subject,
+        message: formData.message,
+        type: formData.type,
+      })
+
+      if (result.success) {
+        setIsSubmitted(true)
+        toast.success(t.success.title)
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: '',
+          type: 'general',
+        })
+      } else {
+        if (result.error === 'Invalid email format') {
+          toast.error(t.errorEmail)
+        } else {
+          toast.error(t.errorGeneric)
+        }
+      }
+    })
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -155,6 +200,21 @@ export default function ContactPage({ params }: ContactPageProps) {
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
                   {t.form.title}
                 </h2>
+
+                {/* Success Message */}
+                {isSubmitted && (
+                  <div className="mb-6 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4 flex items-start gap-3">
+                    <CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <h3 className="font-semibold text-green-900 dark:text-green-100 mb-1">
+                        {t.success.title}
+                      </h3>
+                      <p className="text-sm text-green-700 dark:text-green-300">
+                        {t.success.description}
+                      </p>
+                    </div>
+                  </div>
+                )}
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Name */}
@@ -272,10 +332,11 @@ export default function ContactPage({ params }: ContactPageProps) {
                   {/* Submit Button */}
                   <Button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-3 text-lg"
+                    disabled={isPending}
+                    className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-3 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Send className="w-5 h-5 mr-2" />
-                    {t.form.submit}
+                    {isPending ? t.submitting : t.form.submit}
                   </Button>
                 </form>
               </CardContent>

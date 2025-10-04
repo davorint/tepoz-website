@@ -33,6 +33,7 @@ import {
 } from 'lucide-react'
 import ReviewForm from '@/components/reviews/ReviewForm'
 import ReviewList from '@/components/reviews/ReviewList'
+import SocialShare from '@/components/shared/SocialShare'
 
 interface Review {
   id: number
@@ -125,9 +126,13 @@ export default function RestaurantDetailClient({ slug, locale, reviews = [] }: R
                 >
                   <Heart className={`w-5 h-5 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-slate-600 dark:text-white/70'}`} />
                 </Button>
-                <Button className="bg-white/50 dark:bg-white/10 backdrop-blur-lg dark:backdrop-blur-md border border-white/60 dark:border-white/20 hover:bg-white/70 dark:hover:bg-white/20 shadow-sm">
-                  <Share2 className="w-5 h-5 text-slate-600 dark:text-white/70" />
-                </Button>
+                <SocialShare
+                  title={RestaurantService.getRestaurantName(restaurant, locale)}
+                  locale={locale}
+                  variant="ghost"
+                  size="icon"
+                  className="bg-white/50 dark:bg-white/10 backdrop-blur-lg dark:backdrop-blur-md border border-white/60 dark:border-white/20 hover:bg-white/70 dark:hover:bg-white/20 shadow-sm"
+                />
               </div>
             </div>
           </div>

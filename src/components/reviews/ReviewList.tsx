@@ -1,11 +1,14 @@
 'use client'
 
+import { useState, useTransition } from 'react'
 import { Star, ThumbsUp } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Empty, EmptyHeader, EmptyTitle, EmptyDescription, EmptyMedia } from '@/components/ui/empty'
 import { cn } from '@/lib/utils'
+import { markReviewHelpful } from '@/lib/actions/reviews'
+import { toast } from 'sonner'
 
 interface Review {
   id: number
@@ -29,22 +32,53 @@ interface ReviewListProps {
 }
 
 export default function ReviewList({ reviews, locale = 'es' }: ReviewListProps) {
+  const [helpfulReviews, setHelpfulReviews] = useState<Set<number>>(new Set())
+  const [isPending, startTransition] = useTransition()
+
   const content = {
     es: {
       noReviews: 'Aún no hay reseñas',
       noReviewsDesc: 'Sé el primero en compartir tu experiencia',
       helpful: 'Útil',
       verified: 'Verificado',
+      helpfulSuccess: 'Marcado como útil',
+      helpfulError: 'Error al marcar como útil',
+      loginRequired: 'Inicia sesión para marcar como útil',
     },
     en: {
       noReviews: 'No reviews yet',
       noReviewsDesc: 'Be the first to share your experience',
       helpful: 'Helpful',
       verified: 'Verified',
+      helpfulSuccess: 'Marked as helpful',
+      helpfulError: 'Error marking as helpful',
+      loginRequired: 'Sign in to mark as helpful',
     },
   }
 
   const t = content[locale]
+
+  const handleHelpful = (reviewId: number) => {
+    if (helpfulReviews.has(reviewId)) {
+      toast.info(locale === 'es' ? 'Ya marcaste esta reseña como útil' : 'You already marked this review as helpful')
+      return
+    }
+
+    startTransition(async () => {
+      const result = await markReviewHelpful(reviewId)
+
+      if (result.success) {
+        setHelpfulReviews(prev => new Set(prev).add(reviewId))
+        toast.success(t.helpfulSuccess)
+      } else {
+        if (result.error === 'You must be logged in') {
+          toast.error(t.loginRequired)
+        } else {
+          toast.error(t.helpfulError)
+        }
+      }
+    })
+  }
 
   if (reviews.length === 0) {
     return (
@@ -135,9 +169,17 @@ export default function ReviewList({ reviews, locale = 'es' }: ReviewListProps) 
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="text-white/70 hover:text-white hover:bg-white/10 h-8 px-3"
+                      onClick={() => handleHelpful(review.id)}
+                      disabled={isPending || helpfulReviews.has(review.id)}
+                      className={cn(
+                        "text-white/70 hover:text-white hover:bg-white/10 h-8 px-3",
+                        helpfulReviews.has(review.id) && "text-blue-400"
+                      )}
                     >
-                      <ThumbsUp className="h-4 w-4 mr-1" />
+                      <ThumbsUp className={cn(
+                        "h-4 w-4 mr-1",
+                        helpfulReviews.has(review.id) && "fill-blue-400"
+                      )} />
                       <span className="text-sm">
                         {t.helpful} {(review.helpful || 0) > 0 && `(${review.helpful})`}
                       </span>
