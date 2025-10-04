@@ -5,6 +5,9 @@ import { db } from '@/lib/db'
 import { reviews } from '@/lib/db/schema'
 import { eq, and, desc } from 'drizzle-orm'
 import { revalidatePath } from 'next/cache'
+import { Resend } from 'resend'
+
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 interface SubmitReviewInput {
   businessId: number
@@ -48,13 +51,56 @@ export async function submitReview({ businessId, rating, comment, locale }: Subm
     }
 
     // Insert review (store in appropriate language field based on locale)
-    await db.insert(reviews).values({
+    const [review] = await db.insert(reviews).values({
       businessId,
       userId: session.user.id,
       rating,
       contentEs: locale === 'es' ? comment : '',
       contentEn: locale === 'en' ? comment : '',
-    })
+    }).returning()
+
+    // Send notification email to admin
+    try {
+      const stars = '⭐'.repeat(rating)
+      await resend.emails.send({
+        from: 'TodoTepoz <noreply@todotepoz.com>',
+        to: ['info@todotepoz.com'],
+        subject: `New ${rating}-Star Review - Business #${businessId}`,
+        html: `
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            </head>
+            <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+              <div style="background-color: #f4f4f4; padding: 20px; border-radius: 8px;">
+                <h2 style="color: #d97706; margin-top: 0;">📝 New Review Submitted</h2>
+
+                <div style="background-color: white; padding: 20px; border-radius: 4px; margin-top: 20px;">
+                  <p style="margin: 10px 0;"><strong>Business ID:</strong> ${businessId}</p>
+                  <p style="margin: 10px 0;"><strong>User:</strong> ${session.user.name || session.user.email}</p>
+                  <p style="margin: 10px 0;"><strong>Rating:</strong> ${stars} (${rating}/5)</p>
+                  <p style="margin: 10px 0;"><strong>Language:</strong> ${locale.toUpperCase()}</p>
+
+                  <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd;">
+                    <p style="margin: 10px 0;"><strong>Review:</strong></p>
+                    <p style="margin: 10px 0; padding: 15px; background-color: #fef3c7; border-radius: 4px; white-space: pre-wrap;">${comment}</p>
+                  </div>
+                </div>
+
+                <p style="font-size: 12px; color: #666; margin-top: 20px;">
+                  Review ID: ${review.id} | Submitted: ${new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' })}
+                </p>
+              </div>
+            </body>
+          </html>
+        `,
+      })
+    } catch (emailError) {
+      console.error('Failed to send review notification email:', emailError)
+      // Continue - review is still saved
+    }
 
     revalidatePath(`/[lang]/search`)
     revalidatePath(`/[lang]/food-drink`)
