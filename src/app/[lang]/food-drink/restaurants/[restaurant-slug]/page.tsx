@@ -1,9 +1,11 @@
+import { Suspense } from 'react'
 import { Locale } from '@/lib/i18n'
 import { Metadata } from 'next'
 import RestaurantDetailClient from '@/components/restaurants/RestaurantDetailClient'
 import { RestaurantService } from '@/lib/restaurants'
 import StructuredData from '@/components/seo/StructuredData'
 import { getBusinessReviews } from '@/lib/actions/reviews'
+import { DetailPageSkeleton } from '@/components/loading/DetailPageSkeleton'
 
 interface RestaurantPageProps {
   params: Promise<{
@@ -78,7 +80,9 @@ export default async function RestaurantPage({ params }: RestaurantPageProps) {
           pathname={`/${lang}/eat/restaurants/${restaurantSlug}`}
         />
       )}
-      <RestaurantDetailClient slug={restaurantSlug} locale={lang} reviews={reviews} />
+      <Suspense fallback={<DetailPageSkeleton />}>
+        <RestaurantDetailClient slug={restaurantSlug} locale={lang} reviews={reviews} />
+      </Suspense>
     </>
   )
 }

@@ -4,6 +4,9 @@ import { db } from '@/lib/db'
 import { contactSubmissions } from '@/lib/db/schema'
 import { eq, desc } from 'drizzle-orm'
 import { revalidatePath } from 'next/cache'
+import { Resend } from 'resend'
+
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 interface ContactFormInput {
   name: string
@@ -39,22 +42,49 @@ export async function submitContactForm(input: ContactFormInput) {
       replied: false,
     }).returning()
 
-    // TODO: Send email notification to admin
-    // This would integrate with an email service like Resend, SendGrid, etc.
-    // Example with Resend:
-    // await resend.emails.send({
-    //   from: 'noreply@todotepoz.com',
-    //   to: 'info@todotepoz.com',
-    //   subject: `New Contact: ${input.subject}`,
-    //   html: `
-    //     <h2>New Contact Form Submission</h2>
-    //     <p><strong>From:</strong> ${input.name} (${input.email})</p>
-    //     <p><strong>Type:</strong> ${input.type}</p>
-    //     <p><strong>Subject:</strong> ${input.subject}</p>
-    //     <p><strong>Message:</strong></p>
-    //     <p>${input.message.replace(/\n/g, '<br>')}</p>
-    //   `
-    // })
+    // Send email notification to admin
+    try {
+      await resend.emails.send({
+        from: 'TodoTepoz <noreply@todotepoz.com>',
+        to: ['info@todotepoz.com'],
+        subject: `New Contact: ${input.subject}`,
+        html: `
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            </head>
+            <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+              <div style="background-color: #f4f4f4; padding: 20px; border-radius: 8px;">
+                <h2 style="color: #d97706; margin-top: 0;">New Contact Form Submission</h2>
+
+                <div style="background-color: white; padding: 20px; border-radius: 4px; margin-top: 20px;">
+                  <p style="margin: 10px 0;"><strong>From:</strong> ${input.name}</p>
+                  <p style="margin: 10px 0;"><strong>Email:</strong> <a href="mailto:${input.email}" style="color: #d97706;">${input.email}</a></p>
+                  ${input.phone ? `<p style="margin: 10px 0;"><strong>Phone:</strong> ${input.phone}</p>` : ''}
+                  <p style="margin: 10px 0;"><strong>Type:</strong> ${input.type || 'general'}</p>
+                  <p style="margin: 10px 0;"><strong>Subject:</strong> ${input.subject}</p>
+
+                  <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd;">
+                    <p style="margin: 10px 0;"><strong>Message:</strong></p>
+                    <p style="margin: 10px 0; white-space: pre-wrap;">${input.message}</p>
+                  </div>
+                </div>
+
+                <p style="font-size: 12px; color: #666; margin-top: 20px;">
+                  Submission ID: ${submission.id} | Received: ${new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' })}
+                </p>
+              </div>
+            </body>
+          </html>
+        `,
+      })
+    } catch (emailError) {
+      // Log email error but don't fail the submission
+      console.error('Failed to send email notification:', emailError)
+      // Continue - the submission is still saved to database
+    }
 
     revalidatePath('/info/contact')
 

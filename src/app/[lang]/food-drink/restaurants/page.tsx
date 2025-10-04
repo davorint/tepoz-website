@@ -1,7 +1,9 @@
+import { Suspense } from 'react'
 import { Locale } from '@/lib/i18n'
 import { Metadata } from 'next'
 import RestaurantsPageClient from '@/components/restaurants/RestaurantsPageClient'
 import StructuredData from '@/components/seo/StructuredData'
+import { BusinessCardSkeletonGrid } from '@/components/loading/BusinessCardSkeleton'
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
   const { lang } = await params
@@ -39,7 +41,7 @@ export default async function RestaurantsPage({
       <StructuredData
         type="local-business"
         title={lang === 'en' ? 'Restaurants in Tepoztlán' : 'Restaurantes en Tepoztlán'}
-        description={lang === 'en' 
+        description={lang === 'en'
           ? 'Discover the best restaurants in Tepoztlán. From traditional Mexican cuisine to international dishes.'
           : 'Descubre los mejores restaurantes en Tepoztlán. Desde cocina tradicional mexicana hasta platillos internacionales.'}
         address={{
@@ -53,7 +55,9 @@ export default async function RestaurantsPage({
         }}
         pathname={`/${lang}/eat/restaurants`}
       />
-      <RestaurantsPageClient locale={lang} />
+      <Suspense fallback={<BusinessCardSkeletonGrid count={9} />}>
+        <RestaurantsPageClient locale={lang} />
+      </Suspense>
     </>
   )
 }

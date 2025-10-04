@@ -1,7 +1,9 @@
+import { Suspense } from 'react'
 import { Locale } from '@/lib/i18n'
 import { Metadata } from 'next'
 import StructuredData from '@/components/seo/StructuredData'
 import ExperiencesPageClient from '@/components/experiences/ExperiencesPageClient'
+import { BusinessCardSkeletonGrid } from '@/components/loading/BusinessCardSkeleton'
 
 interface ExperiencesPageProps {
   params: Promise<{ lang: string }>
@@ -41,7 +43,7 @@ export default async function ExperiencesPage({ params }: ExperiencesPageProps) 
       <StructuredData
         type="local-business"
         title={lang === 'en' ? 'Experiences in Tepoztlán' : 'Experiencias en Tepoztlán'}
-        description={lang === 'en' 
+        description={lang === 'en'
           ? 'Discover unique adventures, spiritual journeys, wellness retreats, and authentic cultural experiences in magical Tepoztlán.'
           : 'Descubre aventuras únicas, viajes espirituales, retiros de bienestar y experiencias culturales auténticas en el mágico Tepoztlán.'}
         address={{
@@ -55,7 +57,9 @@ export default async function ExperiencesPage({ params }: ExperiencesPageProps) 
         }}
         pathname={`/${lang}/experiences`}
       />
-      <ExperiencesPageClient locale={lang} />
+      <Suspense fallback={<BusinessCardSkeletonGrid count={8} />}>
+        <ExperiencesPageClient locale={lang} />
+      </Suspense>
     </>
   )
 }
