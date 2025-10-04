@@ -1,5 +1,8 @@
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const sharp = require('sharp');
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const fs = require('fs').promises;
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const path = require('path');
 
 const PUBLIC_DIR = path.join(__dirname, '..', 'public');
