@@ -9,6 +9,7 @@
     "lint": "eslint",
     "analyze": "ANALYZE=true npm run build",
     "type-check": "tsc --noEmit",
+    "optimize-images": "node scripts/optimize-images.js",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
@@ -17,6 +18,8 @@
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.10.0",
+    "@sentry/nextjs": "^10.17.0",
+    "resend": "^4.0.1",
     "@gsap/react": "^2.1.2",
     "@hookform/resolvers": "^5.2.1",
     "@neondatabase/serverless": "^1.0.2",
@@ -68,6 +71,8 @@
     "zod": "^4.1.5"
   },
   "devDependencies": {
+    "@lhci/cli": "^0.14.0",
+    "@next/bundle-analyzer": "^15.5.4",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^24.6.2",
